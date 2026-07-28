@@ -1,0 +1,12 @@
+{
+  "hash": "ff15366b2a654c5878f3569328a1e8f3",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Assignment 3\"\ndate: 3/7/24\neditor: source\njupyter: python3\nformat:\n  html:\n    code-fold: true\n    code-tools: true\n    code-line-numbers: true\n    embed-resources: true\ndraft: false\n---\n\n\n**Due 3/17/24 \\@ 11:59 PM**\n\nSubmit the \\*.html file to Canvas.\n\n## Problem 1\n\nThe `anime` dataset from MyAnimeList contains information on rankings and popularity scores of different anime episodes.\n\nFit a linear model showing the relationship between `score` (outcome; higher is better) and the predictors `type`, `popularity`, and `rank`. On average, what is the score for an anime that is a `\"Special\"`, has a popularity score of 520, and has a rank of 3582?\n\n::: {#3055c53d .cell execution_count=2}\n``` {.python .cell-code code-fold=\"true\" code-summary=\"Answer\"}\n# Write your solution here.\n```\n:::\n\n\n## Problem 2\n\nFit a linear model between the outcome `caffeine_mg` and predictors `size`, `calories`, and `sugar_g` from the `starbucks` dataset using the matrix formulation approach by defining the $X$ matrix. Use `tall` as the reference value for the `size` variable.\n\n::: {#0ab8f82e .cell execution_count=3}\n``` {.python .cell-code code-fold=\"true\" code-summary=\"Answer\"}\n# Write your solution here.\n```\n:::\n\n\n",
+    "supporting": [
+      "a3_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

@@ -1,0 +1,130 @@
+---
+title: "Regularization"
+jupyter: python3
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    chalkboard:
+      src: chalkboard.json
+      storage: chalkboard_pres
+      theme: whiteboard
+      chalk-width: 4
+
+execute:
+  echo: true
+  eval: true
+  warning: false
+
+editor: source
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+from plotnine import *
+from plotnine.data import mtcars as mtcars_data
+from plotnine.data import penguins as penguins_data
+from sklearn.linear_model import Lasso, Ridge
+from sklearn.pipeline import make_pipeline
+
+# Data ---------------------------------------------------------------------
+penguins = penguins_data.dropna().copy()
+
+penguin_predictors = [
+    "flipper_length_mm",
+    "bill_depth_mm",
+    "bill_length_mm",
+]
+penguin_X = penguins[penguin_predictors].copy()
+penguin_y = penguins["body_mass_g"].copy()
+lambda_value = 1.3
+
+
+```
+
+## Learning Outcomes
+
+- Regularization
+
+- Ridge Regression
+
+- LASSO Regression
+
+# Regularization
+
+## Regularization
+
+Shrinkage methods are techniques that will reduce a full parameterized model (a high number of predictors) to a lower parameterized model (a smaller number of predictors).
+
+## Ridge Regression
+
+Ridge regression incorporates a shrinkage penalty term to the least squares formula. The shrinkage penalty term will reduce the $\beta$ coefficients towards 0 based on a penalty parameter ($\lambda$)
+
+## Ridge Regression
+
+$$\sum^n_{i=1}\left(Y_i-\beta_0 +\sum^p_{j=1}X_{ij}\beta_j\right)^2 + \lambda\sum^p_{j=1}\beta_j^2$$
+
+## LASSO
+
+Least Absolute Shrinkage and Selection Operator (LASSO) is known as a shrinkage method which forces $\beta$ coefficients that do not have a significant predicit power towards and possibly equal to 0.
+
+## LASSO
+
+$$\sum^n_{i=1}\left(Y_i-\beta_0 +\sum^p_{j=1}X_{ij}\beta_j\right)^2 + \lambda\sum^p_{j=1}|\beta_j|$$
+
+## Why Ridge or LASSO?
+
+Each method is capable on identifying the optimum MSE for the Bias-Variance trade-off scenario. This will lead to a lower prediction error. The key is to find the optimal penalty parameter. This can be done with a Cross-Validation technique (next lecture).
+
+## Ridge Regression in Python
+
+```{python}
+#| eval: false
+
+ridge_model = make_pipeline(
+    Ridge(alpha=lambda_value),
+)
+ridge_model.fit(X, y)
+```
+
+## LASSO in Python
+
+```{python}
+#| eval: false
+
+lasso_model = make_pipeline(
+    Lasso(alpha=lambda_value),
+)
+lasso_model.fit(X, y)
+```
+
+## Example
+
+```{python}
+# lambda_value = 1.3 was selected arbitrarily in the setup chunk.
+ridge_model = make_pipeline(
+    Ridge(alpha=lambda_value),
+)
+ridge_model.fit(penguin_X, penguin_y)
+
+
+```
+
+## Example
+
+```{python}
+# lambda_value = 1.3 was selected arbitrarily in the setup chunk.
+lasso_model = make_pipeline(
+    Lasso(alpha=lambda_value, max_iter=100_000),
+)
+lasso_model.fit(penguin_X, penguin_y)
+
+```

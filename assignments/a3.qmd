@@ -1,0 +1,76 @@
+---
+title: "Assignment 3"
+date: 3/7/24
+editor: source
+jupyter: python3
+format:
+  html:
+    code-fold: true
+    code-tools: true
+    code-line-numbers: true
+    embed-resources: true
+draft: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+# Libraries
+import numpy as np
+import pandas as pd
+import plotnine as p9
+
+# Problem 1 data
+anime_url = (
+    "https://raw.githubusercontent.com/rfordatascience/"
+    "tidytuesday/master/data/2019/2019-04-23/tidy_anime.csv"
+)
+
+anime = (
+    pd.read_csv(anime_url)
+    .query("type != 'Unknown'")
+    .copy()
+)
+
+# Problem 2 data
+starbucks_url = (
+    "https://raw.githubusercontent.com/rfordatascience/"
+    "tidytuesday/master/data/2021/2021-12-21/starbucks.csv"
+)
+
+starbucks = (
+    pd.read_csv(starbucks_url)
+    .dropna()
+    .query("size in ['tall', 'grande', 'venti']")
+    .copy()
+)
+```
+
+**Due 3/17/24 \@ 11:59 PM**
+
+Submit the \*.html file to Canvas.
+
+## Problem 1
+
+The `anime` dataset from MyAnimeList contains information on rankings and popularity scores of different anime episodes.
+
+Fit a linear model showing the relationship between `score` (outcome; higher is better) and the predictors `type`, `popularity`, and `rank`. On average, what is the score for an anime that is a `"Special"`, has a popularity score of 520, and has a rank of 3582?
+
+```{python}
+#| code-fold: true
+#| code-summary: Answer
+
+# Write your solution here.
+```
+
+## Problem 2
+
+Fit a linear model between the outcome `caffeine_mg` and predictors `size`, `calories`, and `sugar_g` from the `starbucks` dataset using the matrix formulation approach by defining the $X$ matrix. Use `tall` as the reference value for the `size` variable.
+
+```{python}
+#| code-fold: true
+#| code-summary: Answer
+
+# Write your solution here.
+```

@@ -1,0 +1,23 @@
+---
+title: "Assignment 11"
+date: 3/15/24
+description: "Assignment is due 4/06/24"
+editor: source
+draft: false
+---
+
+From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Python Edition)
+
+## Problem 1
+
+From the Applied Section in Chapter 8: Problem 8 d, e
+
+## Problem 2
+
+From the Applied Section in Chapter 8: Problem 11
+
+
+## Problem 3
+
+From the Applied Section in Chapter 8: Problem 12 (Ignore BART)
+

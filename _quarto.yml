@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+  render: 
+    - "*.qmd"
+    - "!files/"
+  resources:
+    - "*.json"
+    - "files"
+    - "_extensions"
+
+execute:
+  freeze: auto
+
+
+website:
+  repo-url: https://github.com/inqs909/m398_f26
+  title: "MATH 398"
+  site-url: www.inqs.info/m398_f26
+  navbar:
+    right:
+      - syllabus.qmd
+      - books.qmd
+  announcement:
+    icon: exclamation-triangle
+    type: danger
+    dismissable: false
+    content: "**WARNING:** This information is a work of progress and subject to change before the start of the semester."
+
+
+format:
+  html:
+    theme:
+      light: themes.scss
+    toc: true
+
+

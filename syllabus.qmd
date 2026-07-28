@@ -1,0 +1,188 @@
+---
+title: "Syllabus"
+editor: source
+format: html
+---
+
+## Math 398: Advanced Research Investigations
+
+### Course Information
+
+**Term:** Fall 2026
+
+**Instructor:** Isaac Quintanilla Salinas
+
+**Contact:** isaac.qs\@csuci.edu
+
+**Office Location:** Marin 2326
+
+**Office Hours:**
+
+**Lecture:** Tuesday and Thursday 4:30-5:45 PM in Gateway ***
+
+### Course Description
+
+Explore an interdisciplinary mathematical, statistical, or computational research question in independent groups. With faculty mentoring, students develop their own research plans drawing on multiple disciplines and the multiple approaches to research. Students will disseminate results through a research paper and presentations on campus. In addition, students will be encouraged to identify and apply to relevant summer research programs, internships, and scholarships.
+
+### Learning Outcomes
+
+1. Evaluate, organize and search various data sets and databases.
+
+2. Apply statistical methods and software to analyze various data.
+
+3. Discuss, visualize and describe various statistical properties of data sets.
+
+4. Apply various data searches and make decisions based on the statistical models.
+
+5. Independently build models and apply appropriate methods to particular data analysis projects to answer a research question.
+
+6. Present the results in visual, oral and written form.
+
+7. Assess and critique in writing various aspects of data analysis and differences in models and results.
+
+
+### Recommended Textbooks
+
+-  An Introduction to Statistical Learning in Python (HIGHLY RECOMMENDED)
+    -   Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani, and Jonathan Taylor
+    -   [Avalable to Download for free here](https://www.statlearning.com/)
+
+- The StatQuest Illustrated Guide to Machine Learning (OPTIONAL)
+    - Josh Starmer
+
+
+### Required Software
+
+For this course, we will use several different statistical programs to analyze data and construct machine learning models. **All software is available for free.** In class, we will download and setup your computing environment on your laptop with the following tools:
+
+#### Programming Language
+
+-   **Python** is a general programming langauge that is available to [download here](python.org).
+    - Recommend using tools to create python environments such as [uv](https://docs.astral.sh/uv/guides/install-python/)
+
+#### Choose One IDE
+
+-  **Positron (Recommended)** provides free and open source tools for your data analysis in R and/or Python. [You may download positron here.](http://positron.posit.co/download.html)
+
+-  **VS Code** provides tools for software development as well as data analysis. [You may download VS Code here.](https://code.visualstudio.com/)
+
+- **VS Codium** is the freely-licensed version of VS Code. [You may download VS Codium here.](https://vscodium.com/) 
+
+
+### Course Grading
+
+| Category                  | Percentage |
+|:--------------------------|:-----------|
+| Video Assignments         | 20%        |
+| Weekly Reports            | 20%        |
+| In-class Assignments      | 20%        |
+| Final Report              | 20%        |
+| Final Poster Presentation | 20%        |
+
+At the end of the quarter, course grades will be assigned according to the following scale:
+
+| Percentagae | Grade |
+|:------------|:------|
+| 90 - 100    | A     |
+| 80 - <90    | B     |
+| 70 - <80    | C     |
+| 60 - <70    | D     |
+| <60         | F     |
+
+### Course Assignments
+
+#### Course Project
+
+Working in a group of up to 2 students, you will construct a data science project by fitting a machine learning model to any data of your interest. Your group will have free range in answering any question related to the project so long as the group can get data. Your couse project will lead to a final report and poster presentation. **Your Poster Presentation will occur on Tuesday 12/8/2026 from 4-6 PM in Gateway Hall.** 
+
+#### Weekly Reports
+
+Weekly reports are progress reports submitted to the instructor to keep track of your progress in completeing the course project. Each week, you will submit what you accomplished in the previous week, any challenges you faced, how you overcame those challenges, and your goal for next week (SMART goal). These will be weekly assignments. Four progress reports will be dropped at the end of the semester. Progress Reports are due every Friday at 11:59 PM. There will be no make ups for progress reports. 
+
+#### Video Assignments
+
+Videos are used to teach machine learning concepts related to the course. Students are expected to watch at least one video a week. The videos are implemented using VoiceThreads. The 2 lowest video assignments will be dropped. Video assignments will be due every Monday at 11:59 PM.
+
+#### In-Class Assignments
+
+In-class assignments are coding assignments where you will progress fitting machine learning models learned during the week. You are expected to complete the assignments every week and submit them every Thursday at 11:59 PM. 
+
+### Class Schedule
+
+The following outline may be subject to change. Any changes will be announced in class.
+
+| Week          | Topic                             | Reading     | Assignments Due |
+|:--------------|:----------------------------------|-------------|-----------------|
+| **1** (8/24)  | Intro to Course/Project/Computing | 2.1 - 2.2   |                 |
+| **2** (8/31)  | Introduction to Machine Learning  | 3.1 - 3.2   |                 |
+| **3** (9/7)   | Linear Regression                 | 4.1-4.2,4.4 |                 |
+| **4** (9/14)  | Classification                    | 4.3,4.5     |                 |
+| **5** (9/21)  | Logistic Regression               | 6.2         |                 |
+| **6** (9/28)  | Regularization                    | 5.1,5.2     |                 |
+| **7** (10/5)  | Resampling Methods                | 7.1-7.4     |                 |
+| **8** (10/12) | Non-Linear Models                 | 7.5-7.7     |                 |
+| **9** (10/19) | Generalized Additive Models       | 8.1         |                 |
+| **10** (10/26)| Tree-based Methods                | 8.2         |                 |
+| **11** (11/2) | Tree-based Methods                | 9.1-9.4     |                 |
+| **12** (11/9) | Support Vector Machines           | 11.1-11.4   |                 |
+| **13** (11/16)| Survival Analysis                 | 11.5        |                 |
+| **14** (11/23)| Survival Analysis/**Holiday**     | 12.1-12.3   |                 |
+| **15** (11/30)| Unsupervised Learning             |             |                 |
+| **16** (12/7) | Final Presentation                |             |                 |
+
+
+
+### Generative Artificial Intelligence Policy
+
+The use of generative artificial intelligence (AI) in an ethical manner is permitted for this course.
+
+#### Permitted Uses
+
+You may use AI for:
+
+- Obtain clarification 
+
+- Brainstorming ideas, examples, outlines, and strategies
+
+- Generating questions for practice or exploration
+
+- Identifying keywords or phrasing to match professional goals
+
+#### Prohibited Uses
+
+You may not:
+
+- Submit AI-generated work 
+
+- Use AI to complete assignments, quizzes, exams, or other assessments meant to reflect your own work
+
+- Use AI to generate code
+
+Any AI-generated work will receive a 0 in the class. Severe cases will be reported to Academic Misconduct.
+
+**You may not upload any course material to any AI platforms such as, but not limited to, ChatGPT, Claude, Github Copilot, Meta AI, or Google Gemini. Exceptions are allowed for [DASS](https://www.csuci.edu/dass/)-approved services.**
+
+
+### University Policies
+
+#### Syllabus Policies and Assistance
+
+CSUCI’s [Syllabus Policies and Assistance Website](https://www.csuci.edu/studentsupport/syllabus.htm) provides important details about academic policies, campus expectations, and student support services that are all highly applicable to your success as a student both in and outside of the classroom. Ensure that you review this site on a regular basis to stay informed about the policies and resources that support your success, as campus resources or policies may change semester to semester.
+
+#### Academic Honesty
+
+Conduct yourself with honesty and integrity. Do not submit others' work as your own. Foassignments and quizzes that allow you to work with a group, only put your name on what the group submits if you genuinely contributed to the work. Work completely independently on exams, using only the materials that are indicated as allowed. Failure to observe academic honesty results in substantial penalties that can include failing the course.
+
+#### CSUCI Basic Need
+
+Please use the link to the [Basic Needs Program on the Syllabus Policies and Assistance website](go.csuci.edu/syllabuspolicies) for information on emergency food, housing accommodations, toiletries, and connections to critical resources. 
+
+
+#### CSUCI Disability Statement
+
+If you are a student with a disability requesting reasonable accommodations in this course, you need to contact Disability Accommodations and Support Services (DASS) located on the second floor of Arroyo Hall, via email accommodations\@csuci.edu, [website](https://www.csuci.edu/dass/students/apply-for-services.htm), or call 805-437-3331. All requests for reasonable accommodations require registration with DASS in advance of need. Faculty, students and DASS will work together regarding classroom accommodations. You are encouraged to discuss approved.
+
+### Disruption
+
+1.  **If I Am Out:** I will communicate via email and will hold classes asynchronously.
+2.  **If You Are Out:** Contact me as soon as possible to talk about your options. Reasonable accommodations will be provided for a brief absence. With proper documentation, extended accommodations will be provided.

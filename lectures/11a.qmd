@@ -1,0 +1,382 @@
+---
+title: "Bagging, Random Forests, and Boosting"
+jupyter: python3
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    code-fold: true
+    code-summary: "Show code"
+
+execute:
+  echo: true
+  eval: true
+  warning: false
+  error: true
+
+editor: source
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import pandas as pd
+from plotnine import (
+    aes,
+    geom_abline,
+    geom_point,
+    ggplot,
+    labs,
+    theme_bw,
+)
+from plotnine.data import penguins as penguins_raw
+from sklearn.ensemble import (
+    GradientBoostingRegressor,
+    RandomForestClassifier,
+    RandomForestRegressor,
+)
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+
+RANDOM_STATE = 123
+
+# Load and clean the data once for the entire presentation.
+penguins = penguins_raw.dropna().copy()
+
+regression_features = [
+    "bill_depth_mm",
+    "bill_length_mm",
+    "flipper_length_mm",
+]
+classification_features = [
+    "body_mass_g",
+    "bill_depth_mm",
+    "bill_length_mm",
+    "flipper_length_mm",
+]
+
+# Create one reproducible 50/50 split and reuse it in every example.
+train_index, test_index = train_test_split(
+    penguins.index,
+    test_size=0.5,
+    random_state=RANDOM_STATE,
+)
+
+train_data = penguins.loc[train_index].copy()
+test_data = penguins.loc[test_index].copy()
+
+X_train_reg = train_data[regression_features]
+y_train_reg = train_data["body_mass_g"]
+X_test_reg = test_data[regression_features]
+y_test_reg = test_data["body_mass_g"]
+
+X_train_class = train_data[classification_features]
+y_train_class = train_data["species"]
+X_test_class = test_data[classification_features]
+y_test_class = test_data["species"]
+```
+
+## Learning Outcomes
+
+- 
+
+- Bagging
+
+- Random Forests
+
+- Boosting
+
+# Bagging
+
+## Bagging
+
+When splitting the data to train and test data sets, the construction of the tree suffers from high variance.
+
+::: fragment
+This is due to splitting the data in a random way. One training data set will lead to different results from another training data set.
+:::
+
+::: fragment
+To improve performance, we implement a *Bootstrap Aggregation (Bagging)* technique.
+:::
+
+::: fragment
+Bagging will produce a forest of trees to classify a new observation.
+:::
+
+## Bagging Algorithm
+
+Given a single training data set:
+
+1.  Sample from the data with replacement.
+
+2.  Build a tree from the sampled data:
+
+    $$\hat f^{*b}(x)$$
+
+3.  Repeat the process B times (B=100)
+
+4.  Compute the final average for all predictions:
+
+    $$\hat f_{bag}(x)=\frac{1}{B}\sum^B_{b=1}\hat f^{*b}(x)$$
+
+## Classification
+
+To classify an observation, you can record the classification of each $b$ tree. Then classify an observation by majority rule.
+
+## Variable Importance
+
+With the implementation of Bagging, you lose interpretability from the original tree due to the forest.
+
+However, we can compute which variables reduced the RSS or Gini Index for all the trees. The variables with the largest reduction are considered important.
+
+# Random Forests
+
+## Random Forests
+
+Random Forests is an extension of Bagging, where a forest is generated from a bootstrap-based approach. However, when making a split, a **random** set of predictors (m\<p) are chosen for the split, instead of the full set p.
+
+::: fragment
+This will ensure that trees are unique, uncorrelated.
+:::
+
+::: fragment
+It ensures that no one predictor will have all the power and lower the variance.
+:::
+
+# Boosting
+
+## Boosting
+
+Boosting is a mechanism where a final tree is built slowly from smaller trees using the residuals.
+
+::: fragment
+This ensures a tree is built from a slow process and prevents overfitting.
+:::
+
+::: fragment
+This is done to improve prediction capabilities.
+:::
+
+## Algorithm
+
+1.  Set $\hat f(x) = 0$ and $r_i = y_i$ for all $i$ in the training set
+
+2.  For $b=1, 2, \ldots, B$ repeat:
+
+    1.  Fit tree $\hat f^b$ with $d$ splits ($d+1$ terminal nodes) to the training data $(X,r)$
+
+    2.  Update $\hat f$
+
+        $$\hat f(x) \leftarrow \hat f(x) + \lambda\hat f^b(x)$$
+
+    3.  Update residuals
+
+        $$r_i \leftarrow r_i - \lambda\hat f^{b}(x_i)$$
+
+3.  Output boosted model:
+
+    $$\hat f(x) = \sum^B_{b=1} \lambda \hat f^b(x)$$
+
+# Python Code
+
+## Bagging Regression Trees
+
+::: panel-tabset
+### Python Code
+
+```{python}
+# max_features=1.0 allows every predictor to be considered at each split,
+# which is the bagging form of a random forest.
+bag_penguins_reg = RandomForestRegressor(
+    n_estimators=500,
+    max_features=1.0,
+    bootstrap=True,
+    random_state=RANDOM_STATE,
+    n_jobs=-1,
+)
+
+bag_penguins_reg.fit(X_train_reg, y_train_reg)
+```
+
+### Predictions
+
+```{python}
+yhat_bag_reg = bag_penguins_reg.predict(X_test_reg)
+
+bag_reg_results = pd.DataFrame(
+    {
+        "predicted": yhat_bag_reg,
+        "observed": y_test_reg.to_numpy(),
+    }
+)
+
+print(f"Test MSE: {mean_squared_error(y_test_reg, yhat_bag_reg):,.2f}")
+
+(
+    ggplot(bag_reg_results, aes(x="predicted", y="observed"))
+    + geom_point()
+    + geom_abline(slope=1, intercept=0, linetype="dashed")
+    + labs(
+        x="Predicted body mass (g)",
+        y="Observed body mass (g)",
+    )
+    + theme_bw()
+)
+```
+:::
+
+## Bagging Classification Trees
+
+::: panel-tabset
+### Python Code
+
+```{python}
+# All four predictors are available at each split.
+bag_penguins_class = RandomForestClassifier(
+    n_estimators=500,
+    max_features=1.0,
+    bootstrap=True,
+    random_state=RANDOM_STATE,
+    n_jobs=-1,
+)
+
+bag_penguins_class.fit(X_train_class, y_train_class)
+```
+
+### Prediction
+
+```{python}
+yhat_bag_class = bag_penguins_class.predict(X_test_class)
+
+pd.crosstab(
+    pd.Series(yhat_bag_class, name="Predicted"),
+    pd.Series(y_test_class.to_numpy(), name="Observed"),
+)
+```
+:::
+
+## Random Forests Regression Trees
+
+::: panel-tabset
+### Python Code
+
+```{python}
+# Only two randomly selected predictors are considered at each split.
+random_forest_penguins_reg = RandomForestRegressor(
+    n_estimators=500,
+    max_features=2,
+    bootstrap=True,
+    random_state=RANDOM_STATE,
+    n_jobs=-1,
+)
+
+random_forest_penguins_reg.fit(X_train_reg, y_train_reg)
+```
+
+### Prediction
+
+```{python}
+yhat_rf_reg = random_forest_penguins_reg.predict(X_test_reg)
+
+rf_reg_results = pd.DataFrame(
+    {
+        "predicted": yhat_rf_reg,
+        "observed": y_test_reg.to_numpy(),
+    }
+)
+
+print(f"Test MSE: {mean_squared_error(y_test_reg, yhat_rf_reg):,.2f}")
+
+(
+    ggplot(rf_reg_results, aes(x="predicted", y="observed"))
+    + geom_point()
+    + geom_abline(slope=1, intercept=0, linetype="dashed")
+    + labs(
+        x="Predicted body mass (g)",
+        y="Observed body mass (g)",
+    )
+    + theme_bw()
+)
+```
+:::
+
+## Random Forests Classification Trees
+
+::: panel-tabset
+### Python Code
+
+```{python}
+# Only two randomly selected predictors are considered at each split.
+random_forest_penguins_class = RandomForestClassifier(
+    n_estimators=500,
+    max_features=2,
+    bootstrap=True,
+    random_state=RANDOM_STATE,
+    n_jobs=-1,
+)
+
+random_forest_penguins_class.fit(X_train_class, y_train_class)
+```
+
+### Prediction
+
+```{python}
+yhat_rf_class = random_forest_penguins_class.predict(X_test_class)
+
+pd.crosstab(
+    pd.Series(yhat_rf_class, name="Predicted"),
+    pd.Series(y_test_class.to_numpy(), name="Observed"),
+)
+```
+:::
+
+## Boosting Regression Trees
+
+::: panel-tabset
+### Python Code
+
+```{python}
+boost_penguin = GradientBoostingRegressor(
+    loss="squared_error",
+    n_estimators=5000,
+    learning_rate=0.001,
+    max_depth=4,
+    min_samples_leaf=10,
+    subsample=0.5,
+    random_state=RANDOM_STATE,
+)
+
+boost_penguin.fit(X_train_reg, y_train_reg)
+```
+
+### Prediction
+
+```{python}
+yhat_boost = boost_penguin.predict(X_test_reg)
+
+boost_results = pd.DataFrame(
+    {
+        "predicted": yhat_boost,
+        "observed": y_test_reg.to_numpy(),
+    }
+)
+
+print(f"Test MSE: {mean_squared_error(y_test_reg, yhat_boost):,.2f}")
+
+(
+    ggplot(boost_results, aes(x="predicted", y="observed"))
+    + geom_point()
+    + geom_abline(slope=1, intercept=0, linetype="dashed")
+    + labs(
+        x="Predicted body mass (g)",
+        y="Observed body mass (g)",
+    )
+    + theme_bw()
+)
+```
+:::

@@ -1,0 +1,136 @@
+---
+title: "Homework 2"
+date: 2/7/24
+editor: source
+jupyter: python3
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+    code-line-numbers: true
+    embed-resources: true
+draft: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+# Libraries and reproducible random-number generator
+import numpy as np
+import plotnine as p9
+
+rng = np.random.default_rng(123)
+```
+
+**Due 2/17/24 \@ 11:59 PM**
+
+Use a Quarto template to create the assignment.
+
+You must comment all your code to receive credit.
+
+Submit the \*.html file to Canvas.
+
+## Problem 1
+
+Write a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector.
+
+```{python}
+#| code-fold: true
+#| code-summary: Answer
+
+def xsummary(x):
+    """Return the mean, median, and sample variance of x."""
+    x = np.asarray(x)
+
+    return {
+        "mean": np.mean(x),
+        "median": np.median(x),
+        "variance": np.var(x, ddof=1),
+    }
+```
+
+## Problem 2
+
+Write a function for the following equation:
+
+$$f(x, y, z) =\left\{\begin{array}{cc}
+x^2+\sqrt y & z  = 0 \\ 
+x^2+2x+3+ \log(y) & z = 1
+\end{array}\right.$$
+
+Include any error messages if necessary.
+
+```{python}
+#| code-fold: true
+#| code-summary: Answer
+
+def fxyz(x, y, z):
+    """Evaluate the piecewise function for z equal to 0 or 1."""
+    if z not in (0, 1):
+        raise ValueError("z must be 0 or 1")
+
+    if y <= 0:
+        raise ValueError("y must be greater than 0")
+
+    if z == 0:
+        return x**2 + np.sqrt(y)
+
+    return x**2 + 2 * x + 3 + np.log(y)
+```
+
+## Problem 3
+
+Create a function that will give you the first `x` Fibonacci numbers. You must use a `for` loop.
+
+```{python}
+#| code-fold: true
+#| code-summary: Answer
+
+def fib(x):
+    """Return the first x Fibonacci numbers using a for loop."""
+    if not isinstance(x, int) or x < 0:
+        raise ValueError("x must be a nonnegative integer")
+
+    if x == 0:
+        return []
+
+    if x == 1:
+        return [0]
+
+    sequence = [0, 1]
+
+    for _ in range(2, x):
+        sequence.append(sequence[-2] + sequence[-1])
+
+    return sequence
+```
+
+## Problem 4
+
+Create a function that will randomly generate `n` numbers that are greater than `x` from a $Pois(\lambda)$.
+
+```{python}
+#| code-fold: true
+#| code-summary: Answer
+
+def new_pois(n, x, lam):
+    """Generate n Poisson observations that are greater than x."""
+    if not isinstance(n, int) or n < 0:
+        raise ValueError("n must be a nonnegative integer")
+
+    if lam <= 0:
+        raise ValueError("lam must be greater than 0")
+
+    values = []
+
+    while len(values) < n:
+        new_value = rng.poisson(lam)
+
+        if new_value > x:
+            values.append(new_value)
+
+    return np.array(values)
+```

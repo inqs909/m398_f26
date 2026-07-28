@@ -1,0 +1,373 @@
+---
+title: "Tree-Based Methods"
+jupyter: python3
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    code-fold: true
+    code-summary: "Show code"
+
+execute:
+  echo: true
+  eval: true
+  warning: false
+editor_options:
+  chunk_output_type: console
+editor: source
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from plotnine import (
+    aes,
+    geom_line,
+    geom_point,
+    ggplot,
+    labs,
+    scale_x_continuous,
+    theme_bw,
+)
+from plotnine.data import penguins
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, plot_tree
+
+RANDOM_STATE = 123
+
+# Load and clean the Palmer Penguins data.
+df = penguins.dropna().copy().reset_index(drop=True)
+
+# Define the predictors and outcomes used throughout the presentation.
+regression_features = [
+    "flipper_length_mm",
+    "bill_length_mm",
+    "bill_depth_mm",
+]
+classification_features = [
+    "body_mass_g",
+    "flipper_length_mm",
+    "bill_length_mm",
+    "bill_depth_mm",
+]
+
+X_regression = df[regression_features]
+y_regression = df["body_mass_g"]
+
+X_classification = df[classification_features]
+y_classification = df["species"]
+
+# Reproduce the original 50% training sample for both models.
+rng = np.random.default_rng(RANDOM_STATE)
+train_index = np.sort(
+    rng.choice(df.index, size=len(df) // 2, replace=False)
+)
+
+X_regression_train = X_regression.loc[train_index]
+y_regression_train = y_regression.loc[train_index]
+
+X_classification_train = X_classification.loc[train_index]
+y_classification_train = y_classification.loc[train_index]
+
+# Ten-fold cross-validation used in the pruning section.
+cv = KFold(n_splits=10, shuffle=True, random_state=RANDOM_STATE)
+```
+
+# Trees
+
+## Trees
+
+A Statistical tree will partition a region from a set of predictor variables that will predict an outcome of interest.
+
+::: fragment
+Trees will split a region based on a predictors ability to reduce the overall mean squared error.
+:::
+
+::: fragment
+Trees are sometimes preferred to linear models due to the visual explanation of the model.
+:::
+
+## Trees
+
+![](https://www.mathworks.com/help/stats/simpleregressiontree.png){fig-align="center"}
+
+## Fitting a Tree
+
+1.  Start with the entire dataset and define the maximum number of regions or number of observations per region of the tree.
+2.  Calculate the MSE of the dataset.
+3.  For each potential split, calculate the MSE. Choose the split that results in the lowest overall MSE.
+4.  Create a node in the tree with the selected split as the split criterion.
+5.  Repeat steps 2-4 for each subset, stopping if the maximum number of regions has been reached or if the subset size is too small.
+
+# Pruning
+
+## Pruning
+
+Pruning is the process that will remove branches from a regression tree in order to prevent overfitting.
+
+::: fragment
+This will result in a subtree that has high predictive power with no overfitting.
+:::
+
+::: fragment
+Due to the computational burden of pruning, it is recommended to implement *Cost Complexity Pruning.*
+:::
+
+## Cost Complexity Pruning
+
+Let $\alpha$ be nonnegative tuning parameter that indexes a sequence of trees. Identify the tree that reduces:
+
+$$
+\sum^{|T|}_{m=1}\sum_{i:\ x_i \in R_m}(y_i-\hat y_{R_m})^2 +\alpha|T|
+$$
+
+-   $|T|$: Number of terminal nodes
+
+-   $R_m$: rectangular region containing data
+
+-   $y_i$: observed value
+
+-   $\hat y_{R_m}$: predicted value in rectangular region.
+
+## Pruning Algorithm
+
+1.  Conduct a fitting algorithm to find the largest tree from the training data. Stop once every region has a small number of observations.
+2.  Apply the cost complexity pruning algorithm to identify the best subset of trees.
+3.  Use a K-fold cross-validation approach to choose the proper $\alpha$. For each kth fold:
+    1.  Repeat steps 1 and 2.
+    2.  Evaluate the mean squared prediction error as a function of $\alpha$.
+4.  Average the results for each value of $\alpha$. Pick the $\alpha$ that minimizes the error.
+5.  Return the subtree with the selected $\alpha$ from step 2
+
+# Classification Trees
+
+## Classification Trees
+
+Classification Trees will construct a tree that will classify data based on the region (leaf) you land. The class majority is what is classified.
+
+## Criterion: Gini Index
+
+The Gini Index is used to determine the error rate in classification trees:
+
+$$
+G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
+$$
+
+# Regression Trees
+
+## Regression Trees
+
+Regression trees will construct a tree and predict the value of the outcome based on the average value of the region (leaf).
+
+Trees are constructed by minimizing the residual sums of square.
+
+
+# Python Code
+
+## Regression Trees
+
+::: panel-tabset
+### Python Code
+
+```{python}
+#| code-fold: false
+
+# Approximate the R tree package's default 1% minimum-deviance rule.
+minimum_deviance = 0.01 * y_regression_train.var(ddof=0)
+
+tree_penguin = DecisionTreeRegressor(
+    criterion="squared_error",
+    min_samples_split=10,
+    min_samples_leaf=5,
+    min_impurity_decrease=minimum_deviance,
+    random_state=RANDOM_STATE,
+).fit(X_regression_train, y_regression_train)
+```
+
+### Plot
+
+```{python}
+plt.figure(figsize=(12, 7))
+plot_tree(
+    tree_penguin,
+    feature_names=regression_features,
+    filled=True,
+    rounded=True,
+    precision=0,
+    fontsize=8,
+)
+plt.title("Regression Tree for Penguin Body Mass")
+plt.tight_layout()
+plt.show()
+```
+:::
+
+## Classification Trees
+
+::: panel-tabset
+### Code
+
+```{python}
+#| code-fold: false
+
+tree_penguin_class = DecisionTreeClassifier(
+    criterion="gini",
+    min_samples_split=10,
+    min_samples_leaf=5,
+    random_state=RANDOM_STATE,
+).fit(X_classification_train, y_classification_train)
+```
+
+### Plot
+
+```{python}
+plt.figure(figsize=(13, 7))
+plot_tree(
+    tree_penguin_class,
+    feature_names=classification_features,
+    class_names=tree_penguin_class.classes_,
+    filled=True,
+    rounded=True,
+    precision=2,
+    fontsize=8,
+)
+plt.title("Classification Tree for Penguin Species")
+plt.tight_layout()
+plt.show()
+```
+:::
+
+## Pruning
+
+::: panel-tabset
+### Code
+
+```{python}
+#| code-fold: false
+
+# Generate the cost-complexity pruning sequence for the fitted tree.
+pruning_path = tree_penguin.cost_complexity_pruning_path(
+    X_regression_train,
+    y_regression_train,
+)
+
+# The final alpha produces a tree with only the root, so it is omitted.
+candidate_alphas = np.unique(pruning_path.ccp_alphas[:-1])
+
+pruning_results = []
+
+for alpha in candidate_alphas:
+    candidate_tree = DecisionTreeRegressor(
+        criterion="squared_error",
+        min_samples_split=10,
+        min_samples_leaf=5,
+        min_impurity_decrease=minimum_deviance,
+        ccp_alpha=float(alpha),
+        random_state=RANDOM_STATE,
+    )
+
+    fold_mse = -cross_val_score(
+        candidate_tree,
+        X_regression_train,
+        y_regression_train,
+        cv=cv,
+        scoring="neg_mean_squared_error",
+    )
+
+    candidate_tree.fit(X_regression_train, y_regression_train)
+
+    pruning_results.append(
+        {
+            "ccp_alpha": float(alpha),
+            "size": candidate_tree.get_n_leaves(),
+            "cv_mse": fold_mse.mean(),
+            "cv_mse_se": fold_mse.std(ddof=1) / np.sqrt(len(fold_mse)),
+        }
+    )
+
+raw_pruning_results = pd.DataFrame(pruning_results)
+
+# If multiple alpha values produce the same tree size, retain the one with
+# the smallest cross-validated error for that size.
+best_size_rows = raw_pruning_results.groupby("size")["cv_mse"].idxmin()
+tree_penguin_cv = (
+    raw_pruning_results.loc[best_size_rows]
+    .sort_values("size")
+    .reset_index(drop=True)
+)
+```
+
+### Summary
+
+```{python}
+tree_penguin_cv.round(
+    {
+        "ccp_alpha": 2,
+        "cv_mse": 2,
+        "cv_mse_se": 2,
+    }
+)
+```
+
+### Plot
+
+```{python}
+(
+    ggplot(tree_penguin_cv, aes(x="size", y="cv_mse"))
+    + geom_line()
+    + geom_point(size=2.5)
+    + scale_x_continuous(
+        breaks=sorted(tree_penguin_cv["size"].unique())
+    )
+    + labs(
+        x="Number of terminal nodes",
+        y="Cross-validated mean squared error",
+        title="Cost-Complexity Pruning",
+    )
+    + theme_bw()
+)
+```
+
+### Pruning
+
+```{python}
+#| code-fold: false
+
+# Match the original R example by selecting the alpha for a seven-leaf tree.
+# In these data, the seven-leaf tree also attains the minimum CV MSE.
+best_row = tree_penguin_cv.loc[tree_penguin_cv["size"].eq(7)].iloc[0]
+best_alpha = float(best_row["ccp_alpha"])
+
+prune_best = DecisionTreeRegressor(
+    criterion="squared_error",
+    min_samples_split=10,
+    min_samples_leaf=5,
+    min_impurity_decrease=minimum_deviance,
+    ccp_alpha=best_alpha,
+    random_state=RANDOM_STATE,
+).fit(X_regression_train, y_regression_train)
+
+plt.figure(figsize=(12, 7))
+plot_tree(
+    prune_best,
+    feature_names=regression_features,
+    filled=True,
+    rounded=True,
+    precision=0,
+    fontsize=8,
+)
+plt.title(
+    f"Pruned Regression Tree ({prune_best.get_n_leaves()} terminal nodes)"
+)
+plt.tight_layout()
+plt.show()
+```
+:::

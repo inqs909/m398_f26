@@ -1,0 +1,373 @@
+---
+title: "Classification"
+subtitle: "Logistic Regression"
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    chalkboard:
+      src: chalkboard.json
+      storage: chalkboard_pres
+      theme: whiteboard
+      chalk-width: 4
+
+jupyter: python3
+
+execute:
+  echo: false
+  eval: true
+  warning: false
+
+editor: source
+---
+
+## Python Setup
+
+```{python}
+#| label: setup
+#| echo: true
+
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from plotnine import aes, geom_point, ggplot, labs, theme_bw
+from plotnine.data import penguins as penguins_data
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+
+# Palmer Penguins data
+penguins = penguins_data.dropna().copy()
+penguins["gentoo"] = np.where(
+    penguins["species"] == "Gentoo",
+    "Gentoo",
+    "Other",
+)
+penguins["gentoo_binary"] = (
+    penguins["species"] == "Gentoo"
+).astype(int)
+
+# World Values Survey data used for ordinal regression
+wvs = sm.datasets.get_rdataset(
+    "WVS",
+    package="carData",
+    cache=True,
+).data
+wvs["poverty"] = pd.Categorical(
+    wvs["poverty"],
+    categories=["Too Little", "About Right", "Too Much"],
+    ordered=True,
+)
+```
+
+## Learning Outcomes
+
+-   Logistic Regression
+
+-   Multinomial Regression
+
+## Classification
+
+The practice of classifying data points into different categories.
+
+## Motivation
+
+```{python}
+#| echo: true
+#| code-fold: true
+
+(
+    ggplot(
+        penguins,
+        aes(
+            x="body_mass_g",
+            y="flipper_length_mm",
+            color="species",
+        ),
+    )
+    + geom_point()
+    + labs(
+        x="Body mass (g)",
+        y="Flipper length (mm)",
+        color="Species",
+    )
+    + theme_bw()
+)
+```
+
+## For Now ...
+
+```{python}
+#| echo: true
+#| code-fold: true
+
+(
+    ggplot(
+        penguins,
+        aes(
+            x="body_mass_g",
+            y="flipper_length_mm",
+            color="gentoo",
+        ),
+    )
+    + geom_point()
+    + labs(
+        x="Body mass (g)",
+        y="Flipper length (mm)",
+        color="Group",
+    )
+    + theme_bw()
+)
+```
+
+## Potential Model
+
+$$
+\left(\begin{array}{c}
+Gentoo \\
+Other
+\end{array}\right) = \boldsymbol X^\mathrm T \boldsymbol \beta
+$$
+
+# Logistic Regression
+
+## Logistic Regression
+
+Logistic Regression is used to model the association between a set of predictors and a binary outcome.
+
+## Construct Model
+
+$$
+\left(\begin{array}{c}
+Gentoo \\
+Other
+\end{array}\right) = \boldsymbol X^\mathrm T \boldsymbol \beta
+$$
+
+## Let ...
+
+$$
+Y = \left\{\begin{array}{cc}
+1 & Gentoo \\
+0 & Other
+\end{array}\right.
+$$
+
+## Construct a Model
+
+$$
+P\left(Y = 1\right) = \boldsymbol X^\mathrm T \boldsymbol \beta
+$$
+
+## Construct a Model
+
+$$
+P\left(Y = 1\right) = \frac{\exp(\boldsymbol X^\mathrm T \boldsymbol \beta)}{1 + \exp(\boldsymbol X^\mathrm T \boldsymbol \beta)}
+$$
+
+## Construct a Model
+
+$$
+\frac{P(Y = 1)}{1-P(Y = 1)} = \exp(\boldsymbol X^\mathrm T \boldsymbol \beta)
+$$
+
+## The Logistic Model
+
+$$
+\log\left\{\frac{P(Y = 1)}{1-P(Y = 1)}\right\} = \boldsymbol X^\mathrm T \boldsymbol \beta
+$$
+
+## Odds and Log-Odds
+
+$$
+\frac{P(Y = 1)}{1-P(Y = 1)}
+$$
+
+$$
+\log\left\{\frac{P(Y = 1)}{1-P(Y = 1)}\right\}
+$$
+
+## Estimation
+
+Estimation is done by finding the values of $\boldsymbol \beta$ that maximizes the likelihood function given the data pair $(\boldsymbol X_i, Y_i)$
+
+$$
+L(\boldsymbol \beta) = \prod_{i=1}^n P(Y_i=1)^{Y_i}\left\{1-P(Y_i=1)\right\}^{1-Y_i}
+$$
+
+## Predicting Category
+
+Once the estimates $\hat \beta$ are obtained, compute:
+
+$$
+P\left(Y_i = 1\right) = \frac{\exp(\boldsymbol X_i^\mathrm T \boldsymbol{\hat\beta})}{1 + \exp(\boldsymbol X^\mathrm T \boldsymbol{\hat\beta})}
+$$
+
+$$
+Y_i = \left\{\begin{array}{cc}
+1 & P(Y_i =1) \geq 0.5 \\
+0 & Otherwise
+\end{array}\right.
+$$
+
+# Ordinal Regression
+
+## Ordinal Regression
+
+Ordinal regression extends the logistic regression to more than one category ($J$ Categories) that has a natural order.
+
+An example can be thought of as Grade Levels: A, B, C, D, F
+
+## Modeling Ordinal Responses
+
+We can model Ordinal responses using the the proportional odds model and a logit formula:
+
+$$
+\mathrm{logit}\{P(Y\leq j|X)\} = \boldsymbol X_{(j)} ^\mathrm T \boldsymbol \beta _{(j)}
+$$
+
+## Linear Model
+
+$$
+\boldsymbol X_{(j)}^\mathrm T \boldsymbol \beta_{(j)} = \beta_{0(j)} + \sum^p_{i=1}X_{i}\beta_i
+$$
+
+# Multinomial Regression
+
+## Multinomial Regression
+
+## Model
+
+$$
+\log\left\{\frac{P(Y = k)}{P(Y = \mathrm{REF})}\right\} = \boldsymbol X^\mathrm T \boldsymbol \beta_k
+$$
+
+$\mathrm{REF}$ is a reference value to be modeled.
+
+# Python Examples
+
+## Logistic Regression
+
+```{python}
+#| echo: true
+#| eval: false
+
+model = smf.logit(
+    "y ~ x",
+    data=data,
+).fit(disp=False)
+```
+
+## Logistic Regression
+
+```{python}
+#| echo: true
+
+logit_result = smf.logit(
+    "gentoo_binary ~ flipper_length_mm + body_mass_g",
+    data=penguins,
+).fit(disp=False)
+
+logit_result.summary()
+```
+
+## Prediction Logistic Regression
+
+```{python}
+#| echo: true
+
+new_penguins = pd.DataFrame(
+    {
+        "flipper_length_mm": [200, 220],
+        "body_mass_g": [4005, 4775],
+    }
+)
+
+new_penguins.assign(
+    predicted_probability_gentoo=logit_result.predict(new_penguins)
+)
+```
+
+
+## Multinomial Regression
+
+```{python}
+#| echo: true
+#| eval: false
+
+X = sm.add_constant(data[["x"]])
+model = sm.MNLogit(data["y"], X)
+result = model.fit(method="newton", disp=False)
+```
+
+## Multinomial Regression
+
+```{python}
+#| echo: true
+
+multinomial_X = sm.add_constant(
+    penguins[["body_mass_g", "flipper_length_mm"]]
+)
+multinomial_model = sm.MNLogit(
+    penguins["species"],
+    multinomial_X,
+)
+multinomial_result = multinomial_model.fit(
+    method="newton",
+    maxiter=200,
+    disp=False,
+)
+```
+
+## Summary
+
+```{python}
+#| echo: true
+
+multinomial_result.summary()
+```
+
+## Prediction Multinomial Regression
+
+
+```{python}
+#| echo: true
+
+# New observations
+new_penguins = pd.DataFrame(
+    {
+        "body_mass_g": [4005, 4775],
+        "flipper_length_mm": [200, 220],
+    }
+)
+
+# Construct predictors in the same format used to fit the model
+new_multinomial_X = sm.add_constant(
+    new_penguins[["body_mass_g", "flipper_length_mm"]],
+    has_constant="add",
+)
+
+# Predicted probability for each species
+predicted_probabilities = multinomial_result.predict(
+    new_multinomial_X
+)
+
+# Replace numeric column names with species names
+predicted_probabilities = predicted_probabilities.rename(
+    columns=multinomial_model._ynames_map
+)
+
+# Choose the species with the largest predicted probability
+predicted_species = predicted_probabilities.idxmax(axis=1)
+
+# Combine inputs, probabilities, and final predictions
+prediction_results = (
+    new_penguins
+    .join(predicted_probabilities.add_prefix("prob_"))
+    .assign(predicted_species=predicted_species)
+)
+
+prediction_results
+```

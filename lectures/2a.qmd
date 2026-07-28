@@ -1,0 +1,735 @@
+---
+title: "Introduction to Statistical Learning"
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false 
+
+editor: source
+---
+
+## Learning Outcomes
+
+-   Introduction to Statistical Learning
+
+-   Classification vs Regression
+
+-   Supervised vs Unsupervised Machine Learning
+
+
+## Python Modules, Functions, and Parameters
+
+```{python}
+#| echo: true
+import numpy as np
+import pandas as pd
+from plotnine import *
+from pygam import LinearGAM, s, l
+import statsmodels.api as sm
+from statsmodels.gam.api import GLMGam, BSplines
+from sklearn.datasets import load_iris
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.svm import SVC
+
+
+rng = np.random.default_rng(909) 
+```
+
+## Book
+
+![](https://images.squarespace-cdn.com/content/v1/5ff2adbe3fe4fe33db902812/1611294680091-25SIDM9AHA8ECIFFST23/Screen+Shot+2021-01-21+at+11.02.06+AM.png){fig-align="center"}
+
+# Introduction to Statistical Learning
+
+## Introduction to Statistical Learning
+
+**What is Statistical Learning?**
+
+::: {#.fragment}
+Statistical learning is the task of predicting an outcome of interest given a set of predictor variables.
+:::
+
+## Motivating Example
+
+```{python}
+#| code-fold: true
+x = rng.uniform(0, 10, 100)
+y = 1.25 * x**2 + 5 + rng.normal(0, 15, 100)
+
+df = pd.DataFrame({'x': x,'y': y})
+
+# Plot
+(
+    ggplot(df, aes(x='x', y='y'))
+    + geom_point()
+    + theme_bw()
+)
+```
+
+
+## Statistical Learning Model
+
+$$
+Y = f(\boldsymbol X) + \varepsilon
+$$
+
+-   $Y$: Outcome variable
+
+-   $f(\cdot)$: systematic component explaining $Y$
+
+-   $\boldsymbol X$: vector of predictor variables
+
+-   $\varepsilon$: error term
+
+## Modeling $f(\cdot)$: Parametric
+
+-   Linear Models
+
+-   Generalized Linear Models (GLM)
+
+## Modeling $f(\cdot)$: Nonparametric
+
+-   Generalized Additive Models
+
+-   Local-Linear Models
+
+-   Smoothing Splines
+
+## Prediction
+
+-   Statistical Learning is only concerned with an accurate $Y$
+
+-   $f(\cdot)$ is considered a black box
+
+-   We will not know how $\boldsymbol X$ explains $Y$
+
+-   We choose flexible (nonparametric) models
+
+## Model Interpretability
+
+-   With a focus on prediction, model interpretability declines
+
+-   We will not know how changes in $\boldsymbol X$ will affect $Y$
+
+# Classification vs Regression
+
+## Regression
+
+Regression in statistical learning terms indicates predicting a continuous random variable.
+
+<div>
+
+What are the methods that we learned to model continuous random variables?
+
+</div>
+
+## Example
+
+
+```{python}
+#| include: false
+
+# --------------------------------------------------
+# 1. Simulate the data
+# --------------------------------------------------
+
+rng = np.random.default_rng(42)
+
+n = 1000
+
+dat = pd.DataFrame({
+    "x1": rng.normal(size=n),
+    "x2": rng.normal(size=n),
+    "x3": rng.normal(size=n),
+})
+
+dat["y"] = (
+    np.sin(dat["x1"])
+    + 0.5 * dat["x2"] ** 2
+    + 0.2 * dat["x3"]
+    + np.maximum(dat["x2"], 0.2) * rng.normal(size=n)
+)
+
+
+# --------------------------------------------------
+# 2. Create spline terms for x1 and x2
+# --------------------------------------------------
+
+smooth_variables = dat[["x1", "x2"]].to_numpy()
+
+splines = BSplines(
+    smooth_variables,
+    df=[10, 10],
+    degree=[3, 3],
+    variable_names=["x1", "x2"],
+)
+
+
+# --------------------------------------------------
+# 3. Set up the linear portion of the model
+# --------------------------------------------------
+
+# x3 remains a regular linear term.
+linear_variables = sm.add_constant(
+    dat[["x3"]],
+    has_constant="add",
+)
+
+
+# --------------------------------------------------
+# 4. Fit the GAM
+#
+# Equivalent R formula:
+# y ~ s(x1) + s(x2) + x3
+# --------------------------------------------------
+
+gam = GLMGam(
+    endog=dat["y"],
+    exog=linear_variables,
+    smoother=splines,
+    family=sm.families.Gaussian(),
+    alpha=[1.0, 1.0],
+)
+
+gam_results = gam.fit()
+
+print(gam_results.summary())
+
+
+# --------------------------------------------------
+# 5. Extract the smooth contribution for x1
+# --------------------------------------------------
+
+# Number of coefficients belonging to the linear
+# terms: intercept and x3.
+n_linear = linear_variables.shape[1]
+
+# The first component is the spline for x1.
+x1_smoother = splines.smoothers[0]
+
+# Spline basis evaluated at the observed x1 values.
+x1_basis_observed = x1_smoother.basis
+
+# Number of coefficients used by the x1 smooth.
+n_x1_basis = x1_basis_observed.shape[1]
+
+# Location of the x1 spline coefficients in the
+# complete model coefficient vector.
+x1_start = n_linear
+x1_stop = x1_start + n_x1_basis
+
+x1_coefficients = gam_results.params[x1_start:x1_stop]
+
+# Estimated x1 smooth at the observed values.
+x1_effect_observed = x1_basis_observed @ x1_coefficients
+
+
+# --------------------------------------------------
+# 6. Create partial residuals for x1
+#
+# Partial residual:
+# estimated x1 smooth + model response residual
+# --------------------------------------------------
+
+data_df = pd.DataFrame({
+    "raw": dat["x1"],
+    "p_resid": x1_effect_observed + gam_results.resid_response,
+})
+
+
+# --------------------------------------------------
+# 7. Evaluate the x1 smooth over a regular grid
+# --------------------------------------------------
+
+x_grid = np.linspace(
+    dat["x1"].min(),
+    dat["x1"].max(),
+    200,
+)
+
+x1_basis_grid = x1_smoother.transform(x_grid)
+
+x1_fit = x1_basis_grid @ x1_coefficients
+
+
+# --------------------------------------------------
+# 8. Calculate standard errors for the x1 smooth
+# --------------------------------------------------
+
+covariance = np.asarray(gam_results.cov_params())
+
+x1_covariance = covariance[
+    x1_start:x1_stop,
+    x1_start:x1_stop,
+]
+
+x1_variance = np.einsum(
+    "ij,jk,ik->i",
+    x1_basis_grid,
+    x1_covariance,
+    x1_basis_grid,
+)
+
+x1_se = np.sqrt(np.maximum(x1_variance, 0))
+
+
+# Equivalent of the R sm_df object
+sm_df = pd.DataFrame({
+    "x": x_grid,
+    "fit": x1_fit,
+    "se": x1_se,
+})
+
+```
+
+::: panel-tabset
+
+## Scatter Plot
+
+```{python}
+(
+    ggplot(sm_df, aes(x="x", y="fit"))
+    + geom_point(
+        data=data_df,
+        mapping=aes(x="raw", y="p_resid"),
+        alpha=0.5,
+    )
+    + xlab("X")
+    + ylab("Y")
+    + theme_bw()
+)
+
+```
+
+
+## Regression
+
+```{python}
+(
+    ggplot(sm_df, aes(x="x", y="fit"))
+    + geom_point(
+        data=data_df,
+        mapping=aes(x="raw", y="p_resid"),
+    )
+    + geom_smooth(method="lm", color = "red")
+    + xlab("X")
+    + ylab("Y")
+    + theme_bw()
+)
+```
+
+## GAM
+
+
+```{python}
+# Create confidence interval bounds
+sm_df = sm_df.copy()
+sm_df["lower"] = sm_df["fit"] - sm_df["se"]
+sm_df["upper"] = sm_df["fit"] + sm_df["se"]
+
+(
+    ggplot(sm_df, aes(x="x", y="fit"))
+    + geom_point(
+        data=data_df,
+        mapping=aes(x="raw", y="p_resid"),
+    )
+    + geom_ribbon(
+        aes(ymin="lower", ymax="upper"),
+        alpha=0.3,
+    )
+    + geom_line()
+    # Equivalent to labs(x = p_obj$xlab, y = p_obj$ylab)
+    # Replace these strings with your desired axis labels.
+    + labs(
+        x="x1",
+        y="Partial Effect",
+    )
+    + xlab("X")
+    + ylab("Y")
+    + theme_bw()
+)
+
+```
+
+## Combined
+
+```{python}
+sm_df = sm_df.copy()
+sm_df["lower"] = sm_df["fit"] - sm_df["se"]
+sm_df["upper"] = sm_df["fit"] + sm_df["se"]
+
+(
+    ggplot(sm_df, aes(x="x", y="fit"))
+    + geom_point(
+        data=data_df,
+        mapping=aes(x="raw", y="p_resid"),
+    )
+    + geom_ribbon(
+        aes(ymin="lower", ymax="upper"),
+        alpha=0.3,
+    )
+    + geom_line()
+    + geom_smooth(method="lm")
+    + labs(
+        x="x1",              # Replace with p_obj$xlab equivalent if available
+        y="Partial Effect",  # Replace with p_obj$ylab equivalent if available
+    )
+    + xlab("X")
+    + ylab("Y")
+    + theme_bw()
+)
+
+```
+
+:::
+
+## Classification
+
+Classification in statistical learning terms indicates predicting a categorical random variable.
+
+<div>
+
+What are the methods that we learned to model categorical random variables?
+
+</div>
+
+## Example
+
+::: panel-tabset
+
+## Data
+
+```{python}
+# Load data
+iris_data = load_iris(as_frame=True)
+
+iris = iris_data.frame
+iris["Species"] = iris_data.target_names[iris["target"]]
+
+# Rename columns to match the R dataset
+iris = iris.rename(columns={
+    "petal length (cm)": "Petal.Length",
+    "petal width (cm)": "Petal.Width"
+})
+
+(
+    ggplot(
+        iris,
+        aes(
+            x="Petal.Length",
+            y="Petal.Width",
+            color="Species"
+        )
+    )
+    + geom_point()
+    + theme_bw()
+)
+```
+
+
+## KNN
+
+```{python}
+
+
+# Load the iris dataset
+iris_data = load_iris(as_frame=True)
+
+iris = iris_data.frame.copy()
+
+# Replace numeric target values with species names
+iris["Species"] = iris["target"].map(
+    dict(enumerate(iris_data.target_names))
+)
+
+# Remove the numeric target column
+iris = iris.drop(columns="target")
+
+
+# Separate the species
+setosa = iris[iris["Species"] == "setosa"].reset_index(drop=True)
+versicolor = iris[iris["Species"] == "versicolor"].reset_index(drop=True)
+virginica = iris[iris["Species"] == "virginica"].reset_index(drop=True)
+
+
+# Each species has 50 observations.
+# Select 60%, or 30 observations, for training.
+n_train = int(len(setosa) * 0.60)
+
+train_indices = rng.choice(
+    len(setosa),
+    size=n_train,
+    replace=False
+)
+
+test_indices = np.setdiff1d(
+    np.arange(len(setosa)),
+    train_indices
+)
+
+
+# Use the same indices for each species,
+# matching the original R code.
+iris_train = pd.concat(
+    [
+        setosa.iloc[train_indices],
+        versicolor.iloc[train_indices],
+        virginica.iloc[train_indices],
+    ],
+    ignore_index=True,
+)
+
+iris_test = pd.concat(
+    [
+        setosa.iloc[test_indices],
+        versicolor.iloc[test_indices],
+        virginica.iloc[test_indices],
+    ],
+    ignore_index=True,
+)
+
+
+# Predictor columns
+feature_columns = [
+    "sepal length (cm)",
+    "sepal width (cm)",
+    "petal length (cm)",
+    "petal width (cm)",
+]
+
+X_train = iris_train[feature_columns]
+y_train = iris_train["Species"]
+
+X_test = iris_test[feature_columns]
+y_test = iris_test["Species"]
+
+
+# Fit the k-nearest neighbors classifier
+knn = KNeighborsClassifier(n_neighbors=5)
+
+knn.fit(X_train, y_train)
+
+
+# Make predictions
+iris_pred = knn.predict(X_test)
+
+
+# Equivalent of:
+# table(iris.test$Species, iris_pred)
+species = ["setosa", "versicolor", "virginica"]
+
+confusion_table = pd.DataFrame(
+    confusion_matrix(
+        y_test,
+        iris_pred,
+        labels=species,
+    ),
+    index=species,
+    columns=species,
+)
+
+confusion_table.index.name = "Actual"
+confusion_table.columns.name = "Predicted"
+
+print(confusion_table)
+```
+
+## SVM
+
+```{python}
+
+# Load the iris dataset
+iris_data = load_iris(as_frame=True)
+
+iris = iris_data.frame.copy()
+
+# Replace numeric target with species names
+iris["Species"] = iris["target"].map(
+    dict(enumerate(iris_data.target_names))
+)
+
+# Remove the numeric target column
+iris = iris.drop(columns="target")
+
+
+# Predictor variables
+X = iris.drop(columns="Species")
+
+# Response variable
+y = iris["Species"]
+
+
+# Fit an SVM with a radial (RBF) kernel
+svm_model = SVC(kernel="rbf")
+
+svm_model.fit(X, y)
+
+
+# Predict on the original data
+pred = svm_model.predict(X)
+
+
+# Equivalent of:
+# table(Predicted = pred, Actual = iris$Species)
+tab = pd.crosstab(
+    pred,
+    y,
+    rownames=["Predicted"],
+    colnames=["Actual"]
+)
+
+print(tab)
+```
+
+:::
+
+# Supervised vs Unsupervised Machine Learning
+
+## Machine Learning
+
+Machine learning is a set of methods used for predicting and classifying data. Several statistical methods are considered machine learning techniques.
+
+::: {#.fragement}
+#### Common Methods
+
+-   Regression
+
+-   Mixed-Effects
+
+-   Nonparametric Regression
+
+-   Neural Networks
+
+-   Tree-based methods
+
+-   Bayesian Methods
+:::
+
+## Training Data
+
+Training Data is the data set used to construct a model.
+
+## Supervised
+
+Supervised Machine Learning techniques are techniques where the training data contains the outcome.
+
+## Unsupervised
+
+Unsupervised Machine Learning techniques are techniques where the training data **does not** contains the outcome.
+
+# Model Adequacy
+
+## Quality of Fit: Regression
+
+$$
+MSE = \frac{1}{n}\sum^n_{i=1}\{y_i - \hat f(\boldsymbol x_i)\}^2
+$$
+
+## Quality of Fit: Classification
+
+$$
+ER = \frac{1}{n}\sum^n_{i=1}I(y_i \ne \hat y_i)
+$$
+
+## Bias-Variance Tradeoff
+
+
+## Bias-Variance Tradeoff
+
+$$
+E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left\{\hat f(x)\right\}^2 
+$$
+
+## Example
+
+```{python}
+# Simulate data
+x = rng.uniform(0, 10, 100)
+y = 3 * x**2 - 5 * x + 3 + rng.normal(0, 15, 100)
+
+# Create DataFrame
+df = pd.DataFrame({
+    "x": x,
+    "y": y,
+})
+
+# Plot
+(
+    ggplot(df, aes(x="x", y="y"))
+    + geom_point()
+    + theme_bw()
+)
+```
+
+
+## Using a Line
+
+```{python}
+(
+    ggplot(df, aes(x="x", y="y"))
+    + geom_point()
+    + geom_smooth(method="lm")
+    + theme_bw()
+)
+```
+
+## Using a Highly Fleible Model
+
+```{python}
+(
+    ggplot(df, aes(x="x", y="y"))
+    + geom_point()
+    + geom_smooth(
+        method="loess",
+        span=0.1
+    )
+    + theme_bw()
+)
+```
+
+## Semi-Flexible
+
+```{python}
+(
+    ggplot(df, aes(x="x", y="y"))
+    + geom_point()
+    + geom_smooth()
+    + theme_bw()
+)
+```
+
+## All
+
+
+```{python}
+
+(
+    ggplot(df, aes(x="x", y="y"))
+    + geom_point()
+
++ geom_smooth(
+    method="lm",
+    color="#4A708B",
+    fill="#7EC0EE"
+)
+
++ geom_smooth(
+    method="loess",
+    span=0.1,
+    color="#008B45",
+    fill="#00EE76"
+)
+
++ geom_smooth(
+    method="loess",
+    color="#D02090",
+    fill="#EE82EE"
+)
+
+    + theme_bw()
+)
+```

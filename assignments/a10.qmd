@@ -1,0 +1,17 @@
+---
+title: "Assignment 10"
+date: 3/15/24
+description: "Assignment is due 4/06/24"
+editor: source
+draft: false
+---
+
+From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)
+
+## Problem 1
+
+From the Applied Section in Chapter 8: Problem 8 a, b, c
+
+## Problem 2
+
+From the Applied Section in Chapter 8: Problem 9 a, b, c, e, f, h, i

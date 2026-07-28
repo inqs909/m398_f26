@@ -1,0 +1,439 @@
+---
+title: "Resampling Methods"
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    chalkboard:
+      src: chalkboard.json
+      storage: chalkboard_pres
+      theme: whiteboard
+      chalk-width: 4
+
+jupyter: python3
+
+execute:
+  echo: true
+  eval: true
+  warning: false
+
+
+editor: source
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+from plotnine import (
+    aes,
+    geom_line,
+    geom_point,
+    ggplot,
+    labs,
+    scale_x_log10,
+    theme_minimal,
+)
+from plotnine.data import mtcars as mtcars_raw
+from plotnine.data import penguins as penguins_raw
+from sklearn.linear_model import Lasso, LassoCV, Ridge, RidgeCV
+from sklearn.model_selection import LeaveOneOut
+from sklearn.preprocessing import StandardScaler
+
+penguins = penguins_raw.dropna().copy()
+mtcars = mtcars_raw.copy()
+
+lambdas = np.geomspace(1, 1000, 200)
+loo = LeaveOneOut()
+```
+
+## Learning Outcomes
+
+- Cross-Validation
+
+  - Leave-one-out
+
+  - K-Fold
+
+- Bootstrap Methods
+
+## Training Error Rate
+
+Training Error Rate is the error rate of the data used to create the model of interest. It describes how well the model predicts the data used to construct it.
+
+## Test Error Rate
+
+Test Error Rate is the error rate of predicting a new data point using the current established model.
+
+## Test Error Rate
+
+In order to obtain the test error rate, data not used to fit the model must be available
+
+::: fragment
+This is not the case the majority of time.
+:::
+
+::: fragment
+New methods have been developed to compute the test error rate using the existing data.
+:::
+
+# Cross-Validation
+
+## Cross-Validation
+
+A cross-validation approach is to obtain a good estimate of the error-rate of a machine learning algorithm. We split the data set into two categories: training and testing. The training data set is used to train the model, and the test data is used to test the model and compute the error rate.
+
+## Tuning Parameter
+
+A cross-validation approach is great when there is a tuning parameter. We can fit a model for different values of the tuning parameter, and we can choose which value results in the lowest error rate.
+
+## Training and Testing Data
+
+The training and testing data sets are constructed by randomly assigning data points to one type of data.
+
+## LOOCV Cross-Validation
+
+- Choose a set of tuning parameters to test.
+
+- For each $k$th turning parameter, calculate the tuning parameter error for each value
+
+  - Utilize the leave-one-out approach
+
+    - For each observation fit a model with the remaining observations and fit the excluded value
+
+    - Compute the following error:
+
+      $$CVE_k = \frac{1}{n}\sum^n_{i=1}e_i$$
+
+- Identify the $k$th tuning parameter with the lowest $CVE_k$
+
+## K-Fold Cross-Validation
+
+- Choose a set of tuning parameters to test.
+
+- Create different K subsets of the data.
+
+- For each $j$th turning parameter Calculate the tuning parameter error for each value
+
+  - For each K subset, fit a model using the data excluding the Kth subset
+
+  - Predict the values in the Kth subset using the fitted model
+
+  - Repeat the process for each K subset
+
+  - Compute the following error:
+
+    $$CVE_j = \frac{1}{n}\sum^n_{i=1}e_i$$
+
+- Identify the $j$th tuning parameter with the lowest $CVE_j$
+
+## Executing in Python
+
+Several Python packages have developed methods to execute a cross-validation approach.
+
+## CV in `scikit-learn`
+
+```{python}
+#| eval: false
+#| echo: true
+
+cv_model = RidgeCV(
+    alphas=lambdas,          # Candidate penalty values
+    cv=None,                 # Efficient leave-one-out CV for ridge
+    store_cv_results=True,
+)
+cv_model.fit(X, y)
+```
+
+## Example - Ridge Regression
+
+::: panel-tabset
+## Preparation
+
+```{python}
+#| echo: true
+#| eval: true
+
+ridge_predictors = [
+    "flipper_length_mm",
+    "bill_depth_mm",
+    "bill_length_mm",
+]
+X_ridge = penguins[ridge_predictors]
+y_ridge = penguins["body_mass_g"]
+
+ridge_scaler = StandardScaler()
+X_ridge_scaled = ridge_scaler.fit_transform(X_ridge)
+```
+
+## CV
+
+```{python}
+#| echo: true
+#| eval: true
+
+ridge_mod_cv = RidgeCV(
+    alphas=lambdas,
+    cv=None,
+    store_cv_results=True,
+)
+ridge_mod_cv.fit(X_ridge_scaled, y_ridge)
+
+ridge_cv_results = pd.DataFrame(
+    {
+        "lambda": lambdas,
+        "mean_cv_error": ridge_mod_cv.cv_results_.mean(axis=0),
+    }
+)
+ridge_best_result = ridge_cv_results.loc[
+    [ridge_cv_results["mean_cv_error"].idxmin()]
+]
+```
+
+## CV Plot
+
+```{python}
+#| echo: true
+#| eval: true
+
+(
+    ggplot(ridge_cv_results, aes(x="lambda", y="mean_cv_error"))
+    + geom_line()
+    + geom_point(data=ridge_best_result, size=3)
+    + scale_x_log10()
+    + labs(
+        x="Lambda",
+        y="Mean leave-one-out squared error",
+        title="Ridge cross-validation",
+    )
+    + theme_minimal()
+)
+```
+
+## Best Parameter
+
+```{python}
+#| echo: true
+#| eval: true
+
+ridge_mod_cv.alpha_
+```
+
+## Results
+
+```{python}
+#| echo: true
+#| eval: true
+
+ridge_mod = Ridge(alpha=ridge_mod_cv.alpha_)
+ridge_mod.fit(X_ridge_scaled, y_ridge)
+
+ridge_coefficients = ridge_mod.coef_ / ridge_scaler.scale_
+ridge_intercept = ridge_mod.intercept_ - np.sum(
+    ridge_mod.coef_ * ridge_scaler.mean_ / ridge_scaler.scale_
+)
+
+pd.Series(
+    [ridge_intercept, *ridge_coefficients],
+    index=["Intercept", *ridge_predictors],
+    name="coefficient",
+)
+```
+
+:::
+
+## Example - LASSO
+
+::: panel-tabset
+## Preparation
+
+```{python}
+#| echo: true
+#| eval: true
+
+lasso_predictors = [
+    "flipper_length_mm",
+    "bill_depth_mm",
+    "bill_length_mm",
+]
+X_lasso = penguins[lasso_predictors]
+y_lasso = penguins["body_mass_g"]
+
+lasso_scaler = StandardScaler()
+X_lasso_scaled = lasso_scaler.fit_transform(X_lasso)
+```
+
+## CV
+
+```{python}
+#| echo: true
+#| eval: true
+
+lasso_mod_cv = LassoCV(
+    alphas=lambdas,
+    cv=loo,
+    max_iter=100_000,
+    n_jobs=-1,
+)
+lasso_mod_cv.fit(X_lasso_scaled, y_lasso)
+
+lasso_cv_results = pd.DataFrame(
+    {
+        "lambda": lasso_mod_cv.alphas_,
+        "mean_cv_error": lasso_mod_cv.mse_path_.mean(axis=1),
+    }
+)
+lasso_best_result = lasso_cv_results.loc[
+    [lasso_cv_results["mean_cv_error"].idxmin()]
+]
+```
+
+## CV Plot
+
+```{python}
+#| echo: true
+#| eval: true
+
+(
+    ggplot(lasso_cv_results, aes(x="lambda", y="mean_cv_error"))
+    + geom_line()
+    + geom_point(data=lasso_best_result, size=3)
+    + scale_x_log10()
+    + labs(
+        x="Lambda",
+        y="Mean leave-one-out squared error",
+        title="LASSO cross-validation",
+    )
+    + theme_minimal()
+)
+```
+
+## Best Parameter
+
+```{python}
+#| echo: true
+#| eval: true
+
+lasso_mod_cv.alpha_
+```
+
+## Results
+
+```{python}
+#| echo: true
+#| eval: true
+
+lasso_mod = Lasso(
+    alpha=lasso_mod_cv.alpha_,
+    max_iter=100_000,
+)
+lasso_mod.fit(X_lasso_scaled, y_lasso)
+
+lasso_coefficients = lasso_mod.coef_ / lasso_scaler.scale_
+lasso_intercept = lasso_mod.intercept_ - np.sum(
+    lasso_mod.coef_ * lasso_scaler.mean_ / lasso_scaler.scale_
+)
+
+pd.Series(
+    [lasso_intercept, *lasso_coefficients],
+    index=["Intercept", *lasso_predictors],
+    name="coefficient",
+)
+```
+
+:::
+
+## Try with `mtcars`
+
+Complete a LASSO approach using `mtcars` to predict mpg from the remaining variables.
+
+# Bootstrap Methods
+
+## Bootstrap Methods
+
+Bootstrapping methods are used when we cannot theoretically compute the standard errors. Bootstrap methods are computationally intensive but will compute accurate standard errors.
+
+When all else fails, a bootstrap approach will compute accurate standard errors.
+
+## Bootstrap Algorithm
+
+1.  Draw a sample $X*$ of size $n$ with replacement from the original data $X$.
+    1.  $n$ is the size of the data
+2.  Compute the bootstrap replicate statistic $T* = g(X*)$, where $g(\cdot)$ is the function that computes the statistic of interest.
+3.  Repeat steps 1-2 $B$ times to obtain $B$ bootstrap replicates ${T*_1, T*_2, ..., T*_B}$.
+4.  The computed statistics from $B$ samples are the empirical bootstrap distribution of the statistic, $g(X)$.
+5.  Calculate the bootstrap standard error of the statistic, $se_b(g(X))$, as the standard deviation of the bootstrap replicates.
+6.  Calculate the bootstrap confidence interval for the statistic, $CI(g(X))$, with the $\alpha$ and $(1-\alpha)%$ percentiles of the bootstrap replicates, where $\alpha$ is the desired level of significance.
+
+## Examples
+
+Fitting the following model:
+
+```{python}
+#| echo: true
+#| eval: true
+
+bootstrap_predictors = [
+    "flipper_length_mm",
+    "bill_length_mm",
+    "bill_depth_mm",
+]
+X_bootstrap = sm.add_constant(
+    penguins[bootstrap_predictors],
+    has_constant="add",
+)
+y_bootstrap = penguins["body_mass_g"]
+
+bootstrap_model = sm.OLS(y_bootstrap, X_bootstrap).fit()
+bootstrap_model.params
+```
+
+Obtain the Bootstrap-based Standard Errors for the regression coefficients. Use $B=1000$ bootstrap samples.
+
+## Examples: Solution
+
+```{python}
+#| echo: true
+#| eval: true
+#| code-fold: true
+
+B = 1000
+rng = np.random.default_rng(12345)
+bootstrap_estimates = []
+
+for _ in range(B):
+    sample_positions = rng.integers(
+        low=0,
+        high=len(penguins),
+        size=len(penguins),
+    )
+    bootstrap_sample = penguins.iloc[sample_positions]
+
+    X_sample = sm.add_constant(
+        bootstrap_sample[bootstrap_predictors],
+        has_constant="add",
+    )
+    y_sample = bootstrap_sample["body_mass_g"]
+
+    fitted_sample = sm.OLS(y_sample, X_sample).fit()
+    bootstrap_estimates.append(fitted_sample.params)
+
+bootstrap_estimates = pd.DataFrame(bootstrap_estimates)
+
+bootstrap_results = pd.DataFrame(
+    {
+        "estimate": bootstrap_model.params,
+        "bootstrap_se": bootstrap_estimates.std(ddof=1),
+        "ci_lower": bootstrap_estimates.quantile(0.025),
+        "ci_upper": bootstrap_estimates.quantile(0.975),
+    }
+)
+
+bootstrap_results.round(3)
+```

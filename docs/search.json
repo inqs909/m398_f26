@@ -987,6 +987,13 @@
     "text": "Pruning\n\nCodeSummaryPlotPruning\n\n\n\n# Generate the cost-complexity pruning sequence for the fitted tree.\npruning_path = tree_penguin.cost_complexity_pruning_path(\n    X_regression_train,\n    y_regression_train,\n)\n\n# The final alpha produces a tree with only the root, so it is omitted.\ncandidate_alphas = np.unique(pruning_path.ccp_alphas[:-1])\n\npruning_results = []\n\nfor alpha in candidate_alphas:\n    candidate_tree = DecisionTreeRegressor(\n        criterion=\"squared_error\",\n        min_samples_split=10,\n        min_samples_leaf=5,\n        min_impurity_decrease=minimum_deviance,\n        ccp_alpha=float(alpha),\n        random_state=RANDOM_STATE,\n    )\n\n    fold_mse = -cross_val_score(\n        candidate_tree,\n        X_regression_train,\n        y_regression_train,\n        cv=cv,\n        scoring=\"neg_mean_squared_error\",\n    )\n\n    candidate_tree.fit(X_regression_train, y_regression_train)\n\n    pruning_results.append(\n        {\n            \"ccp_alpha\": float(alpha),\n            \"size\": candidate_tree.get_n_leaves(),\n            \"cv_mse\": fold_mse.mean(),\n            \"cv_mse_se\": fold_mse.std(ddof=1) / np.sqrt(len(fold_mse)),\n        }\n    )\n\nraw_pruning_results = pd.DataFrame(pruning_results)\n\n# If multiple alpha values produce the same tree size, retain the one with\n# the smallest cross-validated error for that size.\nbest_size_rows = raw_pruning_results.groupby(\"size\")[\"cv_mse\"].idxmin()\ntree_penguin_cv = (\n    raw_pruning_results.loc[best_size_rows]\n    .sort_values(\"size\")\n    .reset_index(drop=True)\n)\n\n\n\n\n\nShow code\ntree_penguin_cv.round(\n    {\n        \"ccp_alpha\": 2,\n        \"cv_mse\": 2,\n        \"cv_mse_se\": 2,\n    }\n)\n\n\n\n\n\n\n\n\n\nccp_alpha\nsize\ncv_mse\ncv_mse_se\n\n\n\n\n0\n45099.51\n2\n231753.73\n23080.31\n\n\n1\n25511.49\n3\n227697.96\n23214.53\n\n\n2\n15971.40\n4\n238199.06\n24518.91\n\n\n3\n13959.37\n5\n224460.39\n22758.08\n\n\n4\n7087.55\n6\n200352.90\n21357.88\n\n\n5\n6950.20\n7\n200352.90\n21357.88\n\n\n6\n0.00\n8\n205775.74\n22941.45\n\n\n\n\n\n\n\n\n\n\n\nShow code\n(\n    ggplot(tree_penguin_cv, aes(x=\"size\", y=\"cv_mse\"))\n    + geom_line()\n    + geom_point(size=2.5)\n    + scale_x_continuous(\n        breaks=sorted(tree_penguin_cv[\"size\"].unique())\n    )\n    + labs(\n        x=\"Number of terminal nodes\",\n        y=\"Cross-validated mean squared error\",\n        title=\"Cost-Complexity Pruning\",\n    )\n    + theme_bw()\n)\n\n\n\n\n\n\n\n\n\n\n\n\n# Match the original R example by selecting the alpha for a seven-leaf tree.\n# In these data, the seven-leaf tree also attains the minimum CV MSE.\nbest_row = tree_penguin_cv.loc[tree_penguin_cv[\"size\"].eq(7)].iloc[0]\nbest_alpha = float(best_row[\"ccp_alpha\"])\n\nprune_best = DecisionTreeRegressor(\n    criterion=\"squared_error\",\n    min_samples_split=10,\n    min_samples_leaf=5,\n    min_impurity_decrease=minimum_deviance,\n    ccp_alpha=best_alpha,\n    random_state=RANDOM_STATE,\n).fit(X_regression_train, y_regression_train)\n\nplt.figure(figsize=(12, 7))\nplot_tree(\n    prune_best,\n    feature_names=regression_features,\n    filled=True,\n    rounded=True,\n    precision=0,\n    fontsize=8,\n)\nplt.title(\n    f\"Pruned Regression Tree ({prune_best.get_n_leaves()} terminal nodes)\"\n)\nplt.tight_layout()\nplt.show()"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Advanced Research Investigation!",
+    "section": "",
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/"
+  },
+  {
     "objectID": "assignments/a9.html",
     "href": "assignments/a9.html",
     "title": "Assignment 9",
@@ -1232,11 +1239,95 @@
     "text": "Problem 2\nFrom the Applied Section in Chapter 7: Problem 9 a, b, c"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to Advanced Research Investigation!",
+    "objectID": "books.html",
+    "href": "books.html",
+    "title": "Books",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/"
+    "text": "A list of recommended books to learn more about Statistics, the majority are freely available from the Broome Library:"
+  },
+  {
+    "objectID": "books.html#basics",
+    "href": "books.html#basics",
+    "title": "Books",
+    "section": "Basics",
+    "text": "Basics\n\nIntroduction to Statistics and Data Analysis\n\nHeumann and Shalabh\n\nStatistical Foundations, Reasoning and Inference\n\nKauermann, Küchenhoff, and Heumann"
+  },
+  {
+    "objectID": "books.html#regression",
+    "href": "books.html#regression",
+    "title": "Books",
+    "section": "Regression",
+    "text": "Regression\n\nRegression Techniques for Data Analysis\n\nMike Nguyen\nGraduate-level\n\nGeneralized Linear Models With Examples in R\n\nDunn and Smyth\nGraduate\n\nLinear and Generalized Linear Mixed Models and Their Applications (2nd Edition)\n\nJiang and Nguyen\nGraudate\n\nRegression Modeling Strategies\n\nHarrell\nUndergraduate\n\nVector Generalized Linear and Additive Models\n\nYee\nGraduate"
+  },
+  {
+    "objectID": "books.html#nonparametric",
+    "href": "books.html#nonparametric",
+    "title": "Books",
+    "section": "Nonparametric",
+    "text": "Nonparametric\n\nSemiparametric Regression with R\n\nHarezlak, Ruppert, and Wand\nGraduate"
+  },
+  {
+    "objectID": "books.html#computational",
+    "href": "books.html#computational",
+    "title": "Books",
+    "section": "Computational",
+    "text": "Computational\n\nBootstrap Methods with applications in R\n\nDikta and Scheer\nGraduate\n\nModern Optimization with R (2nd Edition)\n\nCortez\nGraduate\n\nComputational Statistics\n\nGentle\n\nMonte Carlo and Quasi-Monte Carlo Sampling\n\nLemieux\n\nStatistics With Julia\n\nNazarathy andKlok\n\nIntroducing Monte Carlo Methods in R\n\nRobert and Casella\n\nPermutation Statistical Methods with R\n\nBerry, Kvamme, Johnston, and Mielke\n\nMonte Carlo Strategies in Scientific Computing\n\nLiu"
+  },
+  {
+    "objectID": "books.html#bayesian",
+    "href": "books.html#bayesian",
+    "title": "Books",
+    "section": "Bayesian",
+    "text": "Bayesian\n\nIntroduction to Bayesian Inference, Methods and Computation\n\nHeard\n\nApplied Bayesian Statistics\n\nCowles\n\nBayesian Statistical Modeling with Stan, R, and Python\n\nMatsuura\n\nBayesian Essentials in R\n\nMarin and Robert"
+  },
+  {
+    "objectID": "books.html#theoretical",
+    "href": "books.html#theoretical",
+    "title": "Books",
+    "section": "Theoretical",
+    "text": "Theoretical\n\nEssentials of Stochastic Processes (3rd Edition)\n\nDurrett\nGraduate\n\nA Concise Introduction to Measure Theory\n\nShirali\nGraduate\n\nLarge Sample Techniques for Statistics (2nd Edition)\n\nJiang\nGraduate\n\nA Course in Mathematical Statistics and Large Sample Theory\n\nBhattacharya, Lin, and Patrangenaru\nGraduate\n\nMixture and Hidden Markov Models with R\n\nVisser and Speekenbrink\nUndergraduate\n\nModern Mathematical Statistics (3rd Edition)\n\nDevore, Berk, and Carlton\nUndergraduate\n\nProbability Theory (3rd Edition)\n\nKlenke\nGraduate\n\nTesting Statistical Hypotheses (4th Edition)\n\nLehmann and Romano\nGraduate\n\nTheory of Point Estimation\n\nLehmann and Casella\nGraduate\nMay not be available"
+  },
+  {
+    "objectID": "books.html#longitudinal-data-analysis",
+    "href": "books.html#longitudinal-data-analysis",
+    "title": "Books",
+    "section": "Longitudinal Data Analysis",
+    "text": "Longitudinal Data Analysis\n\nLongitudinal Categorical Data Analysis\n\nSutradhar"
+  },
+  {
+    "objectID": "books.html#survival-analysis",
+    "href": "books.html#survival-analysis",
+    "title": "Books",
+    "section": "Survival Analysis",
+    "text": "Survival Analysis\n\nStatistical Modelling of Survival Data with Random Effects\n\nHa, Jeong, and Lee\n\nSurvival Analysis (3rd Edition)\n\nKleinbaum and Klein\n\nApplied Survival Analysis in R\n\nMoore\n\nBayesian Survival Analysis\n\nIbrahim, Chen, and Sinha\n\nSurvival Analysis Techniques for Censored and Truncated Data (2nd Edition)\n\nKlein and Moeschberger"
+  },
+  {
+    "objectID": "books.html#machine-learning",
+    "href": "books.html#machine-learning",
+    "title": "Books",
+    "section": "Machine Learning",
+    "text": "Machine Learning\n\nFundamental of High-Dimensional Statistics\n\nLederer\n\nAn Introduction to Statistical Learning (2nd Edition)\n\nJames, Witten, Hastie and Tibshirani\n\nStatistical Learning from a Regression Perspective (2nd Edition)\n\nBerk\n\nElements of Statistical Learning\n\nHastie, Friedman, and Tibshirani\n\nStatistics for High Dimensional Data\n\nBühlmann and van der Geer\n\nProbability and Statistics for Machine Learning\n\nDas Gupta"
+  },
+  {
+    "objectID": "books.html#time-series",
+    "href": "books.html#time-series",
+    "title": "Books",
+    "section": "Time-Series",
+    "text": "Time-Series\n\nIntroduction to Time Series and Forcasting (3rd Edition)\n\nBrockwell and Davis\n\nTime Series Analysis and Its Applications\n\nShumway and Stoffer\n\nTime Series Analysis for the State-Space Model with R/Stan\n\nHagiwara"
+  },
+  {
+    "objectID": "books.html#study-desing-and-causal-inference",
+    "href": "books.html#study-desing-and-causal-inference",
+    "title": "Books",
+    "section": "Study Desing and Causal Inference",
+    "text": "Study Desing and Causal Inference\n\nCausal Inference What IF\n\nHernán and Robins\n\nDesign of Observational Studies\n\nRosenbaum\n\n\nBolded Titles, I have read thoroughly."
+  },
+  {
+    "objectID": "lectures.html",
+    "href": "lectures.html",
+    "title": "Lectures",
+    "section": "",
+    "text": "Tree-Based Methods\n\n\n\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\n\n\nIntroduction to Statistical Learning\n\n\n\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\n\n\nRegularization\n\n\n\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/11a.html#learning-outcomes",

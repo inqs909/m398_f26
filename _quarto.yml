@@ -20,6 +20,7 @@ website:
   navbar:
     right:
       - syllabus.qmd
+      - lectures.qmd
       - books.qmd
   announcement:
     icon: exclamation-triangle

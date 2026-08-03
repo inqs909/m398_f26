@@ -19,9 +19,9 @@ editor_options:
 editor: source
 ---
 
+## Python Setup
+
 ```{python}
-#| label: setup
-#| include: false
 
 import warnings
 

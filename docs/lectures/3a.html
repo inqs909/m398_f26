@@ -212,13 +212,24 @@
 <li>Multivariable Linear Regression</li>
 </ul>
 </section>
+<section id="python-modules-functions-and-parameters" class="slide level2">
+<h2>Python Modules, Functions, and Parameters</h2>
+<div id="89d4697a" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-4"><a></a><span class="im">from</span> IPython.display <span class="im">import</span> display</span>
+<span id="cb1-5"><a></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-6"><a></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="scatter-plot" class="slide level2">
 <h2>Scatter Plot</h2>
-<div id="c37575d8" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="48522a33" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <figure>
-<p><img data-src="3a_files/figure-revealjs/cell-3-output-1.png" width="960" height="480"></p>
+<p><img data-src="3a_files/figure-revealjs/cell-4-output-1.png" width="960" height="480"></p>
 </figure>
 </div>
 </div>
@@ -235,11 +246,11 @@
 </section>
 <section id="scatter-plot-1" class="slide level2">
 <h2>Scatter Plot</h2>
-<div id="2148547c" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div id="deb6c18c" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure>
-<p><img data-src="3a_files/figure-revealjs/cell-4-output-1.png" width="960" height="480"></p>
+<p><img data-src="3a_files/figure-revealjs/cell-5-output-1.png" width="960" height="480"></p>
 </figure>
 </div>
 </div>
@@ -269,11 +280,11 @@ Y = \beta_0 + \beta_1 X + \epsilon
 <img data-src="img/6b1.gif" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="process-1" class="slide level2">
 <h2>Process</h2>
-<div id="9b525540" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div id="1502c7b2" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <figure>
-<p><img data-src="3a_files/figure-revealjs/cell-5-output-1.png" width="960" height="480"></p>
+<p><img data-src="3a_files/figure-revealjs/cell-6-output-1.png" width="960" height="480"></p>
 </figure>
 </div>
 </div>
@@ -287,19 +298,7 @@ RSS = \sum^n_{i=1}(Y_i-\hat Y_i)^2
 </section>
 <section id="searching" class="slide level2">
 <h2>Searching</h2>
-<div id="9fb0ebd8" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="5">
-<div>
-<figure>
-<p><img data-src="3a_files/figure-revealjs/cell-6-output-1.png" width="960" height="480"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="searching-1" class="slide level2">
-<h2>Searching</h2>
-<div id="c315538a" class="cell" data-execution_count="6">
+<div id="b400a540" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <figure>
@@ -309,9 +308,9 @@ RSS = \sum^n_{i=1}(Y_i-\hat Y_i)^2
 </div>
 </div>
 </section>
-<section id="searching-2" class="slide level2">
+<section id="searching-1" class="slide level2">
 <h2>Searching</h2>
-<div id="5db78149" class="cell" data-execution_count="7">
+<div id="e4248c10" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure>
@@ -321,9 +320,9 @@ RSS = \sum^n_{i=1}(Y_i-\hat Y_i)^2
 </div>
 </div>
 </section>
-<section id="searching-3" class="slide level2">
+<section id="searching-2" class="slide level2">
 <h2>Searching</h2>
-<div id="bce0443b" class="cell" data-execution_count="8">
+<div id="1263bdfa" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <figure>
@@ -333,13 +332,25 @@ RSS = \sum^n_{i=1}(Y_i-\hat Y_i)^2
 </div>
 </div>
 </section>
-<section id="final" class="slide level2">
-<h2>Final</h2>
-<div id="03682d6f" class="cell" data-execution_count="9">
+<section id="searching-3" class="slide level2">
+<h2>Searching</h2>
+<div id="aca9aaf3" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 <figure>
 <p><img data-src="3a_files/figure-revealjs/cell-10-output-1.png" width="960" height="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="final" class="slide level2">
+<h2>Final</h2>
+<div id="dbe3d334" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="10">
+<div>
+<figure>
+<p><img data-src="3a_files/figure-revealjs/cell-11-output-1.png" width="960" height="480"></p>
 </figure>
 </div>
 </div>
@@ -353,8 +364,8 @@ RSS = \sum^n_{i=1}(Y_i-\hat Y_i)^2
 <section id="generate-x-values" class="slide level2">
 <h2>Generate X Values</h2>
 <p>Simulate 250 independent values (x) from <span class="math inline">\(N(3, 1)\)</span> and plot a histogram</p>
-<div id="1a15fc97" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a>x <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">250</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5afba3fe" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>x <span class="op">=</span> np.random.normal(loc<span class="op">=</span><span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">250</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="generate-y-values" class="slide level2">
@@ -391,29 +402,29 @@ Y_i = 3 X_i + 20 + \epsilon_i
 </section>
 <section id="python-code-of-simulation-study" class="slide level2">
 <h2>Python Code of Simulation Study</h2>
-<div id="c8208418" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># Generating seends</span></span>
-<span id="cb2-2"><a></a>simulation_seeds <span class="op">=</span> np.arange(<span class="dv">1_000</span>) <span class="op">+</span> RANDOM_SEED</span>
-<span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a></span>
-<span id="cb2-5"><a></a><span class="co"># Simulation study</span></span>
-<span id="cb2-6"><a></a><span class="kw">def</span> simulate_coefficients(seed):</span>
-<span id="cb2-7"><a></a>    local_rng <span class="op">=</span> np.random.default_rng(seed)</span>
-<span id="cb2-8"><a></a>    x <span class="op">=</span> local_rng.normal(loc<span class="op">=</span><span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">250</span>)</span>
-<span id="cb2-9"><a></a>    expected_y <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">20</span></span>
-<span id="cb2-10"><a></a>    error <span class="op">=</span> local_rng.normal(loc<span class="op">=</span><span class="dv">0</span>, scale<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="dv">250</span>)</span>
-<span id="cb2-11"><a></a>    y <span class="op">=</span> expected_y <span class="op">+</span> error</span>
-<span id="cb2-12"><a></a></span>
-<span id="cb2-13"><a></a>    simulated_data <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: x, <span class="st">"y"</span>: y})</span>
-<span id="cb2-14"><a></a>    result <span class="op">=</span> smf.ols(<span class="st">"y ~ x"</span>, data<span class="op">=</span>simulated_data).fit()</span>
-<span id="cb2-15"><a></a>    <span class="cf">return</span> result.params</span>
-<span id="cb2-16"><a></a></span>
-<span id="cb2-17"><a></a></span>
-<span id="cb2-18"><a></a>sim_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb2-19"><a></a>    [simulate_coefficients(seed) <span class="cf">for</span> seed <span class="kw">in</span> simulation_seeds]</span>
-<span id="cb2-20"><a></a>)</span>
-<span id="cb2-21"><a></a>sim_results.mean().rename(<span class="st">"mean_estimate"</span>).to_frame()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="ff0d39dc" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># Generating seends</span></span>
+<span id="cb3-2"><a></a>simulation_seeds <span class="op">=</span> np.arange(<span class="dv">1_000</span>) <span class="op">+</span> RANDOM_SEED</span>
+<span id="cb3-3"><a></a></span>
+<span id="cb3-4"><a></a></span>
+<span id="cb3-5"><a></a><span class="co"># Simulation study</span></span>
+<span id="cb3-6"><a></a><span class="kw">def</span> simulate_coefficients(seed):</span>
+<span id="cb3-7"><a></a>    local_rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb3-8"><a></a>    x <span class="op">=</span> local_rng.normal(loc<span class="op">=</span><span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb3-9"><a></a>    expected_y <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">20</span></span>
+<span id="cb3-10"><a></a>    error <span class="op">=</span> local_rng.normal(loc<span class="op">=</span><span class="dv">0</span>, scale<span class="op">=</span><span class="dv">2</span>, size<span class="op">=</span><span class="dv">250</span>)</span>
+<span id="cb3-11"><a></a>    y <span class="op">=</span> expected_y <span class="op">+</span> error</span>
+<span id="cb3-12"><a></a></span>
+<span id="cb3-13"><a></a>    simulated_data <span class="op">=</span> pd.DataFrame({<span class="st">"x"</span>: x, <span class="st">"y"</span>: y})</span>
+<span id="cb3-14"><a></a>    result <span class="op">=</span> smf.ols(<span class="st">"y ~ x"</span>, data<span class="op">=</span>simulated_data).fit()</span>
+<span id="cb3-15"><a></a>    <span class="cf">return</span> result.params</span>
+<span id="cb3-16"><a></a></span>
+<span id="cb3-17"><a></a></span>
+<span id="cb3-18"><a></a>sim_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb3-19"><a></a>    [simulate_coefficients(seed) <span class="cf">for</span> seed <span class="kw">in</span> simulation_seeds]</span>
+<span id="cb3-20"><a></a>)</span>
+<span id="cb3-21"><a></a>sim_results.mean().rename(<span class="st">"mean_estimate"</span>).to_frame()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -469,14 +480,14 @@ Y_i = 3 X_i + 20 + \epsilon_i
 <section id="example" class="slide level2">
 <h2>Example</h2>
 <p>Using the Palmer Penguins data, fit a model with <code>body_mass_g</code> as the outcome and <code>flipper_length_mm</code> and <code>bill_length_mm</code> as predictors.</p>
-<div id="e264c4d0" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>continuous_model <span class="op">=</span> smf.ols(</span>
-<span id="cb3-2"><a></a>    <span class="st">"body_mass_g ~ flipper_length_mm + bill_length_mm"</span>,</span>
-<span id="cb3-3"><a></a>    data<span class="op">=</span>penguins_continuous,</span>
-<span id="cb3-4"><a></a>).fit()</span>
-<span id="cb3-5"><a></a></span>
-<span id="cb3-6"><a></a>continuous_model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div id="28ab5778" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>continuous_model <span class="op">=</span> smf.ols(</span>
+<span id="cb4-2"><a></a>    <span class="st">"body_mass_g ~ flipper_length_mm + bill_length_mm"</span>,</span>
+<span id="cb4-3"><a></a>    data<span class="op">=</span>penguins_continuous,</span>
+<span id="cb4-4"><a></a>).fit()</span>
+<span id="cb4-5"><a></a></span>
+<span id="cb4-6"><a></a>continuous_model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <table class="simpletable caption-top">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -500,13 +511,13 @@ Y_i = 3 X_i + 20 + \epsilon_i
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Mon, 27 Jul 2026</td>
+<td>Sun, 02 Aug 2026</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>9.09e-106</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>16:38:49</td>
+<td>21:50:55</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-2527.7</td>
 </tr>
@@ -614,8 +625,8 @@ Y_i = 3 X_i + 20 + \epsilon_i
 </section>
 <section id="interpretation" class="slide level2">
 <h2>Interpretation</h2>
-<div id="61c2810d" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div id="15e2e0bd" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <table class="simpletable caption-top">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -639,13 +650,13 @@ Y_i = 3 X_i + 20 + \epsilon_i
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Mon, 27 Jul 2026</td>
+<td>Sun, 02 Aug 2026</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>9.09e-106</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>16:38:49</td>
+<td>21:50:56</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-2527.7</td>
 </tr>
@@ -801,14 +812,14 @@ Y_i = 3 X_i + 20 + \epsilon_i
 <section id="fitting-a-model-with-categorical-variables-1" class="slide level2">
 <h2>Fitting a model with categorical variables</h2>
 <p>Using the Palmer Penguins data, fit a model with <code>body_mass_g</code> as the outcome and <code>flipper_length_mm</code> and <code>island</code> as predictors.</p>
-<div id="816610c6" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>categorical_model <span class="op">=</span> smf.ols(</span>
-<span id="cb4-2"><a></a>    <span class="st">"body_mass_g ~ flipper_length_mm + C(island)"</span>,</span>
-<span id="cb4-3"><a></a>    data<span class="op">=</span>penguins_categorical,</span>
-<span id="cb4-4"><a></a>).fit()</span>
-<span id="cb4-5"><a></a></span>
-<span id="cb4-6"><a></a>categorical_model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div id="f5ee2d6f" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>categorical_model <span class="op">=</span> smf.ols(</span>
+<span id="cb5-2"><a></a>    <span class="st">"body_mass_g ~ flipper_length_mm + C(island)"</span>,</span>
+<span id="cb5-3"><a></a>    data<span class="op">=</span>penguins_categorical,</span>
+<span id="cb5-4"><a></a>).fit()</span>
+<span id="cb5-5"><a></a></span>
+<span id="cb5-6"><a></a>categorical_model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
 <table class="simpletable caption-top">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -832,13 +843,13 @@ Y_i = 3 X_i + 20 + \epsilon_i
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Mon, 27 Jul 2026</td>
+<td>Sun, 02 Aug 2026</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>7.60e-109</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>16:38:49</td>
+<td>21:50:56</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-2517.3</td>
 </tr>
@@ -967,18 +978,18 @@ Y_i = 3 X_i + 20 + \epsilon_i
 <li><p><span class="math inline">\(X_2\sim N(-4,1)\)</span></p></li>
 <li><p><span class="math inline">\(\epsilon\sim N(0, 2)\)</span></p></li>
 </ul>
-<div id="4132aa2b" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># The executed data are created in the setup chunk.</span></span>
-<span id="cb5-2"><a></a><span class="co"># Equivalent Python generation code:</span></span>
-<span id="cb5-3"><a></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">911</span>)</span>
-<span id="cb5-4"><a></a>x1 <span class="op">=</span> rng.normal(loc<span class="op">=</span><span class="dv">2</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1_000</span>)</span>
-<span id="cb5-5"><a></a>x2 <span class="op">=</span> rng.normal(loc<span class="op">=-</span><span class="dv">4</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1_000</span>)</span>
-<span id="cb5-6"><a></a>y <span class="op">=</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> x1 <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> x2 <span class="op">+</span> rng.normal(</span>
-<span id="cb5-7"><a></a>    loc<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb5-8"><a></a>    scale<span class="op">=</span>np.sqrt(<span class="dv">2</span>),</span>
-<span id="cb5-9"><a></a>    size<span class="op">=</span><span class="dv">1_000</span>,</span>
-<span id="cb5-10"><a></a>)</span>
-<span id="cb5-11"><a></a>mlr_simulation <span class="op">=</span> pd.DataFrame({<span class="st">"x1"</span>: x1, <span class="st">"x2"</span>: x2, <span class="st">"y"</span>: y})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c4bda922" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a><span class="co"># The executed data are created in the setup chunk.</span></span>
+<span id="cb6-2"><a></a><span class="co"># Equivalent Python generation code:</span></span>
+<span id="cb6-3"><a></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">911</span>)</span>
+<span id="cb6-4"><a></a>x1 <span class="op">=</span> rng.normal(loc<span class="op">=</span><span class="dv">2</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1_000</span>)</span>
+<span id="cb6-5"><a></a>x2 <span class="op">=</span> rng.normal(loc<span class="op">=-</span><span class="dv">4</span>, scale<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span><span class="dv">1_000</span>)</span>
+<span id="cb6-6"><a></a>y <span class="op">=</span> <span class="dv">3</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> x1 <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> x2 <span class="op">+</span> rng.normal(</span>
+<span id="cb6-7"><a></a>    loc<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb6-8"><a></a>    scale<span class="op">=</span>np.sqrt(<span class="dv">2</span>),</span>
+<span id="cb6-9"><a></a>    size<span class="op">=</span><span class="dv">1_000</span>,</span>
+<span id="cb6-10"><a></a>)</span>
+<span id="cb6-11"><a></a>mlr_simulation <span class="op">=</span> pd.DataFrame({<span class="st">"x1"</span>: x1, <span class="st">"x2"</span>: x2, <span class="st">"y"</span>: y})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fit-model" class="slide level2">
@@ -993,10 +1004,10 @@ Y_i = 3 X_i + 20 + \epsilon_i
 <section id="mlr-model" class="slide level2">
 <h2>MLR Model</h2>
 <p>Instead of fitting a simple linear regression model. Fit a model that will include predictor <span class="math inline">\(X_2\)</span>. This can be done by adding <span class="math inline">\(X_2\)</span> in Python:</p>
-<div id="bed883c6" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>mlr_model <span class="op">=</span> smf.ols(<span class="st">"y ~ x1 + x2"</span>, data<span class="op">=</span>mlr_simulation).fit()</span>
-<span id="cb6-2"><a></a>mlr_model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="a0f7143b" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>mlr_model <span class="op">=</span> smf.ols(<span class="st">"y ~ x1 + x2"</span>, data<span class="op">=</span>mlr_simulation).fit()</span>
+<span id="cb7-2"><a></a>mlr_model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
 <table class="simpletable caption-top">
 <caption>OLS Regression Results</caption>
 <tbody>
@@ -1020,13 +1031,13 @@ Y_i = 3 X_i + 20 + \epsilon_i
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Mon, 27 Jul 2026</td>
+<td>Sun, 02 Aug 2026</td>
 <th data-quarto-table-cell-role="th">Prob (F-statistic):</th>
 <td>0.00</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>16:38:49</td>
+<td>21:50:56</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-1792.1</td>
 </tr>

@@ -20,9 +20,9 @@ execute:
 editor: source
 ---
 
+## Python Setup
+
 ```{python}
-#| label: setup
-#| include: false
 
 import pandas as pd
 from plotnine import (

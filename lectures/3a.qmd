@@ -87,6 +87,20 @@ theme_set(theme_bw())
 -   Multivariable Linear Regression
 
 
+## Python Modules, Functions, and Parameters
+
+
+```{python}
+#| echo: true
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+from IPython.display import display
+from plotnine import *
+from plotnine.data import penguins as penguins_data
+
+```
+
 ## Scatter Plot
 
 ```{python}

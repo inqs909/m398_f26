@@ -1,0 +1,33 @@
+---
+title: "Homework 2"
+date: 2/7/24
+editor: source
+jupyter: python3
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+    code-line-numbers: true
+    embed-resources: true
+draft: true
+---
+
+
+### Rubric
+
+### Rubric: Report
+
+| Criteria | Exemplary — 5 | Excellent — 4 | Proficient — 3 | Developing — 2 | Beginning — 1 |
+|---|---|---|---|---|---|
+| **Correct Use of a Mathematical or Machine Learning Model** | Selects the most appropriate model for the problem and applies it correctly and efficiently. Clearly justifies model selection, assumptions, variables, parameters, and methods. Model implementation and calculations are accurate and demonstrate a strong understanding of the modeling process. | Selects an appropriate model and applies it correctly. Assumptions, variables, parameters, and methods are appropriate and clearly justified. Model implementation and calculations are accurate. | Selects an appropriate model and applies it mostly correctly. Most assumptions and variables are appropriate, with only minor errors or missing justification. | Uses a partially appropriate model, but there are noticeable errors in model selection, assumptions, implementation, or calculations. | Uses an inappropriate model or applies the model incorrectly. Major errors prevent the model from adequately addressing the problem. |
+| **Communication and Presentation of Results** | Results are presented clearly, accurately, and professionally using well-designed tables, graphs, figures, metrics, or other visualizations. Results are thoroughly interpreted in the context of the original problem, with thoughtful discussion of uncertainty, limitations, and practical implications. | Results are presented clearly and accurately. Tables, graphs, figures, metrics, or other visualizations are appropriate and correctly labeled. Results are interpreted in the context of the original problem, including relevant limitations or uncertainty. | Results are presented accurately and are generally easy to understand. Visualizations and metrics are appropriate, with minor issues in labeling, interpretation, or discussion of limitations. | Results are presented but may be difficult to interpret. Visualizations, metrics, or explanations have noticeable errors or lack sufficient connection to the original problem. | Results are incomplete, inaccurate, or poorly presented. Visualizations or metrics are missing or misleading, and little or no interpretation is provided. |
+
+### Rubric: Poster Presentation
+
+| Criteria | Exemplary — 5 | Excellent — 4 | Proficient — 3 | Developing — 2 | Beginning — 1 |
+|---|---|---|---|---|---|
+| **Organization of the Poster** | Poster is exceptionally well organized, visually balanced, and easy to follow. Sections are clearly labeled and arranged in a logical sequence. Text, figures, tables, and graphics effectively support the main ideas without overcrowding the poster. | Poster is well organized and easy to follow. Sections are clearly labeled and arranged logically. Visual elements support the content, with only minor issues in spacing, balance, or readability. | Poster has an understandable organization and includes the necessary sections. Most information is easy to locate, though some areas may be crowded, unclear, or inconsistently formatted. | Poster organization is inconsistent or difficult to follow. Important sections may be unclear, poorly arranged, or difficult to identify. Visual elements or text may be overcrowded or distracting. | Poster lacks a clear organizational structure. Sections are missing or difficult to identify, and the layout makes the content difficult to understand. |
+| **Presentation** | Presenter communicates clearly, confidently, and professionally. Provides a concise and engaging explanation of the poster, demonstrates strong knowledge of the topic, maintains appropriate audience engagement, and responds accurately and thoughtfully to questions. | Presenter communicates clearly and professionally. Demonstrates strong knowledge of the topic and explains the main points effectively. Responds appropriately to most questions and maintains good audience engagement. | Presenter adequately explains the poster and demonstrates a general understanding of the topic. Communication is mostly clear, although some information may lack detail or confidence. Responses to questions are generally adequate. | Presenter provides a limited or unclear explanation of the poster. Demonstrates partial understanding of the topic, relies heavily on reading from the poster, or has difficulty responding to questions. | Presenter is unable to clearly explain the poster or demonstrate sufficient understanding of the topic. Presentation is difficult to follow, and questions are not adequately addressed. |
+

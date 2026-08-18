@@ -83,22 +83,19 @@ editor: source
 
 ## The Final Project
 
-The final project is designed for you to demonstrate your understanding of neural networks. 
+The final project is designed for you to demonstrate your understanding of machine learning. 
 
 ## You may ...
 
-Build a neural network related to any data you are interested in to predict an outcome.
+Build a machine learning model related to any data you are interested in predicting the outcome.
 
 ## You may ...
 
-Use existing neural networks for classification, transcription or any other purpose.
+Use existing machine learning models for classification, transcription or any other purpose.
 
 ## You may ...
 
-Explore advance topics related to neural networks, such as
-
-- Physics-informend Neural Networks
-- Graph Neural Networks
+Explore advance topics related to machine learning.
 
 ## For each project
 
@@ -110,11 +107,11 @@ You will need to describe
 - A working example
 - Model Diagnostics
 
-## Final Presentation and Report
+## Final Poster Presentation and Report
 
-You will demonstrate your results in a 10 minute during Week 15 or Finals Week.
+You will demonstrate your results during a poster presentation on December 8, 2026.
 
-You written report will be due by the end of final's week.
+You written report will be due by the end week 15.
 
 More information will be provided on a later date.
 

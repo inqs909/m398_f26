@@ -6,8 +6,12 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/jquery-3.6.3/jquery-3.6.3.min.js"></script>
+<script src="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.js" defer="true"></script>
+<link href="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <title>MATH 398 – Introduction to Statistical Learning</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,10 +23,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -97,10 +104,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/verticator/verticator.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -212,20 +221,20 @@
 </section>
 <section id="python-modules-functions-and-parameters" class="slide level2">
 <h2>Python Modules, Functions, and Parameters</h2>
-<div id="7361fb76" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-4"><a></a><span class="im">from</span> pygam <span class="im">import</span> LinearGAM, s, l</span>
-<span id="cb1-5"><a></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb1-6"><a></a><span class="im">from</span> statsmodels.gam.api <span class="im">import</span> GLMGam, BSplines</span>
-<span id="cb1-7"><a></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
-<span id="cb1-8"><a></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
-<span id="cb1-9"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb1-10"><a></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
-<span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a></span>
-<span id="cb1-13"><a></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">909</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="37c3b662" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-4"><a aria-label="4"></a><span class="im">from</span> pygam <span class="im">import</span> LinearGAM, s, l</span>
+<span id="cb1-5"><a aria-label="5"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-6"><a aria-label="6"></a><span class="im">from</span> statsmodels.gam.api <span class="im">import</span> GLMGam, BSplines</span>
+<span id="cb1-7"><a aria-label="7"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb1-8"><a aria-label="8"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb1-9"><a aria-label="9"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb1-10"><a aria-label="10"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb1-11"><a aria-label="11"></a></span>
+<span id="cb1-12"><a aria-label="12"></a></span>
+<span id="cb1-13"><a aria-label="13"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">909</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="book" class="slide level2">
@@ -233,9 +242,24 @@
 
 <img data-src="https://images.squarespace-cdn.com/content/v1/5ff2adbe3fe4fe33db902812/1611294680091-25SIDM9AHA8ECIFFST23/Screen+Shot+2021-01-21+at+11.02.06+AM.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section>
-<section id="introduction-to-statistical-learning" class="title-slide slide level1 center">
+<section id="introduction-to-statistical-learning" class="title-slide slide level1 agenda-slide center">
 <h1>Introduction to Statistical Learning</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-active">
+<p>Introduction to Statistical Learning</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Classification vs Regression</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Supervised vs Unsupervised Machine Learning</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Model Adequacy</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="introduction-to-statistical-learning-1" class="slide level2">
 <h2>Introduction to Statistical Learning</h2>
@@ -246,7 +270,7 @@
 </section>
 <section id="motivating-example" class="slide level2">
 <h2>Motivating Example</h2>
-<div id="e8651925" class="cell" data-execution_count="2">
+<div id="09b03064" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <figure>
@@ -300,9 +324,24 @@ Y = f(\boldsymbol X) + \varepsilon
 </ul>
 </section></section>
 <section>
-<section id="classification-vs-regression" class="title-slide slide level1 center">
+<section id="classification-vs-regression" class="title-slide slide level1 agenda-slide center">
 <h1>Classification vs Regression</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Introduction to Statistical Learning</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Classification vs Regression</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Supervised vs Unsupervised Machine Learning</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Model Adequacy</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="regression" class="slide level2">
 <h2>Regression</h2>
@@ -317,7 +356,7 @@ Y = f(\boldsymbol X) + \varepsilon
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Scatter Plot</a></li><li><a href="#tabset-1-2">Regression</a></li><li><a href="#tabset-1-3">GAM</a></li><li><a href="#tabset-1-4">Combined</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="18f7f391" class="cell" data-execution_count="4">
+<div id="4ca2d940" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure>
@@ -328,7 +367,7 @@ Y = f(\boldsymbol X) + \varepsilon
 </div>
 </div>
 <div id="tabset-1-2">
-<div id="9b79f2f0" class="cell" data-execution_count="5">
+<div id="ab2bb23b" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <figure>
@@ -339,7 +378,7 @@ Y = f(\boldsymbol X) + \varepsilon
 </div>
 </div>
 <div id="tabset-1-3">
-<div id="49378951" class="cell" data-execution_count="6">
+<div id="88c2c4a6" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <figure>
@@ -350,7 +389,7 @@ Y = f(\boldsymbol X) + \varepsilon
 </div>
 </div>
 <div id="tabset-1-4">
-<div id="decf6a50" class="cell" data-execution_count="7">
+<div id="070dd203" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure>
@@ -376,7 +415,7 @@ Y = f(\boldsymbol X) + \varepsilon
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Data</a></li><li><a href="#tabset-2-2">KNN</a></li><li><a href="#tabset-2-3">SVM</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div id="d3581c64" class="cell" data-execution_count="8">
+<div id="76bf275e" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <figure>
@@ -387,7 +426,7 @@ Y = f(\boldsymbol X) + \varepsilon
 </div>
 </div>
 <div id="tabset-2-2">
-<div id="8ead180a" class="cell" data-execution_count="9">
+<div id="43f23883" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-stdout">
 <pre><code>Predicted   setosa  versicolor  virginica
 Actual                                   
@@ -398,7 +437,7 @@ virginica        0           2         18</code></pre>
 </div>
 </div>
 <div id="tabset-2-3">
-<div id="55cce97d" class="cell" data-execution_count="10">
+<div id="c87cfb63" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Actual      setosa  versicolor  virginica
 Predicted                                
@@ -412,9 +451,24 @@ virginica        0           2         48</code></pre>
 </div>
 </section></section>
 <section>
-<section id="supervised-vs-unsupervised-machine-learning" class="title-slide slide level1 center">
+<section id="supervised-vs-unsupervised-machine-learning" class="title-slide slide level1 agenda-slide center">
 <h1>Supervised vs Unsupervised Machine Learning</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Introduction to Statistical Learning</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Classification vs Regression</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Supervised vs Unsupervised Machine Learning</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Model Adequacy</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="machine-learning" class="slide level2">
 <h2>Machine Learning</h2>
@@ -444,9 +498,24 @@ virginica        0           2         48</code></pre>
 <p>Unsupervised Machine Learning techniques are techniques where the training data <strong>does not</strong> contains the outcome.</p>
 </section></section>
 <section>
-<section id="model-adequacy" class="title-slide slide level1 center">
+<section id="model-adequacy" class="title-slide slide level1 agenda-slide center">
 <h1>Model Adequacy</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Introduction to Statistical Learning</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Classification vs Regression</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Supervised vs Unsupervised Machine Learning</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Model Adequacy</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="quality-of-fit-regression" class="slide level2">
 <h2>Quality of Fit: Regression</h2>
@@ -471,7 +540,7 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
 </section>
 <section id="example-2" class="slide level2">
 <h2>Example</h2>
-<div id="b9cfccd7" class="cell" data-execution_count="11">
+<div id="814d4f09" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 <figure>
@@ -483,7 +552,7 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
 </section>
 <section id="using-a-line" class="slide level2">
 <h2>Using a Line</h2>
-<div id="7029e7ea" class="cell" data-execution_count="12">
+<div id="b0f88c7f" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 <figure>
@@ -495,7 +564,7 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
 </section>
 <section id="using-a-highly-fleible-model" class="slide level2">
 <h2>Using a Highly Fleible Model</h2>
-<div id="ce4ce467" class="cell" data-execution_count="13">
+<div id="d40701a2" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 <figure>
@@ -507,7 +576,7 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
 </section>
 <section id="semi-flexible" class="slide level2">
 <h2>Semi-Flexible</h2>
-<div id="697bd923" class="cell" data-execution_count="14">
+<div id="61914cf6" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 <figure>
@@ -519,7 +588,7 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
 </section>
 <section id="all" class="slide level2">
 <h2>All</h2>
-<div id="e5d15fda" class="cell" data-execution_count="15">
+<div id="24feb901" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 <figure>
@@ -545,6 +614,8 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
+  <script src="../site_libs/revealjs/plugin/verticator/verticator.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -567,6 +638,8 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
+'verticator': {"themetag":"h1","color":"","inversecolor":"","skipuncounted":false,"clickable":true,"position":"auto","offset":"3vmin","autogenerate":true,"tooltip":false,"scale":1,"debug":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -737,7 +810,7 @@ E(MSE) = E\left\{y-\hat f(x)\right\}^2 = Var\left\{\hat f(x)\right\} + Bias\left
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealPointer, Verticator, QuartoSupport,
 
           RevealMath,
           RevealNotes,

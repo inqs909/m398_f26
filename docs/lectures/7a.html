@@ -6,8 +6,12 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/jquery-3.6.3/jquery-3.6.3.min.js"></script>
+<script src="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.js" defer="true"></script>
+<link href="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <title>MATH 398 – Resampling Methods</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,10 +23,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -97,12 +104,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/verticator/verticator.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -209,30 +216,30 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="106ad67f" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb1-4"><a></a><span class="im">from</span> plotnine <span class="im">import</span> (</span>
-<span id="cb1-5"><a></a>    aes,</span>
-<span id="cb1-6"><a></a>    geom_line,</span>
-<span id="cb1-7"><a></a>    geom_point,</span>
-<span id="cb1-8"><a></a>    ggplot,</span>
-<span id="cb1-9"><a></a>    labs,</span>
-<span id="cb1-10"><a></a>    scale_x_log10,</span>
-<span id="cb1-11"><a></a>    theme_minimal,</span>
-<span id="cb1-12"><a></a>)</span>
-<span id="cb1-13"><a></a><span class="im">from</span> plotnine.data <span class="im">import</span> mtcars <span class="im">as</span> mtcars_raw</span>
-<span id="cb1-14"><a></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_raw</span>
-<span id="cb1-15"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, LassoCV, Ridge, RidgeCV</span>
-<span id="cb1-16"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> LeaveOneOut</span>
-<span id="cb1-17"><a></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb1-18"><a></a></span>
-<span id="cb1-19"><a></a>penguins <span class="op">=</span> penguins_raw.dropna().copy()</span>
-<span id="cb1-20"><a></a>mtcars <span class="op">=</span> mtcars_raw.copy()</span>
-<span id="cb1-21"><a></a></span>
-<span id="cb1-22"><a></a>lambdas <span class="op">=</span> np.geomspace(<span class="dv">1</span>, <span class="dv">1000</span>, <span class="dv">200</span>)</span>
-<span id="cb1-23"><a></a>loo <span class="op">=</span> LeaveOneOut()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0b9430b5" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-4"><a aria-label="4"></a><span class="im">from</span> plotnine <span class="im">import</span> (</span>
+<span id="cb1-5"><a aria-label="5"></a>    aes,</span>
+<span id="cb1-6"><a aria-label="6"></a>    geom_line,</span>
+<span id="cb1-7"><a aria-label="7"></a>    geom_point,</span>
+<span id="cb1-8"><a aria-label="8"></a>    ggplot,</span>
+<span id="cb1-9"><a aria-label="9"></a>    labs,</span>
+<span id="cb1-10"><a aria-label="10"></a>    scale_x_log10,</span>
+<span id="cb1-11"><a aria-label="11"></a>    theme_minimal,</span>
+<span id="cb1-12"><a aria-label="12"></a>)</span>
+<span id="cb1-13"><a aria-label="13"></a><span class="im">from</span> plotnine.data <span class="im">import</span> mtcars <span class="im">as</span> mtcars_raw</span>
+<span id="cb1-14"><a aria-label="14"></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_raw</span>
+<span id="cb1-15"><a aria-label="15"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, LassoCV, Ridge, RidgeCV</span>
+<span id="cb1-16"><a aria-label="16"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> LeaveOneOut</span>
+<span id="cb1-17"><a aria-label="17"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-18"><a aria-label="18"></a></span>
+<span id="cb1-19"><a aria-label="19"></a>penguins <span class="op">=</span> penguins_raw.dropna().copy()</span>
+<span id="cb1-20"><a aria-label="20"></a>mtcars <span class="op">=</span> mtcars_raw.copy()</span>
+<span id="cb1-21"><a aria-label="21"></a></span>
+<span id="cb1-22"><a aria-label="22"></a>lambdas <span class="op">=</span> np.geomspace(<span class="dv">1</span>, <span class="dv">1000</span>, <span class="dv">200</span>)</span>
+<span id="cb1-23"><a aria-label="23"></a>loo <span class="op">=</span> LeaveOneOut()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="learning-outcomes" class="slide level2">
@@ -265,9 +272,18 @@
 </div>
 </section>
 <section>
-<section id="cross-validation" class="title-slide slide level1 center">
+<section id="cross-validation" class="title-slide slide level1 agenda-slide center">
 <h1>Cross-Validation</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-active">
+<p>Cross-Validation</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Bootstrap Methods</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="cross-validation-1" class="slide level2">
 <h2>Cross-Validation</h2>
@@ -319,13 +335,13 @@
 </section>
 <section id="cv-in-scikit-learn" class="slide level2">
 <h2>CV in <code>scikit-learn</code></h2>
-<div id="015afe83" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>cv_model <span class="op">=</span> RidgeCV(</span>
-<span id="cb2-2"><a></a>    alphas<span class="op">=</span>lambdas,          <span class="co"># Candidate penalty values</span></span>
-<span id="cb2-3"><a></a>    cv<span class="op">=</span><span class="va">None</span>,                 <span class="co"># Efficient leave-one-out CV for ridge</span></span>
-<span id="cb2-4"><a></a>    store_cv_results<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-5"><a></a>)</span>
-<span id="cb2-6"><a></a>cv_model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6ccb81f9" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>cv_model <span class="op">=</span> RidgeCV(</span>
+<span id="cb2-2"><a aria-label="2"></a>    alphas<span class="op">=</span>lambdas,          <span class="co"># Candidate penalty values</span></span>
+<span id="cb2-3"><a aria-label="3"></a>    cv<span class="op">=</span><span class="va">None</span>,                 <span class="co"># Efficient leave-one-out CV for ridge</span></span>
+<span id="cb2-4"><a aria-label="4"></a>    store_cv_results<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-5"><a aria-label="5"></a>)</span>
+<span id="cb2-6"><a aria-label="6"></a>cv_model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="example---ridge-regression" class="slide level2">
@@ -334,53 +350,53 @@
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Preparation</a></li><li><a href="#tabset-1-2">CV</a></li><li><a href="#tabset-1-3">CV Plot</a></li><li><a href="#tabset-1-4">Best Parameter</a></li><li><a href="#tabset-1-5">Results</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="8cd07942" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>ridge_predictors <span class="op">=</span> [</span>
-<span id="cb3-2"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb3-3"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb3-4"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb3-5"><a></a>]</span>
-<span id="cb3-6"><a></a>X_ridge <span class="op">=</span> penguins[ridge_predictors]</span>
-<span id="cb3-7"><a></a>y_ridge <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb3-8"><a></a></span>
-<span id="cb3-9"><a></a>ridge_scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb3-10"><a></a>X_ridge_scaled <span class="op">=</span> ridge_scaler.fit_transform(X_ridge)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="96b08214" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>ridge_predictors <span class="op">=</span> [</span>
+<span id="cb3-2"><a aria-label="2"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb3-3"><a aria-label="3"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb3-4"><a aria-label="4"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb3-5"><a aria-label="5"></a>]</span>
+<span id="cb3-6"><a aria-label="6"></a>X_ridge <span class="op">=</span> penguins[ridge_predictors]</span>
+<span id="cb3-7"><a aria-label="7"></a>y_ridge <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb3-8"><a aria-label="8"></a></span>
+<span id="cb3-9"><a aria-label="9"></a>ridge_scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb3-10"><a aria-label="10"></a>X_ridge_scaled <span class="op">=</span> ridge_scaler.fit_transform(X_ridge)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-2">
-<div id="b2452096" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>ridge_mod_cv <span class="op">=</span> RidgeCV(</span>
-<span id="cb4-2"><a></a>    alphas<span class="op">=</span>lambdas,</span>
-<span id="cb4-3"><a></a>    cv<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb4-4"><a></a>    store_cv_results<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb4-5"><a></a>)</span>
-<span id="cb4-6"><a></a>ridge_mod_cv.fit(X_ridge_scaled, y_ridge)</span>
-<span id="cb4-7"><a></a></span>
-<span id="cb4-8"><a></a>ridge_cv_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb4-9"><a></a>    {</span>
-<span id="cb4-10"><a></a>        <span class="st">"lambda"</span>: lambdas,</span>
-<span id="cb4-11"><a></a>        <span class="st">"mean_cv_error"</span>: ridge_mod_cv.cv_results_.mean(axis<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb4-12"><a></a>    }</span>
-<span id="cb4-13"><a></a>)</span>
-<span id="cb4-14"><a></a>ridge_best_result <span class="op">=</span> ridge_cv_results.loc[</span>
-<span id="cb4-15"><a></a>    [ridge_cv_results[<span class="st">"mean_cv_error"</span>].idxmin()]</span>
-<span id="cb4-16"><a></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="42a02ae5" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>ridge_mod_cv <span class="op">=</span> RidgeCV(</span>
+<span id="cb4-2"><a aria-label="2"></a>    alphas<span class="op">=</span>lambdas,</span>
+<span id="cb4-3"><a aria-label="3"></a>    cv<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb4-4"><a aria-label="4"></a>    store_cv_results<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb4-5"><a aria-label="5"></a>)</span>
+<span id="cb4-6"><a aria-label="6"></a>ridge_mod_cv.fit(X_ridge_scaled, y_ridge)</span>
+<span id="cb4-7"><a aria-label="7"></a></span>
+<span id="cb4-8"><a aria-label="8"></a>ridge_cv_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb4-9"><a aria-label="9"></a>    {</span>
+<span id="cb4-10"><a aria-label="10"></a>        <span class="st">"lambda"</span>: lambdas,</span>
+<span id="cb4-11"><a aria-label="11"></a>        <span class="st">"mean_cv_error"</span>: ridge_mod_cv.cv_results_.mean(axis<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb4-12"><a aria-label="12"></a>    }</span>
+<span id="cb4-13"><a aria-label="13"></a>)</span>
+<span id="cb4-14"><a aria-label="14"></a>ridge_best_result <span class="op">=</span> ridge_cv_results.loc[</span>
+<span id="cb4-15"><a aria-label="15"></a>    [ridge_cv_results[<span class="st">"mean_cv_error"</span>].idxmin()]</span>
+<span id="cb4-16"><a aria-label="16"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-3">
-<div id="8aaf122d" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>(</span>
-<span id="cb5-2"><a></a>    ggplot(ridge_cv_results, aes(x<span class="op">=</span><span class="st">"lambda"</span>, y<span class="op">=</span><span class="st">"mean_cv_error"</span>))</span>
-<span id="cb5-3"><a></a>    <span class="op">+</span> geom_line()</span>
-<span id="cb5-4"><a></a>    <span class="op">+</span> geom_point(data<span class="op">=</span>ridge_best_result, size<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb5-5"><a></a>    <span class="op">+</span> scale_x_log10()</span>
-<span id="cb5-6"><a></a>    <span class="op">+</span> labs(</span>
-<span id="cb5-7"><a></a>        x<span class="op">=</span><span class="st">"Lambda"</span>,</span>
-<span id="cb5-8"><a></a>        y<span class="op">=</span><span class="st">"Mean leave-one-out squared error"</span>,</span>
-<span id="cb5-9"><a></a>        title<span class="op">=</span><span class="st">"Ridge cross-validation"</span>,</span>
-<span id="cb5-10"><a></a>    )</span>
-<span id="cb5-11"><a></a>    <span class="op">+</span> theme_minimal()</span>
-<span id="cb5-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="211a88be" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>(</span>
+<span id="cb5-2"><a aria-label="2"></a>    ggplot(ridge_cv_results, aes(x<span class="op">=</span><span class="st">"lambda"</span>, y<span class="op">=</span><span class="st">"mean_cv_error"</span>))</span>
+<span id="cb5-3"><a aria-label="3"></a>    <span class="op">+</span> geom_line()</span>
+<span id="cb5-4"><a aria-label="4"></a>    <span class="op">+</span> geom_point(data<span class="op">=</span>ridge_best_result, size<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb5-5"><a aria-label="5"></a>    <span class="op">+</span> scale_x_log10()</span>
+<span id="cb5-6"><a aria-label="6"></a>    <span class="op">+</span> labs(</span>
+<span id="cb5-7"><a aria-label="7"></a>        x<span class="op">=</span><span class="st">"Lambda"</span>,</span>
+<span id="cb5-8"><a aria-label="8"></a>        y<span class="op">=</span><span class="st">"Mean leave-one-out squared error"</span>,</span>
+<span id="cb5-9"><a aria-label="9"></a>        title<span class="op">=</span><span class="st">"Ridge cross-validation"</span>,</span>
+<span id="cb5-10"><a aria-label="10"></a>    )</span>
+<span id="cb5-11"><a aria-label="11"></a>    <span class="op">+</span> theme_minimal()</span>
+<span id="cb5-12"><a aria-label="12"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure>
@@ -391,28 +407,28 @@
 </div>
 </div>
 <div id="tabset-1-4">
-<div id="0179ecb7" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>ridge_mod_cv.alpha_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="68725b27" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>ridge_mod_cv.alpha_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>1.0</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-1-5">
-<div id="2ccce842" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>ridge_mod <span class="op">=</span> Ridge(alpha<span class="op">=</span>ridge_mod_cv.alpha_)</span>
-<span id="cb8-2"><a></a>ridge_mod.fit(X_ridge_scaled, y_ridge)</span>
-<span id="cb8-3"><a></a></span>
-<span id="cb8-4"><a></a>ridge_coefficients <span class="op">=</span> ridge_mod.coef_ <span class="op">/</span> ridge_scaler.scale_</span>
-<span id="cb8-5"><a></a>ridge_intercept <span class="op">=</span> ridge_mod.intercept_ <span class="op">-</span> np.<span class="bu">sum</span>(</span>
-<span id="cb8-6"><a></a>    ridge_mod.coef_ <span class="op">*</span> ridge_scaler.mean_ <span class="op">/</span> ridge_scaler.scale_</span>
-<span id="cb8-7"><a></a>)</span>
-<span id="cb8-8"><a></a></span>
-<span id="cb8-9"><a></a>pd.Series(</span>
-<span id="cb8-10"><a></a>    [ridge_intercept, <span class="op">*</span>ridge_coefficients],</span>
-<span id="cb8-11"><a></a>    index<span class="op">=</span>[<span class="st">"Intercept"</span>, <span class="op">*</span>ridge_predictors],</span>
-<span id="cb8-12"><a></a>    name<span class="op">=</span><span class="st">"coefficient"</span>,</span>
-<span id="cb8-13"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e395c5ef" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>ridge_mod <span class="op">=</span> Ridge(alpha<span class="op">=</span>ridge_mod_cv.alpha_)</span>
+<span id="cb8-2"><a aria-label="2"></a>ridge_mod.fit(X_ridge_scaled, y_ridge)</span>
+<span id="cb8-3"><a aria-label="3"></a></span>
+<span id="cb8-4"><a aria-label="4"></a>ridge_coefficients <span class="op">=</span> ridge_mod.coef_ <span class="op">/</span> ridge_scaler.scale_</span>
+<span id="cb8-5"><a aria-label="5"></a>ridge_intercept <span class="op">=</span> ridge_mod.intercept_ <span class="op">-</span> np.<span class="bu">sum</span>(</span>
+<span id="cb8-6"><a aria-label="6"></a>    ridge_mod.coef_ <span class="op">*</span> ridge_scaler.mean_ <span class="op">/</span> ridge_scaler.scale_</span>
+<span id="cb8-7"><a aria-label="7"></a>)</span>
+<span id="cb8-8"><a aria-label="8"></a></span>
+<span id="cb8-9"><a aria-label="9"></a>pd.Series(</span>
+<span id="cb8-10"><a aria-label="10"></a>    [ridge_intercept, <span class="op">*</span>ridge_coefficients],</span>
+<span id="cb8-11"><a aria-label="11"></a>    index<span class="op">=</span>[<span class="st">"Intercept"</span>, <span class="op">*</span>ridge_predictors],</span>
+<span id="cb8-12"><a aria-label="12"></a>    name<span class="op">=</span><span class="st">"coefficient"</span>,</span>
+<span id="cb8-13"><a aria-label="13"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>Intercept           -6366.029487
 flipper_length_mm      50.362104
@@ -431,54 +447,54 @@ Name: coefficient, dtype: float64</code></pre>
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Preparation</a></li><li><a href="#tabset-2-2">CV</a></li><li><a href="#tabset-2-3">CV Plot</a></li><li><a href="#tabset-2-4">Best Parameter</a></li><li><a href="#tabset-2-5">Results</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div id="dca5c0e3" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a>lasso_predictors <span class="op">=</span> [</span>
-<span id="cb10-2"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb10-3"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb10-4"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb10-5"><a></a>]</span>
-<span id="cb10-6"><a></a>X_lasso <span class="op">=</span> penguins[lasso_predictors]</span>
-<span id="cb10-7"><a></a>y_lasso <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb10-8"><a></a></span>
-<span id="cb10-9"><a></a>lasso_scaler <span class="op">=</span> StandardScaler()</span>
-<span id="cb10-10"><a></a>X_lasso_scaled <span class="op">=</span> lasso_scaler.fit_transform(X_lasso)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ae0306ff" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a>lasso_predictors <span class="op">=</span> [</span>
+<span id="cb10-2"><a aria-label="2"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb10-3"><a aria-label="3"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb10-4"><a aria-label="4"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb10-5"><a aria-label="5"></a>]</span>
+<span id="cb10-6"><a aria-label="6"></a>X_lasso <span class="op">=</span> penguins[lasso_predictors]</span>
+<span id="cb10-7"><a aria-label="7"></a>y_lasso <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb10-8"><a aria-label="8"></a></span>
+<span id="cb10-9"><a aria-label="9"></a>lasso_scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb10-10"><a aria-label="10"></a>X_lasso_scaled <span class="op">=</span> lasso_scaler.fit_transform(X_lasso)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-2-2">
-<div id="36468846" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>lasso_mod_cv <span class="op">=</span> LassoCV(</span>
-<span id="cb11-2"><a></a>    alphas<span class="op">=</span>lambdas,</span>
-<span id="cb11-3"><a></a>    cv<span class="op">=</span>loo,</span>
-<span id="cb11-4"><a></a>    max_iter<span class="op">=</span><span class="dv">100_000</span>,</span>
-<span id="cb11-5"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb11-6"><a></a>)</span>
-<span id="cb11-7"><a></a>lasso_mod_cv.fit(X_lasso_scaled, y_lasso)</span>
-<span id="cb11-8"><a></a></span>
-<span id="cb11-9"><a></a>lasso_cv_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb11-10"><a></a>    {</span>
-<span id="cb11-11"><a></a>        <span class="st">"lambda"</span>: lasso_mod_cv.alphas_,</span>
-<span id="cb11-12"><a></a>        <span class="st">"mean_cv_error"</span>: lasso_mod_cv.mse_path_.mean(axis<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb11-13"><a></a>    }</span>
-<span id="cb11-14"><a></a>)</span>
-<span id="cb11-15"><a></a>lasso_best_result <span class="op">=</span> lasso_cv_results.loc[</span>
-<span id="cb11-16"><a></a>    [lasso_cv_results[<span class="st">"mean_cv_error"</span>].idxmin()]</span>
-<span id="cb11-17"><a></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6dd77188" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a>lasso_mod_cv <span class="op">=</span> LassoCV(</span>
+<span id="cb11-2"><a aria-label="2"></a>    alphas<span class="op">=</span>lambdas,</span>
+<span id="cb11-3"><a aria-label="3"></a>    cv<span class="op">=</span>loo,</span>
+<span id="cb11-4"><a aria-label="4"></a>    max_iter<span class="op">=</span><span class="dv">100_000</span>,</span>
+<span id="cb11-5"><a aria-label="5"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb11-6"><a aria-label="6"></a>)</span>
+<span id="cb11-7"><a aria-label="7"></a>lasso_mod_cv.fit(X_lasso_scaled, y_lasso)</span>
+<span id="cb11-8"><a aria-label="8"></a></span>
+<span id="cb11-9"><a aria-label="9"></a>lasso_cv_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb11-10"><a aria-label="10"></a>    {</span>
+<span id="cb11-11"><a aria-label="11"></a>        <span class="st">"lambda"</span>: lasso_mod_cv.alphas_,</span>
+<span id="cb11-12"><a aria-label="12"></a>        <span class="st">"mean_cv_error"</span>: lasso_mod_cv.mse_path_.mean(axis<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb11-13"><a aria-label="13"></a>    }</span>
+<span id="cb11-14"><a aria-label="14"></a>)</span>
+<span id="cb11-15"><a aria-label="15"></a>lasso_best_result <span class="op">=</span> lasso_cv_results.loc[</span>
+<span id="cb11-16"><a aria-label="16"></a>    [lasso_cv_results[<span class="st">"mean_cv_error"</span>].idxmin()]</span>
+<span id="cb11-17"><a aria-label="17"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-2-3">
-<div id="e7af8ee3" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a>(</span>
-<span id="cb12-2"><a></a>    ggplot(lasso_cv_results, aes(x<span class="op">=</span><span class="st">"lambda"</span>, y<span class="op">=</span><span class="st">"mean_cv_error"</span>))</span>
-<span id="cb12-3"><a></a>    <span class="op">+</span> geom_line()</span>
-<span id="cb12-4"><a></a>    <span class="op">+</span> geom_point(data<span class="op">=</span>lasso_best_result, size<span class="op">=</span><span class="dv">3</span>)</span>
-<span id="cb12-5"><a></a>    <span class="op">+</span> scale_x_log10()</span>
-<span id="cb12-6"><a></a>    <span class="op">+</span> labs(</span>
-<span id="cb12-7"><a></a>        x<span class="op">=</span><span class="st">"Lambda"</span>,</span>
-<span id="cb12-8"><a></a>        y<span class="op">=</span><span class="st">"Mean leave-one-out squared error"</span>,</span>
-<span id="cb12-9"><a></a>        title<span class="op">=</span><span class="st">"LASSO cross-validation"</span>,</span>
-<span id="cb12-10"><a></a>    )</span>
-<span id="cb12-11"><a></a>    <span class="op">+</span> theme_minimal()</span>
-<span id="cb12-12"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fca92374" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>(</span>
+<span id="cb12-2"><a aria-label="2"></a>    ggplot(lasso_cv_results, aes(x<span class="op">=</span><span class="st">"lambda"</span>, y<span class="op">=</span><span class="st">"mean_cv_error"</span>))</span>
+<span id="cb12-3"><a aria-label="3"></a>    <span class="op">+</span> geom_line()</span>
+<span id="cb12-4"><a aria-label="4"></a>    <span class="op">+</span> geom_point(data<span class="op">=</span>lasso_best_result, size<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb12-5"><a aria-label="5"></a>    <span class="op">+</span> scale_x_log10()</span>
+<span id="cb12-6"><a aria-label="6"></a>    <span class="op">+</span> labs(</span>
+<span id="cb12-7"><a aria-label="7"></a>        x<span class="op">=</span><span class="st">"Lambda"</span>,</span>
+<span id="cb12-8"><a aria-label="8"></a>        y<span class="op">=</span><span class="st">"Mean leave-one-out squared error"</span>,</span>
+<span id="cb12-9"><a aria-label="9"></a>        title<span class="op">=</span><span class="st">"LASSO cross-validation"</span>,</span>
+<span id="cb12-10"><a aria-label="10"></a>    )</span>
+<span id="cb12-11"><a aria-label="11"></a>    <span class="op">+</span> theme_minimal()</span>
+<span id="cb12-12"><a aria-label="12"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 <figure>
@@ -489,31 +505,31 @@ Name: coefficient, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-4">
-<div id="abb1f751" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>lasso_mod_cv.alpha_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d79f786c" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a>lasso_mod_cv.alpha_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>np.float64(1.0)</code></pre>
 </div>
 </div>
 </div>
 <div id="tabset-2-5">
-<div id="244d98bd" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>lasso_mod <span class="op">=</span> Lasso(</span>
-<span id="cb15-2"><a></a>    alpha<span class="op">=</span>lasso_mod_cv.alpha_,</span>
-<span id="cb15-3"><a></a>    max_iter<span class="op">=</span><span class="dv">100_000</span>,</span>
-<span id="cb15-4"><a></a>)</span>
-<span id="cb15-5"><a></a>lasso_mod.fit(X_lasso_scaled, y_lasso)</span>
-<span id="cb15-6"><a></a></span>
-<span id="cb15-7"><a></a>lasso_coefficients <span class="op">=</span> lasso_mod.coef_ <span class="op">/</span> lasso_scaler.scale_</span>
-<span id="cb15-8"><a></a>lasso_intercept <span class="op">=</span> lasso_mod.intercept_ <span class="op">-</span> np.<span class="bu">sum</span>(</span>
-<span id="cb15-9"><a></a>    lasso_mod.coef_ <span class="op">*</span> lasso_scaler.mean_ <span class="op">/</span> lasso_scaler.scale_</span>
-<span id="cb15-10"><a></a>)</span>
-<span id="cb15-11"><a></a></span>
-<span id="cb15-12"><a></a>pd.Series(</span>
-<span id="cb15-13"><a></a>    [lasso_intercept, <span class="op">*</span>lasso_coefficients],</span>
-<span id="cb15-14"><a></a>    index<span class="op">=</span>[<span class="st">"Intercept"</span>, <span class="op">*</span>lasso_predictors],</span>
-<span id="cb15-15"><a></a>    name<span class="op">=</span><span class="st">"coefficient"</span>,</span>
-<span id="cb15-16"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="40ed2fa0" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-label="1"></a>lasso_mod <span class="op">=</span> Lasso(</span>
+<span id="cb15-2"><a aria-label="2"></a>    alpha<span class="op">=</span>lasso_mod_cv.alpha_,</span>
+<span id="cb15-3"><a aria-label="3"></a>    max_iter<span class="op">=</span><span class="dv">100_000</span>,</span>
+<span id="cb15-4"><a aria-label="4"></a>)</span>
+<span id="cb15-5"><a aria-label="5"></a>lasso_mod.fit(X_lasso_scaled, y_lasso)</span>
+<span id="cb15-6"><a aria-label="6"></a></span>
+<span id="cb15-7"><a aria-label="7"></a>lasso_coefficients <span class="op">=</span> lasso_mod.coef_ <span class="op">/</span> lasso_scaler.scale_</span>
+<span id="cb15-8"><a aria-label="8"></a>lasso_intercept <span class="op">=</span> lasso_mod.intercept_ <span class="op">-</span> np.<span class="bu">sum</span>(</span>
+<span id="cb15-9"><a aria-label="9"></a>    lasso_mod.coef_ <span class="op">*</span> lasso_scaler.mean_ <span class="op">/</span> lasso_scaler.scale_</span>
+<span id="cb15-10"><a aria-label="10"></a>)</span>
+<span id="cb15-11"><a aria-label="11"></a></span>
+<span id="cb15-12"><a aria-label="12"></a>pd.Series(</span>
+<span id="cb15-13"><a aria-label="13"></a>    [lasso_intercept, <span class="op">*</span>lasso_coefficients],</span>
+<span id="cb15-14"><a aria-label="14"></a>    index<span class="op">=</span>[<span class="st">"Intercept"</span>, <span class="op">*</span>lasso_predictors],</span>
+<span id="cb15-15"><a aria-label="15"></a>    name<span class="op">=</span><span class="st">"coefficient"</span>,</span>
+<span id="cb15-16"><a aria-label="16"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>Intercept           -6390.063710
 flipper_length_mm      50.588578
@@ -531,9 +547,18 @@ Name: coefficient, dtype: float64</code></pre>
 <p>Complete a LASSO approach using <code>mtcars</code> to predict mpg from the remaining variables.</p>
 </section></section>
 <section>
-<section id="bootstrap-methods" class="title-slide slide level1 center">
+<section id="bootstrap-methods" class="title-slide slide level1 agenda-slide center">
 <h1>Bootstrap Methods</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Cross-Validation</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Bootstrap Methods</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="bootstrap-methods-1" class="slide level2">
 <h2>Bootstrap Methods</h2>
@@ -557,20 +582,20 @@ Name: coefficient, dtype: float64</code></pre>
 <section id="examples" class="slide level2">
 <h2>Examples</h2>
 <p>Fitting the following model:</p>
-<div id="cea9ba62" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a>bootstrap_predictors <span class="op">=</span> [</span>
-<span id="cb17-2"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb17-3"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb17-4"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb17-5"><a></a>]</span>
-<span id="cb17-6"><a></a>X_bootstrap <span class="op">=</span> sm.add_constant(</span>
-<span id="cb17-7"><a></a>    penguins[bootstrap_predictors],</span>
-<span id="cb17-8"><a></a>    has_constant<span class="op">=</span><span class="st">"add"</span>,</span>
-<span id="cb17-9"><a></a>)</span>
-<span id="cb17-10"><a></a>y_bootstrap <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb17-11"><a></a></span>
-<span id="cb17-12"><a></a>bootstrap_model <span class="op">=</span> sm.OLS(y_bootstrap, X_bootstrap).fit()</span>
-<span id="cb17-13"><a></a>bootstrap_model.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ccd1d32a" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-label="1"></a>bootstrap_predictors <span class="op">=</span> [</span>
+<span id="cb17-2"><a aria-label="2"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb17-3"><a aria-label="3"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb17-4"><a aria-label="4"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb17-5"><a aria-label="5"></a>]</span>
+<span id="cb17-6"><a aria-label="6"></a>X_bootstrap <span class="op">=</span> sm.add_constant(</span>
+<span id="cb17-7"><a aria-label="7"></a>    penguins[bootstrap_predictors],</span>
+<span id="cb17-8"><a aria-label="8"></a>    has_constant<span class="op">=</span><span class="st">"add"</span>,</span>
+<span id="cb17-9"><a aria-label="9"></a>)</span>
+<span id="cb17-10"><a aria-label="10"></a>y_bootstrap <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb17-11"><a aria-label="11"></a></span>
+<span id="cb17-12"><a aria-label="12"></a>bootstrap_model <span class="op">=</span> sm.OLS(y_bootstrap, X_bootstrap).fit()</span>
+<span id="cb17-13"><a aria-label="13"></a>bootstrap_model.params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>const               -6445.476043
 flipper_length_mm      50.762132
@@ -583,42 +608,42 @@ dtype: float64</code></pre>
 </section>
 <section id="examples-solution" class="slide level2">
 <h2>Examples: Solution</h2>
-<div id="11f6cac4" class="cell" data-execution_count="14">
+<div id="91e89b6c" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a>B <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb19-2"><a></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12345</span>)</span>
-<span id="cb19-3"><a></a>bootstrap_estimates <span class="op">=</span> []</span>
-<span id="cb19-4"><a></a></span>
-<span id="cb19-5"><a></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(B):</span>
-<span id="cb19-6"><a></a>    sample_positions <span class="op">=</span> rng.integers(</span>
-<span id="cb19-7"><a></a>        low<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb19-8"><a></a>        high<span class="op">=</span><span class="bu">len</span>(penguins),</span>
-<span id="cb19-9"><a></a>        size<span class="op">=</span><span class="bu">len</span>(penguins),</span>
-<span id="cb19-10"><a></a>    )</span>
-<span id="cb19-11"><a></a>    bootstrap_sample <span class="op">=</span> penguins.iloc[sample_positions]</span>
-<span id="cb19-12"><a></a></span>
-<span id="cb19-13"><a></a>    X_sample <span class="op">=</span> sm.add_constant(</span>
-<span id="cb19-14"><a></a>        bootstrap_sample[bootstrap_predictors],</span>
-<span id="cb19-15"><a></a>        has_constant<span class="op">=</span><span class="st">"add"</span>,</span>
-<span id="cb19-16"><a></a>    )</span>
-<span id="cb19-17"><a></a>    y_sample <span class="op">=</span> bootstrap_sample[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb19-18"><a></a></span>
-<span id="cb19-19"><a></a>    fitted_sample <span class="op">=</span> sm.OLS(y_sample, X_sample).fit()</span>
-<span id="cb19-20"><a></a>    bootstrap_estimates.append(fitted_sample.params)</span>
-<span id="cb19-21"><a></a></span>
-<span id="cb19-22"><a></a>bootstrap_estimates <span class="op">=</span> pd.DataFrame(bootstrap_estimates)</span>
-<span id="cb19-23"><a></a></span>
-<span id="cb19-24"><a></a>bootstrap_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb19-25"><a></a>    {</span>
-<span id="cb19-26"><a></a>        <span class="st">"estimate"</span>: bootstrap_model.params,</span>
-<span id="cb19-27"><a></a>        <span class="st">"bootstrap_se"</span>: bootstrap_estimates.std(ddof<span class="op">=</span><span class="dv">1</span>),</span>
-<span id="cb19-28"><a></a>        <span class="st">"ci_lower"</span>: bootstrap_estimates.quantile(<span class="fl">0.025</span>),</span>
-<span id="cb19-29"><a></a>        <span class="st">"ci_upper"</span>: bootstrap_estimates.quantile(<span class="fl">0.975</span>),</span>
-<span id="cb19-30"><a></a>    }</span>
-<span id="cb19-31"><a></a>)</span>
-<span id="cb19-32"><a></a></span>
-<span id="cb19-33"><a></a>bootstrap_results.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-label="1"></a>B <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb19-2"><a aria-label="2"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12345</span>)</span>
+<span id="cb19-3"><a aria-label="3"></a>bootstrap_estimates <span class="op">=</span> []</span>
+<span id="cb19-4"><a aria-label="4"></a></span>
+<span id="cb19-5"><a aria-label="5"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(B):</span>
+<span id="cb19-6"><a aria-label="6"></a>    sample_positions <span class="op">=</span> rng.integers(</span>
+<span id="cb19-7"><a aria-label="7"></a>        low<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb19-8"><a aria-label="8"></a>        high<span class="op">=</span><span class="bu">len</span>(penguins),</span>
+<span id="cb19-9"><a aria-label="9"></a>        size<span class="op">=</span><span class="bu">len</span>(penguins),</span>
+<span id="cb19-10"><a aria-label="10"></a>    )</span>
+<span id="cb19-11"><a aria-label="11"></a>    bootstrap_sample <span class="op">=</span> penguins.iloc[sample_positions]</span>
+<span id="cb19-12"><a aria-label="12"></a></span>
+<span id="cb19-13"><a aria-label="13"></a>    X_sample <span class="op">=</span> sm.add_constant(</span>
+<span id="cb19-14"><a aria-label="14"></a>        bootstrap_sample[bootstrap_predictors],</span>
+<span id="cb19-15"><a aria-label="15"></a>        has_constant<span class="op">=</span><span class="st">"add"</span>,</span>
+<span id="cb19-16"><a aria-label="16"></a>    )</span>
+<span id="cb19-17"><a aria-label="17"></a>    y_sample <span class="op">=</span> bootstrap_sample[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb19-18"><a aria-label="18"></a></span>
+<span id="cb19-19"><a aria-label="19"></a>    fitted_sample <span class="op">=</span> sm.OLS(y_sample, X_sample).fit()</span>
+<span id="cb19-20"><a aria-label="20"></a>    bootstrap_estimates.append(fitted_sample.params)</span>
+<span id="cb19-21"><a aria-label="21"></a></span>
+<span id="cb19-22"><a aria-label="22"></a>bootstrap_estimates <span class="op">=</span> pd.DataFrame(bootstrap_estimates)</span>
+<span id="cb19-23"><a aria-label="23"></a></span>
+<span id="cb19-24"><a aria-label="24"></a>bootstrap_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb19-25"><a aria-label="25"></a>    {</span>
+<span id="cb19-26"><a aria-label="26"></a>        <span class="st">"estimate"</span>: bootstrap_model.params,</span>
+<span id="cb19-27"><a aria-label="27"></a>        <span class="st">"bootstrap_se"</span>: bootstrap_estimates.std(ddof<span class="op">=</span><span class="dv">1</span>),</span>
+<span id="cb19-28"><a aria-label="28"></a>        <span class="st">"ci_lower"</span>: bootstrap_estimates.quantile(<span class="fl">0.025</span>),</span>
+<span id="cb19-29"><a aria-label="29"></a>        <span class="st">"ci_upper"</span>: bootstrap_estimates.quantile(<span class="fl">0.975</span>),</span>
+<span id="cb19-30"><a aria-label="30"></a>    }</span>
+<span id="cb19-31"><a aria-label="31"></a>)</span>
+<span id="cb19-32"><a aria-label="32"></a></span>
+<span id="cb19-33"><a aria-label="33"></a>bootstrap_results.<span class="bu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <div>
@@ -698,7 +723,8 @@ dtype: float64</code></pre>
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
+  <script src="../site_libs/revealjs/plugin/verticator/verticator.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -720,8 +746,9 @@ dtype: float64</code></pre>
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":true,"src":"chalkboard.json","storage":"chalkboard_pres","theme":"whiteboard","chalkWidth":4},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
+'verticator': {"themetag":"h1","color":"","inversecolor":"","skipuncounted":false,"clickable":true,"position":"auto","offset":"3vmin","autogenerate":true,"tooltip":false,"scale":1,"debug":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -892,7 +919,7 @@ dtype: float64</code></pre>
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealPointer, Verticator, QuartoSupport,
 
           RevealMath,
           RevealNotes,

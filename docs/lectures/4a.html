@@ -6,8 +6,12 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/jquery-3.6.3/jquery-3.6.3.min.js"></script>
+<script src="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.js" defer="true"></script>
+<link href="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <title>MATH 398 – Classification</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,10 +23,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -97,10 +104,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/verticator/verticator.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -216,15 +225,15 @@
 </section>
 <section id="setup" class="slide level2">
 <h2>Setup</h2>
-<div id="dca7d658" class="cell" data-execution_count="1">
+<div id="56dfb639" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
-<span id="cb1-3"><a></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-4"><a></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis</span>
-<span id="cb1-5"><a></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
-<span id="cb1-6"><a></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> QuadraticDiscriminantAnalysis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-4"><a aria-label="4"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> LinearDiscriminantAnalysis</span>
+<span id="cb1-5"><a aria-label="5"></a><span class="im">from</span> sklearn.naive_bayes <span class="im">import</span> GaussianNB</span>
+<span id="cb1-6"><a aria-label="6"></a><span class="im">from</span> sklearn.discriminant_analysis <span class="im">import</span> QuadraticDiscriminantAnalysis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -233,9 +242,33 @@
 <p>The practice of classifying data points into different categories.</p>
 </section>
 <section>
-<section id="k-nearest-neighbors" class="title-slide slide level1 center">
+<section id="k-nearest-neighbors" class="title-slide slide level1 agenda-slide center">
 <h1>K-Nearest Neighbors</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="k-nearest-neighbors-1" class="slide level2">
 <h2>K-Nearest Neighbors</h2>
@@ -243,28 +276,28 @@
 </section>
 <section id="knn" class="slide level2">
 <h2>KNN</h2>
-<div id="46dd43d2" class="cell" data-execution_count="2">
+<div id="05cef082" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>penguins <span class="op">=</span> load_penguins()</span>
-<span id="cb2-2"><a></a>penguins_sample <span class="op">=</span> penguins.sample(n<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
-<span id="cb2-3"><a></a></span>
-<span id="cb2-4"><a></a>knn_plot <span class="op">=</span> (</span>
-<span id="cb2-5"><a></a>    ggplot(</span>
-<span id="cb2-6"><a></a>        penguins_sample,</span>
-<span id="cb2-7"><a></a>        aes(</span>
-<span id="cb2-8"><a></a>            x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb2-9"><a></a>            y<span class="op">=</span><span class="st">"bill_length_mm"</span>,</span>
-<span id="cb2-10"><a></a>            color<span class="op">=</span><span class="st">"species"</span>,</span>
-<span id="cb2-11"><a></a>        ),</span>
-<span id="cb2-12"><a></a>    )</span>
-<span id="cb2-13"><a></a>    <span class="op">+</span> geom_point(size<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb2-14"><a></a>    <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"X"</span>, y<span class="op">=</span><span class="st">"Y"</span>)</span>
-<span id="cb2-15"><a></a>    <span class="op">+</span> theme_bw()</span>
-<span id="cb2-16"><a></a>    <span class="op">+</span> theme(legend_position<span class="op">=</span><span class="st">"none"</span>)</span>
-<span id="cb2-17"><a></a>)</span>
-<span id="cb2-18"><a></a></span>
-<span id="cb2-19"><a></a>knn_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>penguins <span class="op">=</span> load_penguins()</span>
+<span id="cb2-2"><a aria-label="2"></a>penguins_sample <span class="op">=</span> penguins.sample(n<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">123</span>)</span>
+<span id="cb2-3"><a aria-label="3"></a></span>
+<span id="cb2-4"><a aria-label="4"></a>knn_plot <span class="op">=</span> (</span>
+<span id="cb2-5"><a aria-label="5"></a>    ggplot(</span>
+<span id="cb2-6"><a aria-label="6"></a>        penguins_sample,</span>
+<span id="cb2-7"><a aria-label="7"></a>        aes(</span>
+<span id="cb2-8"><a aria-label="8"></a>            x<span class="op">=</span><span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb2-9"><a aria-label="9"></a>            y<span class="op">=</span><span class="st">"bill_length_mm"</span>,</span>
+<span id="cb2-10"><a aria-label="10"></a>            color<span class="op">=</span><span class="st">"species"</span>,</span>
+<span id="cb2-11"><a aria-label="11"></a>        ),</span>
+<span id="cb2-12"><a aria-label="12"></a>    )</span>
+<span id="cb2-13"><a aria-label="13"></a>    <span class="op">+</span> geom_point(size<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-14"><a aria-label="14"></a>    <span class="op">+</span> labs(x<span class="op">=</span><span class="st">"X"</span>, y<span class="op">=</span><span class="st">"Y"</span>)</span>
+<span id="cb2-15"><a aria-label="15"></a>    <span class="op">+</span> theme_bw()</span>
+<span id="cb2-16"><a aria-label="16"></a>    <span class="op">+</span> theme(legend_position<span class="op">=</span><span class="st">"none"</span>)</span>
+<span id="cb2-17"><a aria-label="17"></a>)</span>
+<span id="cb2-18"><a aria-label="18"></a></span>
+<span id="cb2-19"><a aria-label="19"></a>knn_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
@@ -317,9 +350,33 @@ d(x,y) = \left( \sum_{i=1}^{p} |x_i - y_i|^w \right)^{\frac{1}{w}}
 </ul>
 </section></section>
 <section>
-<section id="bayes-classifier" class="title-slide slide level1 center">
+<section id="bayes-classifier" class="title-slide slide level1 agenda-slide center">
 <h1>Bayes Classifier</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="bayes-classifier-1" class="slide level2">
 <h2>Bayes Classifier</h2>
@@ -349,9 +406,33 @@ f(C = c|\boldsymbol X = x) = \frac{f(\boldsymbol X | C)\pi_c}{f(\boldsymbol X)}
 </ul>
 </section></section>
 <section>
-<section id="linear-discriminant-analysis" class="title-slide slide level1 center">
+<section id="linear-discriminant-analysis" class="title-slide slide level1 agenda-slide center">
 <h1>Linear Discriminant Analysis</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="lda" class="slide level2">
 <h2>LDA</h2>
@@ -409,9 +490,33 @@ f(\boldsymbol X) = \sum^K_{l=1} \pi_l f_l(\boldsymbol X)
 <p>Classify each new data point as class <span class="math inline">\(c_k\)</span> based on the largest <span class="math inline">\(\delta_k(\boldsymbol X)\)</span>.</p>
 </section></section>
 <section>
-<section id="quadratic-discriminant-analysis" class="title-slide slide level1 center">
+<section id="quadratic-discriminant-analysis" class="title-slide slide level1 agenda-slide center">
 <h1>Quadratic Discriminant Analysis</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="qda" class="slide level2">
 <h2>QDA</h2>
@@ -430,9 +535,33 @@ f_k(\boldsymbol X) = \frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp\left\{(\boldsymb
 \]</span></p>
 </section></section>
 <section>
-<section id="naive-bayes" class="title-slide slide level1 center">
+<section id="naive-bayes" class="title-slide slide level1 agenda-slide center">
 <h1>Naive Bayes</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="naive-bayes-1" class="slide level2">
 <h2>Naive Bayes</h2>
@@ -464,44 +593,68 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </div></div>
 </section></section>
 <section>
-<section id="python-code" class="title-slide slide level1 center">
+<section id="python-code" class="title-slide slide level1 agenda-slide center">
 <h1>Python Code</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="lda-1" class="slide level2">
 <h2>LDA</h2>
-<div id="4a2049b1" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>penguins <span class="op">=</span> load_penguins().dropna().copy()</span>
-<span id="cb3-2"><a></a>feature_columns <span class="op">=</span> [</span>
-<span id="cb3-3"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb3-4"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb3-5"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb3-6"><a></a>    <span class="st">"body_mass_g"</span>,</span>
-<span id="cb3-7"><a></a>]</span>
-<span id="cb3-8"><a></a></span>
-<span id="cb3-9"><a></a>X <span class="op">=</span> penguins[feature_columns]</span>
-<span id="cb3-10"><a></a>y <span class="op">=</span> penguins[<span class="st">"species"</span>]</span>
-<span id="cb3-11"><a></a></span>
-<span id="cb3-12"><a></a>x_lda <span class="op">=</span> LinearDiscriminantAnalysis()</span>
-<span id="cb3-13"><a></a>x_lda.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="94b771b1" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>penguins <span class="op">=</span> load_penguins().dropna().copy()</span>
+<span id="cb3-2"><a aria-label="2"></a>feature_columns <span class="op">=</span> [</span>
+<span id="cb3-3"><a aria-label="3"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb3-4"><a aria-label="4"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb3-5"><a aria-label="5"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb3-6"><a aria-label="6"></a>    <span class="st">"body_mass_g"</span>,</span>
+<span id="cb3-7"><a aria-label="7"></a>]</span>
+<span id="cb3-8"><a aria-label="8"></a></span>
+<span id="cb3-9"><a aria-label="9"></a>X <span class="op">=</span> penguins[feature_columns]</span>
+<span id="cb3-10"><a aria-label="10"></a>y <span class="op">=</span> penguins[<span class="st">"species"</span>]</span>
+<span id="cb3-11"><a aria-label="11"></a></span>
+<span id="cb3-12"><a aria-label="12"></a>x_lda <span class="op">=</span> LinearDiscriminantAnalysis()</span>
+<span id="cb3-13"><a aria-label="13"></a>x_lda.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lda-prediction" class="slide level2">
 <h2>LDA Prediction</h2>
-<div id="3c0ed640" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a>new_df <span class="op">=</span> penguins[feature_columns]</span>
-<span id="cb4-2"><a></a>x_lda_predict <span class="op">=</span> x_lda.predict(new_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f07bede4" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>new_df <span class="op">=</span> penguins[feature_columns]</span>
+<span id="cb4-2"><a aria-label="2"></a>x_lda_predict <span class="op">=</span> x_lda.predict(new_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lda-confusion-matrix" class="slide level2">
 <h2>LDA Confusion Matrix</h2>
-<div id="945d1ba6" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a>pd.crosstab(</span>
-<span id="cb5-2"><a></a>    penguins[<span class="st">"species"</span>],</span>
-<span id="cb5-3"><a></a>    x_lda_predict,</span>
-<span id="cb5-4"><a></a>    rownames<span class="op">=</span>[<span class="st">"Actual"</span>],</span>
-<span id="cb5-5"><a></a>    colnames<span class="op">=</span>[<span class="st">"Predicted"</span>],</span>
-<span id="cb5-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a4ca78e9" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>pd.crosstab(</span>
+<span id="cb5-2"><a aria-label="2"></a>    penguins[<span class="st">"species"</span>],</span>
+<span id="cb5-3"><a aria-label="3"></a>    x_lda_predict,</span>
+<span id="cb5-4"><a aria-label="4"></a>    rownames<span class="op">=</span>[<span class="st">"Actual"</span>],</span>
+<span id="cb5-5"><a aria-label="5"></a>    colnames<span class="op">=</span>[<span class="st">"Predicted"</span>],</span>
+<span id="cb5-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <style scoped="">
@@ -561,26 +714,26 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="qda-3" class="slide level2">
 <h2>QDA</h2>
-<div id="ee432617" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>x_qda <span class="op">=</span> QuadraticDiscriminantAnalysis()</span>
-<span id="cb6-2"><a></a>x_qda.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ea883854" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>x_qda <span class="op">=</span> QuadraticDiscriminantAnalysis()</span>
+<span id="cb6-2"><a aria-label="2"></a>x_qda.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="qda-prediction" class="slide level2">
 <h2>QDA Prediction</h2>
-<div id="aa64e689" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a>x_qda_predict <span class="op">=</span> x_qda.predict(penguins[feature_columns])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6e3e9c9a" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>x_qda_predict <span class="op">=</span> x_qda.predict(penguins[feature_columns])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="qda-confusion-matrix" class="slide level2">
 <h2>QDA Confusion Matrix</h2>
-<div id="ee0b4056" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>pd.crosstab(</span>
-<span id="cb8-2"><a></a>    penguins[<span class="st">"species"</span>],</span>
-<span id="cb8-3"><a></a>    x_qda_predict,</span>
-<span id="cb8-4"><a></a>    rownames<span class="op">=</span>[<span class="st">"Actual"</span>],</span>
-<span id="cb8-5"><a></a>    colnames<span class="op">=</span>[<span class="st">"Predicted"</span>],</span>
-<span id="cb8-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3e62690b" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>pd.crosstab(</span>
+<span id="cb8-2"><a aria-label="2"></a>    penguins[<span class="st">"species"</span>],</span>
+<span id="cb8-3"><a aria-label="3"></a>    x_qda_predict,</span>
+<span id="cb8-4"><a aria-label="4"></a>    rownames<span class="op">=</span>[<span class="st">"Actual"</span>],</span>
+<span id="cb8-5"><a aria-label="5"></a>    colnames<span class="op">=</span>[<span class="st">"Predicted"</span>],</span>
+<span id="cb8-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 <style scoped="">
@@ -640,26 +793,26 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="naive-bayes-4" class="slide level2">
 <h2>Naive Bayes</h2>
-<div id="e8d42d14" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a></a>x_nb <span class="op">=</span> GaussianNB()</span>
-<span id="cb9-2"><a></a>x_nb.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="57d8b0a4" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a>x_nb <span class="op">=</span> GaussianNB()</span>
+<span id="cb9-2"><a aria-label="2"></a>x_nb.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="naive-bayes-prediction" class="slide level2">
 <h2>Naive Bayes Prediction</h2>
-<div id="a891a466" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a>x_nb_predict <span class="op">=</span> x_nb.predict(penguins[feature_columns])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b8a2931c" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a>x_nb_predict <span class="op">=</span> x_nb.predict(penguins[feature_columns])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="naive-bayes-confusion-matrix" class="slide level2">
 <h2>Naive Bayes Confusion Matrix</h2>
-<div id="b1d2a0fe" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>pd.crosstab(</span>
-<span id="cb11-2"><a></a>    penguins[<span class="st">"species"</span>],</span>
-<span id="cb11-3"><a></a>    x_nb_predict,</span>
-<span id="cb11-4"><a></a>    rownames<span class="op">=</span>[<span class="st">"Actual"</span>],</span>
-<span id="cb11-5"><a></a>    colnames<span class="op">=</span>[<span class="st">"Predicted"</span>],</span>
-<span id="cb11-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0b7eb236" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a>pd.crosstab(</span>
+<span id="cb11-2"><a aria-label="2"></a>    penguins[<span class="st">"species"</span>],</span>
+<span id="cb11-3"><a aria-label="3"></a>    x_nb_predict,</span>
+<span id="cb11-4"><a aria-label="4"></a>    rownames<span class="op">=</span>[<span class="st">"Actual"</span>],</span>
+<span id="cb11-5"><a aria-label="5"></a>    colnames<span class="op">=</span>[<span class="st">"Predicted"</span>],</span>
+<span id="cb11-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 <style scoped="">
@@ -718,9 +871,33 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </div>
 </section></section>
 <section>
-<section id="example" class="title-slide slide level1 center">
+<section id="example" class="title-slide slide level1 agenda-slide center">
 <h1>Example</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>K-Nearest Neighbors</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bayes Classifier</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Linear Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Quadratic Discriminant Analysis</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Naive Bayes</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Python Code</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Example</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="create-the-knn-algorithm-in-python" class="slide level2">
 <h2>Create the KNN algorithm in Python</h2>
@@ -733,54 +910,54 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="solution" class="slide level2">
 <h2>Solution</h2>
-<div id="5e54d10d" class="cell" data-execution_count="12">
+<div id="a2944aa1" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-2"><a></a></span>
-<span id="cb12-3"><a></a></span>
-<span id="cb12-4"><a></a><span class="kw">def</span> manhattan(x, y):</span>
-<span id="cb12-5"><a></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(x <span class="op">-</span> y))</span>
-<span id="cb12-6"><a></a></span>
-<span id="cb12-7"><a></a></span>
-<span id="cb12-8"><a></a><span class="kw">def</span> euclidean(x, y):</span>
-<span id="cb12-9"><a></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((x <span class="op">-</span> y) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb12-10"><a></a></span>
-<span id="cb12-11"><a></a></span>
-<span id="cb12-12"><a></a><span class="kw">def</span> minkowski_5(x, y):</span>
-<span id="cb12-13"><a></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(x <span class="op">-</span> y) <span class="op">**</span> <span class="dv">5</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">5</span>)</span>
-<span id="cb12-14"><a></a></span>
-<span id="cb12-15"><a></a></span>
-<span id="cb12-16"><a></a>knn_columns <span class="op">=</span> [</span>
-<span id="cb12-17"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb12-18"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb12-19"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb12-20"><a></a>    <span class="st">"body_mass_g"</span>,</span>
-<span id="cb12-21"><a></a>]</span>
-<span id="cb12-22"><a></a></span>
-<span id="cb12-23"><a></a>x <span class="op">=</span> penguins[knn_columns].to_numpy()</span>
-<span id="cb12-24"><a></a>y_new <span class="op">=</span> np.array([<span class="dv">19</span>, <span class="dv">40</span>, <span class="dv">185</span>, <span class="dv">3345</span>])</span>
-<span id="cb12-25"><a></a></span>
-<span id="cb12-26"><a></a>manx <span class="op">=</span> pd.Series(</span>
-<span id="cb12-27"><a></a>    np.apply_along_axis(manhattan, <span class="dv">1</span>, x, y<span class="op">=</span>y_new),</span>
-<span id="cb12-28"><a></a>    index<span class="op">=</span>penguins.index,</span>
-<span id="cb12-29"><a></a>).rank()</span>
-<span id="cb12-30"><a></a></span>
-<span id="cb12-31"><a></a>eucx <span class="op">=</span> pd.Series(</span>
-<span id="cb12-32"><a></a>    np.apply_along_axis(euclidean, <span class="dv">1</span>, x, y<span class="op">=</span>y_new),</span>
-<span id="cb12-33"><a></a>    index<span class="op">=</span>penguins.index,</span>
-<span id="cb12-34"><a></a>).rank()</span>
-<span id="cb12-35"><a></a></span>
-<span id="cb12-36"><a></a>minx <span class="op">=</span> pd.Series(</span>
-<span id="cb12-37"><a></a>    np.apply_along_axis(minkowski_5, <span class="dv">1</span>, x, y<span class="op">=</span>y_new),</span>
-<span id="cb12-38"><a></a>    index<span class="op">=</span>penguins.index,</span>
-<span id="cb12-39"><a></a>).rank()</span>
-<span id="cb12-40"><a></a></span>
-<span id="cb12-41"><a></a>penguins_rank <span class="op">=</span> penguins.assign(manx<span class="op">=</span>manx, eucx<span class="op">=</span>eucx, minx<span class="op">=</span>minx)</span>
-<span id="cb12-42"><a></a></span>
-<span id="cb12-43"><a></a><span class="co"># penguins_rank.sort_values("manx")[["species"]]</span></span>
-<span id="cb12-44"><a></a><span class="co"># penguins_rank.sort_values("eucx")[["species"]]</span></span>
-<span id="cb12-45"><a></a><span class="co"># penguins_rank.sort_values("minx")[["species"]]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a aria-label="2"></a></span>
+<span id="cb12-3"><a aria-label="3"></a></span>
+<span id="cb12-4"><a aria-label="4"></a><span class="kw">def</span> manhattan(x, y):</span>
+<span id="cb12-5"><a aria-label="5"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(x <span class="op">-</span> y))</span>
+<span id="cb12-6"><a aria-label="6"></a></span>
+<span id="cb12-7"><a aria-label="7"></a></span>
+<span id="cb12-8"><a aria-label="8"></a><span class="kw">def</span> euclidean(x, y):</span>
+<span id="cb12-9"><a aria-label="9"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((x <span class="op">-</span> y) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb12-10"><a aria-label="10"></a></span>
+<span id="cb12-11"><a aria-label="11"></a></span>
+<span id="cb12-12"><a aria-label="12"></a><span class="kw">def</span> minkowski_5(x, y):</span>
+<span id="cb12-13"><a aria-label="13"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(np.<span class="bu">abs</span>(x <span class="op">-</span> y) <span class="op">**</span> <span class="dv">5</span>) <span class="op">**</span> (<span class="dv">1</span> <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb12-14"><a aria-label="14"></a></span>
+<span id="cb12-15"><a aria-label="15"></a></span>
+<span id="cb12-16"><a aria-label="16"></a>knn_columns <span class="op">=</span> [</span>
+<span id="cb12-17"><a aria-label="17"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb12-18"><a aria-label="18"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb12-19"><a aria-label="19"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb12-20"><a aria-label="20"></a>    <span class="st">"body_mass_g"</span>,</span>
+<span id="cb12-21"><a aria-label="21"></a>]</span>
+<span id="cb12-22"><a aria-label="22"></a></span>
+<span id="cb12-23"><a aria-label="23"></a>x <span class="op">=</span> penguins[knn_columns].to_numpy()</span>
+<span id="cb12-24"><a aria-label="24"></a>y_new <span class="op">=</span> np.array([<span class="dv">19</span>, <span class="dv">40</span>, <span class="dv">185</span>, <span class="dv">3345</span>])</span>
+<span id="cb12-25"><a aria-label="25"></a></span>
+<span id="cb12-26"><a aria-label="26"></a>manx <span class="op">=</span> pd.Series(</span>
+<span id="cb12-27"><a aria-label="27"></a>    np.apply_along_axis(manhattan, <span class="dv">1</span>, x, y<span class="op">=</span>y_new),</span>
+<span id="cb12-28"><a aria-label="28"></a>    index<span class="op">=</span>penguins.index,</span>
+<span id="cb12-29"><a aria-label="29"></a>).rank()</span>
+<span id="cb12-30"><a aria-label="30"></a></span>
+<span id="cb12-31"><a aria-label="31"></a>eucx <span class="op">=</span> pd.Series(</span>
+<span id="cb12-32"><a aria-label="32"></a>    np.apply_along_axis(euclidean, <span class="dv">1</span>, x, y<span class="op">=</span>y_new),</span>
+<span id="cb12-33"><a aria-label="33"></a>    index<span class="op">=</span>penguins.index,</span>
+<span id="cb12-34"><a aria-label="34"></a>).rank()</span>
+<span id="cb12-35"><a aria-label="35"></a></span>
+<span id="cb12-36"><a aria-label="36"></a>minx <span class="op">=</span> pd.Series(</span>
+<span id="cb12-37"><a aria-label="37"></a>    np.apply_along_axis(minkowski_5, <span class="dv">1</span>, x, y<span class="op">=</span>y_new),</span>
+<span id="cb12-38"><a aria-label="38"></a>    index<span class="op">=</span>penguins.index,</span>
+<span id="cb12-39"><a aria-label="39"></a>).rank()</span>
+<span id="cb12-40"><a aria-label="40"></a></span>
+<span id="cb12-41"><a aria-label="41"></a>penguins_rank <span class="op">=</span> penguins.assign(manx<span class="op">=</span>manx, eucx<span class="op">=</span>eucx, minx<span class="op">=</span>minx)</span>
+<span id="cb12-42"><a aria-label="42"></a></span>
+<span id="cb12-43"><a aria-label="43"></a><span class="co"># penguins_rank.sort_values("manx")[["species"]]</span></span>
+<span id="cb12-44"><a aria-label="44"></a><span class="co"># penguins_rank.sort_values("eucx")[["species"]]</span></span>
+<span id="cb12-45"><a aria-label="45"></a><span class="co"># penguins_rank.sort_values("minx")[["species"]]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 
@@ -800,6 +977,8 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
+  <script src="../site_libs/revealjs/plugin/verticator/verticator.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -822,6 +1001,8 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
+'verticator': {"themetag":"h1","color":"","inversecolor":"","skipuncounted":false,"clickable":true,"position":"auto","offset":"3vmin","autogenerate":true,"tooltip":false,"scale":1,"debug":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -992,7 +1173,7 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealPointer, Verticator, QuartoSupport,
 
           RevealMath,
           RevealNotes,

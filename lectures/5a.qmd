@@ -8,11 +8,7 @@ format:
     controls-layout: bottom-right
     controls-tutorial: true
     incremental: false
-    chalkboard:
-      src: chalkboard.json
-      storage: chalkboard_pres
-      theme: whiteboard
-      chalk-width: 4
+    theme: [default, styles.scss]
 
 jupyter: python3
 
@@ -20,6 +16,14 @@ execute:
   echo: false
   eval: true
   warning: false
+
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
 
 editor: source
 ---

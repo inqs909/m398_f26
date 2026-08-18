@@ -6,8 +6,12 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/jquery-3.6.3/jquery-3.6.3.min.js"></script>
+<script src="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.js" defer="true"></script>
+<link href="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <title>MATH 398 – Bagging, Random Forests, and Boosting</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,10 +23,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -97,10 +104,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/verticator/verticator.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -207,63 +216,63 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="3873a70b" class="cell" data-execution_count="1">
+<div id="5d83d34c" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a></a><span class="im">from</span> plotnine <span class="im">import</span> (</span>
-<span id="cb1-3"><a></a>    aes,</span>
-<span id="cb1-4"><a></a>    geom_abline,</span>
-<span id="cb1-5"><a></a>    geom_point,</span>
-<span id="cb1-6"><a></a>    ggplot,</span>
-<span id="cb1-7"><a></a>    labs,</span>
-<span id="cb1-8"><a></a>    theme_bw,</span>
-<span id="cb1-9"><a></a>)</span>
-<span id="cb1-10"><a></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_raw</span>
-<span id="cb1-11"><a></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> (</span>
-<span id="cb1-12"><a></a>    GradientBoostingRegressor,</span>
-<span id="cb1-13"><a></a>    RandomForestClassifier,</span>
-<span id="cb1-14"><a></a>    RandomForestRegressor,</span>
-<span id="cb1-15"><a></a>)</span>
-<span id="cb1-16"><a></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb1-17"><a></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb1-18"><a></a></span>
-<span id="cb1-19"><a></a>RANDOM_STATE <span class="op">=</span> <span class="dv">123</span></span>
-<span id="cb1-20"><a></a></span>
-<span id="cb1-21"><a></a><span class="co"># Load and clean the data once for the entire presentation.</span></span>
-<span id="cb1-22"><a></a>penguins <span class="op">=</span> penguins_raw.dropna().copy()</span>
-<span id="cb1-23"><a></a></span>
-<span id="cb1-24"><a></a>regression_features <span class="op">=</span> [</span>
-<span id="cb1-25"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb1-26"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb1-27"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb1-28"><a></a>]</span>
-<span id="cb1-29"><a></a>classification_features <span class="op">=</span> [</span>
-<span id="cb1-30"><a></a>    <span class="st">"body_mass_g"</span>,</span>
-<span id="cb1-31"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb1-32"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb1-33"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb1-34"><a></a>]</span>
-<span id="cb1-35"><a></a></span>
-<span id="cb1-36"><a></a><span class="co"># Create one reproducible 50/50 split and reuse it in every example.</span></span>
-<span id="cb1-37"><a></a>train_index, test_index <span class="op">=</span> train_test_split(</span>
-<span id="cb1-38"><a></a>    penguins.index,</span>
-<span id="cb1-39"><a></a>    test_size<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span id="cb1-40"><a></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb1-41"><a></a>)</span>
-<span id="cb1-42"><a></a></span>
-<span id="cb1-43"><a></a>train_data <span class="op">=</span> penguins.loc[train_index].copy()</span>
-<span id="cb1-44"><a></a>test_data <span class="op">=</span> penguins.loc[test_index].copy()</span>
-<span id="cb1-45"><a></a></span>
-<span id="cb1-46"><a></a>X_train_reg <span class="op">=</span> train_data[regression_features]</span>
-<span id="cb1-47"><a></a>y_train_reg <span class="op">=</span> train_data[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb1-48"><a></a>X_test_reg <span class="op">=</span> test_data[regression_features]</span>
-<span id="cb1-49"><a></a>y_test_reg <span class="op">=</span> test_data[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb1-50"><a></a></span>
-<span id="cb1-51"><a></a>X_train_class <span class="op">=</span> train_data[classification_features]</span>
-<span id="cb1-52"><a></a>y_train_class <span class="op">=</span> train_data[<span class="st">"species"</span>]</span>
-<span id="cb1-53"><a></a>X_test_class <span class="op">=</span> test_data[classification_features]</span>
-<span id="cb1-54"><a></a>y_test_class <span class="op">=</span> test_data[<span class="st">"species"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="im">from</span> plotnine <span class="im">import</span> (</span>
+<span id="cb1-3"><a aria-label="3"></a>    aes,</span>
+<span id="cb1-4"><a aria-label="4"></a>    geom_abline,</span>
+<span id="cb1-5"><a aria-label="5"></a>    geom_point,</span>
+<span id="cb1-6"><a aria-label="6"></a>    ggplot,</span>
+<span id="cb1-7"><a aria-label="7"></a>    labs,</span>
+<span id="cb1-8"><a aria-label="8"></a>    theme_bw,</span>
+<span id="cb1-9"><a aria-label="9"></a>)</span>
+<span id="cb1-10"><a aria-label="10"></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_raw</span>
+<span id="cb1-11"><a aria-label="11"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> (</span>
+<span id="cb1-12"><a aria-label="12"></a>    GradientBoostingRegressor,</span>
+<span id="cb1-13"><a aria-label="13"></a>    RandomForestClassifier,</span>
+<span id="cb1-14"><a aria-label="14"></a>    RandomForestRegressor,</span>
+<span id="cb1-15"><a aria-label="15"></a>)</span>
+<span id="cb1-16"><a aria-label="16"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb1-17"><a aria-label="17"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-18"><a aria-label="18"></a></span>
+<span id="cb1-19"><a aria-label="19"></a>RANDOM_STATE <span class="op">=</span> <span class="dv">123</span></span>
+<span id="cb1-20"><a aria-label="20"></a></span>
+<span id="cb1-21"><a aria-label="21"></a><span class="co"># Load and clean the data once for the entire presentation.</span></span>
+<span id="cb1-22"><a aria-label="22"></a>penguins <span class="op">=</span> penguins_raw.dropna().copy()</span>
+<span id="cb1-23"><a aria-label="23"></a></span>
+<span id="cb1-24"><a aria-label="24"></a>regression_features <span class="op">=</span> [</span>
+<span id="cb1-25"><a aria-label="25"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb1-26"><a aria-label="26"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb1-27"><a aria-label="27"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb1-28"><a aria-label="28"></a>]</span>
+<span id="cb1-29"><a aria-label="29"></a>classification_features <span class="op">=</span> [</span>
+<span id="cb1-30"><a aria-label="30"></a>    <span class="st">"body_mass_g"</span>,</span>
+<span id="cb1-31"><a aria-label="31"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb1-32"><a aria-label="32"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb1-33"><a aria-label="33"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb1-34"><a aria-label="34"></a>]</span>
+<span id="cb1-35"><a aria-label="35"></a></span>
+<span id="cb1-36"><a aria-label="36"></a><span class="co"># Create one reproducible 50/50 split and reuse it in every example.</span></span>
+<span id="cb1-37"><a aria-label="37"></a>train_index, test_index <span class="op">=</span> train_test_split(</span>
+<span id="cb1-38"><a aria-label="38"></a>    penguins.index,</span>
+<span id="cb1-39"><a aria-label="39"></a>    test_size<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb1-40"><a aria-label="40"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
+<span id="cb1-41"><a aria-label="41"></a>)</span>
+<span id="cb1-42"><a aria-label="42"></a></span>
+<span id="cb1-43"><a aria-label="43"></a>train_data <span class="op">=</span> penguins.loc[train_index].copy()</span>
+<span id="cb1-44"><a aria-label="44"></a>test_data <span class="op">=</span> penguins.loc[test_index].copy()</span>
+<span id="cb1-45"><a aria-label="45"></a></span>
+<span id="cb1-46"><a aria-label="46"></a>X_train_reg <span class="op">=</span> train_data[regression_features]</span>
+<span id="cb1-47"><a aria-label="47"></a>y_train_reg <span class="op">=</span> train_data[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb1-48"><a aria-label="48"></a>X_test_reg <span class="op">=</span> test_data[regression_features]</span>
+<span id="cb1-49"><a aria-label="49"></a>y_test_reg <span class="op">=</span> test_data[<span class="st">"body_mass_g"</span>]</span>
+<span id="cb1-50"><a aria-label="50"></a></span>
+<span id="cb1-51"><a aria-label="51"></a>X_train_class <span class="op">=</span> train_data[classification_features]</span>
+<span id="cb1-52"><a aria-label="52"></a>y_train_class <span class="op">=</span> train_data[<span class="st">"species"</span>]</span>
+<span id="cb1-53"><a aria-label="53"></a>X_test_class <span class="op">=</span> test_data[classification_features]</span>
+<span id="cb1-54"><a aria-label="54"></a>y_test_class <span class="op">=</span> test_data[<span class="st">"species"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -277,9 +286,24 @@
 </ul>
 </section>
 <section>
-<section id="bagging" class="title-slide slide level1 center">
+<section id="bagging" class="title-slide slide level1 agenda-slide center">
 <h1>Bagging</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-active">
+<p>Bagging</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Random Forests</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Boosting</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="bagging-1" class="slide level2">
 <h2>Bagging</h2>
@@ -316,9 +340,24 @@
 <p>However, we can compute which variables reduced the RSS or Gini Index for all the trees. The variables with the largest reduction are considered important.</p>
 </section></section>
 <section>
-<section id="random-forests" class="title-slide slide level1 center">
+<section id="random-forests" class="title-slide slide level1 agenda-slide center">
 <h1>Random Forests</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bagging</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Random Forests</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Boosting</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="random-forests-1" class="slide level2">
 <h2>Random Forests</h2>
@@ -331,9 +370,24 @@
 </div>
 </section></section>
 <section>
-<section id="boosting" class="title-slide slide level1 center">
+<section id="boosting" class="title-slide slide level1 agenda-slide center">
 <h1>Boosting</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bagging</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Random Forests</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Boosting</p>
+</div></li>
+<li><div class="agenda-inactive agenda-post-active">
+<p>Python Code</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="boosting-1" class="slide level2">
 <h2>Boosting</h2>
@@ -362,9 +416,24 @@
 </ol>
 </section></section>
 <section>
-<section id="python-code" class="title-slide slide level1 center">
+<section id="python-code" class="title-slide slide level1 agenda-slide center">
 <h1>Python Code</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Bagging</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Random Forests</p>
+</div></li>
+<li><div class="agenda-inactive agenda-pre-active">
+<p>Boosting</p>
+</div></li>
+<li><div class="agenda-active">
+<p>Python Code</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="bagging-regression-trees" class="slide level2">
 <h2>Bagging Regression Trees</h2>
@@ -372,20 +441,20 @@
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Python Code</a></li><li><a href="#tabset-1-2">Predictions</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="fa1c45ad" class="cell" data-execution_count="2">
+<div id="a42d2e0d" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># max_features=1.0 allows every predictor to be considered at each split,</span></span>
-<span id="cb2-2"><a></a><span class="co"># which is the bagging form of a random forest.</span></span>
-<span id="cb2-3"><a></a>bag_penguins_reg <span class="op">=</span> RandomForestRegressor(</span>
-<span id="cb2-4"><a></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
-<span id="cb2-5"><a></a>    max_features<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb2-6"><a></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-7"><a></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb2-8"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb2-9"><a></a>)</span>
-<span id="cb2-10"><a></a></span>
-<span id="cb2-11"><a></a>bag_penguins_reg.fit(X_train_reg, y_train_reg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a><span class="co"># max_features=1.0 allows every predictor to be considered at each split,</span></span>
+<span id="cb2-2"><a aria-label="2"></a><span class="co"># which is the bagging form of a random forest.</span></span>
+<span id="cb2-3"><a aria-label="3"></a>bag_penguins_reg <span class="op">=</span> RandomForestRegressor(</span>
+<span id="cb2-4"><a aria-label="4"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb2-5"><a aria-label="5"></a>    max_features<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb2-6"><a aria-label="6"></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-7"><a aria-label="7"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
+<span id="cb2-8"><a aria-label="8"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb2-9"><a aria-label="9"></a>)</span>
+<span id="cb2-10"><a aria-label="10"></a></span>
+<span id="cb2-11"><a aria-label="11"></a>bag_penguins_reg.fit(X_train_reg, y_train_reg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <style>.sk-global {
@@ -1624,30 +1693,30 @@ forceTheme('sk-container-id-1');</script>
 </div>
 </div>
 <div id="tabset-1-2">
-<div id="aadf8ce6" class="cell" data-execution_count="3">
+<div id="6f6297fe" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>yhat_bag_reg <span class="op">=</span> bag_penguins_reg.predict(X_test_reg)</span>
-<span id="cb3-2"><a></a></span>
-<span id="cb3-3"><a></a>bag_reg_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb3-4"><a></a>    {</span>
-<span id="cb3-5"><a></a>        <span class="st">"predicted"</span>: yhat_bag_reg,</span>
-<span id="cb3-6"><a></a>        <span class="st">"observed"</span>: y_test_reg.to_numpy(),</span>
-<span id="cb3-7"><a></a>    }</span>
-<span id="cb3-8"><a></a>)</span>
-<span id="cb3-9"><a></a></span>
-<span id="cb3-10"><a></a><span class="bu">print</span>(<span class="ss">f"Test MSE: </span><span class="sc">{</span>mean_squared_error(y_test_reg, yhat_bag_reg)<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
-<span id="cb3-11"><a></a></span>
-<span id="cb3-12"><a></a>(</span>
-<span id="cb3-13"><a></a>    ggplot(bag_reg_results, aes(x<span class="op">=</span><span class="st">"predicted"</span>, y<span class="op">=</span><span class="st">"observed"</span>))</span>
-<span id="cb3-14"><a></a>    <span class="op">+</span> geom_point()</span>
-<span id="cb3-15"><a></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
-<span id="cb3-16"><a></a>    <span class="op">+</span> labs(</span>
-<span id="cb3-17"><a></a>        x<span class="op">=</span><span class="st">"Predicted body mass (g)"</span>,</span>
-<span id="cb3-18"><a></a>        y<span class="op">=</span><span class="st">"Observed body mass (g)"</span>,</span>
-<span id="cb3-19"><a></a>    )</span>
-<span id="cb3-20"><a></a>    <span class="op">+</span> theme_bw()</span>
-<span id="cb3-21"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>yhat_bag_reg <span class="op">=</span> bag_penguins_reg.predict(X_test_reg)</span>
+<span id="cb3-2"><a aria-label="2"></a></span>
+<span id="cb3-3"><a aria-label="3"></a>bag_reg_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb3-4"><a aria-label="4"></a>    {</span>
+<span id="cb3-5"><a aria-label="5"></a>        <span class="st">"predicted"</span>: yhat_bag_reg,</span>
+<span id="cb3-6"><a aria-label="6"></a>        <span class="st">"observed"</span>: y_test_reg.to_numpy(),</span>
+<span id="cb3-7"><a aria-label="7"></a>    }</span>
+<span id="cb3-8"><a aria-label="8"></a>)</span>
+<span id="cb3-9"><a aria-label="9"></a></span>
+<span id="cb3-10"><a aria-label="10"></a><span class="bu">print</span>(<span class="ss">f"Test MSE: </span><span class="sc">{</span>mean_squared_error(y_test_reg, yhat_bag_reg)<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb3-11"><a aria-label="11"></a></span>
+<span id="cb3-12"><a aria-label="12"></a>(</span>
+<span id="cb3-13"><a aria-label="13"></a>    ggplot(bag_reg_results, aes(x<span class="op">=</span><span class="st">"predicted"</span>, y<span class="op">=</span><span class="st">"observed"</span>))</span>
+<span id="cb3-14"><a aria-label="14"></a>    <span class="op">+</span> geom_point()</span>
+<span id="cb3-15"><a aria-label="15"></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb3-16"><a aria-label="16"></a>    <span class="op">+</span> labs(</span>
+<span id="cb3-17"><a aria-label="17"></a>        x<span class="op">=</span><span class="st">"Predicted body mass (g)"</span>,</span>
+<span id="cb3-18"><a aria-label="18"></a>        y<span class="op">=</span><span class="st">"Observed body mass (g)"</span>,</span>
+<span id="cb3-19"><a aria-label="19"></a>    )</span>
+<span id="cb3-20"><a aria-label="20"></a>    <span class="op">+</span> theme_bw()</span>
+<span id="cb3-21"><a aria-label="21"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test MSE: 115,532.61</code></pre>
@@ -1670,19 +1739,19 @@ forceTheme('sk-container-id-1');</script>
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Python Code</a></li><li><a href="#tabset-2-2">Prediction</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div id="7ee2d04e" class="cell" data-execution_count="4">
+<div id="c84a8395" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># All four predictors are available at each split.</span></span>
-<span id="cb5-2"><a></a>bag_penguins_class <span class="op">=</span> RandomForestClassifier(</span>
-<span id="cb5-3"><a></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
-<span id="cb5-4"><a></a>    max_features<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb5-5"><a></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-6"><a></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb5-7"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb5-8"><a></a>)</span>
-<span id="cb5-9"><a></a></span>
-<span id="cb5-10"><a></a>bag_penguins_class.fit(X_train_class, y_train_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a><span class="co"># All four predictors are available at each split.</span></span>
+<span id="cb5-2"><a aria-label="2"></a>bag_penguins_class <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb5-3"><a aria-label="3"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb5-4"><a aria-label="4"></a>    max_features<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb5-5"><a aria-label="5"></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-6"><a aria-label="6"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
+<span id="cb5-7"><a aria-label="7"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb5-8"><a aria-label="8"></a>)</span>
+<span id="cb5-9"><a aria-label="9"></a></span>
+<span id="cb5-10"><a aria-label="10"></a>bag_penguins_class.fit(X_train_class, y_train_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <style>.sk-global {
@@ -2954,15 +3023,15 @@ forceTheme('sk-container-id-2');</script>
 </div>
 </div>
 <div id="tabset-2-2">
-<div id="a85924c4" class="cell" data-execution_count="5">
+<div id="b731463d" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a></a>yhat_bag_class <span class="op">=</span> bag_penguins_class.predict(X_test_class)</span>
-<span id="cb6-2"><a></a></span>
-<span id="cb6-3"><a></a>pd.crosstab(</span>
-<span id="cb6-4"><a></a>    pd.Series(yhat_bag_class, name<span class="op">=</span><span class="st">"Predicted"</span>),</span>
-<span id="cb6-5"><a></a>    pd.Series(y_test_class.to_numpy(), name<span class="op">=</span><span class="st">"Observed"</span>),</span>
-<span id="cb6-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>yhat_bag_class <span class="op">=</span> bag_penguins_class.predict(X_test_class)</span>
+<span id="cb6-2"><a aria-label="2"></a></span>
+<span id="cb6-3"><a aria-label="3"></a>pd.crosstab(</span>
+<span id="cb6-4"><a aria-label="4"></a>    pd.Series(yhat_bag_class, name<span class="op">=</span><span class="st">"Predicted"</span>),</span>
+<span id="cb6-5"><a aria-label="5"></a>    pd.Series(y_test_class.to_numpy(), name<span class="op">=</span><span class="st">"Observed"</span>),</span>
+<span id="cb6-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -3030,19 +3099,19 @@ forceTheme('sk-container-id-2');</script>
 <ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Python Code</a></li><li><a href="#tabset-3-2">Prediction</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
-<div id="9930d2b5" class="cell" data-execution_count="6">
+<div id="b60bc50c" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="co"># Only two randomly selected predictors are considered at each split.</span></span>
-<span id="cb7-2"><a></a>random_forest_penguins_reg <span class="op">=</span> RandomForestRegressor(</span>
-<span id="cb7-3"><a></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
-<span id="cb7-4"><a></a>    max_features<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb7-5"><a></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb7-6"><a></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb7-7"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb7-8"><a></a>)</span>
-<span id="cb7-9"><a></a></span>
-<span id="cb7-10"><a></a>random_forest_penguins_reg.fit(X_train_reg, y_train_reg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a><span class="co"># Only two randomly selected predictors are considered at each split.</span></span>
+<span id="cb7-2"><a aria-label="2"></a>random_forest_penguins_reg <span class="op">=</span> RandomForestRegressor(</span>
+<span id="cb7-3"><a aria-label="3"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb7-4"><a aria-label="4"></a>    max_features<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb7-5"><a aria-label="5"></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-6"><a aria-label="6"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
+<span id="cb7-7"><a aria-label="7"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb7-8"><a aria-label="8"></a>)</span>
+<span id="cb7-9"><a aria-label="9"></a></span>
+<span id="cb7-10"><a aria-label="10"></a>random_forest_penguins_reg.fit(X_train_reg, y_train_reg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <style>.sk-global {
@@ -4282,30 +4351,30 @@ forceTheme('sk-container-id-3');</script>
 </div>
 </div>
 <div id="tabset-3-2">
-<div id="a283589e" class="cell" data-execution_count="7">
+<div id="7d0e2a5e" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a>yhat_rf_reg <span class="op">=</span> random_forest_penguins_reg.predict(X_test_reg)</span>
-<span id="cb8-2"><a></a></span>
-<span id="cb8-3"><a></a>rf_reg_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb8-4"><a></a>    {</span>
-<span id="cb8-5"><a></a>        <span class="st">"predicted"</span>: yhat_rf_reg,</span>
-<span id="cb8-6"><a></a>        <span class="st">"observed"</span>: y_test_reg.to_numpy(),</span>
-<span id="cb8-7"><a></a>    }</span>
-<span id="cb8-8"><a></a>)</span>
-<span id="cb8-9"><a></a></span>
-<span id="cb8-10"><a></a><span class="bu">print</span>(<span class="ss">f"Test MSE: </span><span class="sc">{</span>mean_squared_error(y_test_reg, yhat_rf_reg)<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
-<span id="cb8-11"><a></a></span>
-<span id="cb8-12"><a></a>(</span>
-<span id="cb8-13"><a></a>    ggplot(rf_reg_results, aes(x<span class="op">=</span><span class="st">"predicted"</span>, y<span class="op">=</span><span class="st">"observed"</span>))</span>
-<span id="cb8-14"><a></a>    <span class="op">+</span> geom_point()</span>
-<span id="cb8-15"><a></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
-<span id="cb8-16"><a></a>    <span class="op">+</span> labs(</span>
-<span id="cb8-17"><a></a>        x<span class="op">=</span><span class="st">"Predicted body mass (g)"</span>,</span>
-<span id="cb8-18"><a></a>        y<span class="op">=</span><span class="st">"Observed body mass (g)"</span>,</span>
-<span id="cb8-19"><a></a>    )</span>
-<span id="cb8-20"><a></a>    <span class="op">+</span> theme_bw()</span>
-<span id="cb8-21"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>yhat_rf_reg <span class="op">=</span> random_forest_penguins_reg.predict(X_test_reg)</span>
+<span id="cb8-2"><a aria-label="2"></a></span>
+<span id="cb8-3"><a aria-label="3"></a>rf_reg_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb8-4"><a aria-label="4"></a>    {</span>
+<span id="cb8-5"><a aria-label="5"></a>        <span class="st">"predicted"</span>: yhat_rf_reg,</span>
+<span id="cb8-6"><a aria-label="6"></a>        <span class="st">"observed"</span>: y_test_reg.to_numpy(),</span>
+<span id="cb8-7"><a aria-label="7"></a>    }</span>
+<span id="cb8-8"><a aria-label="8"></a>)</span>
+<span id="cb8-9"><a aria-label="9"></a></span>
+<span id="cb8-10"><a aria-label="10"></a><span class="bu">print</span>(<span class="ss">f"Test MSE: </span><span class="sc">{</span>mean_squared_error(y_test_reg, yhat_rf_reg)<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-11"><a aria-label="11"></a></span>
+<span id="cb8-12"><a aria-label="12"></a>(</span>
+<span id="cb8-13"><a aria-label="13"></a>    ggplot(rf_reg_results, aes(x<span class="op">=</span><span class="st">"predicted"</span>, y<span class="op">=</span><span class="st">"observed"</span>))</span>
+<span id="cb8-14"><a aria-label="14"></a>    <span class="op">+</span> geom_point()</span>
+<span id="cb8-15"><a aria-label="15"></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb8-16"><a aria-label="16"></a>    <span class="op">+</span> labs(</span>
+<span id="cb8-17"><a aria-label="17"></a>        x<span class="op">=</span><span class="st">"Predicted body mass (g)"</span>,</span>
+<span id="cb8-18"><a aria-label="18"></a>        y<span class="op">=</span><span class="st">"Observed body mass (g)"</span>,</span>
+<span id="cb8-19"><a aria-label="19"></a>    )</span>
+<span id="cb8-20"><a aria-label="20"></a>    <span class="op">+</span> theme_bw()</span>
+<span id="cb8-21"><a aria-label="21"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test MSE: 121,214.38</code></pre>
@@ -4328,19 +4397,19 @@ forceTheme('sk-container-id-3');</script>
 <ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Python Code</a></li><li><a href="#tabset-4-2">Prediction</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1">
-<div id="f6e9f45d" class="cell" data-execution_count="8">
+<div id="8950ea73" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="co"># Only two randomly selected predictors are considered at each split.</span></span>
-<span id="cb10-2"><a></a>random_forest_penguins_class <span class="op">=</span> RandomForestClassifier(</span>
-<span id="cb10-3"><a></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
-<span id="cb10-4"><a></a>    max_features<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb10-5"><a></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb10-6"><a></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb10-7"><a></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
-<span id="cb10-8"><a></a>)</span>
-<span id="cb10-9"><a></a></span>
-<span id="cb10-10"><a></a>random_forest_penguins_class.fit(X_train_class, y_train_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a><span class="co"># Only two randomly selected predictors are considered at each split.</span></span>
+<span id="cb10-2"><a aria-label="2"></a>random_forest_penguins_class <span class="op">=</span> RandomForestClassifier(</span>
+<span id="cb10-3"><a aria-label="3"></a>    n_estimators<span class="op">=</span><span class="dv">500</span>,</span>
+<span id="cb10-4"><a aria-label="4"></a>    max_features<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb10-5"><a aria-label="5"></a>    bootstrap<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-6"><a aria-label="6"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
+<span id="cb10-7"><a aria-label="7"></a>    n_jobs<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb10-8"><a aria-label="8"></a>)</span>
+<span id="cb10-9"><a aria-label="9"></a></span>
+<span id="cb10-10"><a aria-label="10"></a>random_forest_penguins_class.fit(X_train_class, y_train_class)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <style>.sk-global {
@@ -5612,15 +5681,15 @@ forceTheme('sk-container-id-4');</script>
 </div>
 </div>
 <div id="tabset-4-2">
-<div id="044275d4" class="cell" data-execution_count="9">
+<div id="c46b4c45" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a>yhat_rf_class <span class="op">=</span> random_forest_penguins_class.predict(X_test_class)</span>
-<span id="cb11-2"><a></a></span>
-<span id="cb11-3"><a></a>pd.crosstab(</span>
-<span id="cb11-4"><a></a>    pd.Series(yhat_rf_class, name<span class="op">=</span><span class="st">"Predicted"</span>),</span>
-<span id="cb11-5"><a></a>    pd.Series(y_test_class.to_numpy(), name<span class="op">=</span><span class="st">"Observed"</span>),</span>
-<span id="cb11-6"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a>yhat_rf_class <span class="op">=</span> random_forest_penguins_class.predict(X_test_class)</span>
+<span id="cb11-2"><a aria-label="2"></a></span>
+<span id="cb11-3"><a aria-label="3"></a>pd.crosstab(</span>
+<span id="cb11-4"><a aria-label="4"></a>    pd.Series(yhat_rf_class, name<span class="op">=</span><span class="st">"Predicted"</span>),</span>
+<span id="cb11-5"><a aria-label="5"></a>    pd.Series(y_test_class.to_numpy(), name<span class="op">=</span><span class="st">"Observed"</span>),</span>
+<span id="cb11-6"><a aria-label="6"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -5688,20 +5757,20 @@ forceTheme('sk-container-id-4');</script>
 <ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">Python Code</a></li><li><a href="#tabset-5-2">Prediction</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1">
-<div id="a992d2ea" class="cell" data-execution_count="10">
+<div id="811a40c3" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a>boost_penguin <span class="op">=</span> GradientBoostingRegressor(</span>
-<span id="cb12-2"><a></a>    loss<span class="op">=</span><span class="st">"squared_error"</span>,</span>
-<span id="cb12-3"><a></a>    n_estimators<span class="op">=</span><span class="dv">5000</span>,</span>
-<span id="cb12-4"><a></a>    learning_rate<span class="op">=</span><span class="fl">0.001</span>,</span>
-<span id="cb12-5"><a></a>    max_depth<span class="op">=</span><span class="dv">4</span>,</span>
-<span id="cb12-6"><a></a>    min_samples_leaf<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb12-7"><a></a>    subsample<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span id="cb12-8"><a></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb12-9"><a></a>)</span>
-<span id="cb12-10"><a></a></span>
-<span id="cb12-11"><a></a>boost_penguin.fit(X_train_reg, y_train_reg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>boost_penguin <span class="op">=</span> GradientBoostingRegressor(</span>
+<span id="cb12-2"><a aria-label="2"></a>    loss<span class="op">=</span><span class="st">"squared_error"</span>,</span>
+<span id="cb12-3"><a aria-label="3"></a>    n_estimators<span class="op">=</span><span class="dv">5000</span>,</span>
+<span id="cb12-4"><a aria-label="4"></a>    learning_rate<span class="op">=</span><span class="fl">0.001</span>,</span>
+<span id="cb12-5"><a aria-label="5"></a>    max_depth<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb12-6"><a aria-label="6"></a>    min_samples_leaf<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb12-7"><a aria-label="7"></a>    subsample<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb12-8"><a aria-label="8"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
+<span id="cb12-9"><a aria-label="9"></a>)</span>
+<span id="cb12-10"><a aria-label="10"></a></span>
+<span id="cb12-11"><a aria-label="11"></a>boost_penguin.fit(X_train_reg, y_train_reg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <style>.sk-global {
@@ -6718,7 +6787,7 @@ for an example of such pruning.<br>
 <br>
 The collection of fitted sub-estimators.</span></a></td>
 <td class="fitted-att-type">ndarray[object](5000, 1)</td>
-<td>[[DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F790D7AE640)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F790D7AE640)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F790D7AE640)], ..., [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F790D7AE640)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F790D7AE640)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F790D7AE640)]]</td>
+<td>[[DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F030448E140)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F030448E140)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F030448E140)], ..., [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F030448E140)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F030448E140)], [DecisionTreeRegressor(max_depth=4, min_samples_leaf=10, random_state=RandomState(MT19937) at 0x7F030448E140)]]</td>
 </tr>
 <tr class="default odd">
 <td class="param"><a href="https://scikit-learn.org/1.9/modules/generated/sklearn.ensemble.GradientBoostingRegressor.html#:~:text=feature_importances_,-ndarray%20of%20shape%20%28n_features%2C%29" class="param-doc-link" style="anchor-name: --doc-link-feature_importances_;" rel="noreferrer" target="_blank">feature_importances_ <span class="param-doc-description" style="position-anchor: --doc-link-feature_importances_;"> feature_importances_: ndarray of shape (n_features,)<br>
@@ -7008,30 +7077,30 @@ forceTheme('sk-container-id-5');</script>
 </div>
 </div>
 <div id="tabset-5-2">
-<div id="8411f23f" class="cell" data-execution_count="11">
+<div id="a5d736b3" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a>yhat_boost <span class="op">=</span> boost_penguin.predict(X_test_reg)</span>
-<span id="cb13-2"><a></a></span>
-<span id="cb13-3"><a></a>boost_results <span class="op">=</span> pd.DataFrame(</span>
-<span id="cb13-4"><a></a>    {</span>
-<span id="cb13-5"><a></a>        <span class="st">"predicted"</span>: yhat_boost,</span>
-<span id="cb13-6"><a></a>        <span class="st">"observed"</span>: y_test_reg.to_numpy(),</span>
-<span id="cb13-7"><a></a>    }</span>
-<span id="cb13-8"><a></a>)</span>
-<span id="cb13-9"><a></a></span>
-<span id="cb13-10"><a></a><span class="bu">print</span>(<span class="ss">f"Test MSE: </span><span class="sc">{</span>mean_squared_error(y_test_reg, yhat_boost)<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-11"><a></a></span>
-<span id="cb13-12"><a></a>(</span>
-<span id="cb13-13"><a></a>    ggplot(boost_results, aes(x<span class="op">=</span><span class="st">"predicted"</span>, y<span class="op">=</span><span class="st">"observed"</span>))</span>
-<span id="cb13-14"><a></a>    <span class="op">+</span> geom_point()</span>
-<span id="cb13-15"><a></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
-<span id="cb13-16"><a></a>    <span class="op">+</span> labs(</span>
-<span id="cb13-17"><a></a>        x<span class="op">=</span><span class="st">"Predicted body mass (g)"</span>,</span>
-<span id="cb13-18"><a></a>        y<span class="op">=</span><span class="st">"Observed body mass (g)"</span>,</span>
-<span id="cb13-19"><a></a>    )</span>
-<span id="cb13-20"><a></a>    <span class="op">+</span> theme_bw()</span>
-<span id="cb13-21"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a>yhat_boost <span class="op">=</span> boost_penguin.predict(X_test_reg)</span>
+<span id="cb13-2"><a aria-label="2"></a></span>
+<span id="cb13-3"><a aria-label="3"></a>boost_results <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb13-4"><a aria-label="4"></a>    {</span>
+<span id="cb13-5"><a aria-label="5"></a>        <span class="st">"predicted"</span>: yhat_boost,</span>
+<span id="cb13-6"><a aria-label="6"></a>        <span class="st">"observed"</span>: y_test_reg.to_numpy(),</span>
+<span id="cb13-7"><a aria-label="7"></a>    }</span>
+<span id="cb13-8"><a aria-label="8"></a>)</span>
+<span id="cb13-9"><a aria-label="9"></a></span>
+<span id="cb13-10"><a aria-label="10"></a><span class="bu">print</span>(<span class="ss">f"Test MSE: </span><span class="sc">{</span>mean_squared_error(y_test_reg, yhat_boost)<span class="sc">:,.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-11"><a aria-label="11"></a></span>
+<span id="cb13-12"><a aria-label="12"></a>(</span>
+<span id="cb13-13"><a aria-label="13"></a>    ggplot(boost_results, aes(x<span class="op">=</span><span class="st">"predicted"</span>, y<span class="op">=</span><span class="st">"observed"</span>))</span>
+<span id="cb13-14"><a aria-label="14"></a>    <span class="op">+</span> geom_point()</span>
+<span id="cb13-15"><a aria-label="15"></a>    <span class="op">+</span> geom_abline(slope<span class="op">=</span><span class="dv">1</span>, intercept<span class="op">=</span><span class="dv">0</span>, linetype<span class="op">=</span><span class="st">"dashed"</span>)</span>
+<span id="cb13-16"><a aria-label="16"></a>    <span class="op">+</span> labs(</span>
+<span id="cb13-17"><a aria-label="17"></a>        x<span class="op">=</span><span class="st">"Predicted body mass (g)"</span>,</span>
+<span id="cb13-18"><a aria-label="18"></a>        y<span class="op">=</span><span class="st">"Observed body mass (g)"</span>,</span>
+<span id="cb13-19"><a aria-label="19"></a>    )</span>
+<span id="cb13-20"><a aria-label="20"></a>    <span class="op">+</span> theme_bw()</span>
+<span id="cb13-21"><a aria-label="21"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Test MSE: 110,672.36</code></pre>
@@ -7064,6 +7133,8 @@ forceTheme('sk-container-id-5');</script>
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
+  <script src="../site_libs/revealjs/plugin/verticator/verticator.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -7086,6 +7157,8 @@ forceTheme('sk-container-id-5');</script>
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
+'verticator': {"themetag":"h1","color":"","inversecolor":"","skipuncounted":false,"clickable":true,"position":"auto","offset":"3vmin","autogenerate":true,"tooltip":false,"scale":1,"debug":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -7256,7 +7329,7 @@ forceTheme('sk-container-id-5');</script>
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealPointer, Verticator, QuartoSupport,
 
           RevealMath,
           RevealNotes,

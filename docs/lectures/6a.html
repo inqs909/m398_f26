@@ -6,8 +6,12 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/jquery-3.6.3/jquery-3.6.3.min.js"></script>
+<script src="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.js" defer="true"></script>
+<link href="../site_libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <title>MATH 398 – Regularization</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,10 +23,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -97,12 +104,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-pointer/pointer.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/verticator/verticator.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -209,27 +216,27 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="6b8f0ab1" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb1-4"><a></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb1-5"><a></a><span class="im">from</span> plotnine.data <span class="im">import</span> mtcars <span class="im">as</span> mtcars_data</span>
-<span id="cb1-6"><a></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_data</span>
-<span id="cb1-7"><a></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, Ridge</span>
-<span id="cb1-8"><a></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
-<span id="cb1-9"><a></a></span>
-<span id="cb1-10"><a></a><span class="co"># Data ---------------------------------------------------------------------</span></span>
-<span id="cb1-11"><a></a>penguins <span class="op">=</span> penguins_data.dropna().copy()</span>
-<span id="cb1-12"><a></a></span>
-<span id="cb1-13"><a></a>penguin_predictors <span class="op">=</span> [</span>
-<span id="cb1-14"><a></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb1-15"><a></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb1-16"><a></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb1-17"><a></a>]</span>
-<span id="cb1-18"><a></a>penguin_X <span class="op">=</span> penguins[penguin_predictors].copy()</span>
-<span id="cb1-19"><a></a>penguin_y <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].copy()</span>
-<span id="cb1-20"><a></a>lambda_value <span class="op">=</span> <span class="fl">1.3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c28ca512" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a aria-label="2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb1-4"><a aria-label="4"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-5"><a aria-label="5"></a><span class="im">from</span> plotnine.data <span class="im">import</span> mtcars <span class="im">as</span> mtcars_data</span>
+<span id="cb1-6"><a aria-label="6"></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins <span class="im">as</span> penguins_data</span>
+<span id="cb1-7"><a aria-label="7"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso, Ridge</span>
+<span id="cb1-8"><a aria-label="8"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> make_pipeline</span>
+<span id="cb1-9"><a aria-label="9"></a></span>
+<span id="cb1-10"><a aria-label="10"></a><span class="co"># Data ---------------------------------------------------------------------</span></span>
+<span id="cb1-11"><a aria-label="11"></a>penguins <span class="op">=</span> penguins_data.dropna().copy()</span>
+<span id="cb1-12"><a aria-label="12"></a></span>
+<span id="cb1-13"><a aria-label="13"></a>penguin_predictors <span class="op">=</span> [</span>
+<span id="cb1-14"><a aria-label="14"></a>    <span class="st">"flipper_length_mm"</span>,</span>
+<span id="cb1-15"><a aria-label="15"></a>    <span class="st">"bill_depth_mm"</span>,</span>
+<span id="cb1-16"><a aria-label="16"></a>    <span class="st">"bill_length_mm"</span>,</span>
+<span id="cb1-17"><a aria-label="17"></a>]</span>
+<span id="cb1-18"><a aria-label="18"></a>penguin_X <span class="op">=</span> penguins[penguin_predictors].copy()</span>
+<span id="cb1-19"><a aria-label="19"></a>penguin_y <span class="op">=</span> penguins[<span class="st">"body_mass_g"</span>].copy()</span>
+<span id="cb1-20"><a aria-label="20"></a>lambda_value <span class="op">=</span> <span class="fl">1.3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="learning-outcomes" class="slide level2">
@@ -241,9 +248,15 @@
 </ul>
 </section>
 <section>
-<section id="regularization" class="title-slide slide level1 center">
+<section id="regularization" class="title-slide slide level1 agenda-slide center">
 <h1>Regularization</h1>
-
+<div class="agenda">
+<ul>
+<li><div class="agenda-active">
+<p>Regularization</p>
+</div></li>
+</ul>
+</div>
 </section>
 <section id="regularization-1" class="slide level2">
 <h2>Regularization</h2>
@@ -271,30 +284,30 @@
 </section>
 <section id="ridge-regression-in-python" class="slide level2">
 <h2>Ridge Regression in Python</h2>
-<div id="8fb8f1c7" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a>ridge_model <span class="op">=</span> make_pipeline(</span>
-<span id="cb2-2"><a></a>    Ridge(alpha<span class="op">=</span>lambda_value),</span>
-<span id="cb2-3"><a></a>)</span>
-<span id="cb2-4"><a></a>ridge_model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="36b7fa38" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>ridge_model <span class="op">=</span> make_pipeline(</span>
+<span id="cb2-2"><a aria-label="2"></a>    Ridge(alpha<span class="op">=</span>lambda_value),</span>
+<span id="cb2-3"><a aria-label="3"></a>)</span>
+<span id="cb2-4"><a aria-label="4"></a>ridge_model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lasso-in-python" class="slide level2">
 <h2>LASSO in Python</h2>
-<div id="0ccb4594" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a>lasso_model <span class="op">=</span> make_pipeline(</span>
-<span id="cb3-2"><a></a>    Lasso(alpha<span class="op">=</span>lambda_value),</span>
-<span id="cb3-3"><a></a>)</span>
-<span id="cb3-4"><a></a>lasso_model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2552cbf4" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>lasso_model <span class="op">=</span> make_pipeline(</span>
+<span id="cb3-2"><a aria-label="2"></a>    Lasso(alpha<span class="op">=</span>lambda_value),</span>
+<span id="cb3-3"><a aria-label="3"></a>)</span>
+<span id="cb3-4"><a aria-label="4"></a>lasso_model.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="example" class="slide level2">
 <h2>Example</h2>
-<div id="71d1571f" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># lambda_value = 1.3 was selected arbitrarily in the setup chunk.</span></span>
-<span id="cb4-2"><a></a>ridge_model <span class="op">=</span> make_pipeline(</span>
-<span id="cb4-3"><a></a>    Ridge(alpha<span class="op">=</span>lambda_value),</span>
-<span id="cb4-4"><a></a>)</span>
-<span id="cb4-5"><a></a>ridge_model.fit(penguin_X, penguin_y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3a20e1c9" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a><span class="co"># lambda_value = 1.3 was selected arbitrarily in the setup chunk.</span></span>
+<span id="cb4-2"><a aria-label="2"></a>ridge_model <span class="op">=</span> make_pipeline(</span>
+<span id="cb4-3"><a aria-label="3"></a>    Ridge(alpha<span class="op">=</span>lambda_value),</span>
+<span id="cb4-4"><a aria-label="4"></a>)</span>
+<span id="cb4-5"><a aria-label="5"></a>ridge_model.fit(penguin_X, penguin_y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <style>.sk-global {
   /* Definition of color scheme common for light and dark mode */
@@ -1512,12 +1525,12 @@ forceTheme('sk-container-id-1');</script>
 </section>
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
-<div id="ec05432c" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a></a><span class="co"># lambda_value = 1.3 was selected arbitrarily in the setup chunk.</span></span>
-<span id="cb5-2"><a></a>lasso_model <span class="op">=</span> make_pipeline(</span>
-<span id="cb5-3"><a></a>    Lasso(alpha<span class="op">=</span>lambda_value, max_iter<span class="op">=</span><span class="dv">100_000</span>),</span>
-<span id="cb5-4"><a></a>)</span>
-<span id="cb5-5"><a></a>lasso_model.fit(penguin_X, penguin_y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="9f60b77e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a><span class="co"># lambda_value = 1.3 was selected arbitrarily in the setup chunk.</span></span>
+<span id="cb5-2"><a aria-label="2"></a>lasso_model <span class="op">=</span> make_pipeline(</span>
+<span id="cb5-3"><a aria-label="3"></a>    Lasso(alpha<span class="op">=</span>lambda_value, max_iter<span class="op">=</span><span class="dv">100_000</span>),</span>
+<span id="cb5-4"><a aria-label="4"></a>)</span>
+<span id="cb5-5"><a aria-label="5"></a>lasso_model.fit(penguin_X, penguin_y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <style>.sk-global {
   /* Definition of color scheme common for light and dark mode */
@@ -2704,7 +2717,8 @@ forceTheme('sk-container-id-2');</script>
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-pointer/pointer.js"></script>
+  <script src="../site_libs/revealjs/plugin/verticator/verticator.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -2726,8 +2740,9 @@ forceTheme('sk-container-id-2');</script>
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":true,"src":"chalkboard.json","storage":"chalkboard_pres","theme":"whiteboard","chalkWidth":4},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'pointer': {"key":"q","color":"red","pointerSize":16,"alwaysVisible":false},
+'verticator': {"themetag":"h1","color":"","inversecolor":"","skipuncounted":false,"clickable":true,"position":"auto","offset":"3vmin","autogenerate":true,"tooltip":false,"scale":1,"debug":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -2898,7 +2913,7 @@ forceTheme('sk-container-id-2');</script>
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealPointer, Verticator, QuartoSupport,
 
           RevealMath,
           RevealNotes,

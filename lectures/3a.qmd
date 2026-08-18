@@ -7,7 +7,16 @@ format:
     navigation-mode: vertical
     controls-layout: bottom-right
     controls-tutorial: true
-    incremental: false 
+    incremental: false
+    theme: [default, styles.scss]
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
 editor: source
 ---
 

@@ -10,13 +10,21 @@ format:
     incremental: false
     code-fold: true
     code-summary: "Show code"
-
+    theme: [default, styles.scss]
 execute:
   echo: true
   eval: true
   warning: false
 editor_options:
   chunk_output_type: console
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
 editor: source
 ---
 

@@ -8,6 +8,7 @@ format:
     controls-tutorial: true
     incremental: false 
     code-fold: true
+    theme: [default, styles.scss]
 
 jupyter: python3
 execute:
@@ -15,6 +16,14 @@ execute:
   eval: true
   warning: false
     
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
 editor: source
 ---
 

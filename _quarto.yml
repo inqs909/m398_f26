@@ -22,11 +22,6 @@ website:
       - syllabus.qmd
       - lectures.qmd
       - books.qmd
-  announcement:
-    icon: exclamation-triangle
-    type: danger
-    dismissable: false
-    content: "**WARNING:** This information is a work of progress and subject to change before the start of the semester."
 
 
 format:

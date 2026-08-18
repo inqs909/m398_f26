@@ -8,13 +8,21 @@ format:
     controls-layout: bottom-right
     controls-tutorial: true
     incremental: false
-
+    theme: [default, styles.scss]
 execute:
   echo: true
   eval: true
   warning: false
   error: true
 
+
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
 
 editor: source
 ---

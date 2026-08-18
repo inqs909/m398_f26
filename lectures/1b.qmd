@@ -1,0 +1,328 @@
+---
+title: "Computational Setup"
+subtitle: "Python, uv, and Code Editors"
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    theme: [default, styles.scss]
+
+jupyter: python3
+
+execute:
+  echo: false
+  eval: true
+  warning: false
+
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
+editor: source
+---
+
+# Installation
+
+## Python Programming
+
+Python is a general-purpose programming language widely used for statistics, data science, machine learning, automation, and reproducible research.
+
+[Python](https://www.python.org/)
+
+::: callout-tip
+For this course, we will let `uv` manage Python versions, virtual environments, and package installation whenever possible.
+:::
+
+## Install uv
+
+`uv` is a fast Python package and project manager. It can install Python, create virtual environments, and install packages from a `pyproject.toml` file.
+
+[uv](https://docs.astral.sh/uv/)
+
+
+## Install Positron
+
+Positron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.
+
+[Download Positron](https://positron.posit.co/download.html)
+
+
+## Install VS Code
+
+Visual Studio Code is a general-purpose code editor with strong Python support through extensions.
+
+[Download VS Code](https://code.visualstudio.com/)
+
+Recommended extensions:
+
+- Python
+- Jupyter
+- Quarto
+
+
+## Install VSCodium
+
+VSCodium is an open-source build of VS Code with Microsoft telemetry disabled.
+
+[VSCodium](https://vscodium.com/)
+
+Recommended extensions:
+
+- Python
+- Jupyter
+- Quarto
+
+::: callout-note
+VSCodium uses the Open VSX extension registry by default, so extension names and availability can differ slightly from VS Code.
+:::
+
+# Workspaces and Python Environment
+
+## Workspaces
+
+Workspaces allow you to create locations on your computer and set up a computing environment in one project folder.
+
+A good workflow is:
+
+1. Create one folder for the course.
+2. Put `pyproject.toml` in that folder.
+3. Open the folder in Positron, VS Code, or VSCodium.
+4. Run `uv sync` once from that folder.
+5. Use `uv run ...` commands from that folder.
+
+
+## Course Project Files
+
+Your course project folder should include a `pyproject.toml`.
+
+A `pyproject.toml` file records project metadata and the Python packages required for the course.
+
+Example structure:
+
+```text
+course-folder/
+├── pyproject.toml
+├── lectures/
+├── data/
+└── scripts/
+```
+
+## Class Packages
+
+Replace your `pyproject.toml` with the class toml [file](https://raw.githubusercontent.com/inqs909/m398_f26/refs/heads/main/pyproject.toml).
+
+## Install Packages with uv
+
+Open a terminal in the folder that contains `pyproject.toml`.
+
+Then run:
+
+```bash
+uv sync
+```
+
+This command will:
+
+1. Read the package list in `pyproject.toml`.
+2. Create a project virtual environment in `.venv`.
+3. Install the required packages.
+4. Create or update `uv.lock`.
+
+## Check the uv Environment
+
+Run Python inside the project environment:
+
+```bash
+uv run python
+```
+
+Try importing a package:
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+Exit Python:
+
+```python
+exit()
+```
+
+
+## Course Python Packages
+
+The course `pyproject.toml` includes packages for data analysis, visualization, statistical modeling, machine learning, and notebooks.
+
+Core examples:
+
+- `numpy`
+- `pandas`
+- `matplotlib`
+- `plotnine`
+- `scipy`
+- `statsmodels`
+- `scikit-learn`
+- `jupyter`
+
+::: callout-note
+More packages may be added throughout the course if necessary.
+:::
+
+## Load Python Packages
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+```
+
+You must import packages every new Python session.
+
+
+# Python Basics
+
+## Python as a calculator
+
+Python can evaluate expressions in the console or in a code cell.
+
+Try the following:
+
+1.  $4(4+2)/34$
+2.  $6^3$
+3.  $3-1$
+4.  $4+4/3+45(32*34-54)$
+
+```{python}
+4 * (4 + 2) / 34
+6 ** 3
+3 - 1
+4 + 4 / 3 + 45 * (32 * 34 - 54)
+```
+
+## Python Functions
+
+Python functions perform tasks on specific values.
+
+Evaluate the following values in Python:
+
+1.  $\sqrt{3}$
+2.  $e^3$
+3.  $\ln(53)$
+4.  $\log(324)$
+5.  $\sin(3)$
+6.  $\sin(3\pi)$
+
+```{python}
+import math
+
+math.sqrt(3)
+math.exp(3)
+math.log(53)
+math.log10(324)
+math.sin(3)
+math.sin(3 * math.pi)
+```
+
+## Types of Data
+
+- Numeric: `int`, `float`
+- Character/text: `str`
+- Logical: `bool`
+- Missing: `None`, `np.nan`, or `pd.NA`
+
+Evaluate the following code:
+
+```{python}
+type(1)
+type("1")
+type(True)
+type(None)
+```
+
+## Types of Objects
+
+In Python, an object contains data and behavior. Common data objects include lists, arrays, dictionaries, and data frames.
+
+Run this code and print the objects:
+
+```{python}
+x = list(range(3, 35))
+y = np.arange(1, 21).reshape(4, 5)
+
+x
+y
+```
+
+## Data Frames
+
+Data frames can be thought of as Python's version of a data set.
+
+Play around with a small data frame:
+
+```{python}
+df = pd.DataFrame({
+    "mpg": [21.0, 21.0, 22.8, 21.4, 18.7],
+    "cyl": [6, 6, 4, 6, 8],
+    "gear": [4, 4, 4, 3, 3]
+})
+
+df
+```
+
+## Lists
+
+A list stores multiple Python objects in order. The elements can be different types.
+
+Try playing with this Python object:
+
+```{python}
+list_one = [df, [0, 0, 0, 0], np.eye(3)]
+list_one
+```
+
+## Comparing Numbers
+
+You can compare two numbers or objects. The result is a logical output: `True` or `False`.
+
+## Comparing Numbers Operators
+
+| Operator | Description           |
+|----------|-----------------------|
+| `>`      | Greater Than          |
+| `<`      | Less Than             |
+| `>=`     | Greater than or equal |
+| `<=`     | Less than or equal    |
+| `==`     | Equals                |
+| `!=`     | Not Equals            |
+
+## Dictionaries: Key-Value Objects
+
+A dictionary stores values by name.
+
+```{python}
+dict_two = {
+    "data": df,
+    "vector": [0, 0, 0, 0],
+    "matrix": np.eye(3)
+}
+
+dict_two
+
+dict_two["vector"]
+```
+
+## Resources in Programming
+
+- [Python Documentation](https://docs.python.org/3/)
+- [uv Documentation](https://docs.astral.sh/uv/)
+- [Quarto Python Documentation](https://quarto.org/docs/computations/python.html)
+- [pandas Documentation](https://pandas.pydata.org/docs/)

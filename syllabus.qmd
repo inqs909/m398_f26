@@ -18,7 +18,7 @@ format: html
 
 **Office Hours:**
 
-**Lecture:** Tuesday and Thursday 4:30-5:45 PM in Gateway ***
+**Lecture:** Tuesday and Thursday 4:30-5:45 PM in Gateway 3550
 
 ### Course Description
 
@@ -97,38 +97,38 @@ Working in a group of up to 2 students, you will construct a data science projec
 
 #### Weekly Reports
 
-Weekly reports are progress reports submitted to the instructor to keep track of your progress in completeing the course project. Each week, you will submit what you accomplished in the previous week, any challenges you faced, how you overcame those challenges, and your goal for next week (SMART goal). These will be weekly assignments. Four progress reports will be dropped at the end of the semester. Progress Reports are due every Friday at 11:59 PM. There will be no make ups for progress reports. 
+Weekly reports are progress reports submitted to the instructor to keep track of your progress in completeing the course project. Each week, you will submit what you accomplished in the previous week, any challenges you faced, how you overcame those challenges, and your goal for next week (SMART goal). These will be weekly assignments. Three progress reports will be dropped at the end of the semester. Progress Reports are due every Friday at 11:59 PM. There will be no make ups for progress reports. 
 
 #### Video Assignments
 
-Videos are used to teach machine learning concepts related to the course. Students are expected to watch at least one video a week. The videos are implemented using VoiceThreads. The 2 lowest video assignments will be dropped. Video assignments will be due every Monday at 11:59 PM.
+Videos are used to teach machine learning concepts related to the course. Students are expected to watch at least one video a week. The videos are implemented using PlayPosit (WeVideo). The 3 lowest video assignments will be dropped. Video assignments will be due every Monday at 11:59 PM.
 
 #### In-Class Assignments
 
-In-class assignments are coding assignments where you will progress fitting machine learning models learned during the week. You are expected to complete the assignments every week and submit them every Thursday at 11:59 PM. 
+In-class assignments are coding assignments where you will progress fitting machine learning models learned during the week. You are expected to complete the assignments every week and submit them every Sunday at 11:59 PM. 
 
 ### Class Schedule
 
 The following outline may be subject to change. Any changes will be announced in class.
 
-| Week          | Topic                             | Reading     | Assignments Due |
-|:--------------|:----------------------------------|-------------|-----------------|
-| **1** (8/24)  | Intro to Course/Project/Computing | 2.1 - 2.2   |                 |
-| **2** (8/31)  | Introduction to Machine Learning  | 3.1 - 3.2   |                 |
-| **3** (9/7)   | Linear Regression                 | 4.1-4.2,4.4 |                 |
-| **4** (9/14)  | Classification                    | 4.3,4.5     |                 |
-| **5** (9/21)  | Logistic Regression               | 6.2         |                 |
-| **6** (9/28)  | Regularization                    | 5.1,5.2     |                 |
-| **7** (10/5)  | Resampling Methods                | 7.1-7.4     |                 |
-| **8** (10/12) | Non-Linear Models                 | 7.5-7.7     |                 |
-| **9** (10/19) | Generalized Additive Models       | 8.1         |                 |
-| **10** (10/26)| Tree-based Methods                | 8.2         |                 |
-| **11** (11/2) | Tree-based Methods                | 9.1-9.4     |                 |
-| **12** (11/9) | Support Vector Machines           | 11.1-11.4   |                 |
-| **13** (11/16)| Survival Analysis                 | 11.5        |                 |
-| **14** (11/23)| Survival Analysis/**Holiday**     | 12.1-12.3   |                 |
-| **15** (11/30)| Unsupervised Learning             |             |                 |
-| **16** (12/7) | Final Presentation                |             |                 |
+| Week          | Topic                             | Reading     |
+|:--------------|:----------------------------------|-------------|
+| **1** (8/24)  | Intro to Course/Project/Computing | 2.1 - 2.2   |
+| **2** (8/31)  | Introduction to Machine Learning  | 3.1 - 3.2   |
+| **3** (9/7)   | Linear Regression                 | 4.1-4.2,4.4 |
+| **4** (9/14)  | Classification                    | 4.3,4.5     |
+| **5** (9/21)  | Logistic Regression               | 6.2         |
+| **6** (9/28)  | Regularization                    | 5.1,5.2     |
+| **7** (10/5)  | Resampling Methods                | 7.1-7.4     |
+| **8** (10/12) | Non-Linear Models                 | 7.5-7.7     |
+| **9** (10/19) | Generalized Additive Models       | 8.1         |
+| **10** (10/26)| Tree-based Methods                | 8.2         |
+| **11** (11/2) | Tree-based Methods                | 9.1-9.4     |
+| **12** (11/9) | Support Vector Machines           | 11.1-11.4   |
+| **13** (11/16)| Survival Analysis                 | 11.5        |
+| **14** (11/23)| Survival Analysis/**Holiday**     | 12.1-12.3   |
+| **15** (11/30)| Unsupervised Learning             |             |
+| **16** (12/7) | Final Presentation                |             |
 
 
 
@@ -156,33 +156,32 @@ You may not:
 
 - Use AI to complete assignments, quizzes, exams, or other assessments meant to reflect your own work
 
-- Use AI to generate code
-
 Any AI-generated work will receive a 0 in the class. Severe cases will be reported to Academic Misconduct.
 
 **You may not upload any course material to any AI platforms such as, but not limited to, ChatGPT, Claude, Github Copilot, Meta AI, or Google Gemini. Exceptions are allowed for [DASS](https://www.csuci.edu/dass/)-approved services.**
 
 
-### University Policies
+## University Policies
 
-#### Syllabus Policies and Assistance
+### Syllabus Policies and Assistance
 
 CSUCI’s [Syllabus Policies and Assistance Website](https://www.csuci.edu/studentsupport/syllabus.htm) provides important details about academic policies, campus expectations, and student support services that are all highly applicable to your success as a student both in and outside of the classroom. Ensure that you review this site on a regular basis to stay informed about the policies and resources that support your success, as campus resources or policies may change semester to semester.
 
-#### Academic Honesty
+### Academic Honesty
 
 Conduct yourself with honesty and integrity. Do not submit others' work as your own. Foassignments and quizzes that allow you to work with a group, only put your name on what the group submits if you genuinely contributed to the work. Work completely independently on exams, using only the materials that are indicated as allowed. Failure to observe academic honesty results in substantial penalties that can include failing the course.
 
-#### CSUCI Basic Need
+### CSUCI Basic Need
 
-Please use the link to the [Basic Needs Program on the Syllabus Policies and Assistance website](go.csuci.edu/syllabuspolicies) for information on emergency food, housing accommodations, toiletries, and connections to critical resources. 
+Please use the link to the Basic Needs Program on the [Syllabus Policies and Assistance website](go.csuci.edu/syllabuspolicies) for information on emergency food, housing accommodations, toiletries, and connections to critical resources. 
 
 
-#### CSUCI Disability Statement
+### CSUCI Disability Statement
 
-If you are a student with a disability requesting reasonable accommodations in this course, you need to contact Disability Accommodations and Support Services (DASS) located on the second floor of Arroyo Hall, via email accommodations\@csuci.edu, [website](https://www.csuci.edu/dass/students/apply-for-services.htm), or call 805-437-3331. All requests for reasonable accommodations require registration with DASS in advance of need. Faculty, students and DASS will work together regarding classroom accommodations. You are encouraged to discuss approved.
+If you are a student with a disability requesting reasonable accommodations in this course, you need to contact Disability Accommodations and Support Services (DASS) located on the second floor of Arroyo Hall, via email accommodations\@csuci.edu or call 805-437-3331. [All requests for reasonable accommodations require registration with DASS in advance of need](https://www.csuci.edu/dass/students/apply-for-services.htm). Faculty, students and DASS will work together regarding classroom accommodations. You are encouraged to discuss approved.
 
 ### Disruption
 
 1.  **If I Am Out:** I will communicate via email and will hold classes asynchronously.
 2.  **If You Are Out:** Contact me as soon as possible to talk about your options. Reasonable accommodations will be provided for a brief absence. With proper documentation, extended accommodations will be provided.
+

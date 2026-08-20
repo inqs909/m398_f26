@@ -216,7 +216,7 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="05ac7fd1" class="cell" data-execution_count="1">
+<div id="9baece36" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> warnings</span>
@@ -305,7 +305,7 @@
 </section>
 <section id="plot" class="slide level2">
 <h2>Plot</h2>
-<div id="25e51b2e" class="cell" data-execution_count="2">
+<div id="acc9e8a0" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>(</span>
@@ -325,7 +325,7 @@
 </section>
 <section id="plot-1" class="slide level2">
 <h2>Plot</h2>
-<div id="266f15d1" class="cell" data-execution_count="3">
+<div id="876a0028" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>(</span>
@@ -407,7 +407,7 @@ Y = \beta_0 + \sum^p_{j=1}x^j\beta_j + \sum_{l=1}^L \beta_{p+l}(x - \xi_l)^p_+ +
 </section>
 <section id="smoothing-splines-in-python" class="slide level2">
 <h2>Smoothing Splines in Python</h2>
-<div id="3df85762" class="cell" data-execution_count="4">
+<div id="0efa76fd" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>spline_model, best_lambda, mse, cv_results <span class="op">=</span> fit_smoothing_spline_cv(</span>
 <span id="cb4-2"><a aria-label="2"></a>    data<span class="op">=</span>spline_example_data,</span>
 <span id="cb4-3"><a aria-label="3"></a>    lambda_grid<span class="op">=</span>np.logspace(<span class="op">-</span><span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">25</span>),</span>
@@ -419,7 +419,7 @@ Y = \beta_0 + \sum^p_{j=1}x^j\beta_j + \sum_{l=1}^L \beta_{p+l}(x - \xi_l)^p_+ +
 <h2>Example</h2>
 <p>Fit a smoothing spline model with the following simulated data. Search through the help documentation to print out <span class="math inline">\(\lambda\)</span>. What is the MSE?</p>
 <p>The simulated data are loaded in the setup chunk as <code>spline_example_data</code>.</p>
-<div id="97702dff" class="cell" data-execution_count="5">
+<div id="be2f9003" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>spline_example_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -531,7 +531,7 @@ g(\hat Y) = \hat \beta_0 + \sum^k_{j=1} \hat f_j(X_j)
 <section id="gams-in-python" class="slide level2">
 <h2>GAMs in Python</h2>
 <p>The <code>statsmodels</code> package provides functions for fitting GAMs with multiple predictor variables.</p>
-<div id="7b9f3eb2" class="cell" data-execution_count="6">
+<div id="7f8f352e" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>smooth_predictors <span class="op">=</span> data[[<span class="st">"x_1"</span>, <span class="st">"x_2"</span>]]</span>
 <span id="cb6-2"><a aria-label="2"></a>linear_predictors <span class="op">=</span> sm.add_constant(data[[<span class="st">"x_3"</span>]])</span>
 <span id="cb6-3"><a aria-label="3"></a></span>
@@ -557,7 +557,7 @@ g(\hat Y) = \hat \beta_0 + \sum^k_{j=1} \hat f_j(X_j)
 <h2>Example</h2>
 <p>Fit the data using the simulated data below:</p>
 <p>The simulated data are loaded in the setup chunk as <code>poisson_gam_data</code>.</p>
-<div id="d547bd56" class="cell" data-execution_count="7">
+<div id="f270f7b8" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>poisson_gam_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>

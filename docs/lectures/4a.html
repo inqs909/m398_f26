@@ -225,7 +225,7 @@
 </section>
 <section id="setup" class="slide level2">
 <h2>Setup</h2>
-<div id="56dfb639" class="cell" data-execution_count="1">
+<div id="328ed6fa" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -276,7 +276,7 @@
 </section>
 <section id="knn" class="slide level2">
 <h2>KNN</h2>
-<div id="05cef082" class="cell" data-execution_count="2">
+<div id="e82a645b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>penguins <span class="op">=</span> load_penguins()</span>
@@ -623,7 +623,7 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="lda-1" class="slide level2">
 <h2>LDA</h2>
-<div id="94b771b1" class="cell" data-execution_count="3">
+<div id="9694f78c" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>penguins <span class="op">=</span> load_penguins().dropna().copy()</span>
 <span id="cb3-2"><a aria-label="2"></a>feature_columns <span class="op">=</span> [</span>
 <span id="cb3-3"><a aria-label="3"></a>    <span class="st">"bill_length_mm"</span>,</span>
@@ -641,14 +641,14 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="lda-prediction" class="slide level2">
 <h2>LDA Prediction</h2>
-<div id="f07bede4" class="cell" data-execution_count="4">
+<div id="ce6cfe66" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>new_df <span class="op">=</span> penguins[feature_columns]</span>
 <span id="cb4-2"><a aria-label="2"></a>x_lda_predict <span class="op">=</span> x_lda.predict(new_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="lda-confusion-matrix" class="slide level2">
 <h2>LDA Confusion Matrix</h2>
-<div id="a4ca78e9" class="cell" data-execution_count="5">
+<div id="14805472" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>pd.crosstab(</span>
 <span id="cb5-2"><a aria-label="2"></a>    penguins[<span class="st">"species"</span>],</span>
 <span id="cb5-3"><a aria-label="3"></a>    x_lda_predict,</span>
@@ -714,20 +714,20 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="qda-3" class="slide level2">
 <h2>QDA</h2>
-<div id="ea883854" class="cell" data-execution_count="6">
+<div id="b8bfa0ad" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>x_qda <span class="op">=</span> QuadraticDiscriminantAnalysis()</span>
 <span id="cb6-2"><a aria-label="2"></a>x_qda.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="qda-prediction" class="slide level2">
 <h2>QDA Prediction</h2>
-<div id="6e3e9c9a" class="cell" data-execution_count="7">
+<div id="788b07b3" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>x_qda_predict <span class="op">=</span> x_qda.predict(penguins[feature_columns])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="qda-confusion-matrix" class="slide level2">
 <h2>QDA Confusion Matrix</h2>
-<div id="3e62690b" class="cell" data-execution_count="8">
+<div id="981412c7" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>pd.crosstab(</span>
 <span id="cb8-2"><a aria-label="2"></a>    penguins[<span class="st">"species"</span>],</span>
 <span id="cb8-3"><a aria-label="3"></a>    x_qda_predict,</span>
@@ -793,20 +793,20 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="naive-bayes-4" class="slide level2">
 <h2>Naive Bayes</h2>
-<div id="57d8b0a4" class="cell" data-execution_count="9">
+<div id="2cde46ff" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a>x_nb <span class="op">=</span> GaussianNB()</span>
 <span id="cb9-2"><a aria-label="2"></a>x_nb.fit(X, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="naive-bayes-prediction" class="slide level2">
 <h2>Naive Bayes Prediction</h2>
-<div id="b8a2931c" class="cell" data-execution_count="10">
+<div id="89f65b44" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a>x_nb_predict <span class="op">=</span> x_nb.predict(penguins[feature_columns])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="naive-bayes-confusion-matrix" class="slide level2">
 <h2>Naive Bayes Confusion Matrix</h2>
-<div id="0b7eb236" class="cell" data-execution_count="11">
+<div id="2522e292" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a>pd.crosstab(</span>
 <span id="cb11-2"><a aria-label="2"></a>    penguins[<span class="st">"species"</span>],</span>
 <span id="cb11-3"><a aria-label="3"></a>    x_nb_predict,</span>
@@ -910,7 +910,7 @@ f_k(\boldsymbol X) = \prod^p_{j} f_{jk}(x_j|c_k)
 </section>
 <section id="solution" class="slide level2">
 <h2>Solution</h2>
-<div id="a2944aa1" class="cell" data-execution_count="12">
+<div id="bba1d19f" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>

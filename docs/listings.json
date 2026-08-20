@@ -2,10 +2,6 @@
   {
     "listing": "/lectures.html",
     "items": [
-      "/lectures/10a.html",
-      "/lectures/11a.html",
-      "/lectures/12a.html",
-      "/lectures/13a.html",
       "/lectures/1a.html",
       "/lectures/1b.html",
       "/lectures/2a.html",
@@ -15,7 +11,11 @@
       "/lectures/6a.html",
       "/lectures/7a.html",
       "/lectures/8a.html",
-      "/lectures/9a.html"
+      "/lectures/9a.html",
+      "/lectures/10a.html",
+      "/lectures/11a.html",
+      "/lectures/12a.html",
+      "/lectures/13a.html"
     ]
   }
 ]

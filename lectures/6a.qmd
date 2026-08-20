@@ -23,6 +23,8 @@ filters:
   - reveal-auto-agenda
 
 editor: source
+
+order: 7
 ---
 
 ## Python Setup

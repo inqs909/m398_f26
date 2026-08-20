@@ -216,7 +216,7 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="bd3d60bc" class="cell" data-execution_count="1">
+<div id="3d276a87" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -299,7 +299,7 @@
 </section>
 <section id="plot" class="slide level2">
 <h2>Plot</h2>
-<div id="9478831f" class="cell" data-execution_count="2">
+<div id="0676b3a7" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>(</span>
@@ -319,7 +319,7 @@
 </section>
 <section id="plot-1" class="slide level2">
 <h2>Plot</h2>
-<div id="bcd1939f" class="cell" data-execution_count="3">
+<div id="27366267" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>(</span>
@@ -390,7 +390,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="fitting-a-linear-model" class="slide level2">
 <h2>Fitting a Linear Model</h2>
-<div id="40737967" class="cell" data-execution_count="4">
+<div id="a492c0b4" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>linear_model <span class="op">=</span> smf.ols(<span class="st">"y ~ x"</span>, data<span class="op">=</span>linear_fit_data).fit()</span>
@@ -422,7 +422,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="fitting-a-model" class="slide level2">
 <h2>Fitting a Model</h2>
-<div id="a613ca7b" class="cell" data-execution_count="5">
+<div id="55f51605" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>quartic_model <span class="op">=</span> smf.ols(</span>
@@ -457,7 +457,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="polynomial-functions-in-python-alternative" class="slide level2">
 <h2>Polynomial Functions in Python (Alternative)</h2>
-<div id="7a34e5e1" class="cell" data-execution_count="6">
+<div id="48957230" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>polynomial <span class="op">=</span> PolynomialFeatures(degree<span class="op">=</span>p, include_bias<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb6-2"><a aria-label="2"></a>X_polynomial <span class="op">=</span> polynomial.fit_transform(data[[<span class="st">"x"</span>]])</span>
 <span id="cb6-3"><a aria-label="3"></a>model <span class="op">=</span> LinearRegression().fit(X_polynomial, data[<span class="st">"y"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -465,7 +465,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="example-plot" class="slide level2">
 <h2>Example Plot</h2>
-<div id="367016b3" class="cell" data-execution_count="7">
+<div id="435fd6d7" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>quartic_transform <span class="op">=</span> PolynomialFeatures(degree<span class="op">=</span><span class="dv">4</span>, include_bias<span class="op">=</span><span class="va">True</span>)</span>
@@ -505,7 +505,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="individual-terms-in-python" class="slide level2">
 <h2>Individual Terms in Python</h2>
-<div id="13e0e3f6" class="cell" data-execution_count="8">
+<div id="f3097740" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>model <span class="op">=</span> smf.ols(</span>
 <span id="cb8-2"><a aria-label="2"></a>    <span class="st">"y ~ I(x ** 3)"</span>,</span>
 <span id="cb8-3"><a aria-label="3"></a>    data<span class="op">=</span>data,</span>
@@ -515,7 +515,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 <section id="example" class="slide level2">
 <h2>Example</h2>
 <p>Using <code>polynomial_example_data</code> from the setup chunk, fit quadratic, cubic, and quartic models. Compute the mean squared error and <span class="math inline">\(R^2\)</span> for each model.</p>
-<div id="f13f6ad5" class="cell" data-execution_count="9">
+<div id="6008dd7a" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a>polynomial_example_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
@@ -600,7 +600,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="plot-2" class="slide level2">
 <h2>Plot</h2>
-<div id="c978d6a5" class="cell" data-execution_count="10">
+<div id="8967fabd" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a>step_plot <span class="op">=</span> step_plot_data.copy()</span>
@@ -643,7 +643,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 </section>
 <section id="step-functions-in-python" class="slide level2">
 <h2>Step Functions in Python</h2>
-<div id="8b32bad0" class="cell" data-execution_count="11">
+<div id="b7fbe1f8" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a>step_data <span class="op">=</span> data.assign(</span>
 <span id="cb11-2"><a aria-label="2"></a>    x_bin<span class="op">=</span>pd.cut(data[<span class="st">"x"</span>], bins<span class="op">=</span><span class="dv">10</span>, include_lowest<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb11-3"><a aria-label="3"></a>)</span>
@@ -656,7 +656,7 @@ P(Y=1|X) = \frac{\exp\left\{ \beta_0 + \sum^3_{j=1}\beta_j X^j \right\}}{1 +\exp
 <section id="example-1" class="slide level2">
 <h2>Example</h2>
 <p>Using <code>step_example_data</code> from the setup chunk, fit step-regression models with 10, 20, and 30 steps. Compute the mean squared error and <span class="math inline">\(R^2\)</span> for each model.</p>
-<div id="ea0c5ee9" class="cell" data-execution_count="12">
+<div id="e2a3b2f0" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>step_example_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -751,7 +751,7 @@ Y = \beta_0 + \sum^p_{j=1}\beta_jb_j(X) + \varepsilon
 </section>
 <section id="knots" class="slide level2">
 <h2>Knots</h2>
-<div id="e13f30e6" class="cell" data-execution_count="13">
+<div id="0b11ab12" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a>knot_model_data <span class="op">=</span> knot_data.assign(</span>
@@ -790,7 +790,7 @@ Y = \beta_0 + \sum^p_{j=1}\beta_jb_j(X) + \varepsilon
 </section>
 <section id="more-knots" class="slide level2">
 <h2>More Knots</h2>
-<div id="625ab1cd" class="cell" data-execution_count="14">
+<div id="8b6a48bf" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-label="1"></a>linear_spline_model <span class="op">=</span> smf.ols(</span>
@@ -873,7 +873,7 @@ Y = \beta_0 + \sum^3_{j=1}x^j\beta_j + \sum_{l=1}^Lh(x, \xi_l)\beta_{3+l} + \var
 </section>
 <section id="plot-3" class="slide level2">
 <h2>Plot</h2>
-<div id="0e50d906" class="cell" data-execution_count="15">
+<div id="f426631f" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-label="1"></a>cubic_spline_model <span class="op">=</span> smf.ols(</span>
@@ -908,7 +908,7 @@ Y = \beta_0 + \sum^3_{j=1}x^j\beta_j + \sum_{l=1}^Lh(x, \xi_l)\beta_{3+l} + \var
 </section>
 <section id="natural-cubic-splines-1" class="slide level2">
 <h2>Natural Cubic Splines</h2>
-<div id="b76fefa7" class="cell" data-execution_count="16">
+<div id="fb59c12b" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-label="1"></a>natural_spline_model <span class="op">=</span> smf.ols(</span>
@@ -944,7 +944,7 @@ Y = \beta_0 + \sum^3_{j=1}x^j\beta_j + \sum_{l=1}^Lh(x, \xi_l)\beta_{3+l} + \var
 <section id="cubic-splines-in-python" class="slide level2">
 <h2>Cubic Splines in Python</h2>
 <p>Patsy’s <code>bs()</code> transform constructs a B-spline basis that can be used in a <code>statsmodels</code> formula. Specify the knot locations; a cubic basis uses <code>degree=3</code>.</p>
-<div id="407dc089" class="cell" data-execution_count="17">
+<div id="fd74eace" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-label="1"></a>cubic_spline_model <span class="op">=</span> smf.ols(</span>
 <span id="cb17-2"><a aria-label="2"></a>    <span class="st">"y ~ bs(x, knots=(...), degree=3)"</span>,</span>
 <span id="cb17-3"><a aria-label="3"></a>    data<span class="op">=</span>data,</span>
@@ -954,7 +954,7 @@ Y = \beta_0 + \sum^3_{j=1}x^j\beta_j + \sum_{l=1}^Lh(x, \xi_l)\beta_{3+l} + \var
 <section id="natural-cubic-splines-in-python" class="slide level2">
 <h2>Natural Cubic Splines in Python</h2>
 <p>Patsy’s <code>cr()</code> transform constructs a natural cubic regression-spline basis. Specify the knot locations in the model formula.</p>
-<div id="c2f10acd" class="cell" data-execution_count="18">
+<div id="0c45e3c5" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-label="1"></a>natural_spline_model <span class="op">=</span> smf.ols(</span>
 <span id="cb18-2"><a aria-label="2"></a>    <span class="st">"y ~ cr(x, knots=(...))"</span>,</span>
 <span id="cb18-3"><a aria-label="3"></a>    data<span class="op">=</span>data,</span>
@@ -964,7 +964,7 @@ Y = \beta_0 + \sum^3_{j=1}x^j\beta_j + \sum_{l=1}^Lh(x, \xi_l)\beta_{3+l} + \var
 <section id="example-2" class="slide level2">
 <h2>Example</h2>
 <p>Using <code>spline_example_data</code> from the setup chunk, fit regression models using cubic splines and natural cubic splines. Choose an appropriate number and location of knots. Compute the mean squared error and <span class="math inline">\(R^2\)</span> for each model.</p>
-<div id="7d641725" class="cell" data-execution_count="19">
+<div id="811ee0d0" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-label="1"></a>spline_example_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>

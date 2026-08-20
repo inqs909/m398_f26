@@ -216,7 +216,7 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="0b9430b5" class="cell" data-execution_count="1">
+<div id="8e5e00c9" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a aria-label="2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a aria-label="3"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
@@ -335,7 +335,7 @@
 </section>
 <section id="cv-in-scikit-learn" class="slide level2">
 <h2>CV in <code>scikit-learn</code></h2>
-<div id="6ccb81f9" class="cell" data-execution_count="2">
+<div id="191fbd77" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>cv_model <span class="op">=</span> RidgeCV(</span>
 <span id="cb2-2"><a aria-label="2"></a>    alphas<span class="op">=</span>lambdas,          <span class="co"># Candidate penalty values</span></span>
 <span id="cb2-3"><a aria-label="3"></a>    cv<span class="op">=</span><span class="va">None</span>,                 <span class="co"># Efficient leave-one-out CV for ridge</span></span>
@@ -350,7 +350,7 @@
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Preparation</a></li><li><a href="#tabset-1-2">CV</a></li><li><a href="#tabset-1-3">CV Plot</a></li><li><a href="#tabset-1-4">Best Parameter</a></li><li><a href="#tabset-1-5">Results</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="96b08214" class="cell" data-execution_count="3">
+<div id="5bfd339a" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>ridge_predictors <span class="op">=</span> [</span>
 <span id="cb3-2"><a aria-label="2"></a>    <span class="st">"flipper_length_mm"</span>,</span>
 <span id="cb3-3"><a aria-label="3"></a>    <span class="st">"bill_depth_mm"</span>,</span>
@@ -364,7 +364,7 @@
 </div>
 </div>
 <div id="tabset-1-2">
-<div id="42a02ae5" class="cell" data-execution_count="4">
+<div id="14600f9a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>ridge_mod_cv <span class="op">=</span> RidgeCV(</span>
 <span id="cb4-2"><a aria-label="2"></a>    alphas<span class="op">=</span>lambdas,</span>
 <span id="cb4-3"><a aria-label="3"></a>    cv<span class="op">=</span><span class="va">None</span>,</span>
@@ -384,7 +384,7 @@
 </div>
 </div>
 <div id="tabset-1-3">
-<div id="211a88be" class="cell" data-execution_count="5">
+<div id="7c525ec3" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>(</span>
 <span id="cb5-2"><a aria-label="2"></a>    ggplot(ridge_cv_results, aes(x<span class="op">=</span><span class="st">"lambda"</span>, y<span class="op">=</span><span class="st">"mean_cv_error"</span>))</span>
 <span id="cb5-3"><a aria-label="3"></a>    <span class="op">+</span> geom_line()</span>
@@ -407,7 +407,7 @@
 </div>
 </div>
 <div id="tabset-1-4">
-<div id="68725b27" class="cell" data-execution_count="6">
+<div id="03e624ec" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>ridge_mod_cv.alpha_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>1.0</code></pre>
@@ -415,7 +415,7 @@
 </div>
 </div>
 <div id="tabset-1-5">
-<div id="e395c5ef" class="cell" data-execution_count="7">
+<div id="1479066c" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>ridge_mod <span class="op">=</span> Ridge(alpha<span class="op">=</span>ridge_mod_cv.alpha_)</span>
 <span id="cb8-2"><a aria-label="2"></a>ridge_mod.fit(X_ridge_scaled, y_ridge)</span>
 <span id="cb8-3"><a aria-label="3"></a></span>
@@ -447,7 +447,7 @@ Name: coefficient, dtype: float64</code></pre>
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Preparation</a></li><li><a href="#tabset-2-2">CV</a></li><li><a href="#tabset-2-3">CV Plot</a></li><li><a href="#tabset-2-4">Best Parameter</a></li><li><a href="#tabset-2-5">Results</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div id="ae0306ff" class="cell" data-execution_count="8">
+<div id="6e3e0f87" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a>lasso_predictors <span class="op">=</span> [</span>
 <span id="cb10-2"><a aria-label="2"></a>    <span class="st">"flipper_length_mm"</span>,</span>
 <span id="cb10-3"><a aria-label="3"></a>    <span class="st">"bill_depth_mm"</span>,</span>
@@ -461,7 +461,7 @@ Name: coefficient, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-2">
-<div id="6dd77188" class="cell" data-execution_count="9">
+<div id="4a519ac0" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a>lasso_mod_cv <span class="op">=</span> LassoCV(</span>
 <span id="cb11-2"><a aria-label="2"></a>    alphas<span class="op">=</span>lambdas,</span>
 <span id="cb11-3"><a aria-label="3"></a>    cv<span class="op">=</span>loo,</span>
@@ -482,7 +482,7 @@ Name: coefficient, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-3">
-<div id="fca92374" class="cell" data-execution_count="10">
+<div id="67b05fc5" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>(</span>
 <span id="cb12-2"><a aria-label="2"></a>    ggplot(lasso_cv_results, aes(x<span class="op">=</span><span class="st">"lambda"</span>, y<span class="op">=</span><span class="st">"mean_cv_error"</span>))</span>
 <span id="cb12-3"><a aria-label="3"></a>    <span class="op">+</span> geom_line()</span>
@@ -505,7 +505,7 @@ Name: coefficient, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-4">
-<div id="d79f786c" class="cell" data-execution_count="11">
+<div id="aa5ba47e" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a>lasso_mod_cv.alpha_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>np.float64(1.0)</code></pre>
@@ -513,7 +513,7 @@ Name: coefficient, dtype: float64</code></pre>
 </div>
 </div>
 <div id="tabset-2-5">
-<div id="40ed2fa0" class="cell" data-execution_count="12">
+<div id="7e288acd" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-label="1"></a>lasso_mod <span class="op">=</span> Lasso(</span>
 <span id="cb15-2"><a aria-label="2"></a>    alpha<span class="op">=</span>lasso_mod_cv.alpha_,</span>
 <span id="cb15-3"><a aria-label="3"></a>    max_iter<span class="op">=</span><span class="dv">100_000</span>,</span>
@@ -582,7 +582,7 @@ Name: coefficient, dtype: float64</code></pre>
 <section id="examples" class="slide level2">
 <h2>Examples</h2>
 <p>Fitting the following model:</p>
-<div id="ccd1d32a" class="cell" data-execution_count="13">
+<div id="a14e51c2" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-label="1"></a>bootstrap_predictors <span class="op">=</span> [</span>
 <span id="cb17-2"><a aria-label="2"></a>    <span class="st">"flipper_length_mm"</span>,</span>
 <span id="cb17-3"><a aria-label="3"></a>    <span class="st">"bill_length_mm"</span>,</span>
@@ -608,7 +608,7 @@ dtype: float64</code></pre>
 </section>
 <section id="examples-solution" class="slide level2">
 <h2>Examples: Solution</h2>
-<div id="91e89b6c" class="cell" data-execution_count="14">
+<div id="af2faf2a" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-label="1"></a>B <span class="op">=</span> <span class="dv">1000</span></span>

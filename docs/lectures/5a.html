@@ -263,7 +263,7 @@
 </section>
 <section id="motivation" class="slide level2">
 <h2>Motivation</h2>
-<div id="a10e893b" class="cell" data-execution_count="2">
+<div id="fff31a4b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>(</span>
@@ -295,7 +295,7 @@
 </section>
 <section id="for-now" class="slide level2">
 <h2>For Now …</h2>
-<div id="6a0a95e8" class="cell" data-execution_count="3">
+<div id="8143693c" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>(</span>
@@ -519,7 +519,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="logistic-regression-2" class="slide level2">
 <h2>Logistic Regression</h2>
-<div id="0b2ca15d" class="cell" data-execution_count="4">
+<div id="abe70aa0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>model <span class="op">=</span> smf.logit(</span>
 <span id="cb4-2"><a aria-label="2"></a>    <span class="st">"y ~ x"</span>,</span>
 <span id="cb4-3"><a aria-label="3"></a>    data<span class="op">=</span>data,</span>
@@ -528,7 +528,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="logistic-regression-3" class="slide level2">
 <h2>Logistic Regression</h2>
-<div id="e90dd13c" class="cell" data-execution_count="5">
+<div id="8bb965eb" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>logit_result <span class="op">=</span> smf.logit(</span>
 <span id="cb5-2"><a aria-label="2"></a>    <span class="st">"gentoo_binary ~ flipper_length_mm + body_mass_g"</span>,</span>
 <span id="cb5-3"><a aria-label="3"></a>    data<span class="op">=</span>penguins,</span>
@@ -559,13 +559,13 @@ Y_i = \left\{\begin{array}{cc}
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Tue, 18 Aug 2026</td>
+<td>Wed, 19 Aug 2026</td>
 <th data-quarto-table-cell-role="th">Pseudo R-squ.:</th>
 <td>0.9107</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>13:59:15</td>
+<td>23:13:26</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-19.375</td>
 </tr>
@@ -631,7 +631,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="prediction-logistic-regression" class="slide level2">
 <h2>Prediction Logistic Regression</h2>
-<div id="905c3de9" class="cell" data-execution_count="6">
+<div id="506e3049" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>new_penguins <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb6-2"><a aria-label="2"></a>    {</span>
 <span id="cb6-3"><a aria-label="3"></a>        <span class="st">"flipper_length_mm"</span>: [<span class="dv">200</span>, <span class="dv">220</span>],</span>
@@ -689,7 +689,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="multinomial-regression-2" class="slide level2">
 <h2>Multinomial Regression</h2>
-<div id="1956563c" class="cell" data-execution_count="7">
+<div id="29498e6c" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>X <span class="op">=</span> sm.add_constant(data[[<span class="st">"x"</span>]])</span>
 <span id="cb7-2"><a aria-label="2"></a>model <span class="op">=</span> sm.MNLogit(data[<span class="st">"y"</span>], X)</span>
 <span id="cb7-3"><a aria-label="3"></a>result <span class="op">=</span> model.fit(method<span class="op">=</span><span class="st">"newton"</span>, disp<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -697,7 +697,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="multinomial-regression-3" class="slide level2">
 <h2>Multinomial Regression</h2>
-<div id="629319d9" class="cell" data-execution_count="8">
+<div id="74c968a1" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>multinomial_X <span class="op">=</span> sm.add_constant(</span>
 <span id="cb8-2"><a aria-label="2"></a>    penguins[[<span class="st">"body_mass_g"</span>, <span class="st">"flipper_length_mm"</span>]]</span>
 <span id="cb8-3"><a aria-label="3"></a>)</span>
@@ -714,7 +714,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
-<div id="4d924f36" class="cell" data-execution_count="9">
+<div id="51f17b24" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a>multinomial_result.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <table class="simpletable caption-top">
@@ -740,13 +740,13 @@ Y_i = \left\{\begin{array}{cc}
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">Date:</th>
-<td>Tue, 18 Aug 2026</td>
+<td>Wed, 19 Aug 2026</td>
 <th data-quarto-table-cell-role="th">Pseudo R-squ.:</th>
 <td>0.6201</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">Time:</th>
-<td>13:59:15</td>
+<td>23:13:26</td>
 <th data-quarto-table-cell-role="th">Log-Likelihood:</th>
 <td>-133.31</td>
 </tr>
@@ -847,7 +847,7 @@ Y_i = \left\{\begin{array}{cc}
 </section>
 <section id="prediction-multinomial-regression" class="slide level2">
 <h2>Prediction Multinomial Regression</h2>
-<div id="5c5a33c5" class="cell" data-execution_count="10">
+<div id="8943d417" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a><span class="co"># New observations</span></span>
 <span id="cb10-2"><a aria-label="2"></a>new_penguins <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb10-3"><a aria-label="3"></a>    {</span>

@@ -26,6 +26,8 @@ filters:
   - reveal-auto-agenda
 
 editor: source
+
+order: 11
 ---
 
 
@@ -217,6 +219,7 @@ plt.title("Regression Tree for Penguin Body Mass")
 plt.tight_layout()
 plt.show()
 ```
+
 :::
 
 ## Classification Trees
@@ -252,6 +255,7 @@ plt.title("Classification Tree for Penguin Species")
 plt.tight_layout()
 plt.show()
 ```
+
 :::
 
 ## Pruning
@@ -379,4 +383,5 @@ plt.title(
 plt.tight_layout()
 plt.show()
 ```
+
 :::

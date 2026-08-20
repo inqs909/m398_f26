@@ -59,13 +59,18 @@ editor: source
 ## Class Setup
 
 -   Homework Assignments
+-   Video Assignments
+-   Progress Reports
 -   Final Presentation
 -   Final Write Up
--   Extra Credit
 
 ## Syllabus
 
 [m398.inqs.info/syllabus](https://www.inqs.info/m398_f26/syllabus)
+
+## Course Website
+
+[m398.inqs.info](https://m398.inqs.info/)
 
 ## Tools
 
@@ -111,11 +116,18 @@ You will need to describe
 
 You will demonstrate your results during a poster presentation on December 8, 2026.
 
-You written report will be due by the end week 15.
+You written report will be due on December 5th, 2026 @ 11:59 PM
 
 More information will be provided on a later date.
 
 
+## Final Report Extensions
+
+For those that need an extension in completing your final report, you may obtain up 7 days extension for every appointment you meet with the [Writing and Multiliteracy Center](https://www.csuci.edu/wmc/) to work on your report.
+
+- 1 Meeting = 24 hour extension
+- Each meeting must be 1 week apart minimum
+- No double dipping between Math 398 and Data 300
 
 # Generative AI
 

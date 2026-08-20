@@ -1789,7 +1789,7 @@
     "href": "lectures/1a.html#class-setup-1",
     "title": "Math 398",
     "section": "Class Setup",
-    "text": "Class Setup\n\nHomework Assignments\nFinal Presentation\nFinal Write Up\nExtra Credit"
+    "text": "Class Setup\n\nHomework Assignments\nVideo Assignments\nProgress Reports\nFinal Presentation\nFinal Write Up"
   },
   {
     "objectID": "lectures/1a.html#syllabus",
@@ -1797,6 +1797,13 @@
     "title": "Math 398",
     "section": "Syllabus",
     "text": "Syllabus\nm398.inqs.info/syllabus"
+  },
+  {
+    "objectID": "lectures/1a.html#course-website",
+    "href": "lectures/1a.html#course-website",
+    "title": "Math 398",
+    "section": "Course Website",
+    "text": "Course Website\nm398.inqs.info"
   },
   {
     "objectID": "lectures/1a.html#tools",
@@ -1852,7 +1859,14 @@
     "href": "lectures/1a.html#final-poster-presentation-and-report",
     "title": "Math 398",
     "section": "Final Poster Presentation and Report",
-    "text": "Final Poster Presentation and Report\nYou will demonstrate your results during a poster presentation on December 8, 2026.\nYou written report will be due by the end week 15.\nMore information will be provided on a later date."
+    "text": "Final Poster Presentation and Report\nYou will demonstrate your results during a poster presentation on December 8, 2026.\nYou written report will be due on December 5th, 2026 @ 11:59 PM\nMore information will be provided on a later date."
+  },
+  {
+    "objectID": "lectures/1a.html#final-report-extensions",
+    "href": "lectures/1a.html#final-report-extensions",
+    "title": "Math 398",
+    "section": "Final Report Extensions",
+    "text": "Final Report Extensions\nFor those that need an extension in completing your final report, you may obtain up 7 days extension for every appointment you meet with the Writing and Multiliteracy Center to work on your report.\n\n1 Meeting = 24 hour extension\nEach meeting must be 1 week apart minimum\nNo double dipping between Math 398 and Data 300"
   },
   {
     "objectID": "lectures/1a.html#use-of-generative-ai-policy",

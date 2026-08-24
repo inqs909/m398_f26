@@ -1,0 +1,124 @@
+---
+title: "Final Project"
+date: 2/7/24
+editor: source
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-tools: true
+    code-line-numbers: true
+    embed-resources: true
+draft: false
+---
+
+## Description
+
+The goal of the final project is for you to choose a data set and create machine learning model that predicts an outcome of interest. You may choose any data set and machine learning model. You may use any programming language to conduct the project.
+
+## Report
+
+Create a final report demonstrating what you have accomplished during the semester. The report should highlight the following components (similar to the presentation):
+
+- Goal of the project
+    - What are you trying to model?
+- The Data Set
+    - Provide a brief description of the data you are working with.
+- Type of Data
+    - Explain your inputs and outputs.
+- Model Used
+    - Describe the model used to explain your data
+    - What are the strengths and weaknesses of using the model.
+- Model Metrics
+    - How well was the model accuracy?
+- Next step?
+    - What future plans would you have for your future model?
+    - What did you learn from the entire process?
+- Appendix
+    - Code (Add this to the Appendix)
+    - If possible, but not necessary, provide a link to your data (via google drive, dropbox, github, ...)
+    - Other technical components
+- For those of you who are not building a model, present on the papers you read, and create a coherent story about your topic of interest and problem you are trying to solve. 
+
+### Report Guidelines
+
+- 3 Components: 
+    - Executive Summary
+        - Max 1 Page
+    - Report
+        - A minimum of 10 pages (15 pages for groups)
+        - Double-spaced
+        - 1 inch margins
+        - Incorporate images (include alternative text on images)
+        - Provide a schematic of your model
+        - Incorporate mathematical formulas if necessary
+    - Appendix
+        - No page limit
+        - Must create a table of contents
+        - Must include citations from reputable sources
+
+## Poster
+
+The purpose of the poster presentation is to communicate the key components of your project in a clear, concise, and visually engaging format. Your poster should allow the audience to quickly understand the problem, methods, results, and major conclusions of your work.
+
+Your poster should include the following sections, as appropriate:
+
+- Title
+
+    - Identify the topic of your project
+    - Include the names of all group members or authors
+
+- Introduction
+    - Describe the problem or question being addressed
+    - Explain why the topic is important
+    - State the objective of the project
+
+- Data Description
+    - Identify the source of the data
+    - Describe the most important variables
+    - Describe the sample and observations
+ 
+- Model
+
+    - Identify the model used
+    - Explain why the model was appropriate
+
+- Results
+
+  - Present the most important findings
+  - Use graphs, tables, and figures
+
+- Conclusions
+
+  - Summarize the major findings.
+  - Explain what the results mean in the context of problem
+  - Include important recommendations, implications, or next steps
+  - Acknowledge limitations
+
+
+## Rubric
+
+### Rubric: Report
+
+| Criteria | Exemplary — 5 | Excellent — 4 | Proficient — 3 | Developing — 2 | Beginning — 1 |
+|---|---|---|---|---|---|
+| **Correct Use of a Mathematical or Machine Learning Model** | Selects the most appropriate model for the problem and applies it correctly and efficiently. Clearly justifies model selection, assumptions, variables, parameters, and methods. Model implementation and calculations are accurate and demonstrate a strong understanding of the modeling process. | Selects an appropriate model and applies it correctly. Assumptions, variables, parameters, and methods are appropriate and clearly justified. Model implementation and calculations are accurate. | Selects an appropriate model and applies it mostly correctly. Most assumptions and variables are appropriate, with only minor errors or missing justification. | Uses a partially appropriate model, but there are noticeable errors in model selection, assumptions, implementation, or calculations. | Uses an inappropriate model or applies the model incorrectly. Major errors prevent the model from adequately addressing the problem. |
+| **Data Description** | Provides a clear, thorough, and well-organized description of the data used in the analysis. Identifies the data source, relevant variables, units of measurement, sample size, and important characteristics of the dataset. Clearly explains any data cleaning, transformations, missing data, or limitations that may affect the analysis. | Provides a clear description of the data, including the data source, relevant variables, and important characteristics. Most data preparation steps and limitations are explained, with only minor details omitted. | Provides an adequate description of the data and identifies most important variables and characteristics. Some information about the data source, preparation, missing values, or limitations may be incomplete or unclear. | Provides a limited description of the data. Important information about variables, data sources, preparation, or limitations is missing or poorly explained, making it difficult to fully understand the dataset. | Provides little or no meaningful description of the data. Important information about the data source, variables, characteristics, or preparation is missing, inaccurate, or unclear. |
+| **Communication and Presentation of Results** | Results are presented clearly, accurately, and professionally using well-designed tables, graphs, figures, metrics, or other visualizations. Results are thoroughly interpreted in the context of the original problem, with thoughtful discussion of uncertainty, limitations, and practical implications. | Results are presented clearly and accurately. Tables, graphs, figures, metrics, or other visualizations are appropriate and correctly labeled. Results are interpreted in the context of the original problem, including relevant limitations or uncertainty. | Results are presented accurately and are generally easy to understand. Visualizations and metrics are appropriate, with minor issues in labeling, interpretation, or discussion of limitations. | Results are presented but may be difficult to interpret. Visualizations, metrics, or explanations have noticeable errors or lack sufficient connection to the original problem. | Results are incomplete, inaccurate, or poorly presented. Visualizations or metrics are missing or misleading, and little or no interpretation is provided. |
+| **Executive Summary** | Provides a clear, concise, and well-organized summary of the report. Effectively communicates the purpose, key findings, major conclusions, and recommendations. The summary is written for a non-technical or managerial audience and allows the reader to understand the main points of the report without reading the full document. | Provides a clear and organized summary of the report that includes the purpose, key findings, conclusions, and recommendations. Most information is concise and appropriate for the intended audience, with only minor omissions or unnecessary details. | Provides an adequate summary of the report and communicates most of the main points. Some key findings, conclusions, or recommendations may be missing or lack clarity. The summary may include too much technical detail or insufficient context for the intended audience. | Provides a limited or poorly organized summary of the report. Important findings, conclusions, or recommendations are missing or unclear. The writing may be overly technical, lengthy, or difficult for the intended audience to understand. | Executive summary is incomplete, inaccurate, or missing. It does not adequately communicate the purpose, major findings, conclusions, or recommendations of the report. |
+| **Reproducibility and Technical Documentation (Appendix)** | Provides complete, clear, and well-organized documentation that allows another person to reproduce the analysis. Includes all necessary code, software or package information, data-processing steps, model specifications, and instructions for running the analysis. Code is organized, appropriately commented, and consistent with the methods described in the report. | Provides clear documentation and most of the information needed to reproduce the analysis. Code, software requirements, data-processing steps, and model specifications are included, with only minor omissions or unclear instructions. | Provides adequate documentation of the analysis, but some information needed for reproducibility is incomplete or unclear. Code and technical steps are generally understandable, although additional explanation or organization may be needed. | Provides limited technical documentation. Important code, software requirements, processing steps, model specifications, or instructions are missing or poorly organized, making the analysis difficult to reproduce. | Provides little or no technical documentation. Code, methods, or instructions are missing, incomplete, or inconsistent with the report, preventing the analysis from being reasonably reproduced. |
+
+### Rubric: Poster Presentation
+
+| Criteria | Exemplary — 5 | Excellent — 4 | Proficient — 3 | Developing — 2 | Beginning — 1 |
+|---|---|---|---|---|---|
+| **Organization of the Poster** | Poster is exceptionally well organized, visually balanced, and easy to follow. Sections are clearly labeled and arranged in a logical sequence. Text, figures, tables, and graphics effectively support the main ideas without overcrowding the poster. | Poster is well organized and easy to follow. Sections are clearly labeled and arranged logically. Visual elements support the content, with only minor issues in spacing, balance, or readability. | Poster has an understandable organization and includes the necessary sections. Most information is easy to locate, though some areas may be crowded, unclear, or inconsistently formatted. | Poster organization is inconsistent or difficult to follow. Important sections may be unclear, poorly arranged, or difficult to identify. Visual elements or text may be overcrowded or distracting. | Poster lacks a clear organizational structure. Sections are missing or difficult to identify, and the layout makes the content difficult to understand. |
+| **Visual Communication** | Visual elements are clear, purposeful, and highly effective in communicating the project's main ideas and results. Figures, tables, charts, and graphics are easy to read, properly labeled, visually consistent, and appropriately sized. The overall design supports understanding without distracting from the content. | Visual elements are clear and appropriate for the project. Most figures, tables, charts, and graphics are readable, properly labeled, and support the main ideas, with only minor issues in formatting, size, or consistency. | Visual elements generally support the presentation, but some may be difficult to read, inconsistently formatted, or only partially connected to the main message. Labels, sizing, or organization may need improvement. | Visual communication is limited or inconsistent. Several figures, tables, charts, or graphics are difficult to read, poorly labeled, overly complex, or do not clearly support the project's message. | Visual elements are missing, unclear, misleading, or difficult to interpret. The poster design interferes with understanding, and figures, tables, charts, or graphics do not effectively communicate the project's content. |
+| **Presentation** | Presenter communicates clearly, confidently, and professionally. Provides a concise and engaging explanation of the poster, demonstrates strong knowledge of the topic, maintains appropriate audience engagement, and responds accurately and thoughtfully to questions. | Presenter communicates clearly and professionally. Demonstrates strong knowledge of the topic and explains the main points effectively. Responds appropriately to most questions and maintains good audience engagement. | Presenter adequately explains the poster and demonstrates a general understanding of the topic. Communication is mostly clear, although some information may lack detail or confidence. Responses to questions are generally adequate. | Presenter provides a limited or unclear explanation of the poster. Demonstrates partial understanding of the topic, relies heavily on reading from the poster, or has difficulty responding to questions. | Presenter is unable to clearly explain the poster or demonstrate sufficient understanding of the topic. Presentation is difficult to follow, and questions are not adequately addressed. |
+
+## Deadline And Extensions
+
+The report will be due on **December 4, 2026 at 11:59 PM**. **Your Poster Presentation will occur on Tuesday 12/8/2026 from 4-6 PM in Gateway Hall.** 
+
+For your report, you may receive a 24-hour extension beyond the due date for evey time you attend the writing and multiliteracy center. Each appointment must be one week apart.

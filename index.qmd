@@ -8,7 +8,7 @@ title: "Welcome to Advanced Research Investigation!"
 ### Quarto Template for HW
 
 ```
-quarto use template inqs909/qs_hw
+quarto use template inqs909/qs_hw_python
 ```
 
 :::

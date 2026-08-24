@@ -1332,37 +1332,37 @@
   {
     "objectID": "assignments/a2.html",
     "href": "assignments/a2.html",
-    "title": "Homework 2",
+    "title": "ICA 1",
     "section": "",
-    "text": "Due 2/17/24 @ 11:59 PM\nUse a Quarto template to create the assignment.\nYou must comment all your code to receive credit.\nSubmit the *.html file to Canvas."
+    "text": "Due 9/3/26 @ 11:59 PM\nUse a Quarto template to create the assignment.\nYou must comment all your code to receive credit.\nSubmit the *.html file to Canvas."
   },
   {
     "objectID": "assignments/a2.html#problem-1",
     "href": "assignments/a2.html#problem-1",
-    "title": "Homework 2",
+    "title": "ICA 1",
     "section": "Problem 1",
-    "text": "Problem 1\nWrite a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector.\n\n\nAnswer\ndef xsummary(x):\n    \"\"\"Return the mean, median, and sample variance of x.\"\"\"\n    x = np.asarray(x)\n\n    return {\n        \"mean\": np.mean(x),\n        \"median\": np.median(x),\n        \"variance\": np.var(x, ddof=1),\n    }"
+    "text": "Problem 1\nWrite a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector."
   },
   {
     "objectID": "assignments/a2.html#problem-2",
     "href": "assignments/a2.html#problem-2",
-    "title": "Homework 2",
+    "title": "ICA 1",
     "section": "Problem 2",
-    "text": "Problem 2\nWrite a function for the following equation:\n\\[f(x, y, z) =\\left\\{\\begin{array}{cc}\nx^2+\\sqrt y & z  = 0 \\\\\nx^2+2x+3+ \\log(y) & z = 1\n\\end{array}\\right.\\]\nInclude any error messages if necessary.\n\n\nAnswer\ndef fxyz(x, y, z):\n    \"\"\"Evaluate the piecewise function for z equal to 0 or 1.\"\"\"\n    if z not in (0, 1):\n        raise ValueError(\"z must be 0 or 1\")\n\n    if y &lt;= 0:\n        raise ValueError(\"y must be greater than 0\")\n\n    if z == 0:\n        return x**2 + np.sqrt(y)\n\n    return x**2 + 2 * x + 3 + np.log(y)"
+    "text": "Problem 2\nWrite a function for the following equation:\n\\[f(x, y, z) =\\left\\{\\begin{array}{cc}\nx^2+\\sqrt y & z  = 0 \\\\\nx^2+2x+3+ \\log(y) & z = 1\n\\end{array}\\right.\\]\nInclude any error messages if necessary."
   },
   {
     "objectID": "assignments/a2.html#problem-3",
     "href": "assignments/a2.html#problem-3",
-    "title": "Homework 2",
+    "title": "ICA 1",
     "section": "Problem 3",
-    "text": "Problem 3\nCreate a function that will give you the first x Fibonacci numbers. You must use a for loop.\n\n\nAnswer\ndef fib(x):\n    \"\"\"Return the first x Fibonacci numbers using a for loop.\"\"\"\n    if not isinstance(x, int) or x &lt; 0:\n        raise ValueError(\"x must be a nonnegative integer\")\n\n    if x == 0:\n        return []\n\n    if x == 1:\n        return [0]\n\n    sequence = [0, 1]\n\n    for _ in range(2, x):\n        sequence.append(sequence[-2] + sequence[-1])\n\n    return sequence"
+    "text": "Problem 3\nCreate a function that will give you the first x Fibonacci numbers. You must use a for loop."
   },
   {
     "objectID": "assignments/a2.html#problem-4",
     "href": "assignments/a2.html#problem-4",
-    "title": "Homework 2",
+    "title": "ICA 1",
     "section": "Problem 4",
-    "text": "Problem 4\nCreate a function that will randomly generate n numbers that are greater than x from a \\(Pois(\\lambda)\\).\n\n\nAnswer\ndef new_pois(n, x, lam):\n    \"\"\"Generate n Poisson observations that are greater than x.\"\"\"\n    if not isinstance(n, int) or n &lt; 0:\n        raise ValueError(\"n must be a nonnegative integer\")\n\n    if lam &lt;= 0:\n        raise ValueError(\"lam must be greater than 0\")\n\n    values = []\n\n    while len(values) &lt; n:\n        new_value = rng.poisson(lam)\n\n        if new_value &gt; x:\n            values.append(new_value)\n\n    return np.array(values)"
+    "text": "Problem 4\nCreate a function that will randomly generate n numbers that are greater than x from a \\(Pois(\\lambda)\\)."
   },
   {
     "objectID": "assignments/a12.html",
@@ -1516,7 +1516,7 @@
     "href": "index.html",
     "title": "Welcome to Advanced Research Investigation!",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/"
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/"
   },
   {
     "objectID": "lectures/10a.html#python-setup",

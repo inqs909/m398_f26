@@ -132,6 +132,10 @@ For those that need an extension in completing your final report, you may obtain
 - Each meeting must be 1 week apart minimum
 - No double dipping between Math 398 and Data 300
 
+## Final Report Guidelines
+
+[Report Guidelines](https://m398.inqs.info/assignments/project_report)
+
 # Generative AI
 
 ## Use of Generative AI Policy

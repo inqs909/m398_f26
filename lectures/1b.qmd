@@ -32,6 +32,16 @@ order: 2
 
 # Installation
 
+## Install Positron
+
+Positron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.
+
+[Download Positron](https://positron.posit.co/download.html)
+
+## Windows Computer
+
+Install the [latest Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version). 
+
 ## Python Programming
 
 Python is a general-purpose programming language widely used for statistics, data science, machine learning, automation, and reproducible research.
@@ -48,12 +58,6 @@ For this course, we will let `uv` manage Python versions, virtual environments, 
 
 [uv](https://docs.astral.sh/uv/)
 
-
-## Install Positron
-
-Positron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.
-
-[Download Positron](https://positron.posit.co/download.html)
 
 
 ## Install VS Code
@@ -110,15 +114,16 @@ Example structure:
 
 ```text
 course-folder/
-├── pyproject.toml
-├── lectures/
-├── data/
-└── scripts/
+├─ pyproject.toml
+├─ lectures/
+├─ data/
+└─ scripts/
 ```
 
 ## Class Packages
 
 Replace your `pyproject.toml` with the class toml [file](https://raw.githubusercontent.com/inqs909/m398_f26/refs/heads/main/pyproject.toml).
+
 
 ## Install Packages with uv
 

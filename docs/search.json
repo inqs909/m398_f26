@@ -1925,6 +1925,20 @@
     "text": "Colon Survival Curve\n\nTaskPlotR Code\n\n\nAdd confidence intervals to the previous plot.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndf_colon %$% survfit(Surv(time, status) ~ rx)  %&gt;% \n      ggsurvfit() +\n      add_confidence_interval() +\n      add_quantile(y_value = 0.5, color = \"gray50\", linewidth = 0.75)"
   },
   {
+    "objectID": "lectures/1b.html#install-positron",
+    "href": "lectures/1b.html#install-positron",
+    "title": "Computational Setup",
+    "section": "Install Positron",
+    "text": "Install Positron\nPositron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.\nDownload Positron"
+  },
+  {
+    "objectID": "lectures/1b.html#windows-computer",
+    "href": "lectures/1b.html#windows-computer",
+    "title": "Computational Setup",
+    "section": "Windows Computer",
+    "text": "Windows Computer\nInstall the latest Visual C++ Redistributable."
+  },
+  {
     "objectID": "lectures/1b.html#python-programming",
     "href": "lectures/1b.html#python-programming",
     "title": "Computational Setup",
@@ -1937,13 +1951,6 @@
     "title": "Computational Setup",
     "section": "Install uv",
     "text": "Install uv\nuv is a fast Python package and project manager. It can install Python, create virtual environments, and install packages from a pyproject.toml file.\nuv"
-  },
-  {
-    "objectID": "lectures/1b.html#install-positron",
-    "href": "lectures/1b.html#install-positron",
-    "title": "Computational Setup",
-    "section": "Install Positron",
-    "text": "Install Positron\nPositron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.\nDownload Positron"
   },
   {
     "objectID": "lectures/1b.html#install-vs-code",
@@ -1971,7 +1978,7 @@
     "href": "lectures/1b.html#course-project-files",
     "title": "Computational Setup",
     "section": "Course Project Files",
-    "text": "Course Project Files\nYour course project folder should include a pyproject.toml.\nA pyproject.toml file records project metadata and the Python packages required for the course.\nExample structure:\ncourse-folder/\n├── pyproject.toml\n├── lectures/\n├── data/\n└── scripts/"
+    "text": "Course Project Files\nYour course project folder should include a pyproject.toml.\nA pyproject.toml file records project metadata and the Python packages required for the course.\nExample structure:\ncourse-folder/\n├─ pyproject.toml\n├─ lectures/\n├─ data/\n└─ scripts/"
   },
   {
     "objectID": "lectures/1b.html#class-packages",

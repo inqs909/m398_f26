@@ -232,6 +232,15 @@
 </ul>
 </div>
 </section>
+<section id="install-positron" class="slide level2">
+<h2>Install Positron</h2>
+<p>Positron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.</p>
+<p><a href="https://positron.posit.co/download.html">Download Positron</a></p>
+</section>
+<section id="windows-computer" class="slide level2">
+<h2>Windows Computer</h2>
+<p>Install the <a href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version">latest Visual C++ Redistributable</a>.</p>
+</section>
 <section id="python-programming" class="slide level2">
 <h2>Python Programming</h2>
 <p>Python is a general-purpose programming language widely used for statistics, data science, machine learning, automation, and reproducible research.</p>
@@ -254,11 +263,6 @@
 <h2>Install uv</h2>
 <p><code>uv</code> is a fast Python package and project manager. It can install Python, create virtual environments, and install packages from a <code>pyproject.toml</code> file.</p>
 <p><a href="https://docs.astral.sh/uv/">uv</a></p>
-</section>
-<section id="install-positron" class="slide level2">
-<h2>Install Positron</h2>
-<p>Positron is a data science IDE for Python and R. It includes notebooks, variables, plots, terminals, and a project-based workflow.</p>
-<p><a href="https://positron.posit.co/download.html">Download Positron</a></p>
 </section>
 <section id="install-vs-code" class="slide level2">
 <h2>Install VS Code</h2>
@@ -330,10 +334,10 @@
 <p>A <code>pyproject.toml</code> file records project metadata and the Python packages required for the course.</p>
 <p>Example structure:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a aria-label="1"></a>course-folder/</span>
-<span id="cb1-2"><a aria-label="2"></a>├── pyproject.toml</span>
-<span id="cb1-3"><a aria-label="3"></a>├── lectures/</span>
-<span id="cb1-4"><a aria-label="4"></a>├── data/</span>
-<span id="cb1-5"><a aria-label="5"></a>└── scripts/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a aria-label="2"></a>├─ pyproject.toml</span>
+<span id="cb1-3"><a aria-label="3"></a>├─ lectures/</span>
+<span id="cb1-4"><a aria-label="4"></a>├─ data/</span>
+<span id="cb1-5"><a aria-label="5"></a>└─ scripts/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="class-packages" class="slide level2">
 <h2>Class Packages</h2>
@@ -422,7 +426,7 @@
 <li><span class="math inline">\(3-1\)</span></li>
 <li><span class="math inline">\(4+4/3+45(32*34-54)\)</span></li>
 </ol>
-<div id="e0957158" class="cell" data-execution_count="2">
+<div id="d7a6595b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <pre><code>46535.333333333336</code></pre>
 </div>
@@ -440,7 +444,7 @@
 <li><span class="math inline">\(\sin(3)\)</span></li>
 <li><span class="math inline">\(\sin(3\pi)\)</span></li>
 </ol>
-<div id="aba27bd4" class="cell" data-execution_count="3">
+<div id="5380cad5" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>3.6739403974420594e-16</code></pre>
 </div>
@@ -455,7 +459,7 @@
 <li>Missing: <code>None</code>, <code>np.nan</code>, or <code>pd.NA</code></li>
 </ul>
 <p>Evaluate the following code:</p>
-<div id="9dc4cab3" class="cell" data-execution_count="4">
+<div id="09c6dd61" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>NoneType</code></pre>
 </div>
@@ -465,7 +469,7 @@
 <h2>Types of Objects</h2>
 <p>In Python, an object contains data and behavior. Common data objects include lists, arrays, dictionaries, and data frames.</p>
 <p>Run this code and print the objects:</p>
-<div id="35e875ac" class="cell" data-execution_count="5">
+<div id="704fec86" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([[ 1,  2,  3,  4,  5],
        [ 6,  7,  8,  9, 10],
@@ -478,7 +482,7 @@
 <h2>Data Frames</h2>
 <p>Data frames can be thought of as Python’s version of a data set.</p>
 <p>Play around with a small data frame:</p>
-<div id="a8dbf3b8" class="cell" data-execution_count="6">
+<div id="6cb24526" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 <style scoped="">
@@ -546,7 +550,7 @@
 <h2>Lists</h2>
 <p>A list stores multiple Python objects in order. The elements can be different types.</p>
 <p>Try playing with this Python object:</p>
-<div id="b3eb2cbf" class="cell" data-execution_count="7">
+<div id="324daf5e" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>[    mpg  cyl  gear
  0  21.0    6     4
@@ -605,7 +609,7 @@
 <section id="dictionaries-key-value-objects" class="slide level2">
 <h2>Dictionaries: Key-Value Objects</h2>
 <p>A dictionary stores values by name.</p>
-<div id="c4eca332" class="cell" data-execution_count="8">
+<div id="86989f8e" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>[0, 0, 0, 0]</code></pre>
 </div>

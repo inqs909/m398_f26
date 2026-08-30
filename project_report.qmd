@@ -1,6 +1,5 @@
 ---
 title: "Final Project"
-date: 2/7/24
 editor: source
 format: 
   html:
@@ -10,6 +9,10 @@ format:
     code-tools: true
     code-line-numbers: true
     embed-resources: true
+  typst:
+    margin:
+      x: 1cm
+      y: 1cm
 draft: false
 ---
 

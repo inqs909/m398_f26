@@ -13,9 +13,13 @@ format:
 draft: false
 ---
 
-**Due 9/3/26 \@ 11:59 PM**
+**Due 9/6/26 \@ 11:59 PM**
 
 Use a Quarto template to create the assignment.
+
+```bash
+quarto use template inqs909/qs_hw_python
+```
 
 You must comment all your code to receive credit.
 

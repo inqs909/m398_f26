@@ -688,7 +688,7 @@ df = pd.DataFrame({
 )
 ```
 
-## Using a Highly Fleible Model
+## Using a Highly Flexible Model
 
 ```{python}
 (

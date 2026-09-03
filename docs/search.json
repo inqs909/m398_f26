@@ -1341,14 +1341,14 @@
     "href": "assignments/a2.html",
     "title": "ICA 1",
     "section": "",
-    "text": "Due 9/6/26 @ 11:59 PM\nUse a Quarto template to create the assignment.\nYou must comment all your code to receive credit.\nSubmit the *.html file to Canvas."
+    "text": "Due 9/6/26 @ 11:59 PM\nUse a Quarto template to create the assignment.\nSubmit the *.html file to Canvas."
   },
   {
     "objectID": "assignments/a2.html#problem-1",
     "href": "assignments/a2.html#problem-1",
     "title": "ICA 1",
     "section": "Problem 1",
-    "text": "Problem 1\nWrite a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector."
+    "text": "Problem 1\nWrite a function that takes a numpy array as an input and returns a labeled collection with the mean, median, and variance of the vector."
   },
   {
     "objectID": "assignments/a2.html#problem-2",
@@ -1369,7 +1369,7 @@
     "href": "assignments/a2.html#problem-4",
     "title": "ICA 1",
     "section": "Problem 4",
-    "text": "Problem 4\nCreate a function that will randomly generate n numbers that are greater than x from a \\(Pois(\\lambda)\\)."
+    "text": "Problem 4\nCreate a function that will randomly generate n numbers that are greater than x from a \\(Pois(\\lambda)\\). Use numpy to generate the random variables."
   },
   {
     "objectID": "assignments/a12.html",

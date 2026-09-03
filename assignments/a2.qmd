@@ -21,13 +21,12 @@ Use a Quarto template to create the assignment.
 quarto use template inqs909/qs_hw_python
 ```
 
-You must comment all your code to receive credit.
 
 Submit the \*.html file to Canvas.
 
 ## Problem 1
 
-Write a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector.
+Write a function that takes a numpy array as an input and returns a labeled collection with the mean, median, and variance of the vector.
 
 
 ## Problem 2
@@ -49,5 +48,6 @@ Create a function that will give you the first `x` Fibonacci numbers. You must u
 
 ## Problem 4
 
-Create a function that will randomly generate `n` numbers that are greater than `x` from a $Pois(\lambda)$.
+Create a function that will randomly generate `n` numbers that are greater than `x` from a $Pois(\lambda)$. Use numpy to generate the random variables.
+
 

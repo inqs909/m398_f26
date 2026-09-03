@@ -4270,11 +4270,10 @@ window.Quarto = {
 <p><strong>Due 9/6/26 @ 11:59 PM</strong></p>
 <p>Use a Quarto template to create the assignment.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-label="1"></a><span class="ex">quarto</span> use template inqs909/qs_hw_python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>You must comment all your code to receive credit.</p>
 <p>Submit the *.html file to Canvas.</p>
 <section id="problem-1" class="level2">
 <h2 class="anchored" data-anchor-id="problem-1">Problem 1</h2>
-<p>Write a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector.</p>
+<p>Write a function that takes a numpy array as an input and returns a labeled collection with the mean, median, and variance of the vector.</p>
 </section>
 <section id="problem-2" class="level2">
 <h2 class="anchored" data-anchor-id="problem-2">Problem 2</h2>
@@ -4291,7 +4290,7 @@ x^2+2x+3+ \log(y) &amp; z = 1
 </section>
 <section id="problem-4" class="level2">
 <h2 class="anchored" data-anchor-id="problem-4">Problem 4</h2>
-<p>Create a function that will randomly generate <code>n</code> numbers that are greater than <code>x</code> from a <span class="math inline">\(Pois(\lambda)\)</span>.</p>
+<p>Create a function that will randomly generate <code>n</code> numbers that are greater than <code>x</code> from a <span class="math inline">\(Pois(\lambda)\)</span>. Use numpy to generate the random variables.</p>
 
 
 <!-- -->
@@ -4773,35 +4772,35 @@ x^2+2x+3+ \log(y) &amp; z = 1
 <span id="cb2-21"><a href="#cb2-21" aria-label="21"></a><span class="ex">quarto</span> use template inqs909/qs_hw_python</span>
 <span id="cb2-22"><a href="#cb2-22" aria-label="22"></a><span class="in">```</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-label="23"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-label="24"></a>You must comment all your code to receive credit.</span>
-<span id="cb2-25"><a href="#cb2-25" aria-label="25"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-label="26"></a>Submit the <span class="sc">\*</span>.html file to Canvas.</span>
-<span id="cb2-27"><a href="#cb2-27" aria-label="27"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-label="28"></a><span class="fu">## Problem 1</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-label="29"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-label="30"></a>Write a function that takes a vector as an input and returns a labeled collection with the mean, median, and variance of the vector.</span>
+<span id="cb2-24"><a href="#cb2-24" aria-label="24"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-label="25"></a>Submit the <span class="sc">\*</span>.html file to Canvas.</span>
+<span id="cb2-26"><a href="#cb2-26" aria-label="26"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-label="27"></a><span class="fu">## Problem 1</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-label="28"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-label="29"></a>Write a function that takes a numpy array as an input and returns a labeled collection with the mean, median, and variance of the vector.</span>
+<span id="cb2-30"><a href="#cb2-30" aria-label="30"></a></span>
 <span id="cb2-31"><a href="#cb2-31" aria-label="31"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-label="32"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-label="33"></a><span class="fu">## Problem 2</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-label="34"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-label="35"></a>Write a function for the following equation:</span>
-<span id="cb2-36"><a href="#cb2-36" aria-label="36"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-label="37"></a>$$f(x, y, z) =\left<span class="sc">\{</span>\begin{array}{cc}</span>
-<span id="cb2-38"><a href="#cb2-38" aria-label="38"></a>x^2+\sqrt y &amp; z  = 0 <span class="sc">\\</span> </span>
-<span id="cb2-39"><a href="#cb2-39" aria-label="39"></a>x^2+2x+3+ \log(y) &amp; z = 1</span>
-<span id="cb2-40"><a href="#cb2-40" aria-label="40"></a>\end{array}\right.$$</span>
-<span id="cb2-41"><a href="#cb2-41" aria-label="41"></a></span>
-<span id="cb2-42"><a href="#cb2-42" aria-label="42"></a>Include any error messages if necessary.</span>
+<span id="cb2-32"><a href="#cb2-32" aria-label="32"></a><span class="fu">## Problem 2</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-label="33"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-label="34"></a>Write a function for the following equation:</span>
+<span id="cb2-35"><a href="#cb2-35" aria-label="35"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-label="36"></a>$$f(x, y, z) =\left<span class="sc">\{</span>\begin{array}{cc}</span>
+<span id="cb2-37"><a href="#cb2-37" aria-label="37"></a>x^2+\sqrt y &amp; z  = 0 <span class="sc">\\</span> </span>
+<span id="cb2-38"><a href="#cb2-38" aria-label="38"></a>x^2+2x+3+ \log(y) &amp; z = 1</span>
+<span id="cb2-39"><a href="#cb2-39" aria-label="39"></a>\end{array}\right.$$</span>
+<span id="cb2-40"><a href="#cb2-40" aria-label="40"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-label="41"></a>Include any error messages if necessary.</span>
+<span id="cb2-42"><a href="#cb2-42" aria-label="42"></a></span>
 <span id="cb2-43"><a href="#cb2-43" aria-label="43"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-label="44"></a></span>
-<span id="cb2-45"><a href="#cb2-45" aria-label="45"></a><span class="fu">## Problem 3</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-label="46"></a></span>
-<span id="cb2-47"><a href="#cb2-47" aria-label="47"></a>Create a function that will give you the first <span class="in">`x`</span> Fibonacci numbers. You must use a <span class="in">`for`</span> loop.</span>
+<span id="cb2-44"><a href="#cb2-44" aria-label="44"></a><span class="fu">## Problem 3</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-label="45"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-label="46"></a>Create a function that will give you the first <span class="in">`x`</span> Fibonacci numbers. You must use a <span class="in">`for`</span> loop.</span>
+<span id="cb2-47"><a href="#cb2-47" aria-label="47"></a></span>
 <span id="cb2-48"><a href="#cb2-48" aria-label="48"></a></span>
-<span id="cb2-49"><a href="#cb2-49" aria-label="49"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-label="50"></a><span class="fu">## Problem 4</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-label="51"></a></span>
-<span id="cb2-52"><a href="#cb2-52" aria-label="52"></a>Create a function that will randomly generate <span class="in">`n`</span> numbers that are greater than <span class="in">`x`</span> from a $Pois(\lambda)$.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
+<span id="cb2-49"><a href="#cb2-49" aria-label="49"></a><span class="fu">## Problem 4</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-label="50"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-label="51"></a>Create a function that will randomly generate <span class="in">`n`</span> numbers that are greater than <span class="in">`x`</span> from a $Pois(\lambda)$. Use numpy to generate the random variables.</span>
+<span id="cb2-52"><a href="#cb2-52" aria-label="52"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

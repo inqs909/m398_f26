@@ -24,6 +24,7 @@ website:
       - syllabus.qmd
       - lectures.qmd
       - project_report.qmd
+      - python.qmd
       - books.qmd
 
 

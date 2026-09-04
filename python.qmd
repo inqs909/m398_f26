@@ -1,0 +1,11 @@
+---
+title: "Python"
+format: html
+---
+
+
+## Websites
+
+[Python for Data Science](https://aeturrell.github.io/python4DS/)
+[Python for Data Analysis](https://wesmckinney.com/book/)
+[Positron and Python](https://posit.co/blog/first-python-project-in-positron)

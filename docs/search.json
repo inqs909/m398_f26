@@ -375,7 +375,7 @@
     "href": "lectures/4a.html#setup",
     "title": "Classification",
     "section": "Setup",
-    "text": "Setup\n\n\nCode\nimport pandas as pd\nfrom palmerpenguins import load_penguins\nfrom plotnine import *\nfrom sklearn.discriminant_analysis import LinearDiscriminantAnalysis\nfrom sklearn.naive_bayes import GaussianNB\nfrom sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis"
+    "text": "Setup\n\n\nCode\nimport pandas as pd\nfrom palmerpenguins import load_penguins\nfrom plotnine import *\nfrom sklearn.pipeline import make_pipeline\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.discriminant_analysis import LinearDiscriminantAnalysis\nfrom sklearn.naive_bayes import GaussianNB\nfrom sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis\nfrom sklearn.neighbors import KNeighborsClassifier"
   },
   {
     "objectID": "lectures/4a.html#classification",
@@ -546,81 +546,95 @@
     "text": "Naive Bayes\n\n\nQuantitative\n\nNormal: \\(N(\\mu_{jk}, \\sigma^2_{jk})\\)\nNonparametric\n\nKernel Density\n\n\n\nQualitative\n\nNonparametric"
   },
   {
-    "objectID": "lectures/4a.html#lda-1",
-    "href": "lectures/4a.html#lda-1",
+    "objectID": "lectures/4a.html#setup-1",
+    "href": "lectures/4a.html#setup-1",
     "title": "Classification",
-    "section": "LDA",
-    "text": "LDA\n\npenguins = load_penguins().dropna().copy()\nfeature_columns = [\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n    \"flipper_length_mm\",\n    \"body_mass_g\",\n]\n\nX = penguins[feature_columns]\ny = penguins[\"species\"]\n\nx_lda = LinearDiscriminantAnalysis()\nx_lda.fit(X, y)"
+    "section": "Setup",
+    "text": "Setup\n\npenguins = load_penguins().dropna().copy()\nfeature_columns = [\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n    \"flipper_length_mm\",\n    \"body_mass_g\",\n]\n\nX = penguins[feature_columns]\ny = penguins[\"species\"]\n\nxtrain, xtest, ytrain, ytest = train_test_split(\n    X,\n    y,\n    test_size=0.20,\n    random_state=42,\n    stratify=y,\n)"
   },
   {
-    "objectID": "lectures/4a.html#lda-prediction",
-    "href": "lectures/4a.html#lda-prediction",
+    "objectID": "lectures/4a.html#knn-1",
+    "href": "lectures/4a.html#knn-1",
     "title": "Classification",
-    "section": "LDA Prediction",
-    "text": "LDA Prediction\n\nnew_df = penguins[feature_columns]\nx_lda_predict = x_lda.predict(new_df)"
+    "section": "KNN",
+    "text": "KNN\n\n# Create a KNN model with k = 5\nknn_model = make_pipeline(\n    KNeighborsClassifier(n_neighbors=5),\n)\n\n# Fit the model\nknn_model.fit(xtrain, ytrain)"
+  },
+  {
+    "objectID": "lectures/4a.html#knn-prediction",
+    "href": "lectures/4a.html#knn-prediction",
+    "title": "Classification",
+    "section": "KNN Prediction",
+    "text": "KNN Prediction\n\n\nCode\nx_knn_predict = knn_model.predict(xtest)"
   },
   {
     "objectID": "lectures/4a.html#lda-confusion-matrix",
     "href": "lectures/4a.html#lda-confusion-matrix",
     "title": "Classification",
     "section": "LDA Confusion Matrix",
-    "text": "LDA Confusion Matrix\n\npd.crosstab(\n    penguins[\"species\"],\n    x_lda_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n145\n1\n0\n\n\nChinstrap\n3\n65\n0\n\n\nGentoo\n0\n0\n119"
+    "text": "LDA Confusion Matrix\n\npd.crosstab(\n    ytest,\n    x_knn_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n25\n1\n3\n\n\nChinstrap\n10\n3\n1\n\n\nGentoo\n3\n0\n21"
+  },
+  {
+    "objectID": "lectures/4a.html#lda-1",
+    "href": "lectures/4a.html#lda-1",
+    "title": "Classification",
+    "section": "LDA",
+    "text": "LDA\n\nx_lda = LinearDiscriminantAnalysis()\nx_lda.fit(xtrain, ytrain)"
+  },
+  {
+    "objectID": "lectures/4a.html#lda-prediction",
+    "href": "lectures/4a.html#lda-prediction",
+    "title": "Classification",
+    "section": "LDA Prediction",
+    "text": "LDA Prediction\n\nx_lda_predict = x_lda.predict(xtest)"
+  },
+  {
+    "objectID": "lectures/4a.html#lda-confusion-matrix-1",
+    "href": "lectures/4a.html#lda-confusion-matrix-1",
+    "title": "Classification",
+    "section": "LDA Confusion Matrix",
+    "text": "LDA Confusion Matrix\n\npd.crosstab(\n    ytest,\n    x_lda_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n29\n0\n0\n\n\nChinstrap\n0\n14\n0\n\n\nGentoo\n0\n0\n24"
   },
   {
     "objectID": "lectures/4a.html#qda-3",
     "href": "lectures/4a.html#qda-3",
     "title": "Classification",
     "section": "QDA",
-    "text": "QDA\n\nx_qda = QuadraticDiscriminantAnalysis()\nx_qda.fit(X, y)"
+    "text": "QDA\n\nx_qda = QuadraticDiscriminantAnalysis()\nx_qda.fit(xtrain, ytrain)"
   },
   {
     "objectID": "lectures/4a.html#qda-prediction",
     "href": "lectures/4a.html#qda-prediction",
     "title": "Classification",
     "section": "QDA Prediction",
-    "text": "QDA Prediction\n\nx_qda_predict = x_qda.predict(penguins[feature_columns])"
+    "text": "QDA Prediction\n\nx_qda_predict = x_qda.predict(xtest)"
   },
   {
     "objectID": "lectures/4a.html#qda-confusion-matrix",
     "href": "lectures/4a.html#qda-confusion-matrix",
     "title": "Classification",
     "section": "QDA Confusion Matrix",
-    "text": "QDA Confusion Matrix\n\npd.crosstab(\n    penguins[\"species\"],\n    x_qda_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n144\n2\n0\n\n\nChinstrap\n2\n66\n0\n\n\nGentoo\n0\n0\n119"
+    "text": "QDA Confusion Matrix\n\npd.crosstab(\n    ytest,\n    x_qda_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n29\n0\n0\n\n\nChinstrap\n0\n14\n0\n\n\nGentoo\n0\n0\n24"
   },
   {
     "objectID": "lectures/4a.html#naive-bayes-4",
     "href": "lectures/4a.html#naive-bayes-4",
     "title": "Classification",
     "section": "Naive Bayes",
-    "text": "Naive Bayes\n\nx_nb = GaussianNB()\nx_nb.fit(X, y)"
+    "text": "Naive Bayes\n\nx_nb = GaussianNB()\nx_nb.fit(xtrain, ytrain)"
   },
   {
     "objectID": "lectures/4a.html#naive-bayes-prediction",
     "href": "lectures/4a.html#naive-bayes-prediction",
     "title": "Classification",
     "section": "Naive Bayes Prediction",
-    "text": "Naive Bayes Prediction\n\nx_nb_predict = x_nb.predict(penguins[feature_columns])"
+    "text": "Naive Bayes Prediction\n\nx_nb_predict = x_nb.predict(xtest)"
   },
   {
     "objectID": "lectures/4a.html#naive-bayes-confusion-matrix",
     "href": "lectures/4a.html#naive-bayes-confusion-matrix",
     "title": "Classification",
     "section": "Naive Bayes Confusion Matrix",
-    "text": "Naive Bayes Confusion Matrix\n\npd.crosstab(\n    penguins[\"species\"],\n    x_nb_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n141\n5\n0\n\n\nChinstrap\n5\n63\n0\n\n\nGentoo\n0\n0\n119"
-  },
-  {
-    "objectID": "lectures/4a.html#create-the-knn-algorithm-in-python",
-    "href": "lectures/4a.html#create-the-knn-algorithm-in-python",
-    "title": "Classification",
-    "section": "Create the KNN algorithm in Python",
-    "text": "Create the KNN algorithm in Python\nUse the penguins data set from palmerpenguins and categorize the following data: bill_depth = 19, bill_length = 40, flipper_length = 185, and body_mass = 3345. Use a KNN algorithm with the following distances:\n\nManhattan\nEuclidean\nMinkowski (\\(w=5\\))"
-  },
-  {
-    "objectID": "lectures/4a.html#solution",
-    "href": "lectures/4a.html#solution",
-    "title": "Classification",
-    "section": "Solution",
-    "text": "Solution\n\n\nCode\nimport numpy as np\n\n\ndef manhattan(x, y):\n    return np.sum(np.abs(x - y))\n\n\ndef euclidean(x, y):\n    return np.sqrt(np.sum((x - y) ** 2))\n\n\ndef minkowski_5(x, y):\n    return np.sum(np.abs(x - y) ** 5) ** (1 / 5)\n\n\nknn_columns = [\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n    \"flipper_length_mm\",\n    \"body_mass_g\",\n]\n\nx = penguins[knn_columns].to_numpy()\ny_new = np.array([19, 40, 185, 3345])\n\nmanx = pd.Series(\n    np.apply_along_axis(manhattan, 1, x, y=y_new),\n    index=penguins.index,\n).rank()\n\neucx = pd.Series(\n    np.apply_along_axis(euclidean, 1, x, y=y_new),\n    index=penguins.index,\n).rank()\n\nminx = pd.Series(\n    np.apply_along_axis(minkowski_5, 1, x, y=y_new),\n    index=penguins.index,\n).rank()\n\npenguins_rank = penguins.assign(manx=manx, eucx=eucx, minx=minx)\n\n# penguins_rank.sort_values(\"manx\")[[\"species\"]]\n# penguins_rank.sort_values(\"eucx\")[[\"species\"]]\n# penguins_rank.sort_values(\"minx\")[[\"species\"]]"
+    "text": "Naive Bayes Confusion Matrix\n\npd.crosstab(\n    ytest,\n    x_nb_predict,\n    rownames=[\"Actual\"],\n    colnames=[\"Predicted\"],\n)\n\n\n\n\n\n\n\nPredicted\nAdelie\nChinstrap\nGentoo\n\n\nActual\n\n\n\n\n\n\n\nAdelie\n28\n1\n0\n\n\nChinstrap\n1\n13\n0\n\n\nGentoo\n0\n0\n24"
   },
   {
     "objectID": "lectures/2a.html#learning-outcomes",
@@ -1321,27 +1335,6 @@
     "title": "Assignment 5",
     "section": "Problem 1",
     "text": "Problem 1\nFrom the Applied Section in Chapter 4: Problem 16"
-  },
-  {
-    "objectID": "assignments/a3.html",
-    "href": "assignments/a3.html",
-    "title": "Assignment 3",
-    "section": "",
-    "text": "Due 3/17/24 @ 11:59 PM\nSubmit the *.html file to Canvas."
-  },
-  {
-    "objectID": "assignments/a3.html#problem-1",
-    "href": "assignments/a3.html#problem-1",
-    "title": "Assignment 3",
-    "section": "Problem 1",
-    "text": "Problem 1\nThe anime dataset from MyAnimeList contains information on rankings and popularity scores of different anime episodes.\nFit a linear model showing the relationship between score (outcome; higher is better) and the predictors type, popularity, and rank. On average, what is the score for an anime that is a \"Special\", has a popularity score of 520, and has a rank of 3582?\n\n\nAnswer\n# Write your solution here."
-  },
-  {
-    "objectID": "assignments/a3.html#problem-2",
-    "href": "assignments/a3.html#problem-2",
-    "title": "Assignment 3",
-    "section": "Problem 2",
-    "text": "Problem 2\nFit a linear model between the outcome caffeine_mg and predictors size, calories, and sugar_g from the starbucks dataset using the matrix formulation approach by defining the \\(X\\) matrix. Use tall as the reference value for the size variable.\n\n\nAnswer\n# Write your solution here."
   },
   {
     "objectID": "assignments/a13.html",
@@ -2107,6 +2100,13 @@
     "text": "Scatter Plot"
   },
   {
+    "objectID": "lectures/3a.html#data-prep",
+    "href": "lectures/3a.html#data-prep",
+    "title": "Linear Regression",
+    "section": "Data Prep",
+    "text": "Data Prep\n\npenguins = (\n    penguins_data\n        .copy()\n        .dropna()\n)"
+  },
+  {
     "objectID": "lectures/3a.html#linear-regression-1",
     "href": "lectures/3a.html#linear-regression-1",
     "title": "Linear Regression",
@@ -2191,46 +2191,39 @@
     "text": "Final"
   },
   {
-    "objectID": "lectures/3a.html#generate-x-values",
-    "href": "lectures/3a.html#generate-x-values",
+    "objectID": "lectures/3a.html#model-syntax",
+    "href": "lectures/3a.html#model-syntax",
     "title": "Linear Regression",
-    "section": "Generate X Values",
-    "text": "Generate X Values\nSimulate 250 independent values (x) from \\(N(3, 1)\\) and plot a histogram\n\nx = np.random.normal(loc=3, scale=1, size=250)"
+    "section": "Model Syntax",
+    "text": "Model Syntax\nThe statsmodels.formula.api module lets us describe a regression model with a formula:\n\n# outcome ~ predictor\nmodel = smf.ols(\n    \"Y ~ X\",\n    data=DATA\n).fit()\n\n\nThe variable Y to the left of ~ is the outcome\nVariable X to the right of ~ are predictors\nDATA is the name of the pandas data frame\n.fit() estimates the regression coefficients"
   },
   {
-    "objectID": "lectures/3a.html#generate-y-values",
-    "href": "lectures/3a.html#generate-y-values",
+    "objectID": "lectures/3a.html#penguins-example-data",
+    "href": "lectures/3a.html#penguins-example-data",
     "title": "Linear Regression",
-    "section": "Generate Y Values",
-    "text": "Generate Y Values\nCreate a new variable with the following formula:\n\\[\nY_i = 3 X_i + 20\n\\] Create a Scatter Plot"
+    "section": "Penguins Example Data",
+    "text": "Penguins Example Data\nThe fitted equation is\n\\[\n\\widehat{\\text{body mass}}\n= \\hat\\beta_0\n+ \\hat\\beta_1(\\text{flipper_length}).\n\\]\nThe slope estimates the change in mean body mass associated with a one-millimeter increase in flipper length."
   },
   {
-    "objectID": "lectures/3a.html#generate-error-term",
-    "href": "lectures/3a.html#generate-error-term",
+    "objectID": "lectures/3a.html#fitting-model",
+    "href": "lectures/3a.html#fitting-model",
     "title": "Linear Regression",
-    "section": "Generate Error Term",
-    "text": "Generate Error Term\nGenerate \\(\\epsilon_i\\sim N(0, 2)\\)\nCreate a histogram"
+    "section": "Fitting Model",
+    "text": "Fitting Model\n\nmodel_1 = smf.ols(\n    \"body_mass_g ~ flipper_length_mm\",\n    data=penguins\n).fit()"
   },
   {
-    "objectID": "lectures/3a.html#add-error-term",
-    "href": "lectures/3a.html#add-error-term",
+    "objectID": "lectures/3a.html#examming-output",
+    "href": "lectures/3a.html#examming-output",
     "title": "Linear Regression",
-    "section": "Add error term",
-    "text": "Add error term\nCreate final form of \\(Y_i\\):\n\\[\nY_i = 3 X_i + 20 + \\epsilon_i\n\\]\nCreate a scatter plot"
+    "section": "Examming Output",
+    "text": "Examming Output\n\n# Coefficient table with standard errors, test statistics,\n# p-values, and confidence intervals\nmodel_1.summary().tables[1]\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nIntercept\n-5872.0927\n310.285\n-18.925\n0.000\n-6482.472\n-5261.713\n\n\nflipper_length_mm\n50.1533\n1.540\n32.562\n0.000\n47.123\n53.183"
   },
   {
-    "objectID": "lectures/3a.html#simulation-study",
-    "href": "lectures/3a.html#simulation-study",
+    "objectID": "lectures/3a.html#predict-body-mass",
+    "href": "lectures/3a.html#predict-body-mass",
     "title": "Linear Regression",
-    "section": "Simulation Study",
-    "text": "Simulation Study\nSimulate 1000 random variables from the following model:\n\\[Y = 3 + 2X_1 + 4X_2 + \\epsilon\\]\n\n\\(X_1\\sim N(2,1)\\)\n\\(X_2\\sim N(-4,1)\\)\n\\(\\epsilon\\sim N(0, 2)\\)\n\n\n# The executed data are created in the setup chunk.\n# Equivalent Python generation code:\nrng = np.random.default_rng(911)\nx1 = rng.normal(loc=2, scale=1, size=1_000)\nx2 = rng.normal(loc=-4, scale=1, size=1_000)\ny = 3 + 2 * x1 + 4 * x2 + rng.normal(\n    loc=0,\n    scale=np.sqrt(2),\n    size=1_000,\n)\nmlr_simulation = pd.DataFrame({\"x1\": x1, \"x2\": x2, \"y\": y})"
-  },
-  {
-    "objectID": "lectures/3a.html#python-code-of-simulation-study",
-    "href": "lectures/3a.html#python-code-of-simulation-study",
-    "title": "Linear Regression",
-    "section": "Python Code of Simulation Study",
-    "text": "Python Code of Simulation Study\n\n# Generating seends\nsimulation_seeds = np.arange(1_000) + RANDOM_SEED\n\n\n# Simulation study\ndef simulate_coefficients(seed):\n    local_rng = np.random.default_rng(seed)\n    x = local_rng.normal(loc=3, scale=1, size=250)\n    expected_y = 3 * x + 20\n    error = local_rng.normal(loc=0, scale=2, size=250)\n    y = expected_y + error\n\n    simulated_data = pd.DataFrame({\"x\": x, \"y\": y})\n    result = smf.ols(\"y ~ x\", data=simulated_data).fit()\n    return result.params\n\n\nsim_results = pd.DataFrame(\n    [simulate_coefficients(seed) for seed in simulation_seeds]\n)\nsim_results.mean().rename(\"mean_estimate\").to_frame()\n\n\n\n\n\n\n\n\nmean_estimate\n\n\n\n\nIntercept\n20.002111\n\n\nx\n2.998998"
+    "section": "Predict Body Mass",
+    "text": "Predict Body Mass\nPrediction data must use the same predictor name as the model formula.\n\nnew_penguins = pd.DataFrame(\n    {\"flipper_length_mm\": [190, 200, 210]}\n)\n\npenguins_pred = model_1.get_prediction(\n    new_penguins\n).summary_frame()\n\npenguins_pred\n\n\n\n\n\n\n\n\nmean\nmean_se\nmean_ci_lower\nmean_ci_upper\nobs_ci_lower\nobs_ci_upper\n\n\n\n\n0\n3657.027846\n27.385208\n3603.156847\n3710.898845\n2881.386950\n4432.668743\n\n\n1\n4158.560506\n21.606470\n4116.057191\n4201.063820\n3383.626155\n4933.494856\n\n\n2\n4660.093165\n25.655248\n4609.625269\n4710.561061\n3884.681194\n5435.505136"
   },
   {
     "objectID": "lectures/3a.html#mlr",
@@ -2254,11 +2247,11 @@
     "text": "Example\nUsing the Palmer Penguins data, fit a model with body_mass_g as the outcome and flipper_length_mm and bill_length_mm as predictors.\n\nmodel_2 = smf.ols(\n    \"body_mass_g ~ flipper_length_mm + bill_length_mm\",\n    data=penguins,\n).fit()\n\nmodel_2.summary()\n\n\nOLS Regression Results\n\n\nDep. Variable:\nbody_mass_g\nR-squared:\n0.763\n\n\nModel:\nOLS\nAdj. R-squared:\n0.761\n\n\nMethod:\nLeast Squares\nF-statistic:\n530.4\n\n\nDate:\nSun, 06 Sep 2026\nProb (F-statistic):\n8.15e-104\n\n\nTime:\n19:11:02\nLog-Likelihood:\n-2460.6\n\n\nNo. Observations:\n333\nAIC:\n4927.\n\n\nDf Residuals:\n330\nBIC:\n4939.\n\n\nDf Model:\n2\n\n\n\n\nCovariance Type:\nnonrobust\n\n\n\n\n\n\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nIntercept\n-5836.2987\n312.604\n-18.670\n0.000\n-6451.246\n-5221.352\n\n\nflipper_length_mm\n48.8897\n2.034\n24.034\n0.000\n44.888\n52.891\n\n\nbill_length_mm\n4.9586\n5.214\n0.951\n0.342\n-5.297\n15.214\n\n\n\n\n\n\n\n\nOmnibus:\n5.790\nDurbin-Watson:\n2.055\n\n\nProb(Omnibus):\n0.055\nJarque-Bera (JB):\n5.729\n\n\nSkew:\n0.321\nProb(JB):\n0.0570\n\n\nKurtosis:\n3.031\nCond. No.\n2.99e+03\n\n\n\nNotes:[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.[2] The condition number is large, 2.99e+03. This might indicate that there arestrong multicollinearity or other numerical problems."
   },
   {
-    "objectID": "lectures/3a.html#interpretation",
-    "href": "lectures/3a.html#interpretation",
+    "objectID": "lectures/3a.html#predict-with-multiple-variables",
+    "href": "lectures/3a.html#predict-with-multiple-variables",
     "title": "Linear Regression",
-    "section": "Interpretation",
-    "text": "Interpretation\n\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nIntercept\n-5736.897161\n\n\nflipper_length_mm\n48.144859\n\n\nbill_length_mm\n6.047488\n\n\n\n\n\n\n\n\nThe coefficient for flipper_length_mm compares penguins with the same bill length.\nThe coefficient for bill_length_mm compares penguins with the same flipper length.\nEach coefficient describes an adjusted association with mean body mass."
+    "section": "Predict with Multiple Variables",
+    "text": "Predict with Multiple Variables\nSupply a value for every predictor used in the formula.\n\nnew_measurements = pd.DataFrame(\n    {\n        \"flipper_length_mm\": [190, 200, 210],\n        \"bill_length_mm\": [40, 45, 50],\n    }\n)\n\nnew_measurements[\"predicted_body_mass_g\"] = (\n    model_2.predict(new_measurements)\n)\nnew_measurements.round(2)\n\n\n\n\n\n\n\n\nflipper_length_mm\nbill_length_mm\npredicted_body_mass_g\n\n\n\n\n0\n190\n40\n3651.09\n\n\n1\n200\n45\n4164.78\n\n\n2\n210\n50\n4678.47"
   },
   {
     "objectID": "lectures/3a.html#categorical-variable",
@@ -2289,25 +2282,25 @@
     "text": "Fitting a model with categorical variables\n\nmodel = smf.ols(\n    \"Y ~ X1 + C(X2)\",\n    data=DATA,\n).fit()\n\n\nThe variable Y is the outcome\nX1 is a nemerical predictor\nX2 is a categorical predictor variable\nC() indicates dummy variables\nDATA is the name of the pandas data frame\n.fit() estimates the regression coefficients"
   },
   {
-    "objectID": "lectures/3a.html#simulation-study-1",
-    "href": "lectures/3a.html#simulation-study-1",
+    "objectID": "lectures/3a.html#island-variable",
+    "href": "lectures/3a.html#island-variable",
     "title": "Linear Regression",
-    "section": "Simulation Study",
-    "text": "Simulation Study\nSimulate 1000 random variables from the following model:\n\\[Y = 3 + 2X_1 + 4X_2 + \\epsilon\\]\n\n\\(X_1\\sim N(2,1)\\)\n\\(X_2\\sim N(-4,1)\\)\n\\(\\epsilon\\sim N(0, 2)\\)\n\n\n# The executed data are created in the setup chunk.\n# Equivalent Python generation code:\nrng = np.random.default_rng(911)\nx1 = rng.normal(loc=2, scale=1, size=1_000)\nx2 = rng.normal(loc=-4, scale=1, size=1_000)\ny = 3 + 2 * x1 + 4 * x2 + rng.normal(\n    loc=0,\n    scale=np.sqrt(2),\n    size=1_000,\n)\nmlr_simulation = pd.DataFrame({\"x1\": x1, \"x2\": x2, \"y\": y})"
+    "section": "Island Variable",
+    "text": "Island Variable\n\n(\n    penguins[\"island\"]\n        .value_counts()\n)\n\nisland\nBiscoe       163\nDream        123\nTorgersen     47\nName: count, dtype: int64"
   },
   {
-    "objectID": "lectures/3a.html#fit-model",
-    "href": "lectures/3a.html#fit-model",
+    "objectID": "lectures/3a.html#fitting-a-model-with-categorical-variables-2",
+    "href": "lectures/3a.html#fitting-a-model-with-categorical-variables-2",
     "title": "Linear Regression",
-    "section": "Fit Model",
-    "text": "Fit Model\nFit a model between \\(Y\\) and \\(X_1\\).\nRepeat the process 1000 times. and answer the following questions:\n\nOn average does \\(\\beta_1\\) get estimated correctly? Why?\nWhat is the average model variance?"
+    "section": "Fitting a model with categorical variables",
+    "text": "Fitting a model with categorical variables\nUsing the Palmer Penguins data, fit a model with body_mass_g as the outcome and flipper_length_mm and island as predictors.\n\nmodel_3 = smf.ols(\n    \"body_mass_g ~ flipper_length_mm + \"\n    \"C(island)\",\n    data=penguins,\n).fit()\n\nmodel_3.summary()\n\n\nOLS Regression Results\n\n\nDep. Variable:\nbody_mass_g\nR-squared:\n0.778\n\n\nModel:\nOLS\nAdj. R-squared:\n0.776\n\n\nMethod:\nLeast Squares\nF-statistic:\n384.5\n\n\nDate:\nSun, 06 Sep 2026\nProb (F-statistic):\n3.65e-107\n\n\nTime:\n19:11:02\nLog-Likelihood:\n-2449.5\n\n\nNo. Observations:\n333\nAIC:\n4907.\n\n\nDf Residuals:\n329\nBIC:\n4922.\n\n\nDf Model:\n3\n\n\n\n\nCovariance Type:\nnonrobust\n\n\n\n\n\n\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nIntercept\n-4687.8612\n392.854\n-11.933\n0.000\n-5460.684\n-3915.038\n\n\nC(island)[T.Dream]\n-265.3651\n54.845\n-4.838\n0.000\n-373.256\n-157.475\n\n\nC(island)[T.Torgersen]\n-201.4608\n71.525\n-2.817\n0.005\n-342.166\n-60.756\n\n\nflipper_length_mm\n44.8898\n1.869\n24.015\n0.000\n41.213\n48.567\n\n\n\n\n\n\n\n\nOmnibus:\n6.721\nDurbin-Watson:\n2.312\n\n\nProb(Omnibus):\n0.035\nJarque-Bera (JB):\n6.500\n\n\nSkew:\n0.322\nProb(JB):\n0.0388\n\n\nKurtosis:\n3.234\nCond. No.\n3.82e+03\n\n\n\nNotes:[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.[2] The condition number is large, 3.82e+03. This might indicate that there arestrong multicollinearity or other numerical problems."
   },
   {
-    "objectID": "lectures/3a.html#mlr-model",
-    "href": "lectures/3a.html#mlr-model",
+    "objectID": "lectures/3a.html#formula-api-handles-indicator-variables",
+    "href": "lectures/3a.html#formula-api-handles-indicator-variables",
     "title": "Linear Regression",
-    "section": "MLR Model",
-    "text": "MLR Model\nInstead of fitting a simple linear regression model. Fit a model that will include predictor \\(X_2\\). This can be done by adding \\(X_2\\) in Python:\n\nmlr_model = smf.ols(\"y ~ x1 + x2\", data=mlr_simulation).fit()\nmlr_model.summary()\n\n\nOLS Regression Results\n\n\nDep. Variable:\ny\nR-squared:\n0.906\n\n\nModel:\nOLS\nAdj. R-squared:\n0.906\n\n\nMethod:\nLeast Squares\nF-statistic:\n4831.\n\n\nDate:\nFri, 04 Sep 2026\nProb (F-statistic):\n0.00\n\n\nTime:\n15:00:56\nLog-Likelihood:\n-1792.1\n\n\nNo. Observations:\n1000\nAIC:\n3590.\n\n\nDf Residuals:\n997\nBIC:\n3605.\n\n\nDf Model:\n2\n\n\n\n\nCovariance Type:\nnonrobust\n\n\n\n\n\n\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nIntercept\n3.1269\n0.215\n14.566\n0.000\n2.706\n3.548\n\n\nx1\n1.9037\n0.045\n42.020\n0.000\n1.815\n1.993\n\n\nx2\n3.9834\n0.046\n87.184\n0.000\n3.894\n4.073\n\n\n\n\n\n\n\n\nOmnibus:\n0.837\nDurbin-Watson:\n2.115\n\n\nProb(Omnibus):\n0.658\nJarque-Bera (JB):\n0.706\n\n\nSkew:\n-0.029\nProb(JB):\n0.702\n\n\nKurtosis:\n3.116\nCond. No.\n22.6\n\n\n\nNotes:[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nModify your simulation study and see what happens to \\(\\beta_1\\) and the model variance."
+    "section": "Formula API Handles Indicator Variables",
+    "text": "Formula API Handles Indicator Variables\nC(island) tells the formula API to treat island as categorical. Internally, the model creates \\(C-1\\) indicator columns.\n\nmodel_3.model.exog_names\n\n['Intercept',\n 'C(island)[T.Dream]',\n 'C(island)[T.Torgersen]',\n 'flipper_length_mm']\n\n\nWe usually do not create those indicator variables ourselves when using statsmodels.formula.api."
   },
   {
     "objectID": "lectures/3a.html#matrix-formulation-1",
@@ -2322,6 +2315,55 @@
     "title": "Linear Regression",
     "section": "Matrix Formulation",
     "text": "Matrix Formulation\n\\[\\boldsymbol\\beta = (\\boldsymbol X^\\mathrm T \\boldsymbol X)^{-1} \\boldsymbol X^\\mathrm T \\boldsymbol Y\\]"
+  },
+  {
+    "objectID": "lectures/3a.html#matrix-api-supply-y-and-x",
+    "href": "lectures/3a.html#matrix-api-supply-y-and-x",
+    "title": "Linear Regression",
+    "section": "Matrix API: Supply \\(Y\\) and \\(X\\)",
+    "text": "Matrix API: Supply \\(Y\\) and \\(X\\)\nWith statsmodels.api, we provide the outcome vector and design matrix separately.\n\ny_matrix = penguins[\"body_mass_g\"]\nX_matrix = penguins[[\"flipper_length_mm\"]]\n\n# statsmodels.api does not add an intercept automatically\nX_matrix = sm.add_constant(X_matrix)\n\nmatrix_model = sm.OLS(y_matrix, X_matrix).fit()"
+  },
+  {
+    "objectID": "lectures/3a.html#inspect-the-design-matrix",
+    "href": "lectures/3a.html#inspect-the-design-matrix",
+    "title": "Linear Regression",
+    "section": "Inspect the Design Matrix",
+    "text": "Inspect the Design Matrix\nEach row represents one penguin, and each column represents one model coefficient.\n\nX_matrix.head()\n\n\n\n\n\n\n\n\nconst\nflipper_length_mm\n\n\n\n\n0\n1.0\n181.0\n\n\n1\n1.0\n186.0\n\n\n2\n1.0\n195.0\n\n\n4\n1.0\n193.0\n\n\n5\n1.0\n190.0\n\n\n\n\n\n\n\nThe const column of ones corresponds to the intercept \\(\\beta_0\\)."
+  },
+  {
+    "objectID": "lectures/3a.html#examine-the-matrix-model-results",
+    "href": "lectures/3a.html#examine-the-matrix-model-results",
+    "title": "Linear Regression",
+    "section": "Examine the Matrix-Model Results",
+    "text": "Examine the Matrix-Model Results\n\nmatrix_model.summary()\n\n\nOLS Regression Results\n\n\nDep. Variable:\nbody_mass_g\nR-squared:\n0.762\n\n\nModel:\nOLS\nAdj. R-squared:\n0.761\n\n\nMethod:\nLeast Squares\nF-statistic:\n1060.\n\n\nDate:\nSun, 06 Sep 2026\nProb (F-statistic):\n3.13e-105\n\n\nTime:\n19:11:02\nLog-Likelihood:\n-2461.1\n\n\nNo. Observations:\n333\nAIC:\n4926.\n\n\nDf Residuals:\n331\nBIC:\n4934.\n\n\nDf Model:\n1\n\n\n\n\nCovariance Type:\nnonrobust\n\n\n\n\n\n\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nconst\n-5872.0927\n310.285\n-18.925\n0.000\n-6482.472\n-5261.713\n\n\nflipper_length_mm\n50.1533\n1.540\n32.562\n0.000\n47.123\n53.183\n\n\n\n\n\n\n\n\nOmnibus:\n5.922\nDurbin-Watson:\n2.116\n\n\nProb(Omnibus):\n0.052\nJarque-Bera (JB):\n5.876\n\n\nSkew:\n0.325\nProb(JB):\n0.0530\n\n\nKurtosis:\n3.025\nCond. No.\n2.90e+03\n\n\n\nNotes:[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.[2] The condition number is large, 2.9e+03. This might indicate that there arestrong multicollinearity or other numerical problems.\n\n\nThe matrix model and formula model produce the same estimates when they use the same rows and columns.\n\npd.DataFrame(\n    {\n        \"formula_api\": model_1.params.to_numpy(),\n        \"matrix_api\": matrix_model.params.to_numpy(),\n    },\n    index=[\"intercept\", \"flipper_length_mm\"],\n)\n\n\n\n\n\n\n\n\nformula_api\nmatrix_api\n\n\n\n\nintercept\n-5872.092683\n-5872.092683\n\n\nflipper_length_mm\n50.153266\n50.153266"
+  },
+  {
+    "objectID": "lectures/3a.html#multiple-continuous-predictors-as-a-matrix",
+    "href": "lectures/3a.html#multiple-continuous-predictors-as-a-matrix",
+    "title": "Linear Regression",
+    "section": "Multiple Continuous Predictors as a Matrix",
+    "text": "Multiple Continuous Predictors as a Matrix\n\ny_continuous = penguins[\"body_mass_g\"]\nX_continuous = penguins[\n    [\"flipper_length_mm\", \"bill_length_mm\"]\n]\nX_continuous = sm.add_constant(X_continuous)\n\ncontinuous_matrix_model = sm.OLS(\n    y_continuous, X_continuous\n).fit()\n\ncontinuous_matrix_model.params.rename(\n    \"estimate\"\n).to_frame()\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nconst\n-5836.298732\n\n\nflipper_length_mm\n48.889692\n\n\nbill_length_mm\n4.958601"
+  },
+  {
+    "objectID": "lectures/3a.html#create-indicator-columns-for-a-category",
+    "href": "lectures/3a.html#create-indicator-columns-for-a-category",
+    "title": "Linear Regression",
+    "section": "Create Indicator Columns for a Category",
+    "text": "Create Indicator Columns for a Category\nThe matrix API requires us to create the indicator columns, we will use pd.get_dummies to create them. drop_first=True leaves Biscoe as the reference category.\n\nX_categorical = pd.get_dummies(\n    penguins[\n        [\"flipper_length_mm\", \"island\"]\n    ],\n    columns=[\"island\"],\n    drop_first=True,\n    dtype=float,\n)\nX_categorical = sm.add_constant(X_categorical)\n\nX_categorical.head()\n\n\n\n\n\n\n\n\nconst\nflipper_length_mm\nisland_Dream\nisland_Torgersen\n\n\n\n\n0\n1.0\n181.0\n0.0\n1.0\n\n\n1\n1.0\n186.0\n0.0\n1.0\n\n\n2\n1.0\n195.0\n0.0\n1.0\n\n\n4\n1.0\n193.0\n0.0\n1.0\n\n\n5\n1.0\n190.0\n0.0\n1.0"
+  },
+  {
+    "objectID": "lectures/3a.html#fit-the-categorical-matrix-model",
+    "href": "lectures/3a.html#fit-the-categorical-matrix-model",
+    "title": "Linear Regression",
+    "section": "Fit the Categorical Matrix Model",
+    "text": "Fit the Categorical Matrix Model\n\ny_categorical = penguins[\"body_mass_g\"]\n\ncategorical_matrix_model = sm.OLS(\n    y_categorical, X_categorical\n).fit()\n\ncategorical_matrix_model.params.rename(\n    \"estimate\"\n).to_frame()\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nconst\n-4687.861178\n\n\nflipper_length_mm\n44.889817\n\n\nisland_Dream\n-265.365111\n\n\nisland_Torgersen\n-201.460809\n\n\n\n\n\n\n\nThe coefficients match the formula model; only the indicator-column names differ."
+  },
+  {
+    "objectID": "lectures/3a.html#formula-api-or-matrix-api",
+    "href": "lectures/3a.html#formula-api-or-matrix-api",
+    "title": "Linear Regression",
+    "section": "Formula API or Matrix API?",
+    "text": "Formula API or Matrix API?\n\n\n\n\n\n\n\n\n\nApproach\nModel specification\nCategorical variables\nIntercept\n\n\n\n\nstatsmodels.formula.api\nFormula such as y ~ x1 + C(group)\nCreated automatically\nAdded automatically\n\n\nstatsmodels.api\nSeparate y vector and X matrix\nCreate indicator columns\nAdd with sm.add_constant()\n\n\n\nUse the formula API for readable statistical models. Use the matrix API when you need direct control over the design matrix."
   },
   {
     "objectID": "lectures/5a.html#python-setup",
@@ -2784,159 +2826,5 @@
     "title": "Python",
     "section": "",
     "text": "Python for Data Science Python for Data Analysis Positron and Python"
-  },
-  {
-    "objectID": "lectures/3a.html#statsmodels.formula.api-model-syntax",
-    "href": "lectures/3a.html#statsmodels.formula.api-model-syntax",
-    "title": "Linear Regression",
-    "section": "statsmodels.formula.api: Model Syntax",
-    "text": "statsmodels.formula.api: Model Syntax\nThe statsmodels.formula.api module lets us describe a regression model with a formula:\n\n# outcome ~ predictor\nsimple_model = smf.ols(\n    \"body_mass_g ~ flipper_length_mm\",\n    data=penguins_scatter,\n).fit()\n\n\nThe variable to the left of ~ is the outcome.\nVariables to the right of ~ are predictors.\n.fit() estimates the regression coefficients."
-  },
-  {
-    "objectID": "lectures/3a.html#inspect-the-penguins-data",
-    "href": "lectures/3a.html#inspect-the-penguins-data",
-    "title": "Linear Regression",
-    "section": "Inspect the Penguins Data",
-    "text": "Inspect the Penguins Data\nThe model uses one row for each penguin with observed values for both variables.\n\npenguins_scatter[\n    [\"body_mass_g\", \"flipper_length_mm\"]\n].head()\n\n\n\n\n\n\n\n\nbody_mass_g\nflipper_length_mm\n\n\n\n\n0\n3750.0\n181.0\n\n\n1\n3800.0\n186.0\n\n\n2\n3250.0\n195.0\n\n\n4\n3450.0\n193.0\n\n\n5\n3650.0\n190.0\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nbody_mass_g\nflipper_length_mm\n\n\n\n\ncount\n342.00\n342.00\n\n\nmean\n4201.75\n200.92\n\n\nstd\n801.95\n14.06\n\n\nmin\n2700.00\n172.00\n\n\n25%\n3550.00\n190.00\n\n\n50%\n4050.00\n197.00\n\n\n75%\n4750.00\n213.00\n\n\nmax\n6300.00\n231.00"
-  },
-  {
-    "objectID": "lectures/3a.html#view-the-estimated-coefficients",
-    "href": "lectures/3a.html#view-the-estimated-coefficients",
-    "title": "Linear Regression",
-    "section": "View the Estimated Coefficients",
-    "text": "View the Estimated Coefficients\n\nsimple_model.params.rename(\"estimate\").to_frame()\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nIntercept\n-5780.831358\n\n\nflipper_length_mm\n49.685566\n\n\n\n\n\n\n\nThe fitted equation is\n\\[\n\\widehat{\\text{body mass}}\n= \\hat\\beta_0\n+ \\hat\\beta_1(\\text{flipper length}).\n\\]\nThe slope estimates the change in mean body mass associated with a one-millimeter increase in flipper length."
-  },
-  {
-    "objectID": "lectures/3a.html#examine-the-model-results",
-    "href": "lectures/3a.html#examine-the-model-results",
-    "title": "Linear Regression",
-    "section": "Examine the Model Results",
-    "text": "Examine the Model Results\n\n# Coefficient table with standard errors, test statistics,\n# p-values, and confidence intervals\nsimple_model.summary2().tables[1]\n\n\n\n\n\n\n\n\nCoef.\nStd.Err.\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\n\n\nIntercept\n-5780.831358\n305.814504\n-18.903065\n5.587301e-55\n-6382.358008\n-5179.304708\n\n\nflipper_length_mm\n49.685566\n1.518404\n32.722234\n4.370681e-107\n46.698918\n52.672215\n\n\n\n\n\n\n\nUseful model attributes include:\n\nsimple_model.params: estimated coefficients\nsimple_model.rsquared: proportion of variation explained\nsimple_model.resid: residuals\nsimple_model.fittedvalues: fitted values"
-  },
-  {
-    "objectID": "lectures/3a.html#predict-body-mass",
-    "href": "lectures/3a.html#predict-body-mass",
-    "title": "Linear Regression",
-    "section": "Predict Body Mass",
-    "text": "Predict Body Mass\nPrediction data must use the same predictor name as the model formula.\n\nnew_penguins = pd.DataFrame(\n    {\"flipper_length_mm\": [190, 200, 210]}\n)\n\npenguins_pred = model_1.get_prediction(\n    new_penguins\n).summary_frame()\n\npenguins_pred\n\n\n\n\n\n\n\n\nmean\nmean_se\nmean_ci_lower\nmean_ci_upper\nobs_ci_lower\nobs_ci_upper\n\n\n\n\n0\n3657.027846\n27.385208\n3603.156847\n3710.898845\n2881.386950\n4432.668743\n\n\n1\n4158.560506\n21.606470\n4116.057191\n4201.063820\n3383.626155\n4933.494856\n\n\n2\n4660.093165\n25.655248\n4609.625269\n4710.561061\n3884.681194\n5435.505136"
-  },
-  {
-    "objectID": "lectures/3a.html#predict-with-multiple-variables",
-    "href": "lectures/3a.html#predict-with-multiple-variables",
-    "title": "Linear Regression",
-    "section": "Predict with Multiple Variables",
-    "text": "Predict with Multiple Variables\nSupply a value for every predictor used in the formula.\n\nnew_measurements = pd.DataFrame(\n    {\n        \"flipper_length_mm\": [190, 200, 210],\n        \"bill_length_mm\": [40, 45, 50],\n    }\n)\n\nnew_measurements[\"predicted_body_mass_g\"] = (\n    model_2.predict(new_measurements)\n)\nnew_measurements.round(2)\n\n\n\n\n\n\n\n\nflipper_length_mm\nbill_length_mm\npredicted_body_mass_g\n\n\n\n\n0\n190\n40\n3651.09\n\n\n1\n200\n45\n4164.78\n\n\n2\n210\n50\n4678.47"
-  },
-  {
-    "objectID": "lectures/3a.html#interpret-the-categorical-coefficients",
-    "href": "lectures/3a.html#interpret-the-categorical-coefficients",
-    "title": "Linear Regression",
-    "section": "Interpret the Categorical Coefficients",
-    "text": "Interpret the Categorical Coefficients\n\ncategorical_model.params.rename(\"estimate\").to_frame()\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nIntercept\n-4624.981963\n\n\nC(island, Treatment(reference='Biscoe'))[T.Dream]\n-262.183073\n\n\nC(island, Treatment(reference='Biscoe'))[T.Torgersen]\n-185.128359\n\n\nflipper_length_mm\n44.543188\n\n\n\n\n\n\n\n\nBiscoe is the reference island.\nEach island coefficient compares that island with Biscoe while holding flipper length constant.\nThe flipper-length coefficient is the common slope for all three islands."
-  },
-  {
-    "objectID": "lectures/3a.html#formula-api-handles-indicator-variables",
-    "href": "lectures/3a.html#formula-api-handles-indicator-variables",
-    "title": "Linear Regression",
-    "section": "Formula API Handles Indicator Variables",
-    "text": "Formula API Handles Indicator Variables\nC(island) tells the formula API to treat island as categorical. Internally, the model creates \\(C-1\\) indicator columns.\n\nmodel_3.model.exog_names\n\n['Intercept',\n 'C(island)[T.Dream]',\n 'C(island)[T.Torgersen]',\n 'flipper_length_mm']\n\n\nWe usually do not create those indicator variables ourselves when using statsmodels.formula.api."
-  },
-  {
-    "objectID": "lectures/3a.html#matrix-api-supply-y-and-x",
-    "href": "lectures/3a.html#matrix-api-supply-y-and-x",
-    "title": "Linear Regression",
-    "section": "Matrix API: Supply \\(Y\\) and \\(X\\)",
-    "text": "Matrix API: Supply \\(Y\\) and \\(X\\)\nWith statsmodels.api, we provide the outcome vector and design matrix separately.\n\ny_matrix = penguins[\"body_mass_g\"]\nX_matrix = penguins[[\"flipper_length_mm\"]]\n\n# statsmodels.api does not add an intercept automatically\nX_matrix = sm.add_constant(X_matrix)\n\nmatrix_model = sm.OLS(y_matrix, X_matrix).fit()"
-  },
-  {
-    "objectID": "lectures/3a.html#inspect-the-design-matrix",
-    "href": "lectures/3a.html#inspect-the-design-matrix",
-    "title": "Linear Regression",
-    "section": "Inspect the Design Matrix",
-    "text": "Inspect the Design Matrix\nEach row represents one penguin, and each column represents one model coefficient.\n\nX_matrix.head()\n\n\n\n\n\n\n\n\nconst\nflipper_length_mm\n\n\n\n\n0\n1.0\n181.0\n\n\n1\n1.0\n186.0\n\n\n2\n1.0\n195.0\n\n\n4\n1.0\n193.0\n\n\n5\n1.0\n190.0\n\n\n\n\n\n\n\nThe const column of ones corresponds to the intercept \\(\\beta_0\\)."
-  },
-  {
-    "objectID": "lectures/3a.html#examine-the-matrix-model-results",
-    "href": "lectures/3a.html#examine-the-matrix-model-results",
-    "title": "Linear Regression",
-    "section": "Examine the Matrix-Model Results",
-    "text": "Examine the Matrix-Model Results\n\nmatrix_model.summary()\n\n\nOLS Regression Results\n\n\nDep. Variable:\nbody_mass_g\nR-squared:\n0.762\n\n\nModel:\nOLS\nAdj. R-squared:\n0.761\n\n\nMethod:\nLeast Squares\nF-statistic:\n1060.\n\n\nDate:\nSun, 06 Sep 2026\nProb (F-statistic):\n3.13e-105\n\n\nTime:\n19:11:02\nLog-Likelihood:\n-2461.1\n\n\nNo. Observations:\n333\nAIC:\n4926.\n\n\nDf Residuals:\n331\nBIC:\n4934.\n\n\nDf Model:\n1\n\n\n\n\nCovariance Type:\nnonrobust\n\n\n\n\n\n\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nconst\n-5872.0927\n310.285\n-18.925\n0.000\n-6482.472\n-5261.713\n\n\nflipper_length_mm\n50.1533\n1.540\n32.562\n0.000\n47.123\n53.183\n\n\n\n\n\n\n\n\nOmnibus:\n5.922\nDurbin-Watson:\n2.116\n\n\nProb(Omnibus):\n0.052\nJarque-Bera (JB):\n5.876\n\n\nSkew:\n0.325\nProb(JB):\n0.0530\n\n\nKurtosis:\n3.025\nCond. No.\n2.90e+03\n\n\n\nNotes:[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.[2] The condition number is large, 2.9e+03. This might indicate that there arestrong multicollinearity or other numerical problems.\n\n\nThe matrix model and formula model produce the same estimates when they use the same rows and columns.\n\npd.DataFrame(\n    {\n        \"formula_api\": model_1.params.to_numpy(),\n        \"matrix_api\": matrix_model.params.to_numpy(),\n    },\n    index=[\"intercept\", \"flipper_length_mm\"],\n)\n\n\n\n\n\n\n\n\nformula_api\nmatrix_api\n\n\n\n\nintercept\n-5872.092683\n-5872.092683\n\n\nflipper_length_mm\n50.153266\n50.153266"
-  },
-  {
-    "objectID": "lectures/3a.html#multiple-continuous-predictors-as-a-matrix",
-    "href": "lectures/3a.html#multiple-continuous-predictors-as-a-matrix",
-    "title": "Linear Regression",
-    "section": "Multiple Continuous Predictors as a Matrix",
-    "text": "Multiple Continuous Predictors as a Matrix\n\ny_continuous = penguins[\"body_mass_g\"]\nX_continuous = penguins[\n    [\"flipper_length_mm\", \"bill_length_mm\"]\n]\nX_continuous = sm.add_constant(X_continuous)\n\ncontinuous_matrix_model = sm.OLS(\n    y_continuous, X_continuous\n).fit()\n\ncontinuous_matrix_model.params.rename(\n    \"estimate\"\n).to_frame()\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nconst\n-5836.298732\n\n\nflipper_length_mm\n48.889692\n\n\nbill_length_mm\n4.958601"
-  },
-  {
-    "objectID": "lectures/3a.html#create-indicator-columns-for-a-category",
-    "href": "lectures/3a.html#create-indicator-columns-for-a-category",
-    "title": "Linear Regression",
-    "section": "Create Indicator Columns for a Category",
-    "text": "Create Indicator Columns for a Category\nThe matrix API requires us to create the indicator columns, we will use pd.get_dummies to create them. drop_first=True leaves Biscoe as the reference category.\n\nX_categorical = pd.get_dummies(\n    penguins[\n        [\"flipper_length_mm\", \"island\"]\n    ],\n    columns=[\"island\"],\n    drop_first=True,\n    dtype=float,\n)\nX_categorical = sm.add_constant(X_categorical)\n\nX_categorical.head()\n\n\n\n\n\n\n\n\nconst\nflipper_length_mm\nisland_Dream\nisland_Torgersen\n\n\n\n\n0\n1.0\n181.0\n0.0\n1.0\n\n\n1\n1.0\n186.0\n0.0\n1.0\n\n\n2\n1.0\n195.0\n0.0\n1.0\n\n\n4\n1.0\n193.0\n0.0\n1.0\n\n\n5\n1.0\n190.0\n0.0\n1.0"
-  },
-  {
-    "objectID": "lectures/3a.html#fit-the-categorical-matrix-model",
-    "href": "lectures/3a.html#fit-the-categorical-matrix-model",
-    "title": "Linear Regression",
-    "section": "Fit the Categorical Matrix Model",
-    "text": "Fit the Categorical Matrix Model\n\ny_categorical = penguins[\"body_mass_g\"]\n\ncategorical_matrix_model = sm.OLS(\n    y_categorical, X_categorical\n).fit()\n\ncategorical_matrix_model.params.rename(\n    \"estimate\"\n).to_frame()\n\n\n\n\n\n\n\n\nestimate\n\n\n\n\nconst\n-4687.861178\n\n\nflipper_length_mm\n44.889817\n\n\nisland_Dream\n-265.365111\n\n\nisland_Torgersen\n-201.460809\n\n\n\n\n\n\n\nThe coefficients match the formula model; only the indicator-column names differ."
-  },
-  {
-    "objectID": "lectures/3a.html#formula-api-or-matrix-api",
-    "href": "lectures/3a.html#formula-api-or-matrix-api",
-    "title": "Linear Regression",
-    "section": "Formula API or Matrix API?",
-    "text": "Formula API or Matrix API?\n\n\n\n\n\n\n\n\n\nApproach\nModel specification\nCategorical variables\nIntercept\n\n\n\n\nstatsmodels.formula.api\nFormula such as y ~ x1 + C(group)\nCreated automatically\nAdded automatically\n\n\nstatsmodels.api\nSeparate y vector and X matrix\nCreate indicator columns\nAdd with sm.add_constant()\n\n\n\nUse the formula API for readable statistical models. Use the matrix API when you need direct control over the design matrix."
-  },
-  {
-    "objectID": "lectures/3a.html#model-syntax",
-    "href": "lectures/3a.html#model-syntax",
-    "title": "Linear Regression",
-    "section": "Model Syntax",
-    "text": "Model Syntax\nThe statsmodels.formula.api module lets us describe a regression model with a formula:\n\n# outcome ~ predictor\nmodel = smf.ols(\n    \"Y ~ X\",\n    data=DATA\n).fit()\n\n\nThe variable Y to the left of ~ is the outcome\nVariable X to the right of ~ are predictors\nDATA is the name of the pandas data frame\n.fit() estimates the regression coefficients"
-  },
-  {
-    "objectID": "lectures/3a.html#penguins-example-data",
-    "href": "lectures/3a.html#penguins-example-data",
-    "title": "Linear Regression",
-    "section": "Penguins Example Data",
-    "text": "Penguins Example Data\nThe fitted equation is\n\\[\n\\widehat{\\text{body mass}}\n= \\hat\\beta_0\n+ \\hat\\beta_1(\\text{flipper_length}).\n\\]\nThe slope estimates the change in mean body mass associated with a one-millimeter increase in flipper length."
-  },
-  {
-    "objectID": "lectures/3a.html#fitting-model",
-    "href": "lectures/3a.html#fitting-model",
-    "title": "Linear Regression",
-    "section": "Fitting Model",
-    "text": "Fitting Model\n\nmodel_1 = smf.ols(\n    \"body_mass_g ~ flipper_length_mm\",\n    data=penguins\n).fit()"
-  },
-  {
-    "objectID": "lectures/3a.html#examming-output",
-    "href": "lectures/3a.html#examming-output",
-    "title": "Linear Regression",
-    "section": "Examming Output",
-    "text": "Examming Output\n\n# Coefficient table with standard errors, test statistics,\n# p-values, and confidence intervals\nmodel_1.summary().tables[1]\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nIntercept\n-5872.0927\n310.285\n-18.925\n0.000\n-6482.472\n-5261.713\n\n\nflipper_length_mm\n50.1533\n1.540\n32.562\n0.000\n47.123\n53.183"
-  },
-  {
-    "objectID": "lectures/3a.html#fitting-a-model-with-categorical-variables-2",
-    "href": "lectures/3a.html#fitting-a-model-with-categorical-variables-2",
-    "title": "Linear Regression",
-    "section": "Fitting a model with categorical variables",
-    "text": "Fitting a model with categorical variables\nUsing the Palmer Penguins data, fit a model with body_mass_g as the outcome and flipper_length_mm and island as predictors.\n\nmodel_3 = smf.ols(\n    \"body_mass_g ~ flipper_length_mm + \"\n    \"C(island)\",\n    data=penguins,\n).fit()\n\nmodel_3.summary()\n\n\nOLS Regression Results\n\n\nDep. Variable:\nbody_mass_g\nR-squared:\n0.778\n\n\nModel:\nOLS\nAdj. R-squared:\n0.776\n\n\nMethod:\nLeast Squares\nF-statistic:\n384.5\n\n\nDate:\nSun, 06 Sep 2026\nProb (F-statistic):\n3.65e-107\n\n\nTime:\n19:11:02\nLog-Likelihood:\n-2449.5\n\n\nNo. Observations:\n333\nAIC:\n4907.\n\n\nDf Residuals:\n329\nBIC:\n4922.\n\n\nDf Model:\n3\n\n\n\n\nCovariance Type:\nnonrobust\n\n\n\n\n\n\n\n\n\n\n\ncoef\nstd err\nt\nP&gt;|t|\n[0.025\n0.975]\n\n\nIntercept\n-4687.8612\n392.854\n-11.933\n0.000\n-5460.684\n-3915.038\n\n\nC(island)[T.Dream]\n-265.3651\n54.845\n-4.838\n0.000\n-373.256\n-157.475\n\n\nC(island)[T.Torgersen]\n-201.4608\n71.525\n-2.817\n0.005\n-342.166\n-60.756\n\n\nflipper_length_mm\n44.8898\n1.869\n24.015\n0.000\n41.213\n48.567\n\n\n\n\n\n\n\n\nOmnibus:\n6.721\nDurbin-Watson:\n2.312\n\n\nProb(Omnibus):\n0.035\nJarque-Bera (JB):\n6.500\n\n\nSkew:\n0.322\nProb(JB):\n0.0388\n\n\nKurtosis:\n3.234\nCond. No.\n3.82e+03\n\n\n\nNotes:[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.[2] The condition number is large, 3.82e+03. This might indicate that there arestrong multicollinearity or other numerical problems."
-  },
-  {
-    "objectID": "lectures/3a.html#data-prep",
-    "href": "lectures/3a.html#data-prep",
-    "title": "Linear Regression",
-    "section": "Data Prep",
-    "text": "Data Prep\n\npenguins = (\n    penguins_data\n        .copy()\n        .dropna()\n)"
-  },
-  {
-    "objectID": "lectures/3a.html#island-variable",
-    "href": "lectures/3a.html#island-variable",
-    "title": "Linear Regression",
-    "section": "Island Variable",
-    "text": "Island Variable\n\n(\n    penguins[\"island\"]\n        .value_counts()\n)\n\nisland\nBiscoe       163\nDream        123\nTorgersen     47\nName: count, dtype: int64"
   }
 ]

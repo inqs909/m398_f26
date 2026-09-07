@@ -481,6 +481,7 @@ model = smf.ols(
 -   The variable `Y` is the outcome
 -   `X1` is a nemerical predictor
 -   `X2` is a categorical predictor variable
+-   `C()` indicates dummy variables
 -   `DATA` is the name of the pandas data frame
 -   `.fit()` estimates the regression coefficients
 

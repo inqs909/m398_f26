@@ -1,6 +1,6 @@
 ---
-title: "Assignment 3"
-date: 3/7/24
+title: "ICA 2"
+date: 9/4/26
 editor: source
 jupyter: python3
 format:
@@ -9,7 +9,7 @@ format:
     code-tools: true
     code-line-numbers: true
     embed-resources: true
-draft: false
+draft: true
 ---
 
 ```{python}
@@ -47,7 +47,16 @@ starbucks = (
 )
 ```
 
-**Due 3/17/24 \@ 11:59 PM**
+**Due 9/13/26 \@ 11:59 PM**
+
+Use a Quarto template to create the assignment.
+
+```bash
+quarto use template inqs909/qs_hw_python
+```
+
+
+
 
 Submit the \*.html file to Canvas.
 
@@ -57,20 +66,8 @@ The `anime` dataset from MyAnimeList contains information on rankings and popula
 
 Fit a linear model showing the relationship between `score` (outcome; higher is better) and the predictors `type`, `popularity`, and `rank`. On average, what is the score for an anime that is a `"Special"`, has a popularity score of 520, and has a rank of 3582?
 
-```{python}
-#| code-fold: true
-#| code-summary: Answer
-
-# Write your solution here.
-```
 
 ## Problem 2
 
 Fit a linear model between the outcome `caffeine_mg` and predictors `size`, `calories`, and `sugar_g` from the `starbucks` dataset using the matrix formulation approach by defining the $X$ matrix. Use `tall` as the reference value for the `size` variable.
 
-```{python}
-#| code-fold: true
-#| code-summary: Answer
-
-# Write your solution here.
-```

@@ -29,10 +29,10 @@ order: 4
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 import statsmodels.formula.api as smf
-from IPython.display import display
 from plotnine import *
-from plotnine.data import penguins as penguins_data
+from plotnine.data import penguins as penguins
 
 # Reproducible random-number seeds
 RANDOM_SEED = 909
@@ -44,49 +44,8 @@ y = 3 + 2 * x + line_rng.normal(loc=0, scale=2, size=50)
 df = pd.DataFrame({"x": x, "y": y})
 
 # Palmer Penguins data and analysis-specific complete-case datasets
-penguins = penguins_data.copy()
-penguins_scatter = penguins.dropna(
-    subset=["body_mass_g", "flipper_length_mm"]
-).copy()
-penguins_continuous = penguins.dropna(
-    subset=["body_mass_g", "flipper_length_mm", "bill_length_mm"]
-).copy()
-penguins_categorical = penguins.dropna(
-    subset=["body_mass_g", "flipper_length_mm", "island"]
-).copy()
-penguins_categorical["island"] = pd.Categorical(
-    penguins_categorical["island"],
-    categories=["Biscoe", "Dream", "Torgersen"],
-)
+penguins = penguins.copy().dropna()
 
-# Data for the simple linear-regression simulation
-simulation_rng = np.random.default_rng(RANDOM_SEED + 1)
-simulation_x = simulation_rng.normal(loc=3, scale=1, size=250)
-simulation_expected_y = 3 * simulation_x + 20
-simulation_error = simulation_rng.normal(loc=0, scale=2, size=250)
-simulation_y = simulation_expected_y + simulation_error
-simulation_data = pd.DataFrame(
-    {
-        "x": simulation_x,
-        "expected_y": simulation_expected_y,
-        "error": simulation_error,
-        "y": simulation_y,
-    }
-)
-
-# Data for the multivariable-regression simulation
-mlr_rng = np.random.default_rng(RANDOM_SEED + 2)
-mlr_x1 = mlr_rng.normal(loc=2, scale=1, size=1_000)
-mlr_x2 = mlr_rng.normal(loc=-4, scale=1, size=1_000)
-mlr_y = (
-    3
-    + 2 * mlr_x1
-    + 4 * mlr_x2
-    + mlr_rng.normal(loc=0, scale=np.sqrt(2), size=1_000)
-)
-mlr_simulation = pd.DataFrame(
-    {"x1": mlr_x1, "x2": mlr_x2, "y": mlr_y}
-)
 
 # Set the default Plotnine theme
 theme_set(theme_bw())
@@ -94,8 +53,9 @@ theme_set(theme_bw())
 
 ## Learning Objectives
 
--   Linear Regression
--   Multivariable Linear Regression
+-   Fit and interpret a simple linear regression model with the formula API
+-   Add continuous and categorical predictors to a regression model
+-   Fit the same models from design matrices with the matrix API
 
 
 ## Python Modules, Functions, and Parameters
@@ -105,8 +65,8 @@ theme_set(theme_bw())
 #| echo: true
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 import statsmodels.formula.api as smf
-from IPython.display import display
 from plotnine import *
 from plotnine.data import penguins as penguins_data
 
@@ -118,12 +78,27 @@ from plotnine.data import penguins as penguins_data
 # Scatterplot
 (
     ggplot(
-        penguins_scatter,
-        aes(x="body_mass_g", y="flipper_length_mm"),
+        penguins,
+        aes(x="flipper_length_mm", y="body_mass_g"),
     )
     + geom_point()
 )
 ```
+
+## Data Prep
+
+```{python}
+#| echo: true
+
+
+penguins = (
+    penguins_data
+        .copy()
+        .dropna()
+)
+
+```
+
 
 # Linear Regression
 
@@ -137,8 +112,8 @@ Linear regression is used to model the association between a set of predictor va
 # Scatterplot
 (
     ggplot(
-        penguins_scatter,
-        aes(x="body_mass_g", y="flipper_length_mm"),
+        penguins,
+        aes(x="flipper_length_mm", y="body_mass_g"),
     )
     + geom_point()
 )
@@ -326,86 +301,83 @@ rss = np.sum(fit.resid**2)
 )
 ```
 
+# Python Code
 
-# Linear Regression Simulation
+## Model Syntax
 
-## Generate X Values
-
-Simulate 250 independent values (x) from $N(3, 1)$ and plot a histogram
+The `statsmodels.formula.api` module lets us describe a regression model with a formula:
 
 ```{python}
 #| echo: true
 #| eval: false
 
-x = np.random.normal(loc=3, scale=1, size=250)
+
+# outcome ~ predictor
+model = smf.ols(
+    "Y ~ X",
+    data=DATA
+).fit()
 ```
 
-## Generate Y Values
+-   The variable `Y` to the left of `~` is the outcome
+-   Variable `X` to the right of `~` are predictors
+-   `DATA` is the name of the pandas data frame
+-   `.fit()` estimates the regression coefficients
 
-Create a new variable with the following formula:
+## Penguins Example Data
 
-$$
-Y_i = 3 X_i + 20
-$$
-Create a Scatter Plot
-
-## Generate Error Term
-
-Generate $\epsilon_i\sim N(0, 2)$
-
-Create a histogram
-
-## Add error term
-
-Create final form of $Y_i$:
+The fitted equation is
 
 $$
-Y_i = 3 X_i + 20 + \epsilon_i
+\widehat{\text{body mass}}
+= \hat\beta_0
++ \hat\beta_1(\text{flipper_length}).
 $$
 
-Create a scatter plot
+The slope estimates the change in mean body mass associated with a one-millimeter increase in flipper length.
 
-
-## Simulation Study
-
-To confirm that `smf.ols()` works, repeat the process 100 times and obtain the average $\beta$ estimates:
-
-1.  Generate 250 X values
-2.  Create Y Value
-3.  Add error term
-4.  Fit Model
-5.  Store Values
-6.  Find the means of the coefficient
-
-## Python Code of Simulation Study
+## Fitting Model
 
 ```{python}
 #| echo: true
 
-# Generating seends
-simulation_seeds = np.arange(1_000) + RANDOM_SEED
 
-
-# Simulation study
-def simulate_coefficients(seed):
-    local_rng = np.random.default_rng(seed)
-    x = local_rng.normal(loc=3, scale=1, size=250)
-    expected_y = 3 * x + 20
-    error = local_rng.normal(loc=0, scale=2, size=250)
-    y = expected_y + error
-
-    simulated_data = pd.DataFrame({"x": x, "y": y})
-    result = smf.ols("y ~ x", data=simulated_data).fit()
-    return result.params
-
-
-sim_results = pd.DataFrame(
-    [simulate_coefficients(seed) for seed in simulation_seeds]
-)
-sim_results.mean().rename("mean_estimate").to_frame()
+model_1 = smf.ols(
+    "body_mass_g ~ flipper_length_mm",
+    data=penguins
+).fit()
 ```
 
-# Multivariable Linear Regresion
+## Examming Output
+
+```{python}
+#| echo: true
+
+# Coefficient table with standard errors, test statistics,
+# p-values, and confidence intervals
+model_1.summary().tables[1]
+```
+
+## Predict Body Mass
+
+Prediction data must use the same predictor name as the model formula.
+
+```{python}
+#| echo: true
+
+new_penguins = pd.DataFrame(
+    {"flipper_length_mm": [190, 200, 210]}
+)
+
+penguins_pred = model_1.get_prediction(
+    new_penguins
+).summary_frame()
+
+penguins_pred
+```
+
+
+# Multivariable Linear Regression
 
 ## MLR
 
@@ -413,9 +385,27 @@ Multivariable linear regression models are used when more than one explanatory v
 
 ## Continuous Variable
 
-To fit an additional continuous random variable to the model, we will only need to add it to the model:
+Add predictors on the right side of the formula with `+`:
 
 $$Y = \beta_0 +\beta_1 X_1 + \beta_2 X_2$$
+
+```{python}
+#| echo: true
+#| eval: false
+
+model = smf.ols(
+    "Y ~ X1 + X2",
+    data=DATA,
+).fit()
+```
+
+
+-   The variable `Y` is the outcome
+-   Variables `X1` and `X2` are the predictors
+-   `DATA` is the name of the pandas data frame
+-   `.fit()` estimates the regression coefficients
+
+
 
 ## Example
 
@@ -424,20 +414,33 @@ Using the Palmer Penguins data, fit a model with `body_mass_g` as the outcome an
 ```{python}
 #| echo: true
 
-continuous_model = smf.ols(
+model_2 = smf.ols(
     "body_mass_g ~ flipper_length_mm + bill_length_mm",
-    data=penguins_continuous,
+    data=penguins,
 ).fit()
 
-continuous_model.summary()
+model_2.summary()
 ```
 
-## Interpretation
+
+## Predict with Multiple Variables
+
+Supply a value for every predictor used in the formula.
 
 ```{python}
-#| eval: true
+#| echo: true
 
-continuous_model.summary()
+new_measurements = pd.DataFrame(
+    {
+        "flipper_length_mm": [190, 200, 210],
+        "bill_length_mm": [40, 45, 50],
+    }
+)
+
+new_measurements["predicted_body_mass_g"] = (
+    model_2.predict(new_measurements)
+)
+new_measurements.round(2)
 ```
 
 ## Categorical Variable
@@ -462,73 +465,65 @@ Which one is the reference category?
 
 ## Fitting a model with categorical variables
 
-Using the Palmer Penguins data, fit a model with `body_mass_g` as the outcome and `flipper_length_mm` and `island` as predictors.
 
-```{python}
-#| echo: true
-
-categorical_model = smf.ols(
-    "body_mass_g ~ flipper_length_mm + C(island)",
-    data=penguins_categorical,
-).fit()
-
-categorical_model.summary()
-```
-
-
-# MLR Simulation Study 
-
-## Simulation Study
-
-Simulate 1000 random variables from the following model:
-
-$$Y = 3 + 2X_1 + 4X_2 + \epsilon$$
-
-- $X_1\sim N(2,1)$
-
-- $X_2\sim N(-4,1)$
-
-- $\epsilon\sim N(0, 2)$
 
 ```{python}
 #| echo: true
 #| eval: false
 
-# The executed data are created in the setup chunk.
-# Equivalent Python generation code:
-rng = np.random.default_rng(911)
-x1 = rng.normal(loc=2, scale=1, size=1_000)
-x2 = rng.normal(loc=-4, scale=1, size=1_000)
-y = 3 + 2 * x1 + 4 * x2 + rng.normal(
-    loc=0,
-    scale=np.sqrt(2),
-    size=1_000,
-)
-mlr_simulation = pd.DataFrame({"x1": x1, "x2": x2, "y": y})
+model = smf.ols(
+    "Y ~ X1 + C(X2)",
+    data=DATA,
+).fit()
 ```
 
-## Fit Model
 
-Fit a model between $Y$ and $X_1$.
+-   The variable `Y` is the outcome
+-   `X1` is a nemerical predictor
+-   `X2` is a categorical predictor variable
+-   `DATA` is the name of the pandas data frame
+-   `.fit()` estimates the regression coefficients
 
-Repeat the process 1000 times. and answer the following questions:
 
-- On average does $\beta_1$ get estimated correctly? Why?
+## Island Variable
 
-- What is the average model variance?
+```{python}
+#| echo: true
+(
+    penguins["island"]
+        .value_counts()
+)
+```
 
-## MLR Model
+## Fitting a model with categorical variables
 
-Instead of fitting a simple linear regression model. Fit a model that will include predictor $X_2$. This can be done by adding $X_2$ in Python:
+Using the Palmer Penguins data, fit a model with `body_mass_g` as the outcome and `flipper_length_mm` and `island` as predictors.
+
+
 
 ```{python}
 #| echo: true
 
-mlr_model = smf.ols("y ~ x1 + x2", data=mlr_simulation).fit()
-mlr_model.summary()
+model_3 = smf.ols(
+    "body_mass_g ~ flipper_length_mm + "
+    "C(island)",
+    data=penguins,
+).fit()
+
+model_3.summary()
 ```
 
-Modify your simulation study and see what happens to $\beta_1$ and the model variance.
+
+## Formula API Handles Indicator Variables
+
+`C(island)` tells the formula API to treat `island` as categorical. Internally, the model creates $C-1$ indicator columns.
+
+```{python}
+#| echo: true
+model_3.model.exog_names
+```
+
+We usually do not create those indicator variables ourselves when using `statsmodels.formula.api`.
 
 
 # Matrix Formulation
@@ -549,3 +544,119 @@ $$Y_i = \boldsymbol X_i^\mathrm T \boldsymbol \beta + \epsilon_i$$
 
 $$\boldsymbol\beta = (\boldsymbol X^\mathrm T \boldsymbol X)^{-1} \boldsymbol X^\mathrm T \boldsymbol Y$$
 
+## Matrix API: Supply $Y$ and $X$
+
+With `statsmodels.api`, we provide the outcome vector and design matrix separately.
+
+```{python}
+#| echo: true
+
+y_matrix = penguins["body_mass_g"]
+X_matrix = penguins[["flipper_length_mm"]]
+
+# statsmodels.api does not add an intercept automatically
+X_matrix = sm.add_constant(X_matrix)
+
+matrix_model = sm.OLS(y_matrix, X_matrix).fit()
+```
+
+## Inspect the Design Matrix
+
+Each row represents one penguin, and each column represents one model coefficient.
+
+```{python}
+#| echo: true
+
+X_matrix.head()
+```
+
+The `const` column of ones corresponds to the intercept $\beta_0$.
+
+## Examine the Matrix-Model Results
+
+```{python}
+#| echo: true
+
+matrix_model.summary()
+```
+
+The matrix model and formula model produce the same estimates when they use the same rows and columns.
+
+```{python}
+#| echo: true
+
+pd.DataFrame(
+    {
+        "formula_api": model_1.params.to_numpy(),
+        "matrix_api": matrix_model.params.to_numpy(),
+    },
+    index=["intercept", "flipper_length_mm"],
+)
+```
+
+## Multiple Continuous Predictors as a Matrix
+
+```{python}
+#| echo: true
+
+y_continuous = penguins["body_mass_g"]
+X_continuous = penguins[
+    ["flipper_length_mm", "bill_length_mm"]
+]
+X_continuous = sm.add_constant(X_continuous)
+
+continuous_matrix_model = sm.OLS(
+    y_continuous, X_continuous
+).fit()
+
+continuous_matrix_model.params.rename(
+    "estimate"
+).to_frame()
+```
+
+## Create Indicator Columns for a Category
+
+The matrix API requires us to create the indicator columns, we will use `pd.get_dummies` to create them. `drop_first=True` leaves Biscoe as the reference category.
+
+```{python}
+#| echo: true
+
+X_categorical = pd.get_dummies(
+    penguins[
+        ["flipper_length_mm", "island"]
+    ],
+    columns=["island"],
+    drop_first=True,
+    dtype=float,
+)
+X_categorical = sm.add_constant(X_categorical)
+
+X_categorical.head()
+```
+
+## Fit the Categorical Matrix Model
+
+```{python}
+#| echo: true
+
+y_categorical = penguins["body_mass_g"]
+
+categorical_matrix_model = sm.OLS(
+    y_categorical, X_categorical
+).fit()
+
+categorical_matrix_model.params.rename(
+    "estimate"
+).to_frame()
+```
+
+The coefficients match the formula model; only the indicator-column names differ.
+
+## Formula API or Matrix API?
+
+| Approach | Model specification | Categorical variables | Intercept |
+|---|---|---|---|
+| `statsmodels.formula.api` | Formula such as `y ~ x1 + C(group)` | Created automatically | Added automatically |
+| `statsmodels.api` | Separate `y` vector and `X` matrix | Create indicator columns | Add with `sm.add_constant()` |
+
+Use the formula API for readable statistical models. Use the matrix API when you need direct control over the design matrix.

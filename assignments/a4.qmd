@@ -3,7 +3,7 @@ title: "Assignment 4"
 date: 3/15/24
 description: "Assignment is due 4/06/24"
 editor: source
-draft: false
+draft: true
 ---
 
 From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)

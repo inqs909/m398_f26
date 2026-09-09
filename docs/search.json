@@ -1316,69 +1316,6 @@
     "text": "Study Desing and Causal Inference\n\nCausal Inference What IF\n\nHernán and Robins\n\nDesign of Observational Studies\n\nRosenbaum\n\n\nBolded Titles, I have read thoroughly."
   },
   {
-    "objectID": "assignments/a8.html",
-    "href": "assignments/a8.html",
-    "title": "Assignment 8",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a8.html#problem-1",
-    "href": "assignments/a8.html#problem-1",
-    "title": "Assignment 8",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 7: Problem 7"
-  },
-  {
-    "objectID": "assignments/a8.html#problem-2",
-    "href": "assignments/a8.html#problem-2",
-    "title": "Assignment 8",
-    "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 7: Problem 9 a, b, c"
-  },
-  {
-    "objectID": "assignments/a6.html",
-    "href": "assignments/a6.html",
-    "title": "Assignment 6",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a6.html#problem-1",
-    "href": "assignments/a6.html#problem-1",
-    "title": "Assignment 6",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 5: Problem 5 a, b, c, d"
-  },
-  {
-    "objectID": "assignments/a6.html#problem-2",
-    "href": "assignments/a6.html#problem-2",
-    "title": "Assignment 6",
-    "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 5: Problem 9"
-  },
-  {
-    "objectID": "assignments/a4.html",
-    "href": "assignments/a4.html",
-    "title": "Assignment 4",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a4.html#problem-1",
-    "href": "assignments/a4.html#problem-1",
-    "title": "Assignment 4",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 4: Problem 13 a,e,f,h,i"
-  },
-  {
-    "objectID": "assignments/a4.html#problem-2",
-    "href": "assignments/a4.html#problem-2",
-    "title": "Assignment 4",
-    "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 4: Problem 14 a,d,e,g,h"
-  },
-  {
     "objectID": "assignments/a2.html",
     "href": "assignments/a2.html",
     "title": "ICA 1",
@@ -1414,88 +1351,11 @@
     "text": "Problem 4\nCreate a function that will randomly generate n numbers that are greater than x from a \\(Pois(\\lambda)\\). Use numpy to generate the random variables."
   },
   {
-    "objectID": "assignments/a12.html",
-    "href": "assignments/a12.html",
-    "title": "Assignment 12",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
-  },
-  {
-    "objectID": "assignments/a12.html#problem-1",
-    "href": "assignments/a12.html#problem-1",
-    "title": "Assignment 12",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 9: Problem 7"
-  },
-  {
-    "objectID": "assignments/a10.html",
-    "href": "assignments/a10.html",
-    "title": "Assignment 10",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a10.html#problem-1",
-    "href": "assignments/a10.html#problem-1",
-    "title": "Assignment 10",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 8: Problem 8 a, b, c"
-  },
-  {
-    "objectID": "assignments/a10.html#problem-2",
-    "href": "assignments/a10.html#problem-2",
-    "title": "Assignment 10",
-    "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 9 a, b, c, e, f, h, i"
-  },
-  {
     "objectID": "assignments.html",
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "Assignment 10\n\n\n\n\n\n\n\n\n\n\nAssignment 11\n\n\n\n\n\n\n\n\n\n\nAssignment 12\n\n\n\n\n\n\n\n\n\n\nAssignment 12\n\n\n\n\n\n\n\n\n\n\nICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\n\n\n\n\n\n\n\n\nAssignment 5\n\n\n\n\n\n\n\n\n\n\nAssignment 6\n\n\n\n\n\n\n\n\n\n\nAssignment 7\n\n\n\n\n\n\n\n\n\n\nAssignment 8\n\n\n\n\n\n\n\n\n\n\nAssignment 9\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "assignments/a11.html",
-    "href": "assignments/a11.html",
-    "title": "Assignment 11",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
-  },
-  {
-    "objectID": "assignments/a11.html#problem-1",
-    "href": "assignments/a11.html#problem-1",
-    "title": "Assignment 11",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 8: Problem 8 d, e"
-  },
-  {
-    "objectID": "assignments/a11.html#problem-2",
-    "href": "assignments/a11.html#problem-2",
-    "title": "Assignment 11",
-    "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 11"
-  },
-  {
-    "objectID": "assignments/a11.html#problem-3",
-    "href": "assignments/a11.html#problem-3",
-    "title": "Assignment 11",
-    "section": "Problem 3",
-    "text": "Problem 3\nFrom the Applied Section in Chapter 8: Problem 12 (Ignore BART)"
-  },
-  {
-    "objectID": "assignments/a13.html",
-    "href": "assignments/a13.html",
-    "title": "Assignment 12",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
-  },
-  {
-    "objectID": "assignments/a13.html#problem-1",
-    "href": "assignments/a13.html#problem-1",
-    "title": "Assignment 12",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 11: Problem 10 a and b"
+    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "assignments/a3.html",
@@ -1517,55 +1377,6 @@
     "title": "ICA 2",
     "section": "Problem 2",
     "text": "Problem 2\nFit a linear model between the outcome caffeine_mg and predictors size, calories, and sugar_g from the starbucks dataset using the matrix formulation approach by defining the \\(X\\) matrix. Use tall as the reference value for the size variable."
-  },
-  {
-    "objectID": "assignments/a5.html",
-    "href": "assignments/a5.html",
-    "title": "Assignment 5",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a5.html#problem-1",
-    "href": "assignments/a5.html#problem-1",
-    "title": "Assignment 5",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 4: Problem 16"
-  },
-  {
-    "objectID": "assignments/a7.html",
-    "href": "assignments/a7.html",
-    "title": "Assignment 7",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a7.html#problem-1",
-    "href": "assignments/a7.html#problem-1",
-    "title": "Assignment 7",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 6: Problem 9 a,b,c,d"
-  },
-  {
-    "objectID": "assignments/a7.html#problem-2",
-    "href": "assignments/a7.html#problem-2",
-    "title": "Assignment 7",
-    "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 6: Problem 11 a(ignore Best Subset and PCR), b, c"
-  },
-  {
-    "objectID": "assignments/a9.html",
-    "href": "assignments/a9.html",
-    "title": "Assignment 9",
-    "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
-  },
-  {
-    "objectID": "assignments/a9.html#problem-1",
-    "href": "assignments/a9.html#problem-1",
-    "title": "Assignment 9",
-    "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 7: Problem 10"
   },
   {
     "objectID": "index.html",

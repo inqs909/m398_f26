@@ -1449,6 +1449,13 @@
     "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 9 a, b, c, e, f, h, i"
   },
   {
+    "objectID": "assignments.html",
+    "href": "assignments.html",
+    "title": "Assignments",
+    "section": "",
+    "text": "Assignment 10\n\n\n\n\n\n\n\n\n\n\nAssignment 11\n\n\n\n\n\n\n\n\n\n\nAssignment 12\n\n\n\n\n\n\n\n\n\n\nAssignment 12\n\n\n\n\n\n\n\n\n\n\nICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\n\n\n\n\n\n\n\n\nAssignment 5\n\n\n\n\n\n\n\n\n\n\nAssignment 6\n\n\n\n\n\n\n\n\n\n\nAssignment 7\n\n\n\n\n\n\n\n\n\n\nAssignment 8\n\n\n\n\n\n\n\n\n\n\nAssignment 9\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "assignments/a11.html",
     "href": "assignments/a11.html",
     "title": "Assignment 11",
@@ -1489,6 +1496,27 @@
     "title": "Assignment 12",
     "section": "Problem 1",
     "text": "Problem 1\nFrom the Applied Section in Chapter 11: Problem 10 a and b"
+  },
+  {
+    "objectID": "assignments/a3.html",
+    "href": "assignments/a3.html",
+    "title": "ICA 2",
+    "section": "",
+    "text": "Due 9/13/26 @ 11:59 PM\nUse a Quarto template to create the assignment.\nSubmit the *.html file to Canvas."
+  },
+  {
+    "objectID": "assignments/a3.html#problem-1",
+    "href": "assignments/a3.html#problem-1",
+    "title": "ICA 2",
+    "section": "Problem 1",
+    "text": "Problem 1\nThe anime dataset from MyAnimeList contains information on rankings and popularity scores of different anime episodes.\nFit a linear model showing the relationship between score (outcome; higher is better) and the predictors type, popularity, and rank. On average, what is the score for an anime that is a \"Special\", has a popularity score of 520, and has a rank of 3582?"
+  },
+  {
+    "objectID": "assignments/a3.html#problem-2",
+    "href": "assignments/a3.html#problem-2",
+    "title": "ICA 2",
+    "section": "Problem 2",
+    "text": "Problem 2\nFit a linear model between the outcome caffeine_mg and predictors size, calories, and sugar_g from the starbucks dataset using the matrix formulation approach by defining the \\(X\\) matrix. Use tall as the reference value for the size variable."
   },
   {
     "objectID": "assignments/a5.html",

@@ -18,7 +18,7 @@ draft: false
 
 ## Description
 
-The goal of the final project is for you to choose a data set and create machine learning model that predicts an outcome of interest. You may choose any data set and machine learning model. You may use any programming language to conduct the project.
+The goal of the final project is for you to choose a data set and create machine learning model that predicts an outcome of interest. You may choose any data set and machine learning model. You may use any programming language to conduct the project. **You are not required to purchase anything for this project.**
 
 ## Report
 

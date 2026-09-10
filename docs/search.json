@@ -1355,7 +1355,7 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "Assignment 10\n\n\n\n\n\n\n\n\n\n\nAssignment 11\n\n\n\n\n\n\n\n\n\n\nAssignment 12\n\n\n\n\n\n\n\n\n\n\nAssignment 12\n\n\n\n\n\n\n\n\n\n\nICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\n\n\n\n\n\n\n\n\nAssignment 5\n\n\n\n\n\n\n\n\n\n\nAssignment 6\n\n\n\n\n\n\n\n\n\n\nAssignment 7\n\n\n\n\n\n\n\n\n\n\nAssignment 8\n\n\n\n\n\n\n\n\n\n\nAssignment 9\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "assignments/a3.html",
@@ -1363,6 +1363,20 @@
     "title": "ICA 2",
     "section": "",
     "text": "Due 9/13/26 @ 11:59 PM\nSubmit the *.html file to Canvas."
+  },
+  {
+    "objectID": "assignments/a3.html#notebook-setup",
+    "href": "assignments/a3.html#notebook-setup",
+    "title": "ICA 2",
+    "section": "Notebook Setup",
+    "text": "Notebook Setup\nCreate a raw cell and insert this code\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: true\n    code-tools: true\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a3.html#import-data",
+    "href": "assignments/a3.html#import-data",
+    "title": "ICA 2",
+    "section": "Import Data",
+    "text": "Import Data\n\n\nCode\n# Libraries\nimport numpy as np\nimport pandas as pd\nimport plotnine as p9\n\n# Problem 1 data\nanime_url = (\n    \"https://raw.githubusercontent.com/rfordatascience/\"\n    \"tidytuesday/master/data/2019/2019-04-23/tidy_anime.csv\"\n)\n\nanime = (\n    pd.read_csv(anime_url)\n    .query(\"type != 'Unknown'\")\n    .copy()\n)\n\n# Problem 2 data\nstarbucks_url = (\n    \"https://raw.githubusercontent.com/rfordatascience/\"\n    \"tidytuesday/master/data/2021/2021-12-21/starbucks.csv\"\n)\n\nstarbucks = (\n    pd.read_csv(starbucks_url)\n    .dropna()\n    .query(\"size in ['tall', 'grande', 'venti']\")\n    .copy()\n)"
   },
   {
     "objectID": "assignments/a3.html#problem-1",
@@ -2644,19 +2658,5 @@
     "title": "Final Project",
     "section": "Deadline And Extensions",
     "text": "Deadline And Extensions\nThe report will be due on December 4, 2026 at 11:59 PM. Your Poster Presentation will occur on Tuesday 12/8/2026 from 4-6 PM in Gateway Hall.\nFor your report, you may receive a 24-hour extension beyond the due date for evey time you attend the writing and multiliteracy center. Each appointment must be one week apart."
-  },
-  {
-    "objectID": "assignments/a3.html#notebook-setup",
-    "href": "assignments/a3.html#notebook-setup",
-    "title": "ICA 2",
-    "section": "Notebook Setup",
-    "text": "Notebook Setup\nCreate a raw cell and insert this code\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: true\n    code-tools: true\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
-  },
-  {
-    "objectID": "assignments/a3.html#import-data",
-    "href": "assignments/a3.html#import-data",
-    "title": "ICA 2",
-    "section": "Import Data",
-    "text": "Import Data\n\n\nCode\n# Libraries\nimport numpy as np\nimport pandas as pd\nimport plotnine as p9\n\n# Problem 1 data\nanime_url = (\n    \"https://raw.githubusercontent.com/rfordatascience/\"\n    \"tidytuesday/master/data/2019/2019-04-23/tidy_anime.csv\"\n)\n\nanime = (\n    pd.read_csv(anime_url)\n    .query(\"type != 'Unknown'\")\n    .copy()\n)\n\n# Problem 2 data\nstarbucks_url = (\n    \"https://raw.githubusercontent.com/rfordatascience/\"\n    \"tidytuesday/master/data/2021/2021-12-21/starbucks.csv\"\n)\n\nstarbucks = (\n    pd.read_csv(starbucks_url)\n    .dropna()\n    .query(\"size in ['tall', 'grande', 'venti']\")\n    .copy()\n)"
   }
 ]

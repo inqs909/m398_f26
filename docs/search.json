@@ -14,6 +14,34 @@
     "text": "Python for Data Science Python for Data Analysis Positron and Python"
   },
   {
+    "objectID": "posts/4.html",
+    "href": "posts/4.html",
+    "title": "Week 3",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/4.html#resources",
+    "href": "posts/4.html#resources",
+    "title": "Week 3",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/2.html",
+    "href": "posts/2.html",
+    "title": "Week 2",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/2.html#resources",
+    "href": "posts/2.html#resources",
+    "title": "Week 2",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
     "objectID": "lectures/9a.html#python-setup",
     "href": "lectures/9a.html#python-setup",
     "title": "Generalized Additive Models",
@@ -135,135 +163,86 @@
   {
     "objectID": "lectures/7a.html#python-setup",
     "href": "lectures/7a.html#python-setup",
-    "title": "Resampling Methods",
+    "title": "Regularization",
     "section": "Python Setup",
-    "text": "Python Setup\n\nimport numpy as np\nimport pandas as pd\nimport statsmodels.api as sm\nfrom plotnine import (\n    aes,\n    geom_line,\n    geom_point,\n    ggplot,\n    labs,\n    scale_x_log10,\n    theme_minimal,\n)\nfrom plotnine.data import mtcars as mtcars_raw\nfrom plotnine.data import penguins as penguins_raw\nfrom sklearn.linear_model import Lasso, LassoCV, Ridge, RidgeCV\nfrom sklearn.model_selection import LeaveOneOut\nfrom sklearn.preprocessing import StandardScaler\n\npenguins = penguins_raw.dropna().copy()\nmtcars = mtcars_raw.copy()\n\nlambdas = np.geomspace(1, 1000, 200)\nloo = LeaveOneOut()"
+    "text": "Python Setup\n\nimport numpy as np\nimport pandas as pd\nimport statsmodels.api as sm\nfrom plotnine import *\nfrom plotnine.data import mtcars as mtcars_data\nfrom plotnine.data import penguins as penguins_data\nfrom sklearn.linear_model import Lasso, Ridge\nfrom sklearn.pipeline import make_pipeline\n\n# Data ---------------------------------------------------------------------\npenguins = penguins_data.dropna().copy()\n\npenguin_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\npenguin_X = penguins[penguin_predictors].copy()\npenguin_y = penguins[\"body_mass_g\"].copy()\nlambda_value = 1.3"
   },
   {
     "objectID": "lectures/7a.html#learning-outcomes",
     "href": "lectures/7a.html#learning-outcomes",
-    "title": "Resampling Methods",
+    "title": "Regularization",
     "section": "Learning Outcomes",
-    "text": "Learning Outcomes\n\nCross-Validation\n\nLeave-one-out\nK-Fold\n\nBootstrap Methods"
+    "text": "Learning Outcomes\n\nRegularization\nRidge Regression\nLASSO Regression"
   },
   {
-    "objectID": "lectures/7a.html#training-error-rate",
-    "href": "lectures/7a.html#training-error-rate",
-    "title": "Resampling Methods",
-    "section": "Training Error Rate",
-    "text": "Training Error Rate\nTraining Error Rate is the error rate of the data used to create the model of interest. It describes how well the model predicts the data used to construct it."
+    "objectID": "lectures/7a.html#regularization-1",
+    "href": "lectures/7a.html#regularization-1",
+    "title": "Regularization",
+    "section": "Regularization",
+    "text": "Regularization\nShrinkage methods are techniques that will reduce a full parameterized model (a high number of predictors) to a lower parameterized model (a smaller number of predictors)."
   },
   {
-    "objectID": "lectures/7a.html#test-error-rate",
-    "href": "lectures/7a.html#test-error-rate",
-    "title": "Resampling Methods",
-    "section": "Test Error Rate",
-    "text": "Test Error Rate\nTest Error Rate is the error rate of predicting a new data point using the current established model."
+    "objectID": "lectures/7a.html#ridge-regression",
+    "href": "lectures/7a.html#ridge-regression",
+    "title": "Regularization",
+    "section": "Ridge Regression",
+    "text": "Ridge Regression\nRidge regression incorporates a shrinkage penalty term to the least squares formula. The shrinkage penalty term will reduce the \\(\\beta\\) coefficients towards 0 based on a penalty parameter (\\(\\lambda\\))"
   },
   {
-    "objectID": "lectures/7a.html#test-error-rate-1",
-    "href": "lectures/7a.html#test-error-rate-1",
-    "title": "Resampling Methods",
-    "section": "Test Error Rate",
-    "text": "Test Error Rate\nIn order to obtain the test error rate, data not used to fit the model must be available\n\nThis is not the case the majority of time.\n\n\nNew methods have been developed to compute the test error rate using the existing data."
+    "objectID": "lectures/7a.html#ridge-regression-1",
+    "href": "lectures/7a.html#ridge-regression-1",
+    "title": "Regularization",
+    "section": "Ridge Regression",
+    "text": "Ridge Regression\n\\[\\sum^n_{i=1}\\left(Y_i-\\beta_0 +\\sum^p_{j=1}X_{ij}\\beta_j\\right)^2 + \\lambda\\sum^p_{j=1}\\beta_j^2\\]"
   },
   {
-    "objectID": "lectures/7a.html#cross-validation-1",
-    "href": "lectures/7a.html#cross-validation-1",
-    "title": "Resampling Methods",
-    "section": "Cross-Validation",
-    "text": "Cross-Validation\nA cross-validation approach is to obtain a good estimate of the error-rate of a machine learning algorithm. We split the data set into two categories: training and testing. The training data set is used to train the model, and the test data is used to test the model and compute the error rate."
+    "objectID": "lectures/7a.html#lasso",
+    "href": "lectures/7a.html#lasso",
+    "title": "Regularization",
+    "section": "LASSO",
+    "text": "LASSO\nLeast Absolute Shrinkage and Selection Operator (LASSO) is known as a shrinkage method which forces \\(\\beta\\) coefficients that do not have a significant predicit power towards and possibly equal to 0."
   },
   {
-    "objectID": "lectures/7a.html#tuning-parameter",
-    "href": "lectures/7a.html#tuning-parameter",
-    "title": "Resampling Methods",
-    "section": "Tuning Parameter",
-    "text": "Tuning Parameter\nA cross-validation approach is great when there is a tuning parameter. We can fit a model for different values of the tuning parameter, and we can choose which value results in the lowest error rate."
+    "objectID": "lectures/7a.html#lasso-1",
+    "href": "lectures/7a.html#lasso-1",
+    "title": "Regularization",
+    "section": "LASSO",
+    "text": "LASSO\n\\[\\sum^n_{i=1}\\left(Y_i-\\beta_0 +\\sum^p_{j=1}X_{ij}\\beta_j\\right)^2 + \\lambda\\sum^p_{j=1}|\\beta_j|\\]"
   },
   {
-    "objectID": "lectures/7a.html#training-and-testing-data",
-    "href": "lectures/7a.html#training-and-testing-data",
-    "title": "Resampling Methods",
-    "section": "Training and Testing Data",
-    "text": "Training and Testing Data\nThe training and testing data sets are constructed by randomly assigning data points to one type of data."
+    "objectID": "lectures/7a.html#why-ridge-or-lasso",
+    "href": "lectures/7a.html#why-ridge-or-lasso",
+    "title": "Regularization",
+    "section": "Why Ridge or LASSO?",
+    "text": "Why Ridge or LASSO?\nEach method is capable on identifying the optimum MSE for the Bias-Variance trade-off scenario. This will lead to a lower prediction error. The key is to find the optimal penalty parameter. This can be done with a Cross-Validation technique (next lecture)."
   },
   {
-    "objectID": "lectures/7a.html#loocv-cross-validation",
-    "href": "lectures/7a.html#loocv-cross-validation",
-    "title": "Resampling Methods",
-    "section": "LOOCV Cross-Validation",
-    "text": "LOOCV Cross-Validation\n\nChoose a set of tuning parameters to test.\nFor each \\(k\\)th turning parameter, calculate the tuning parameter error for each value\n\nUtilize the leave-one-out approach\n\nFor each observation fit a model with the remaining observations and fit the excluded value\nCompute the following error:\n\\[CVE_k = \\frac{1}{n}\\sum^n_{i=1}e_i\\]\n\n\nIdentify the \\(k\\)th tuning parameter with the lowest \\(CVE_k\\)"
+    "objectID": "lectures/7a.html#ridge-regression-in-python",
+    "href": "lectures/7a.html#ridge-regression-in-python",
+    "title": "Regularization",
+    "section": "Ridge Regression in Python",
+    "text": "Ridge Regression in Python\n\nridge_model = make_pipeline(\n    Ridge(alpha=lambda_value),\n)\nridge_model.fit(X, y)"
   },
   {
-    "objectID": "lectures/7a.html#k-fold-cross-validation",
-    "href": "lectures/7a.html#k-fold-cross-validation",
-    "title": "Resampling Methods",
-    "section": "K-Fold Cross-Validation",
-    "text": "K-Fold Cross-Validation\n\nChoose a set of tuning parameters to test.\nCreate different K subsets of the data.\nFor each \\(j\\)th turning parameter Calculate the tuning parameter error for each value\n\nFor each K subset, fit a model using the data excluding the Kth subset\nPredict the values in the Kth subset using the fitted model\nRepeat the process for each K subset\nCompute the following error:\n\\[CVE_j = \\frac{1}{n}\\sum^n_{i=1}e_i\\]\n\nIdentify the \\(j\\)th tuning parameter with the lowest \\(CVE_j\\)"
+    "objectID": "lectures/7a.html#lasso-in-python",
+    "href": "lectures/7a.html#lasso-in-python",
+    "title": "Regularization",
+    "section": "LASSO in Python",
+    "text": "LASSO in Python\n\nlasso_model = make_pipeline(\n    Lasso(alpha=lambda_value),\n)\nlasso_model.fit(X, y)"
   },
   {
-    "objectID": "lectures/7a.html#executing-in-python",
-    "href": "lectures/7a.html#executing-in-python",
-    "title": "Resampling Methods",
-    "section": "Executing in Python",
-    "text": "Executing in Python\nSeveral Python packages have developed methods to execute a cross-validation approach."
+    "objectID": "lectures/7a.html#example",
+    "href": "lectures/7a.html#example",
+    "title": "Regularization",
+    "section": "Example",
+    "text": "Example\n\n# lambda_value = 1.3 was selected arbitrarily in the setup chunk.\nridge_model = make_pipeline(\n    Ridge(alpha=lambda_value),\n)\nridge_model.fit(penguin_X, penguin_y)\n\nPipeline(steps=[('ridge', Ridge(alpha=1.3))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nsteps  steps: list of tuples\n\nList of (name of step, estimator) tuples that are to be chained in\nsequential order. To be compatible with the scikit-learn API, all steps\nmust define `fit`. All non-last steps must also define `transform`. See\n:ref:`Combining Estimators &lt;combining_estimators&gt;` for more details.\n[('ridge', ...)]\n\n\n\ntransform_input  transform_input: list of str, default=None\n\nThe names of the :term:`metadata` parameters that should be transformed by the\npipeline before passing it to the step consuming it.\n\nThis enables transforming some input arguments to ``fit`` (other than ``X``)\nto be transformed by the steps of the pipeline up to the step which requires\nthem. Requirement is defined via :ref:`metadata routing &lt;metadata_routing&gt;`.\nFor instance, this can be used to pass a validation set through the pipeline.\n\nYou can only set this if metadata routing is enabled, which you\ncan enable using ``sklearn.set_config(enable_metadata_routing=True)``.\n\n.. versionadded:: 1.6\nNone\n\n\n\nmemory  memory: str or object with the joblib.Memory interface, default=None\n\nUsed to cache the fitted transformers of the pipeline. The last step\nwill never be cached, even if it is a transformer. By default, no\ncaching is performed. If a string is given, it is the path to the\ncaching directory. Enabling caching triggers a clone of the transformers\nbefore fitting. Therefore, the transformer instance given to the\npipeline cannot be inspected directly. Use the attribute ``named_steps``\nor ``steps`` to inspect estimators within the pipeline. Caching the\ntransformers is advantageous when fitting is time consuming. See\n:ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`\nfor an example on how to enable caching.\nNone\n\n\n\nverbose  verbose: bool, default=False\n\nIf True, the time elapsed while fitting each step will be printed as it\nis completed.\nFalse\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Only defined if the\nunderlying estimator exposes such an attribute when fit.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`. Only defined if the\nunderlying first estimator in `steps` exposes such an attribute\nwhen fit.\n\n.. versionadded:: 0.24\nint\n3\n\n\n\n\n            \n        \n    Ridge?Documentation for Ridge\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nalpha  alpha: float or array-like of shape (n_targets,), default=1.0\n\nConstant that multiplies the L2 term, controlling regularization\nstrength. `alpha` must be a non-negative float i.e. in `[0, inf)`.\n\nWhen `alpha = 0`, the objective is equivalent to ordinary least\nsquares, solved by the :class:`LinearRegression` object. For numerical\nreasons, using `alpha = 0` with the `Ridge` object is not advised.\nInstead, you should use the :class:`LinearRegression` object.\n\nIf an array is passed, penalties are assumed to be specific to the\ntargets. Hence they must correspond in number.\n\nSee :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`\nfor an illustration of the effect of alpha on the model coefficients.\n1.3\n\n\n\nfit_intercept  fit_intercept: bool, default=True\n\nWhether to fit the intercept for this model. If set\nto false, no intercept will be used in calculations\n(i.e. ``X`` and ``y`` are expected to be centered).\nTrue\n\n\n\ncopy_X  copy_X: bool, default=True\n\nIf True, X will be copied; else, it may be overwritten.\nTrue\n\n\n\nmax_iter  max_iter: int, default=None\n\nMaximum number of iterations for conjugate gradient solver.\nFor 'sparse_cg' and 'lsqr' solvers, the default value is determined\nby scipy.sparse.linalg. For 'sag' solver, the default value is 1000.\nFor 'lbfgs' solver, the default value is 15000.\nNone\n\n\n\ntol  tol: float, default=1e-4\n\nThe precision of the solution (`coef_`) is determined by `tol` which\nspecifies a different convergence criterion for each solver:\n\n- 'svd': `tol` has no impact.\n\n- 'cholesky': `tol` has no impact.\n\n- 'sparse_cg': norm of residuals smaller than `tol`.\n\n- 'lsqr': `tol` is set as atol and btol of scipy.sparse.linalg.lsqr,\nwhich control the norm of the residual vector in terms of the norms of\nmatrix and coefficients.\n\n- 'sag' and 'saga': relative change of coef smaller than `tol`.\n\n- 'lbfgs': maximum of the absolute (projected) gradient=max|residuals|\nsmaller than `tol`.\n\n.. versionchanged:: 1.2\nDefault value changed from 1e-3 to 1e-4 for consistency with other linear\nmodels.\n0.0001\n\n\n\nsolver  solver: {'auto', 'svd', 'cholesky', 'lsqr', 'sparse_cg', 'sag', 'saga', 'lbfgs'}, default='auto'\n\nSolver to use in the computational routines:\n\n- 'auto' chooses the solver automatically based on the type of data.\n\n- 'svd' uses a Singular Value Decomposition of X to compute the Ridge\ncoefficients. It is the most stable solver, in particular more stable\nfor singular matrices than 'cholesky' at the cost of being slower.\n\n- 'cholesky' uses the standard :func:`scipy.linalg.solve` function to\nobtain a closed-form solution.\n\n- 'sparse_cg' uses the conjugate gradient solver as found in\n:func:`scipy.sparse.linalg.cg`. As an iterative algorithm, this solver is\nmore appropriate than 'cholesky' for large-scale data\n(possibility to set `tol` and `max_iter`).\n\n- 'lsqr' uses the dedicated regularized least-squares routine\n:func:`scipy.sparse.linalg.lsqr`. It is the fastest and uses an iterative\nprocedure.\n\n- 'sag' uses a Stochastic Average Gradient descent, and 'saga' uses\nits improved, unbiased version named SAGA. Both methods also use an\niterative procedure, and are often faster than other solvers when\nboth n_samples and n_features are large. Note that 'sag' and\n'saga' fast convergence is only guaranteed on features with\napproximately the same scale. You can preprocess the data with a\nscaler from :mod:`sklearn.preprocessing`.\n\n- 'lbfgs' uses L-BFGS-B algorithm implemented in\n:func:`scipy.optimize.minimize`. It can be used only when `positive`\nis True.\n\nAll solvers except 'svd' support both dense and sparse data. However, only\n'lsqr', 'sag', 'sparse_cg', and 'lbfgs' support sparse input when\n`fit_intercept` is True.\n\n.. versionadded:: 0.17\nStochastic Average Gradient descent solver.\n.. versionadded:: 0.19\nSAGA solver.\n'auto'\n\n\n\npositive  positive: bool, default=False\n\nWhen set to ``True``, forces the coefficients to be positive.\nOnly 'lbfgs' solver is supported in this case.\nFalse\n\n\n\nrandom_state  random_state: int, RandomState instance, default=None\n\nUsed when ``solver`` == 'sag' or 'saga' to shuffle the data.\nSee :term:`Glossary &lt;random_state&gt;` for details.\n\n.. versionadded:: 0.17\n`random_state` to support Stochastic Average Gradient.\nNone\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\ncoef_  coef_: ndarray of shape (n_features,) or (n_targets, n_features)\n\nWeight vector(s).\nndarray[float64](3,)\n[50.76,17.8 , 3.3 ]\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Defined only when `X`\nhas feature names that are all strings.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nintercept_  intercept_: float or ndarray of shape (n_targets,)\n\nIndependent term in decision function. Set to 0.0 if\n``fit_intercept = False``.\nfloat64\n-6444\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`.\n\n.. versionadded:: 0.24\nint\n3\n\n\nn_iter_  n_iter_: None or ndarray of shape (n_targets,)\n\nActual number of iterations for each target. Available only for\n'sag' and 'lsqr' solvers. Other solvers will return None.\n\n.. versionadded:: 0.17\nNoneType\nNone\n\n\nsolver_  solver_: str\n\nThe solver that was used at fit time by the computational\nroutines.\n\n.. versionadded:: 1.5\nstr\n'ch...ky'"
   },
   {
-    "objectID": "lectures/7a.html#cv-in-scikit-learn",
-    "href": "lectures/7a.html#cv-in-scikit-learn",
-    "title": "Resampling Methods",
-    "section": "CV in scikit-learn",
-    "text": "CV in scikit-learn\n\ncv_model = RidgeCV(\n    alphas=lambdas,          # Candidate penalty values\n    cv=None,                 # Efficient leave-one-out CV for ridge\n    store_cv_results=True,\n)\ncv_model.fit(X, y)"
-  },
-  {
-    "objectID": "lectures/7a.html#example---ridge-regression",
-    "href": "lectures/7a.html#example---ridge-regression",
-    "title": "Resampling Methods",
-    "section": "Example - Ridge Regression",
-    "text": "Example - Ridge Regression\n\nPreparationCVCV PlotBest ParameterResults\n\n\n\nridge_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\nX_ridge = penguins[ridge_predictors]\ny_ridge = penguins[\"body_mass_g\"]\n\nridge_scaler = StandardScaler()\nX_ridge_scaled = ridge_scaler.fit_transform(X_ridge)\n\n\n\n\nridge_mod_cv = RidgeCV(\n    alphas=lambdas,\n    cv=None,\n    store_cv_results=True,\n)\nridge_mod_cv.fit(X_ridge_scaled, y_ridge)\n\nridge_cv_results = pd.DataFrame(\n    {\n        \"lambda\": lambdas,\n        \"mean_cv_error\": ridge_mod_cv.cv_results_.mean(axis=0),\n    }\n)\nridge_best_result = ridge_cv_results.loc[\n    [ridge_cv_results[\"mean_cv_error\"].idxmin()]\n]\n\n\n\n\n(\n    ggplot(ridge_cv_results, aes(x=\"lambda\", y=\"mean_cv_error\"))\n    + geom_line()\n    + geom_point(data=ridge_best_result, size=3)\n    + scale_x_log10()\n    + labs(\n        x=\"Lambda\",\n        y=\"Mean leave-one-out squared error\",\n        title=\"Ridge cross-validation\",\n    )\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\nridge_mod_cv.alpha_\n\n1.0\n\n\n\n\n\nridge_mod = Ridge(alpha=ridge_mod_cv.alpha_)\nridge_mod.fit(X_ridge_scaled, y_ridge)\n\nridge_coefficients = ridge_mod.coef_ / ridge_scaler.scale_\nridge_intercept = ridge_mod.intercept_ - np.sum(\n    ridge_mod.coef_ * ridge_scaler.mean_ / ridge_scaler.scale_\n)\n\npd.Series(\n    [ridge_intercept, *ridge_coefficients],\n    index=[\"Intercept\", *ridge_predictors],\n    name=\"coefficient\",\n)\n\nIntercept           -6366.029487\nflipper_length_mm      50.362104\nbill_depth_mm          16.489200\nbill_length_mm          3.840000\nName: coefficient, dtype: float64"
-  },
-  {
-    "objectID": "lectures/7a.html#example---lasso",
-    "href": "lectures/7a.html#example---lasso",
-    "title": "Resampling Methods",
-    "section": "Example - LASSO",
-    "text": "Example - LASSO\n\nPreparationCVCV PlotBest ParameterResults\n\n\n\nlasso_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\nX_lasso = penguins[lasso_predictors]\ny_lasso = penguins[\"body_mass_g\"]\n\nlasso_scaler = StandardScaler()\nX_lasso_scaled = lasso_scaler.fit_transform(X_lasso)\n\n\n\n\nlasso_mod_cv = LassoCV(\n    alphas=lambdas,\n    cv=loo,\n    max_iter=100_000,\n    n_jobs=-1,\n)\nlasso_mod_cv.fit(X_lasso_scaled, y_lasso)\n\nlasso_cv_results = pd.DataFrame(\n    {\n        \"lambda\": lasso_mod_cv.alphas_,\n        \"mean_cv_error\": lasso_mod_cv.mse_path_.mean(axis=1),\n    }\n)\nlasso_best_result = lasso_cv_results.loc[\n    [lasso_cv_results[\"mean_cv_error\"].idxmin()]\n]\n\n\n\n\n(\n    ggplot(lasso_cv_results, aes(x=\"lambda\", y=\"mean_cv_error\"))\n    + geom_line()\n    + geom_point(data=lasso_best_result, size=3)\n    + scale_x_log10()\n    + labs(\n        x=\"Lambda\",\n        y=\"Mean leave-one-out squared error\",\n        title=\"LASSO cross-validation\",\n    )\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\nlasso_mod_cv.alpha_\n\nnp.float64(1.0)\n\n\n\n\n\nlasso_mod = Lasso(\n    alpha=lasso_mod_cv.alpha_,\n    max_iter=100_000,\n)\nlasso_mod.fit(X_lasso_scaled, y_lasso)\n\nlasso_coefficients = lasso_mod.coef_ / lasso_scaler.scale_\nlasso_intercept = lasso_mod.intercept_ - np.sum(\n    lasso_mod.coef_ * lasso_scaler.mean_ / lasso_scaler.scale_\n)\n\npd.Series(\n    [lasso_intercept, *lasso_coefficients],\n    index=[\"Intercept\", *lasso_predictors],\n    name=\"coefficient\",\n)\n\nIntercept           -6390.063710\nflipper_length_mm      50.588578\nbill_depth_mm          16.621328\nbill_length_mm          3.300194\nName: coefficient, dtype: float64"
-  },
-  {
-    "objectID": "lectures/7a.html#try-with-mtcars",
-    "href": "lectures/7a.html#try-with-mtcars",
-    "title": "Resampling Methods",
-    "section": "Try with mtcars",
-    "text": "Try with mtcars\nComplete a LASSO approach using mtcars to predict mpg from the remaining variables."
-  },
-  {
-    "objectID": "lectures/7a.html#bootstrap-methods-1",
-    "href": "lectures/7a.html#bootstrap-methods-1",
-    "title": "Resampling Methods",
-    "section": "Bootstrap Methods",
-    "text": "Bootstrap Methods\nBootstrapping methods are used when we cannot theoretically compute the standard errors. Bootstrap methods are computationally intensive but will compute accurate standard errors.\nWhen all else fails, a bootstrap approach will compute accurate standard errors."
-  },
-  {
-    "objectID": "lectures/7a.html#bootstrap-algorithm",
-    "href": "lectures/7a.html#bootstrap-algorithm",
-    "title": "Resampling Methods",
-    "section": "Bootstrap Algorithm",
-    "text": "Bootstrap Algorithm\n\nDraw a sample \\(X*\\) of size \\(n\\) with replacement from the original data \\(X\\).\n\n\\(n\\) is the size of the data\n\nCompute the bootstrap replicate statistic \\(T* = g(X*)\\), where \\(g(\\cdot)\\) is the function that computes the statistic of interest.\nRepeat steps 1-2 \\(B\\) times to obtain \\(B\\) bootstrap replicates \\({T*_1, T*_2, ..., T*_B}\\).\nThe computed statistics from \\(B\\) samples are the empirical bootstrap distribution of the statistic, \\(g(X)\\).\nCalculate the bootstrap standard error of the statistic, \\(se_b(g(X))\\), as the standard deviation of the bootstrap replicates.\nCalculate the bootstrap confidence interval for the statistic, \\(CI(g(X))\\), with the \\(\\alpha\\) and \\((1-\\alpha)%\\) percentiles of the bootstrap replicates, where \\(\\alpha\\) is the desired level of significance."
-  },
-  {
-    "objectID": "lectures/7a.html#examples",
-    "href": "lectures/7a.html#examples",
-    "title": "Resampling Methods",
-    "section": "Examples",
-    "text": "Examples\nFitting the following model:\n\nbootstrap_predictors = [\n    \"flipper_length_mm\",\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n]\nX_bootstrap = sm.add_constant(\n    penguins[bootstrap_predictors],\n    has_constant=\"add\",\n)\ny_bootstrap = penguins[\"body_mass_g\"]\n\nbootstrap_model = sm.OLS(y_bootstrap, X_bootstrap).fit()\nbootstrap_model.params\n\nconst               -6445.476043\nflipper_length_mm      50.762132\nbill_length_mm          3.292863\nbill_depth_mm          17.836391\ndtype: float64\n\n\nObtain the Bootstrap-based Standard Errors for the regression coefficients. Use \\(B=1000\\) bootstrap samples."
-  },
-  {
-    "objectID": "lectures/7a.html#examples-solution",
-    "href": "lectures/7a.html#examples-solution",
-    "title": "Resampling Methods",
-    "section": "Examples: Solution",
-    "text": "Examples: Solution\n\n\nCode\nB = 1000\nrng = np.random.default_rng(12345)\nbootstrap_estimates = []\n\nfor _ in range(B):\n    sample_positions = rng.integers(\n        low=0,\n        high=len(penguins),\n        size=len(penguins),\n    )\n    bootstrap_sample = penguins.iloc[sample_positions]\n\n    X_sample = sm.add_constant(\n        bootstrap_sample[bootstrap_predictors],\n        has_constant=\"add\",\n    )\n    y_sample = bootstrap_sample[\"body_mass_g\"]\n\n    fitted_sample = sm.OLS(y_sample, X_sample).fit()\n    bootstrap_estimates.append(fitted_sample.params)\n\nbootstrap_estimates = pd.DataFrame(bootstrap_estimates)\n\nbootstrap_results = pd.DataFrame(\n    {\n        \"estimate\": bootstrap_model.params,\n        \"bootstrap_se\": bootstrap_estimates.std(ddof=1),\n        \"ci_lower\": bootstrap_estimates.quantile(0.025),\n        \"ci_upper\": bootstrap_estimates.quantile(0.975),\n    }\n)\n\nbootstrap_results.round(3)\n\n\n\n\n\n\n\n\n\nestimate\nbootstrap_se\nci_lower\nci_upper\n\n\n\n\nconst\n-6445.476\n534.391\n-7541.213\n-5470.429\n\n\nflipper_length_mm\n50.762\n2.403\n46.289\n55.562\n\n\nbill_length_mm\n3.293\n5.186\n-7.158\n12.954\n\n\nbill_depth_mm\n17.836\n12.907\n-6.881\n43.931"
+    "objectID": "lectures/7a.html#example-1",
+    "href": "lectures/7a.html#example-1",
+    "title": "Regularization",
+    "section": "Example",
+    "text": "Example\n\n# lambda_value = 1.3 was selected arbitrarily in the setup chunk.\nlasso_model = make_pipeline(\n    Lasso(alpha=lambda_value, max_iter=100_000),\n)\nlasso_model.fit(penguin_X, penguin_y)\n\nPipeline(steps=[('lasso', Lasso(alpha=1.3, max_iter=100000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nsteps  steps: list of tuples\n\nList of (name of step, estimator) tuples that are to be chained in\nsequential order. To be compatible with the scikit-learn API, all steps\nmust define `fit`. All non-last steps must also define `transform`. See\n:ref:`Combining Estimators &lt;combining_estimators&gt;` for more details.\n[('lasso', ...)]\n\n\n\ntransform_input  transform_input: list of str, default=None\n\nThe names of the :term:`metadata` parameters that should be transformed by the\npipeline before passing it to the step consuming it.\n\nThis enables transforming some input arguments to ``fit`` (other than ``X``)\nto be transformed by the steps of the pipeline up to the step which requires\nthem. Requirement is defined via :ref:`metadata routing &lt;metadata_routing&gt;`.\nFor instance, this can be used to pass a validation set through the pipeline.\n\nYou can only set this if metadata routing is enabled, which you\ncan enable using ``sklearn.set_config(enable_metadata_routing=True)``.\n\n.. versionadded:: 1.6\nNone\n\n\n\nmemory  memory: str or object with the joblib.Memory interface, default=None\n\nUsed to cache the fitted transformers of the pipeline. The last step\nwill never be cached, even if it is a transformer. By default, no\ncaching is performed. If a string is given, it is the path to the\ncaching directory. Enabling caching triggers a clone of the transformers\nbefore fitting. Therefore, the transformer instance given to the\npipeline cannot be inspected directly. Use the attribute ``named_steps``\nor ``steps`` to inspect estimators within the pipeline. Caching the\ntransformers is advantageous when fitting is time consuming. See\n:ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`\nfor an example on how to enable caching.\nNone\n\n\n\nverbose  verbose: bool, default=False\n\nIf True, the time elapsed while fitting each step will be printed as it\nis completed.\nFalse\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Only defined if the\nunderlying estimator exposes such an attribute when fit.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`. Only defined if the\nunderlying first estimator in `steps` exposes such an attribute\nwhen fit.\n\n.. versionadded:: 0.24\nint\n3\n\n\n\n\n            \n        \n    Lasso?Documentation for Lasso\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nalpha  alpha: float, default=1.0\n\nConstant that multiplies the L1 term, controlling regularization\nstrength. `alpha` must be a non-negative float i.e. in `[0, inf)`.\n\nWhen `alpha = 0`, the objective is equivalent to ordinary least\nsquares, solved by the :class:`LinearRegression` object. For numerical\nreasons, using `alpha = 0` with the `Lasso` object is not advised.\nInstead, you should use the :class:`LinearRegression` object.\n1.3\n\n\n\nmax_iter  max_iter: int, default=1000\n\nThe maximum number of iterations.\n100000\n\n\n\nfit_intercept  fit_intercept: bool, default=True\n\nWhether to calculate the intercept for this model. If set\nto False, no intercept will be used in calculations\n(i.e. data is expected to be centered).\nTrue\n\n\n\nprecompute  precompute: bool or array-like of shape (n_features, n_features), default=False\n\nWhether to use a precomputed Gram matrix to speed up\ncalculations. The Gram matrix can also be passed as argument.\nFor sparse input this option is always ``False`` to preserve sparsity.\nFalse\n\n\n\ncopy_X  copy_X: bool, default=True\n\nIf ``True``, X will be copied; else, it may be overwritten.\nTrue\n\n\n\ntol  tol: float, default=1e-4\n\nThe tolerance for the optimization: if the updates are smaller or equal to\n``tol``, the optimization code checks the dual gap for optimality and continues\nuntil it is smaller or equal to ``tol``, see Notes below.\n0.0001\n\n\n\nwarm_start  warm_start: bool, default=False\n\nWhen set to ``True``, reuse the solution of the previous call to fit as\ninitialization, otherwise, just erase the previous solution.\nSee :term:`the Glossary &lt;warm_start&gt;`.\nFalse\n\n\n\npositive  positive: bool, default=False\n\nWhen set to ``True``, forces the coefficients to be positive.\nFalse\n\n\n\nrandom_state  random_state: int, RandomState instance, default=None\n\nThe seed of the pseudo random number generator that selects a random\nfeature to update. Used when ``selection`` == 'random'.\nPass an int for reproducible output across multiple function calls.\nSee :term:`Glossary &lt;random_state&gt;`.\nNone\n\n\n\nselection  selection: {'cyclic', 'random'}, default='cyclic'\n\nIf set to 'random', a random coefficient is updated every iteration\nrather than looping over features sequentially by default. This\n(setting to 'random') often leads to significantly faster convergence\nespecially when tol is higher than 1e-4.\n'cyclic'\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\ncoef_  coef_: ndarray of shape (n_features,) or (n_targets, n_features)\n\nParameter vector (w in the cost function formula).\nndarray[float64](3,)\n[50.71,17.29, 3.29]\n\n\ndual_gap_  dual_gap_: float or ndarray of shape (n_targets,)\n\nGiven parameter ``alpha``, the dual gaps at the end of the optimization,\nsame shape as each observation of y.\nfloat64\n59.21\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Defined only when `X`\nhas feature names that are all strings.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nintercept_  intercept_: float or ndarray of shape (n_targets,)\n\nIndependent term in decision function.\nfloat64\n-6426\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`.\n\n.. versionadded:: 0.24\nint\n3\n\n\nn_iter_  n_iter_: int or list of int\n\nNumber of iterations run by the coordinate descent solver to reach\nthe specified tolerance.\nint\n15\n\n\nsparse_coef_  sparse_coef_: sparse matrix of shape (n_features, 1) or (n_targets, n_features)\n\nRead-only property derived from ``coef_``.\ncsr_matrix[float64](1, 3)\n&lt;Compressed S... shape (1, 3)&gt;"
   },
   {
     "objectID": "lectures/5a.html#python-setup",
@@ -1316,6 +1295,27 @@
     "text": "Study Desing and Causal Inference\n\nCausal Inference What IF\n\nHernán and Robins\n\nDesign of Observational Studies\n\nRosenbaum\n\n\nBolded Titles, I have read thoroughly."
   },
   {
+    "objectID": "assignments/a4.html",
+    "href": "assignments/a4.html",
+    "title": "ICA 3",
+    "section": "",
+    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)\nPlease submit an html file."
+  },
+  {
+    "objectID": "assignments/a4.html#problem-1",
+    "href": "assignments/a4.html#problem-1",
+    "title": "ICA 3",
+    "section": "Problem 1",
+    "text": "Problem 1\nFrom the Applied Section in Chapter 4: Problem 13 a,e,f,h,i"
+  },
+  {
+    "objectID": "assignments/a4.html#problem-2",
+    "href": "assignments/a4.html#problem-2",
+    "title": "ICA 3",
+    "section": "Problem 2",
+    "text": "Problem 2\nFrom the Applied Section in Chapter 4: Problem 14 a,d,e,g,h"
+  },
+  {
     "objectID": "assignments/a2.html",
     "href": "assignments/a2.html",
     "title": "ICA 1",
@@ -1355,7 +1355,7 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "assignments/a3.html",
@@ -1397,7 +1397,7 @@
     "href": "index.html",
     "title": "Welcome to Advanced Research Investigation!",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/"
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/10a.html#python-setup",
@@ -2319,86 +2319,135 @@
   {
     "objectID": "lectures/6a.html#python-setup",
     "href": "lectures/6a.html#python-setup",
-    "title": "Regularization",
+    "title": "Resampling Methods",
     "section": "Python Setup",
-    "text": "Python Setup\n\nimport numpy as np\nimport pandas as pd\nimport statsmodels.api as sm\nfrom plotnine import *\nfrom plotnine.data import mtcars as mtcars_data\nfrom plotnine.data import penguins as penguins_data\nfrom sklearn.linear_model import Lasso, Ridge\nfrom sklearn.pipeline import make_pipeline\n\n# Data ---------------------------------------------------------------------\npenguins = penguins_data.dropna().copy()\n\npenguin_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\npenguin_X = penguins[penguin_predictors].copy()\npenguin_y = penguins[\"body_mass_g\"].copy()\nlambda_value = 1.3"
+    "text": "Python Setup\n\nimport numpy as np\nimport pandas as pd\nimport statsmodels.api as sm\nfrom plotnine import (\n    aes,\n    geom_line,\n    geom_point,\n    ggplot,\n    labs,\n    scale_x_log10,\n    theme_minimal,\n)\nfrom plotnine.data import mtcars as mtcars_raw\nfrom plotnine.data import penguins as penguins_raw\nfrom sklearn.linear_model import Lasso, LassoCV, Ridge, RidgeCV\nfrom sklearn.model_selection import LeaveOneOut\nfrom sklearn.preprocessing import StandardScaler\n\npenguins = penguins_raw.dropna().copy()\nmtcars = mtcars_raw.copy()\n\nlambdas = np.geomspace(1, 1000, 200)\nloo = LeaveOneOut()"
   },
   {
     "objectID": "lectures/6a.html#learning-outcomes",
     "href": "lectures/6a.html#learning-outcomes",
-    "title": "Regularization",
+    "title": "Resampling Methods",
     "section": "Learning Outcomes",
-    "text": "Learning Outcomes\n\nRegularization\nRidge Regression\nLASSO Regression"
+    "text": "Learning Outcomes\n\nCross-Validation\n\nLeave-one-out\nK-Fold\n\nBootstrap Methods"
   },
   {
-    "objectID": "lectures/6a.html#regularization-1",
-    "href": "lectures/6a.html#regularization-1",
-    "title": "Regularization",
-    "section": "Regularization",
-    "text": "Regularization\nShrinkage methods are techniques that will reduce a full parameterized model (a high number of predictors) to a lower parameterized model (a smaller number of predictors)."
+    "objectID": "lectures/6a.html#training-error-rate",
+    "href": "lectures/6a.html#training-error-rate",
+    "title": "Resampling Methods",
+    "section": "Training Error Rate",
+    "text": "Training Error Rate\nTraining Error Rate is the error rate of the data used to create the model of interest. It describes how well the model predicts the data used to construct it."
   },
   {
-    "objectID": "lectures/6a.html#ridge-regression",
-    "href": "lectures/6a.html#ridge-regression",
-    "title": "Regularization",
-    "section": "Ridge Regression",
-    "text": "Ridge Regression\nRidge regression incorporates a shrinkage penalty term to the least squares formula. The shrinkage penalty term will reduce the \\(\\beta\\) coefficients towards 0 based on a penalty parameter (\\(\\lambda\\))"
+    "objectID": "lectures/6a.html#test-error-rate",
+    "href": "lectures/6a.html#test-error-rate",
+    "title": "Resampling Methods",
+    "section": "Test Error Rate",
+    "text": "Test Error Rate\nTest Error Rate is the error rate of predicting a new data point using the current established model."
   },
   {
-    "objectID": "lectures/6a.html#ridge-regression-1",
-    "href": "lectures/6a.html#ridge-regression-1",
-    "title": "Regularization",
-    "section": "Ridge Regression",
-    "text": "Ridge Regression\n\\[\\sum^n_{i=1}\\left(Y_i-\\beta_0 +\\sum^p_{j=1}X_{ij}\\beta_j\\right)^2 + \\lambda\\sum^p_{j=1}\\beta_j^2\\]"
+    "objectID": "lectures/6a.html#test-error-rate-1",
+    "href": "lectures/6a.html#test-error-rate-1",
+    "title": "Resampling Methods",
+    "section": "Test Error Rate",
+    "text": "Test Error Rate\nIn order to obtain the test error rate, data not used to fit the model must be available\n\nThis is not the case the majority of time.\n\n\nNew methods have been developed to compute the test error rate using the existing data."
   },
   {
-    "objectID": "lectures/6a.html#lasso",
-    "href": "lectures/6a.html#lasso",
-    "title": "Regularization",
-    "section": "LASSO",
-    "text": "LASSO\nLeast Absolute Shrinkage and Selection Operator (LASSO) is known as a shrinkage method which forces \\(\\beta\\) coefficients that do not have a significant predicit power towards and possibly equal to 0."
+    "objectID": "lectures/6a.html#cross-validation-1",
+    "href": "lectures/6a.html#cross-validation-1",
+    "title": "Resampling Methods",
+    "section": "Cross-Validation",
+    "text": "Cross-Validation\nA cross-validation approach is to obtain a good estimate of the error-rate of a machine learning algorithm. We split the data set into two categories: training and testing. The training data set is used to train the model, and the test data is used to test the model and compute the error rate."
   },
   {
-    "objectID": "lectures/6a.html#lasso-1",
-    "href": "lectures/6a.html#lasso-1",
-    "title": "Regularization",
-    "section": "LASSO",
-    "text": "LASSO\n\\[\\sum^n_{i=1}\\left(Y_i-\\beta_0 +\\sum^p_{j=1}X_{ij}\\beta_j\\right)^2 + \\lambda\\sum^p_{j=1}|\\beta_j|\\]"
+    "objectID": "lectures/6a.html#tuning-parameter",
+    "href": "lectures/6a.html#tuning-parameter",
+    "title": "Resampling Methods",
+    "section": "Tuning Parameter",
+    "text": "Tuning Parameter\nA cross-validation approach is great when there is a tuning parameter. We can fit a model for different values of the tuning parameter, and we can choose which value results in the lowest error rate."
   },
   {
-    "objectID": "lectures/6a.html#why-ridge-or-lasso",
-    "href": "lectures/6a.html#why-ridge-or-lasso",
-    "title": "Regularization",
-    "section": "Why Ridge or LASSO?",
-    "text": "Why Ridge or LASSO?\nEach method is capable on identifying the optimum MSE for the Bias-Variance trade-off scenario. This will lead to a lower prediction error. The key is to find the optimal penalty parameter. This can be done with a Cross-Validation technique (next lecture)."
+    "objectID": "lectures/6a.html#training-and-testing-data",
+    "href": "lectures/6a.html#training-and-testing-data",
+    "title": "Resampling Methods",
+    "section": "Training and Testing Data",
+    "text": "Training and Testing Data\nThe training and testing data sets are constructed by randomly assigning data points to one type of data."
   },
   {
-    "objectID": "lectures/6a.html#ridge-regression-in-python",
-    "href": "lectures/6a.html#ridge-regression-in-python",
-    "title": "Regularization",
-    "section": "Ridge Regression in Python",
-    "text": "Ridge Regression in Python\n\nridge_model = make_pipeline(\n    Ridge(alpha=lambda_value),\n)\nridge_model.fit(X, y)"
+    "objectID": "lectures/6a.html#loocv-cross-validation",
+    "href": "lectures/6a.html#loocv-cross-validation",
+    "title": "Resampling Methods",
+    "section": "LOOCV Cross-Validation",
+    "text": "LOOCV Cross-Validation\n\nChoose a set of tuning parameters to test.\nFor each \\(k\\)th turning parameter, calculate the tuning parameter error for each value\n\nUtilize the leave-one-out approach\n\nFor each observation fit a model with the remaining observations and fit the excluded value\nCompute the following error:\n\\[CVE_k = \\frac{1}{n}\\sum^n_{i=1}e_i\\]\n\n\nIdentify the \\(k\\)th tuning parameter with the lowest \\(CVE_k\\)"
   },
   {
-    "objectID": "lectures/6a.html#lasso-in-python",
-    "href": "lectures/6a.html#lasso-in-python",
-    "title": "Regularization",
-    "section": "LASSO in Python",
-    "text": "LASSO in Python\n\nlasso_model = make_pipeline(\n    Lasso(alpha=lambda_value),\n)\nlasso_model.fit(X, y)"
+    "objectID": "lectures/6a.html#k-fold-cross-validation",
+    "href": "lectures/6a.html#k-fold-cross-validation",
+    "title": "Resampling Methods",
+    "section": "K-Fold Cross-Validation",
+    "text": "K-Fold Cross-Validation\n\nChoose a set of tuning parameters to test.\nCreate different K subsets of the data.\nFor each \\(j\\)th turning parameter Calculate the tuning parameter error for each value\n\nFor each K subset, fit a model using the data excluding the Kth subset\nPredict the values in the Kth subset using the fitted model\nRepeat the process for each K subset\nCompute the following error:\n\\[CVE_j = \\frac{1}{n}\\sum^n_{i=1}e_i\\]\n\nIdentify the \\(j\\)th tuning parameter with the lowest \\(CVE_j\\)"
   },
   {
-    "objectID": "lectures/6a.html#example",
-    "href": "lectures/6a.html#example",
-    "title": "Regularization",
-    "section": "Example",
-    "text": "Example\n\n# lambda_value = 1.3 was selected arbitrarily in the setup chunk.\nridge_model = make_pipeline(\n    Ridge(alpha=lambda_value),\n)\nridge_model.fit(penguin_X, penguin_y)\n\nPipeline(steps=[('ridge', Ridge(alpha=1.3))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nsteps  steps: list of tuples\n\nList of (name of step, estimator) tuples that are to be chained in\nsequential order. To be compatible with the scikit-learn API, all steps\nmust define `fit`. All non-last steps must also define `transform`. See\n:ref:`Combining Estimators &lt;combining_estimators&gt;` for more details.\n[('ridge', ...)]\n\n\n\ntransform_input  transform_input: list of str, default=None\n\nThe names of the :term:`metadata` parameters that should be transformed by the\npipeline before passing it to the step consuming it.\n\nThis enables transforming some input arguments to ``fit`` (other than ``X``)\nto be transformed by the steps of the pipeline up to the step which requires\nthem. Requirement is defined via :ref:`metadata routing &lt;metadata_routing&gt;`.\nFor instance, this can be used to pass a validation set through the pipeline.\n\nYou can only set this if metadata routing is enabled, which you\ncan enable using ``sklearn.set_config(enable_metadata_routing=True)``.\n\n.. versionadded:: 1.6\nNone\n\n\n\nmemory  memory: str or object with the joblib.Memory interface, default=None\n\nUsed to cache the fitted transformers of the pipeline. The last step\nwill never be cached, even if it is a transformer. By default, no\ncaching is performed. If a string is given, it is the path to the\ncaching directory. Enabling caching triggers a clone of the transformers\nbefore fitting. Therefore, the transformer instance given to the\npipeline cannot be inspected directly. Use the attribute ``named_steps``\nor ``steps`` to inspect estimators within the pipeline. Caching the\ntransformers is advantageous when fitting is time consuming. See\n:ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`\nfor an example on how to enable caching.\nNone\n\n\n\nverbose  verbose: bool, default=False\n\nIf True, the time elapsed while fitting each step will be printed as it\nis completed.\nFalse\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Only defined if the\nunderlying estimator exposes such an attribute when fit.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`. Only defined if the\nunderlying first estimator in `steps` exposes such an attribute\nwhen fit.\n\n.. versionadded:: 0.24\nint\n3\n\n\n\n\n            \n        \n    Ridge?Documentation for Ridge\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nalpha  alpha: float or array-like of shape (n_targets,), default=1.0\n\nConstant that multiplies the L2 term, controlling regularization\nstrength. `alpha` must be a non-negative float i.e. in `[0, inf)`.\n\nWhen `alpha = 0`, the objective is equivalent to ordinary least\nsquares, solved by the :class:`LinearRegression` object. For numerical\nreasons, using `alpha = 0` with the `Ridge` object is not advised.\nInstead, you should use the :class:`LinearRegression` object.\n\nIf an array is passed, penalties are assumed to be specific to the\ntargets. Hence they must correspond in number.\n\nSee :ref:`sphx_glr_auto_examples_linear_model_plot_ridge_coeffs.py`\nfor an illustration of the effect of alpha on the model coefficients.\n1.3\n\n\n\nfit_intercept  fit_intercept: bool, default=True\n\nWhether to fit the intercept for this model. If set\nto false, no intercept will be used in calculations\n(i.e. ``X`` and ``y`` are expected to be centered).\nTrue\n\n\n\ncopy_X  copy_X: bool, default=True\n\nIf True, X will be copied; else, it may be overwritten.\nTrue\n\n\n\nmax_iter  max_iter: int, default=None\n\nMaximum number of iterations for conjugate gradient solver.\nFor 'sparse_cg' and 'lsqr' solvers, the default value is determined\nby scipy.sparse.linalg. For 'sag' solver, the default value is 1000.\nFor 'lbfgs' solver, the default value is 15000.\nNone\n\n\n\ntol  tol: float, default=1e-4\n\nThe precision of the solution (`coef_`) is determined by `tol` which\nspecifies a different convergence criterion for each solver:\n\n- 'svd': `tol` has no impact.\n\n- 'cholesky': `tol` has no impact.\n\n- 'sparse_cg': norm of residuals smaller than `tol`.\n\n- 'lsqr': `tol` is set as atol and btol of scipy.sparse.linalg.lsqr,\nwhich control the norm of the residual vector in terms of the norms of\nmatrix and coefficients.\n\n- 'sag' and 'saga': relative change of coef smaller than `tol`.\n\n- 'lbfgs': maximum of the absolute (projected) gradient=max|residuals|\nsmaller than `tol`.\n\n.. versionchanged:: 1.2\nDefault value changed from 1e-3 to 1e-4 for consistency with other linear\nmodels.\n0.0001\n\n\n\nsolver  solver: {'auto', 'svd', 'cholesky', 'lsqr', 'sparse_cg', 'sag', 'saga', 'lbfgs'}, default='auto'\n\nSolver to use in the computational routines:\n\n- 'auto' chooses the solver automatically based on the type of data.\n\n- 'svd' uses a Singular Value Decomposition of X to compute the Ridge\ncoefficients. It is the most stable solver, in particular more stable\nfor singular matrices than 'cholesky' at the cost of being slower.\n\n- 'cholesky' uses the standard :func:`scipy.linalg.solve` function to\nobtain a closed-form solution.\n\n- 'sparse_cg' uses the conjugate gradient solver as found in\n:func:`scipy.sparse.linalg.cg`. As an iterative algorithm, this solver is\nmore appropriate than 'cholesky' for large-scale data\n(possibility to set `tol` and `max_iter`).\n\n- 'lsqr' uses the dedicated regularized least-squares routine\n:func:`scipy.sparse.linalg.lsqr`. It is the fastest and uses an iterative\nprocedure.\n\n- 'sag' uses a Stochastic Average Gradient descent, and 'saga' uses\nits improved, unbiased version named SAGA. Both methods also use an\niterative procedure, and are often faster than other solvers when\nboth n_samples and n_features are large. Note that 'sag' and\n'saga' fast convergence is only guaranteed on features with\napproximately the same scale. You can preprocess the data with a\nscaler from :mod:`sklearn.preprocessing`.\n\n- 'lbfgs' uses L-BFGS-B algorithm implemented in\n:func:`scipy.optimize.minimize`. It can be used only when `positive`\nis True.\n\nAll solvers except 'svd' support both dense and sparse data. However, only\n'lsqr', 'sag', 'sparse_cg', and 'lbfgs' support sparse input when\n`fit_intercept` is True.\n\n.. versionadded:: 0.17\nStochastic Average Gradient descent solver.\n.. versionadded:: 0.19\nSAGA solver.\n'auto'\n\n\n\npositive  positive: bool, default=False\n\nWhen set to ``True``, forces the coefficients to be positive.\nOnly 'lbfgs' solver is supported in this case.\nFalse\n\n\n\nrandom_state  random_state: int, RandomState instance, default=None\n\nUsed when ``solver`` == 'sag' or 'saga' to shuffle the data.\nSee :term:`Glossary &lt;random_state&gt;` for details.\n\n.. versionadded:: 0.17\n`random_state` to support Stochastic Average Gradient.\nNone\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\ncoef_  coef_: ndarray of shape (n_features,) or (n_targets, n_features)\n\nWeight vector(s).\nndarray[float64](3,)\n[50.76,17.8 , 3.3 ]\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Defined only when `X`\nhas feature names that are all strings.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nintercept_  intercept_: float or ndarray of shape (n_targets,)\n\nIndependent term in decision function. Set to 0.0 if\n``fit_intercept = False``.\nfloat64\n-6444\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`.\n\n.. versionadded:: 0.24\nint\n3\n\n\nn_iter_  n_iter_: None or ndarray of shape (n_targets,)\n\nActual number of iterations for each target. Available only for\n'sag' and 'lsqr' solvers. Other solvers will return None.\n\n.. versionadded:: 0.17\nNoneType\nNone\n\n\nsolver_  solver_: str\n\nThe solver that was used at fit time by the computational\nroutines.\n\n.. versionadded:: 1.5\nstr\n'ch...ky'"
+    "objectID": "lectures/6a.html#executing-in-python",
+    "href": "lectures/6a.html#executing-in-python",
+    "title": "Resampling Methods",
+    "section": "Executing in Python",
+    "text": "Executing in Python\nSeveral Python packages have developed methods to execute a cross-validation approach."
   },
   {
-    "objectID": "lectures/6a.html#example-1",
-    "href": "lectures/6a.html#example-1",
-    "title": "Regularization",
-    "section": "Example",
-    "text": "Example\n\n# lambda_value = 1.3 was selected arbitrarily in the setup chunk.\nlasso_model = make_pipeline(\n    Lasso(alpha=lambda_value, max_iter=100_000),\n)\nlasso_model.fit(penguin_X, penguin_y)\n\nPipeline(steps=[('lasso', Lasso(alpha=1.3, max_iter=100000))])In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.Pipeline?Documentation for PipelineiFitted\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nsteps  steps: list of tuples\n\nList of (name of step, estimator) tuples that are to be chained in\nsequential order. To be compatible with the scikit-learn API, all steps\nmust define `fit`. All non-last steps must also define `transform`. See\n:ref:`Combining Estimators &lt;combining_estimators&gt;` for more details.\n[('lasso', ...)]\n\n\n\ntransform_input  transform_input: list of str, default=None\n\nThe names of the :term:`metadata` parameters that should be transformed by the\npipeline before passing it to the step consuming it.\n\nThis enables transforming some input arguments to ``fit`` (other than ``X``)\nto be transformed by the steps of the pipeline up to the step which requires\nthem. Requirement is defined via :ref:`metadata routing &lt;metadata_routing&gt;`.\nFor instance, this can be used to pass a validation set through the pipeline.\n\nYou can only set this if metadata routing is enabled, which you\ncan enable using ``sklearn.set_config(enable_metadata_routing=True)``.\n\n.. versionadded:: 1.6\nNone\n\n\n\nmemory  memory: str or object with the joblib.Memory interface, default=None\n\nUsed to cache the fitted transformers of the pipeline. The last step\nwill never be cached, even if it is a transformer. By default, no\ncaching is performed. If a string is given, it is the path to the\ncaching directory. Enabling caching triggers a clone of the transformers\nbefore fitting. Therefore, the transformer instance given to the\npipeline cannot be inspected directly. Use the attribute ``named_steps``\nor ``steps`` to inspect estimators within the pipeline. Caching the\ntransformers is advantageous when fitting is time consuming. See\n:ref:`sphx_glr_auto_examples_neighbors_plot_caching_nearest_neighbors.py`\nfor an example on how to enable caching.\nNone\n\n\n\nverbose  verbose: bool, default=False\n\nIf True, the time elapsed while fitting each step will be printed as it\nis completed.\nFalse\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Only defined if the\nunderlying estimator exposes such an attribute when fit.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`. Only defined if the\nunderlying first estimator in `steps` exposes such an attribute\nwhen fit.\n\n.. versionadded:: 0.24\nint\n3\n\n\n\n\n            \n        \n    Lasso?Documentation for Lasso\n        \n            \n                Parameters\n                \n\n\n\n\n\n\n\n\n\nalpha  alpha: float, default=1.0\n\nConstant that multiplies the L1 term, controlling regularization\nstrength. `alpha` must be a non-negative float i.e. in `[0, inf)`.\n\nWhen `alpha = 0`, the objective is equivalent to ordinary least\nsquares, solved by the :class:`LinearRegression` object. For numerical\nreasons, using `alpha = 0` with the `Lasso` object is not advised.\nInstead, you should use the :class:`LinearRegression` object.\n1.3\n\n\n\nmax_iter  max_iter: int, default=1000\n\nThe maximum number of iterations.\n100000\n\n\n\nfit_intercept  fit_intercept: bool, default=True\n\nWhether to calculate the intercept for this model. If set\nto False, no intercept will be used in calculations\n(i.e. data is expected to be centered).\nTrue\n\n\n\nprecompute  precompute: bool or array-like of shape (n_features, n_features), default=False\n\nWhether to use a precomputed Gram matrix to speed up\ncalculations. The Gram matrix can also be passed as argument.\nFor sparse input this option is always ``False`` to preserve sparsity.\nFalse\n\n\n\ncopy_X  copy_X: bool, default=True\n\nIf ``True``, X will be copied; else, it may be overwritten.\nTrue\n\n\n\ntol  tol: float, default=1e-4\n\nThe tolerance for the optimization: if the updates are smaller or equal to\n``tol``, the optimization code checks the dual gap for optimality and continues\nuntil it is smaller or equal to ``tol``, see Notes below.\n0.0001\n\n\n\nwarm_start  warm_start: bool, default=False\n\nWhen set to ``True``, reuse the solution of the previous call to fit as\ninitialization, otherwise, just erase the previous solution.\nSee :term:`the Glossary &lt;warm_start&gt;`.\nFalse\n\n\n\npositive  positive: bool, default=False\n\nWhen set to ``True``, forces the coefficients to be positive.\nFalse\n\n\n\nrandom_state  random_state: int, RandomState instance, default=None\n\nThe seed of the pseudo random number generator that selects a random\nfeature to update. Used when ``selection`` == 'random'.\nPass an int for reproducible output across multiple function calls.\nSee :term:`Glossary &lt;random_state&gt;`.\nNone\n\n\n\nselection  selection: {'cyclic', 'random'}, default='cyclic'\n\nIf set to 'random', a random coefficient is updated every iteration\nrather than looping over features sequentially by default. This\n(setting to 'random') often leads to significantly faster convergence\nespecially when tol is higher than 1e-4.\n'cyclic'\n\n\n\n\n            \n        \n    \n        \n            \n                Fitted attributes\n                \n\n\n\n\n\n\n\n\nName\nType\nValue\n\n\ncoef_  coef_: ndarray of shape (n_features,) or (n_targets, n_features)\n\nParameter vector (w in the cost function formula).\nndarray[float64](3,)\n[50.71,17.29, 3.29]\n\n\ndual_gap_  dual_gap_: float or ndarray of shape (n_targets,)\n\nGiven parameter ``alpha``, the dual gaps at the end of the optimization,\nsame shape as each observation of y.\nfloat64\n59.21\n\n\nfeature_names_in_  feature_names_in_: ndarray of shape (`n_features_in_`,)\n\nNames of features seen during :term:`fit`. Defined only when `X`\nhas feature names that are all strings.\n\n.. versionadded:: 1.0\nndarray[object](3,)\n['flipper_length_mm','bill_depth_mm','bill_length_mm']\n\n\nintercept_  intercept_: float or ndarray of shape (n_targets,)\n\nIndependent term in decision function.\nfloat64\n-6426\n\n\nn_features_in_  n_features_in_: int\n\nNumber of features seen during :term:`fit`.\n\n.. versionadded:: 0.24\nint\n3\n\n\nn_iter_  n_iter_: int or list of int\n\nNumber of iterations run by the coordinate descent solver to reach\nthe specified tolerance.\nint\n15\n\n\nsparse_coef_  sparse_coef_: sparse matrix of shape (n_features, 1) or (n_targets, n_features)\n\nRead-only property derived from ``coef_``.\ncsr_matrix[float64](1, 3)\n&lt;Compressed S... shape (1, 3)&gt;"
+    "objectID": "lectures/6a.html#cv-in-scikit-learn",
+    "href": "lectures/6a.html#cv-in-scikit-learn",
+    "title": "Resampling Methods",
+    "section": "CV in scikit-learn",
+    "text": "CV in scikit-learn\n\ncv_model = RidgeCV(\n    alphas=lambdas,          # Candidate penalty values\n    cv=None,                 # Efficient leave-one-out CV for ridge\n    store_cv_results=True,\n)\ncv_model.fit(X, y)"
+  },
+  {
+    "objectID": "lectures/6a.html#example---ridge-regression",
+    "href": "lectures/6a.html#example---ridge-regression",
+    "title": "Resampling Methods",
+    "section": "Example - Ridge Regression",
+    "text": "Example - Ridge Regression\n\nPreparationCVCV PlotBest ParameterResults\n\n\n\nridge_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\nX_ridge = penguins[ridge_predictors]\ny_ridge = penguins[\"body_mass_g\"]\n\nridge_scaler = StandardScaler()\nX_ridge_scaled = ridge_scaler.fit_transform(X_ridge)\n\n\n\n\nridge_mod_cv = RidgeCV(\n    alphas=lambdas,\n    cv=None,\n    store_cv_results=True,\n)\nridge_mod_cv.fit(X_ridge_scaled, y_ridge)\n\nridge_cv_results = pd.DataFrame(\n    {\n        \"lambda\": lambdas,\n        \"mean_cv_error\": ridge_mod_cv.cv_results_.mean(axis=0),\n    }\n)\nridge_best_result = ridge_cv_results.loc[\n    [ridge_cv_results[\"mean_cv_error\"].idxmin()]\n]\n\n\n\n\n(\n    ggplot(ridge_cv_results, aes(x=\"lambda\", y=\"mean_cv_error\"))\n    + geom_line()\n    + geom_point(data=ridge_best_result, size=3)\n    + scale_x_log10()\n    + labs(\n        x=\"Lambda\",\n        y=\"Mean leave-one-out squared error\",\n        title=\"Ridge cross-validation\",\n    )\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\nridge_mod_cv.alpha_\n\n1.0\n\n\n\n\n\nridge_mod = Ridge(alpha=ridge_mod_cv.alpha_)\nridge_mod.fit(X_ridge_scaled, y_ridge)\n\nridge_coefficients = ridge_mod.coef_ / ridge_scaler.scale_\nridge_intercept = ridge_mod.intercept_ - np.sum(\n    ridge_mod.coef_ * ridge_scaler.mean_ / ridge_scaler.scale_\n)\n\npd.Series(\n    [ridge_intercept, *ridge_coefficients],\n    index=[\"Intercept\", *ridge_predictors],\n    name=\"coefficient\",\n)\n\nIntercept           -6366.029487\nflipper_length_mm      50.362104\nbill_depth_mm          16.489200\nbill_length_mm          3.840000\nName: coefficient, dtype: float64"
+  },
+  {
+    "objectID": "lectures/6a.html#example---lasso",
+    "href": "lectures/6a.html#example---lasso",
+    "title": "Resampling Methods",
+    "section": "Example - LASSO",
+    "text": "Example - LASSO\n\nPreparationCVCV PlotBest ParameterResults\n\n\n\nlasso_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\nX_lasso = penguins[lasso_predictors]\ny_lasso = penguins[\"body_mass_g\"]\n\nlasso_scaler = StandardScaler()\nX_lasso_scaled = lasso_scaler.fit_transform(X_lasso)\n\n\n\n\nlasso_mod_cv = LassoCV(\n    alphas=lambdas,\n    cv=loo,\n    max_iter=100_000,\n    n_jobs=-1,\n)\nlasso_mod_cv.fit(X_lasso_scaled, y_lasso)\n\nlasso_cv_results = pd.DataFrame(\n    {\n        \"lambda\": lasso_mod_cv.alphas_,\n        \"mean_cv_error\": lasso_mod_cv.mse_path_.mean(axis=1),\n    }\n)\nlasso_best_result = lasso_cv_results.loc[\n    [lasso_cv_results[\"mean_cv_error\"].idxmin()]\n]\n\n\n\n\n(\n    ggplot(lasso_cv_results, aes(x=\"lambda\", y=\"mean_cv_error\"))\n    + geom_line()\n    + geom_point(data=lasso_best_result, size=3)\n    + scale_x_log10()\n    + labs(\n        x=\"Lambda\",\n        y=\"Mean leave-one-out squared error\",\n        title=\"LASSO cross-validation\",\n    )\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\nlasso_mod_cv.alpha_\n\nnp.float64(1.0)\n\n\n\n\n\nlasso_mod = Lasso(\n    alpha=lasso_mod_cv.alpha_,\n    max_iter=100_000,\n)\nlasso_mod.fit(X_lasso_scaled, y_lasso)\n\nlasso_coefficients = lasso_mod.coef_ / lasso_scaler.scale_\nlasso_intercept = lasso_mod.intercept_ - np.sum(\n    lasso_mod.coef_ * lasso_scaler.mean_ / lasso_scaler.scale_\n)\n\npd.Series(\n    [lasso_intercept, *lasso_coefficients],\n    index=[\"Intercept\", *lasso_predictors],\n    name=\"coefficient\",\n)\n\nIntercept           -6390.063710\nflipper_length_mm      50.588578\nbill_depth_mm          16.621328\nbill_length_mm          3.300194\nName: coefficient, dtype: float64"
+  },
+  {
+    "objectID": "lectures/6a.html#try-with-mtcars",
+    "href": "lectures/6a.html#try-with-mtcars",
+    "title": "Resampling Methods",
+    "section": "Try with mtcars",
+    "text": "Try with mtcars\nComplete a LASSO approach using mtcars to predict mpg from the remaining variables."
+  },
+  {
+    "objectID": "lectures/6a.html#bootstrap-methods-1",
+    "href": "lectures/6a.html#bootstrap-methods-1",
+    "title": "Resampling Methods",
+    "section": "Bootstrap Methods",
+    "text": "Bootstrap Methods\nBootstrapping methods are used when we cannot theoretically compute the standard errors. Bootstrap methods are computationally intensive but will compute accurate standard errors.\nWhen all else fails, a bootstrap approach will compute accurate standard errors."
+  },
+  {
+    "objectID": "lectures/6a.html#bootstrap-algorithm",
+    "href": "lectures/6a.html#bootstrap-algorithm",
+    "title": "Resampling Methods",
+    "section": "Bootstrap Algorithm",
+    "text": "Bootstrap Algorithm\n\nDraw a sample \\(X*\\) of size \\(n\\) with replacement from the original data \\(X\\).\n\n\\(n\\) is the size of the data\n\nCompute the bootstrap replicate statistic \\(T* = g(X*)\\), where \\(g(\\cdot)\\) is the function that computes the statistic of interest.\nRepeat steps 1-2 \\(B\\) times to obtain \\(B\\) bootstrap replicates \\({T*_1, T*_2, ..., T*_B}\\).\nThe computed statistics from \\(B\\) samples are the empirical bootstrap distribution of the statistic, \\(g(X)\\).\nCalculate the bootstrap standard error of the statistic, \\(se_b(g(X))\\), as the standard deviation of the bootstrap replicates.\nCalculate the bootstrap confidence interval for the statistic, \\(CI(g(X))\\), with the \\(\\alpha\\) and \\((1-\\alpha)%\\) percentiles of the bootstrap replicates, where \\(\\alpha\\) is the desired level of significance."
+  },
+  {
+    "objectID": "lectures/6a.html#examples",
+    "href": "lectures/6a.html#examples",
+    "title": "Resampling Methods",
+    "section": "Examples",
+    "text": "Examples\nFitting the following model:\n\nbootstrap_predictors = [\n    \"flipper_length_mm\",\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n]\nX_bootstrap = sm.add_constant(\n    penguins[bootstrap_predictors],\n    has_constant=\"add\",\n)\ny_bootstrap = penguins[\"body_mass_g\"]\n\nbootstrap_model = sm.OLS(y_bootstrap, X_bootstrap).fit()\nbootstrap_model.params\n\nconst               -6445.476043\nflipper_length_mm      50.762132\nbill_length_mm          3.292863\nbill_depth_mm          17.836391\ndtype: float64\n\n\nObtain the Bootstrap-based Standard Errors for the regression coefficients. Use \\(B=1000\\) bootstrap samples."
+  },
+  {
+    "objectID": "lectures/6a.html#examples-solution",
+    "href": "lectures/6a.html#examples-solution",
+    "title": "Resampling Methods",
+    "section": "Examples: Solution",
+    "text": "Examples: Solution\n\n\nCode\nB = 1000\nrng = np.random.default_rng(12345)\nbootstrap_estimates = []\n\nfor _ in range(B):\n    sample_positions = rng.integers(\n        low=0,\n        high=len(penguins),\n        size=len(penguins),\n    )\n    bootstrap_sample = penguins.iloc[sample_positions]\n\n    X_sample = sm.add_constant(\n        bootstrap_sample[bootstrap_predictors],\n        has_constant=\"add\",\n    )\n    y_sample = bootstrap_sample[\"body_mass_g\"]\n\n    fitted_sample = sm.OLS(y_sample, X_sample).fit()\n    bootstrap_estimates.append(fitted_sample.params)\n\nbootstrap_estimates = pd.DataFrame(bootstrap_estimates)\n\nbootstrap_results = pd.DataFrame(\n    {\n        \"estimate\": bootstrap_model.params,\n        \"bootstrap_se\": bootstrap_estimates.std(ddof=1),\n        \"ci_lower\": bootstrap_estimates.quantile(0.025),\n        \"ci_upper\": bootstrap_estimates.quantile(0.975),\n    }\n)\n\nbootstrap_results.round(3)\n\n\n\n\n\n\n\n\n\nestimate\nbootstrap_se\nci_lower\nci_upper\n\n\n\n\nconst\n-6445.476\n534.391\n-7541.213\n-5470.429\n\n\nflipper_length_mm\n50.762\n2.403\n46.289\n55.562\n\n\nbill_length_mm\n3.293\n5.186\n-7.158\n12.954\n\n\nbill_depth_mm\n17.836\n12.907\n-6.881\n43.931"
   },
   {
     "objectID": "lectures/8a.html#python-setup",
@@ -2616,6 +2665,34 @@
     "title": "Nonlinear Models",
     "section": "Example",
     "text": "Example\nUsing spline_example_data from the setup chunk, fit regression models using cubic splines and natural cubic splines. Choose an appropriate number and location of knots. Compute the mean squared error and \\(R^2\\) for each model.\n\nspline_example_data.head()\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\n0\n0.197223\n0.013993\n\n\n1\n0.042517\n1.922424\n\n\n2\n-0.343305\n-4.065611\n\n\n3\n0.060269\n0.700677\n\n\n4\n0.443878\n-6.708105"
+  },
+  {
+    "objectID": "posts/1.html",
+    "href": "posts/1.html",
+    "title": "Week 1",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/1.html#resources",
+    "href": "posts/1.html#resources",
+    "title": "Week 1",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/3.html",
+    "href": "posts/3.html",
+    "title": "Week 3",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/3.html#resources",
+    "href": "posts/3.html#resources",
+    "title": "Week 3",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
     "objectID": "project_report.html",

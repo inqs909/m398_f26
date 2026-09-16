@@ -16,14 +16,14 @@
   {
     "objectID": "posts/4.html",
     "href": "posts/4.html",
-    "title": "Week 3",
+    "title": "Week 4",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
     "objectID": "posts/4.html#resources",
     "href": "posts/4.html#resources",
-    "title": "Week 3",
+    "title": "Week 4",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
@@ -1299,7 +1299,21 @@
     "href": "assignments/a4.html",
     "title": "ICA 3",
     "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)\nPlease submit an html file."
+    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)\nPlease submit an html file.\nDue 9/19/26 @ 11:59 PM\nSubmit the *.html file to Canvas."
+  },
+  {
+    "objectID": "assignments/a4.html#notebook-setup",
+    "href": "assignments/a4.html#notebook-setup",
+    "title": "ICA 3",
+    "section": "Notebook Setup",
+    "text": "Notebook Setup\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a4.html#import-data",
+    "href": "assignments/a4.html#import-data",
+    "title": "ICA 3",
+    "section": "Import Data",
+    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nWeekly = load_data('Weekly')\nAuto = load_data('Auto')"
   },
   {
     "objectID": "assignments/a4.html#problem-1",
@@ -1397,7 +1411,7 @@
     "href": "index.html",
     "title": "Welcome to Advanced Research Investigation!",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/10a.html#python-setup",

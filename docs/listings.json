@@ -29,8 +29,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/3.html",
       "/posts/4.html",
+      "/posts/3.html",
       "/posts/1.html",
       "/posts/2.html"
     ]

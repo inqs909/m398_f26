@@ -14,6 +14,7 @@
 <link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
+  <meta name="dcterms.date" content="2026-10-27">
   <title>MATH 398 – Tree-Based Methods</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -105,7 +106,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a2388ea69f91b3a6578639eff04fdd65.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -214,10 +215,11 @@
 <div class="quarto-title-authors">
 </div>
 
+  <p class="date">2026-10-27</p>
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="61cbe7ac" class="cell" data-execution_count="1">
+<div id="87bcc78f" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -476,7 +478,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Python Code</a></li><li><a href="#tabset-1-2">Plot</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="ea4db1c9" class="cell" data-execution_count="2">
+<div id="21b16ea3" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a><span class="co"># Approximate the R tree package's default 1% minimum-deviance rule.</span></span>
 <span id="cb2-2"><a aria-label="2"></a>minimum_deviance <span class="op">=</span> <span class="fl">0.01</span> <span class="op">*</span> y_regression_train.var(ddof<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb2-3"><a aria-label="3"></a></span>
@@ -490,7 +492,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 </div>
 </div>
 <div id="tabset-1-2">
-<div id="8dd49289" class="cell" data-execution_count="3">
+<div id="d68d651e" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">7</span>))</span>
@@ -524,7 +526,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Plot</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div id="ca2c3145" class="cell" data-execution_count="4">
+<div id="ca5a78f4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>tree_penguin_class <span class="op">=</span> DecisionTreeClassifier(</span>
 <span id="cb4-2"><a aria-label="2"></a>    criterion<span class="op">=</span><span class="st">"gini"</span>,</span>
 <span id="cb4-3"><a aria-label="3"></a>    min_samples_split<span class="op">=</span><span class="dv">10</span>,</span>
@@ -534,7 +536,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 </div>
 </div>
 <div id="tabset-2-2">
-<div id="f76765e6" class="cell" data-execution_count="5">
+<div id="de0ebb6e" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">7</span>))</span>
@@ -569,7 +571,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 <ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Code</a></li><li><a href="#tabset-3-2">Summary</a></li><li><a href="#tabset-3-3">Plot</a></li><li><a href="#tabset-3-4">Pruning</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
-<div id="809d87cf" class="cell" data-execution_count="6">
+<div id="9a3c6968" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a><span class="co"># Generate the cost-complexity pruning sequence for the fitted tree.</span></span>
 <span id="cb6-2"><a aria-label="2"></a>pruning_path <span class="op">=</span> tree_penguin.cost_complexity_pruning_path(</span>
 <span id="cb6-3"><a aria-label="3"></a>    X_regression_train,</span>
@@ -623,7 +625,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 </div>
 </div>
 <div id="tabset-3-2">
-<div id="34405a17" class="cell" data-execution_count="7">
+<div id="244b0b91" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>tree_penguin_cv.<span class="bu">round</span>(</span>
@@ -718,7 +720,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 </div>
 </div>
 <div id="tabset-3-3">
-<div id="aa8e10a4" class="cell" data-execution_count="8">
+<div id="4a4cade9" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>(</span>
@@ -746,7 +748,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 </div>
 </div>
 <div id="tabset-3-4">
-<div id="be8a7e77" class="cell" data-execution_count="9">
+<div id="b5ce8dec" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a><span class="co"># Match the original R example by selecting the alpha for a seven-leaf tree.</span></span>
 <span id="cb9-2"><a aria-label="2"></a><span class="co"># In these data, the seven-leaf tree also attains the minimum CV MSE.</span></span>
 <span id="cb9-3"><a aria-label="3"></a>best_row <span class="op">=</span> tree_penguin_cv.loc[tree_penguin_cv[<span class="st">"size"</span>].eq(<span class="dv">7</span>)].iloc[<span class="dv">0</span>]</span>

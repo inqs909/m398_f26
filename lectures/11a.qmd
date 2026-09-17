@@ -28,6 +28,8 @@ filters:
 editor: source
 
 order: 12
+date: 11-03-26
+description: A continuation of the topics related to tree-based methods.
 ---
 
 ## Python Setup

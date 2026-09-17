@@ -20,6 +20,9 @@ filters:
 editor: source
 
 order: 4
+date: 09-08-26
+description: An introduction to linear regression including simple, multivariable regression, and matrix formulation.
+
 ---
 
 ```{python}

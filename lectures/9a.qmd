@@ -27,6 +27,8 @@ filters:
 editor: source
 
 order: 10
+date: 10-20-26
+description: Further exploration of nonlinear models and GAMs.
 ---
 
 ## Python Setup

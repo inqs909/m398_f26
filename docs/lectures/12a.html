@@ -14,6 +14,7 @@
 <link href="../site_libs/quarto-contrib/reveal-auto-agenda-0.0.3/reveal-auto-agenda.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.10.18">
 
+  <meta name="dcterms.date" content="2026-11-10">
   <title>MATH 398 – Support Vector Machines</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -105,7 +106,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3c04e87dc949f165206bed68b9f43dae.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a2388ea69f91b3a6578639eff04fdd65.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -214,10 +215,11 @@
 <div class="quarto-title-authors">
 </div>
 
+  <p class="date">2026-11-10</p>
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="7811dc5c" class="cell" data-execution_count="1">
+<div id="1bfa686b" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a aria-label="2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a aria-label="3"></a></span>
@@ -368,7 +370,7 @@
 </section>
 <section id="motivating-example" class="slide level2">
 <h2>Motivating Example</h2>
-<div id="cb0d3e29" class="cell" data-execution_count="2">
+<div id="f9e729d1" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <figure>
@@ -396,7 +398,7 @@
 <section id="constructing-the-hyperplane" class="slide level2">
 <h2>Constructing the Hyperplane</h2>
 <p>A hyperplane is constructed by maximizing the margin <span class="math inline">\(M\)</span> of the data points that are farthest from the theoretical margin. The data points that define the outer edge of the margins are known as support vectors.</p>
-<div id="ffd2a730" class="cell" data-execution_count="3">
+<div id="39254312" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <figure>
@@ -546,7 +548,7 @@
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Simulation</a></li><li><a href="#tabset-1-2">Python Code</a></li><li><a href="#tabset-1-3">Support Vectors</a></li><li><a href="#tabset-1-4">Summary</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div id="2bc816e5" class="cell" data-execution_count="4">
+<div id="c36ebe20" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a><span class="co"># This simulation is executed in the setup chunk.</span></span>
 <span id="cb2-2"><a aria-label="2"></a>rng_linear <span class="op">=</span> np.random.default_rng(<span class="dv">2434</span>)</span>
 <span id="cb2-3"><a aria-label="3"></a>x <span class="op">=</span> rng_linear.normal(size<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">2</span>))</span>
@@ -564,7 +566,7 @@
 </div>
 </div>
 <div id="tabset-1-2">
-<div id="a936e8e6" class="cell" data-execution_count="5">
+<div id="a0e26a4d" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>linear_svm <span class="op">=</span> SVC(</span>
 <span id="cb3-2"><a aria-label="2"></a>    kernel<span class="op">=</span><span class="st">"linear"</span>,</span>
 <span id="cb3-3"><a aria-label="3"></a>    C<span class="op">=</span><span class="dv">10</span>,</span>
@@ -636,7 +638,7 @@
 </div>
 </div>
 <div id="tabset-1-3">
-<div id="b10786f8" class="cell" data-execution_count="6">
+<div id="221964e0" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>pd.DataFrame(</span>
 <span id="cb4-2"><a aria-label="2"></a>    {</span>
 <span id="cb4-3"><a aria-label="3"></a>        <span class="co"># Add 1 to report indices in the same one-based style as R.</span></span>
@@ -719,7 +721,7 @@
 </div>
 </div>
 <div id="tabset-1-4">
-<div id="b0fab225" class="cell" data-execution_count="7">
+<div id="85c66069" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>linear_summary <span class="op">=</span> pd.DataFrame(</span>
 <span id="cb5-2"><a aria-label="2"></a>    {</span>
 <span id="cb5-3"><a aria-label="3"></a>        <span class="st">"property"</span>: [</span>
@@ -823,7 +825,7 @@
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Python Code</a></li><li><a href="#tabset-2-2">Summary</a></li><li><a href="#tabset-2-3">Best Model</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div id="d8455eb8" class="cell" data-execution_count="8">
+<div id="17913df6" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>cv <span class="op">=</span> StratifiedKFold(</span>
 <span id="cb6-2"><a aria-label="2"></a>    n_splits<span class="op">=</span><span class="dv">10</span>,</span>
 <span id="cb6-3"><a aria-label="3"></a>    shuffle<span class="op">=</span><span class="va">True</span>,</span>
@@ -849,7 +851,7 @@
 </div>
 </div>
 <div id="tabset-2-2">
-<div id="5e669f8e" class="cell" data-execution_count="9">
+<div id="98ff3fb1" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>tuning_summary <span class="op">=</span> (</span>
 <span id="cb7-2"><a aria-label="2"></a>    pd.DataFrame(tune_out.cv_results_)</span>
 <span id="cb7-3"><a aria-label="3"></a>    [[<span class="st">"param_C"</span>, <span class="st">"mean_test_score"</span>, <span class="st">"std_test_score"</span>, <span class="st">"rank_test_score"</span>]]</span>
@@ -950,7 +952,7 @@
 </div>
 </div>
 <div id="tabset-2-3">
-<div id="b69024bf" class="cell" data-execution_count="10">
+<div id="da9fcee6" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>bestmod <span class="op">=</span> tune_out.best_estimator_</span>
 <span id="cb8-2"><a aria-label="2"></a></span>
 <span id="cb8-3"><a aria-label="3"></a>best_model_summary <span class="op">=</span> pd.DataFrame(</span>
@@ -1042,7 +1044,7 @@
 <ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Set Up</a></li><li><a href="#tabset-3-2">Prediction</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
-<div id="d56d5505" class="cell" data-execution_count="11">
+<div id="85111e58" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a><span class="co"># These test observations are generated in the setup chunk.</span></span>
 <span id="cb9-2"><a aria-label="2"></a>test_x <span class="op">=</span> rng_linear.normal(size<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">2</span>))</span>
 <span id="cb9-3"><a aria-label="3"></a>test_y <span class="op">=</span> rng_linear.choice([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>], size<span class="op">=</span><span class="dv">20</span>, replace<span class="op">=</span><span class="va">True</span>)</span>
@@ -1059,7 +1061,7 @@
 </div>
 </div>
 <div id="tabset-3-2">
-<div id="389fcdb1" class="cell" data-execution_count="12">
+<div id="34296a7f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-label="1"></a>y_pred <span class="op">=</span> bestmod.predict(testdat[[<span class="st">"x1"</span>, <span class="st">"x2"</span>]])</span>
 <span id="cb10-2"><a aria-label="2"></a></span>
 <span id="cb10-3"><a aria-label="3"></a>pd.crosstab(</span>
@@ -1122,7 +1124,7 @@
 <ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Data</a></li><li><a href="#tabset-4-2">Plot</a></li><li><a href="#tabset-4-3">SVM</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1">
-<div id="5c568358" class="cell" data-execution_count="13">
+<div id="be0aaa2e" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-label="1"></a><span class="co"># This nonlinear simulation and train/test split are executed in setup.</span></span>
 <span id="cb11-2"><a aria-label="2"></a>rng_radial <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span>
 <span id="cb11-3"><a aria-label="3"></a>x <span class="op">=</span> rng_radial.normal(size<span class="op">=</span>(<span class="dv">200</span>, <span class="dv">2</span>))</span>
@@ -1144,7 +1146,7 @@
 </div>
 </div>
 <div id="tabset-4-2">
-<div id="2cdec24a" class="cell" data-execution_count="14">
+<div id="c29dc20c" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-label="1"></a>(</span>
 <span id="cb12-2"><a aria-label="2"></a>    ggplot(radial_dat, aes(x<span class="op">=</span><span class="st">"x1"</span>, y<span class="op">=</span><span class="st">"x2"</span>, color<span class="op">=</span><span class="st">"class_label"</span>))</span>
 <span id="cb12-3"><a aria-label="3"></a>    <span class="op">+</span> geom_point()</span>
@@ -1161,7 +1163,7 @@
 </div>
 </div>
 <div id="tabset-4-3">
-<div id="f91ebd02" class="cell" data-execution_count="15">
+<div id="cb75da9d" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-label="1"></a>radial_svm <span class="op">=</span> SVC(</span>
 <span id="cb13-2"><a aria-label="2"></a>    kernel<span class="op">=</span><span class="st">"rbf"</span>,</span>
 <span id="cb13-3"><a aria-label="3"></a>    gamma<span class="op">=</span><span class="dv">1</span>,</span>

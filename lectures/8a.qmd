@@ -29,6 +29,8 @@ filters:
 editor: source
 
 order: 9
+date: 10-13-26
+description: An exploration of methods for nonlinear functions.
 ---
 
 

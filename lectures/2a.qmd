@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Statistical Learning"
+title: "Intro to Statistical Learning"
 format:
   revealjs:
     scrollable: true
@@ -20,6 +20,8 @@ filters:
 editor: source
 
 order: 3
+date: 09-01-26
+description: An introduction to statistical learning where we introduce the ideas of prediction, regression, classification, supervised vs unsupervised, and model adequacy. 
 ---
 
 ## Learning Outcomes

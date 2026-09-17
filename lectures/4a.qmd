@@ -27,6 +27,8 @@ filters:
 editor: source
 
 order: 5
+date: 09-15-26
+description: An introduction to basic classification algorithms.
 ---
 
 ## Learning Outcomes

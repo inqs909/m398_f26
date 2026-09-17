@@ -1,0 +1,703 @@
+---
+title: |
+  Unsupervised \
+  Machine Learning
+jupyter: python3
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    theme: [default, styles.scss]
+execute:
+  echo: true
+  eval: true
+  warning: false
+
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
+editor: source
+draft: true
+
+order: 15
+date: 12-01-26
+description: An introduction to unsupervized machine learning.
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+# Core libraries
+import numpy as np
+import pandas as pd
+
+# Plotting
+from plotnine import *
+
+# Data generation and preprocessing
+from sklearn.datasets import make_blobs, make_moons
+from sklearn.preprocessing import StandardScaler
+
+# Dimensionality reduction
+from sklearn.decomposition import PCA
+
+# Clustering algorithms
+from sklearn.cluster import (
+    AffinityPropagation,
+    AgglomerativeClustering,
+    Birch,
+    BisectingKMeans,
+    DBSCAN,
+    HDBSCAN,
+    KMeans,
+    MeanShift,
+    MiniBatchKMeans,
+    OPTICS,
+    SpectralClustering,
+    estimate_bandwidth,
+)
+from sklearn.mixture import GaussianMixture
+
+# Cluster evaluation
+from sklearn.metrics import (
+    calinski_harabasz_score,
+    davies_bouldin_score,
+    silhouette_score,
+)
+
+# Three compact clusters
+blobs_raw, blob_truth = make_blobs(
+    n_samples=450,
+    centers=[(-4, -2), (0, 4), (4, -1)],
+    cluster_std=[0.9, 1.0, 0.8],
+    random_state=42,
+)
+X_blobs = StandardScaler().fit_transform(blobs_raw)
+blobs = pd.DataFrame(X_blobs, columns=["x1", "x2"])
+
+# Two curved clusters
+moons_raw, moon_truth = make_moons(
+    n_samples=450,
+    noise=0.08,
+    random_state=42,
+)
+X_moons = StandardScaler().fit_transform(moons_raw)
+moons = pd.DataFrame(X_moons, columns=["x1", "x2"])
+
+# Elliptical clusters for Gaussian mixture models
+elliptical_raw, elliptical_truth = make_blobs(
+    n_samples=450,
+    centers=3,
+    cluster_std=[1.0, 0.8, 1.2],
+    random_state=12,
+)
+transformation = np.array([[0.6, -0.6], [-0.4, 0.8]])
+X_elliptical = StandardScaler().fit_transform(
+    elliptical_raw @ transformation
+)
+elliptical = pd.DataFrame(X_elliptical, columns=["x1", "x2"])
+
+# A larger dataset for algorithms designed to scale
+large_raw, large_truth = make_blobs(
+    n_samples=3000,
+    centers=[(-4, -2), (0, 4), (4, -1)],
+    cluster_std=[0.9, 1.0, 0.8],
+    random_state=42,
+)
+X_large = StandardScaler().fit_transform(large_raw)
+large = pd.DataFrame(X_large, columns=["x1", "x2"])
+
+
+def cluster_plot(X, labels, title):
+    """Create a consistent plotnine cluster plot."""
+    plot_data = pd.DataFrame(X, columns=["x1", "x2"]).assign(
+        cluster=pd.Categorical(labels.astype(str))
+    )
+
+    return (
+        ggplot(plot_data, aes("x1", "x2", color="cluster"))
+        + geom_point(alpha=0.75, size=2)
+        + scale_color_brewer(type="qual", palette="Dark2")
+        + labs(
+            title=title,
+            x="Standardized feature 1",
+            y="Standardized feature 2",
+            color="Cluster",
+        )
+        + theme_minimal()
+        + theme(figure_size=(6.4, 3.8), legend_position="right")
+    )
+```
+
+# Unsupervised Machine Learning
+
+
+## Supervised Machine Learning
+
+Supervised learning uses features and a known outcome:
+
+$$
+\boldsymbol X = (X_1, X_2, \ldots, X_n)\mrTr
+$$
+
+where
+
+$$
+X_i = (x_{i1}, x_{i2}, \ldots, x_{ip})
+$$
+
+and
+
+$$
+\boldsymbol Y = (Y_1, Y_2, \ldots, Y_n)\mrTr.
+$$
+
+The outcome $Y_i$ guides the model during training.
+
+## Unsupervised Machine Learning
+
+Unsupervised learning uses the feature matrix without a known outcome:
+
+$$
+\boldsymbol X = (X_1, X_2, \ldots, X_n)\mrTr,
+$$
+
+where each observation contains $p$ features:
+
+$$
+X_i = (x_{i1}, x_{i2}, \ldots, x_{ip}).
+$$
+
+Clustering searches for groups whose members are more similar to one another than to members of other groups.
+
+## Questions Clustering Can Answer
+
+- Which observations have similar feature values?
+- Are there compact groups, curved groups, or regions of high density?
+- Which observations do not fit any group?
+- Does a useful grouping appear at more than one level of detail?
+
+Cluster labels describe structure in the available features. They do not automatically represent meaningful real-world categories.
+
+## Feature Scaling
+
+Distance-based algorithms can give variables with large numerical ranges too much influence.
+
+```{python}
+# General scaling template
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_blobs)
+```
+
+Standardization gives each feature a mean near 0 and a standard deviation near 1. Fit the scaler on training data before transforming new data in a production workflow.
+
+## Datasets Used in the Examples {.smaller}
+
+```{python}
+#| layout-ncol: 2
+#| fig-width: 5.2
+#| fig-height: 3.6
+
+cluster_plot(
+    X_blobs,
+    blob_truth,
+    "Compact clusters",
+)
+
+cluster_plot(
+    X_moons,
+    moon_truth,
+    "Curved clusters",
+)
+```
+
+The known groups appear only to explain the synthetic examples. The clustering models do not receive these labels.
+
+## Principal Component Analysis
+
+Principal component analysis (PCA) creates new, uncorrelated variables called principal components.
+
+- The first component captures the largest possible amount of variation.
+- Each later component captures the largest remaining variation while staying perpendicular to earlier components.
+- PCA supports visualization, compression, and preprocessing.
+- PCA does not assign observations to clusters.
+
+## PCA Template {.smaller}
+
+```{python}
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_blobs)
+
+pca_data = pd.DataFrame(
+    X_pca,
+    columns=["PC1", "PC2"],
+).assign(group=pd.Categorical(blob_truth.astype(str)))
+
+(
+    ggplot(pca_data, aes("PC1", "PC2", color="group"))
+    + geom_point(alpha=0.75, size=2)
+    + scale_color_brewer(type="qual", palette="Dark2")
+    + labs(
+        title="Two-dimensional PCA representation",
+        color="Known group",
+    )
+    + theme_minimal()
+    + theme(figure_size=(6.4, 3.8))
+)
+```
+
+# Clustering Techniques
+
+## Major Clustering Families
+
+| Family | Definition of a cluster | Examples |
+|---|---|---|
+| Centroid based | Points near a common center | K-means, MiniBatch K-means |
+| Hierarchical | Points joined through a nested sequence | Agglomerative clustering, BIRCH |
+| Density based | Points in connected dense regions | DBSCAN, HDBSCAN, OPTICS |
+| Graph based | Points connected strongly in a similarity graph | Spectral clustering, affinity propagation |
+| Probabilistic | Points generated by a shared probability distribution | Gaussian mixture models |
+
+## K-Means Clustering
+
+K-means assigns each observation to the nearest cluster center and updates the centers until the assignments stabilize.
+
+The algorithm minimizes the within-cluster sum of squares:
+
+$$
+\sum_{k=1}^{K}\sum_{x_i \in C_k}
+\lVert x_i-\mu_k \rVert^2.
+$$
+
+K-means works best for compact clusters of comparable size. You must choose $K$ before fitting the model.
+
+## K-Means Template {.smaller}
+
+```{python}
+kmeans = KMeans(
+    n_clusters=3,
+    n_init="auto",
+    random_state=42,
+)
+
+kmeans_labels = kmeans.fit_predict(X_blobs)
+kmeans.cluster_centers_
+
+cluster_plot(
+    X_blobs,
+    kmeans_labels,
+    "K-means clustering",
+)
+```
+
+Use `predict()` to assign new observations to the fitted centers.
+
+## Choosing the Number of K-Means Clusters {.smaller}
+
+```{python}
+k_results = []
+
+for k in range(2, 9):
+    model = KMeans(
+        n_clusters=k,
+        n_init="auto",
+        random_state=42,
+    )
+    labels = model.fit_predict(X_blobs)
+    k_results.append(
+        {
+            "k": k,
+            "silhouette": silhouette_score(X_blobs, labels),
+        }
+    )
+
+k_results = pd.DataFrame(k_results)
+
+(
+    ggplot(k_results, aes("k", "silhouette"))
+    + geom_line(color="#0072B2", size=1)
+    + geom_point(color="#0072B2", size=3)
+    + labs(
+        title="Silhouette score by number of clusters",
+        x="Number of clusters",
+        y="Silhouette score",
+    )
+    + theme_minimal()
+    + theme(figure_size=(6.4, 3.8))
+)
+```
+
+Prefer a larger silhouette score, then check whether the grouping makes sense for the problem.
+
+## MiniBatch K-Means Template {.smaller}
+
+MiniBatch K-means updates cluster centers from small batches rather than the full dataset. It usually runs faster on large datasets, with a possible loss in cluster quality.
+
+```{python}
+mini_batch = MiniBatchKMeans(
+    n_clusters=3,
+    batch_size=256,
+    n_init="auto",
+    random_state=42,
+)
+
+mini_batch_labels = mini_batch.fit_predict(X_large)
+
+cluster_plot(
+    X_large,
+    mini_batch_labels,
+    "MiniBatch K-means clustering",
+)
+```
+
+## Bisecting K-Means Template {.smaller}
+
+Bisecting K-means repeatedly splits an existing cluster into two. This produces a hierarchy while retaining the speed and center-based interpretation of K-means.
+
+```{python}
+bisecting = BisectingKMeans(
+    n_clusters=3,
+    random_state=42,
+)
+
+bisecting_labels = bisecting.fit_predict(X_blobs)
+
+cluster_plot(
+    X_blobs,
+    bisecting_labels,
+    "Bisecting K-means clustering",
+)
+```
+
+## Hierarchical Clustering
+
+Hierarchical methods form nested clusters.
+
+- **Agglomerative methods** begin with one cluster per observation and merge clusters.
+- **Divisive methods** begin with one cluster and split it.
+- A dendrogram can show possible partitions at several levels.
+- Linkage determines how the method measures distance between clusters.
+
+`AgglomerativeClustering` provides Ward, complete, average, and single linkage.
+
+## Agglomerative Clustering Template {.smaller}
+
+```{python}
+agglomerative = AgglomerativeClustering(
+    n_clusters=3,
+    linkage="ward",
+)
+
+agglomerative_labels = agglomerative.fit_predict(X_blobs)
+
+cluster_plot(
+    X_blobs,
+    agglomerative_labels,
+    "Agglomerative clustering",
+)
+```
+
+Ward linkage minimizes the increase in within-cluster variance. Other linkages can use non-Euclidean distance metrics.
+
+## Gaussian Mixture Models
+
+A Gaussian mixture model assumes that several Gaussian distributions generated the data.
+
+- Each component has its own mean and covariance structure.
+- `predict()` produces a cluster assignment.
+- `predict_proba()` produces the probability that an observation belongs to each component.
+- Full covariance matrices can represent elliptical clusters.
+
+The Bayesian information criterion (BIC) can help compare models with different numbers of components.
+
+## Gaussian Mixture Template {.smaller}
+
+```{python}
+gmm = GaussianMixture(
+    n_components=3,
+    covariance_type="full",
+    random_state=42,
+)
+
+gmm.fit(X_elliptical)
+gmm_labels = gmm.predict(X_elliptical)
+membership_probabilities = gmm.predict_proba(X_elliptical)
+
+cluster_plot(
+    X_elliptical,
+    gmm_labels,
+    "Gaussian mixture model",
+)
+```
+
+# Density and Graph Methods
+
+## Density-Based Clustering
+
+Density-based methods search for connected regions containing many nearby observations.
+
+- They can recover clusters with curved or irregular boundaries.
+- They can mark isolated observations as noise with label `-1`.
+- They do not require spherical clusters.
+- Their tuning parameters describe neighborhood size or cluster persistence.
+
+These methods often work better than K-means when groups have irregular shapes.
+
+## DBSCAN Template {.smaller}
+
+DBSCAN links core observations that have at least `min_samples` observations within distance `eps`.
+
+```{python}
+dbscan = DBSCAN(
+    eps=0.25,
+    min_samples=8,
+)
+
+dbscan_labels = dbscan.fit_predict(X_moons)
+
+cluster_plot(
+    X_moons,
+    dbscan_labels,
+    "DBSCAN clustering",
+)
+```
+
+A small `eps` may label many observations as noise. A large `eps` may merge separate groups.
+
+## HDBSCAN Template {.smaller}
+
+HDBSCAN examines cluster structure across several density levels. It can handle groups with different densities more effectively than one global DBSCAN radius.
+
+```{python}
+hdbscan = HDBSCAN(
+    min_cluster_size=30,
+    min_samples=10,
+    copy=True,
+)
+
+hdbscan_labels = hdbscan.fit_predict(X_moons)
+
+cluster_plot(
+    X_moons,
+    hdbscan_labels,
+    "HDBSCAN clustering",
+)
+```
+
+`min_cluster_size` controls the smallest group the algorithm will retain.
+
+## OPTICS Template {.smaller}
+
+OPTICS orders observations by reachability. This exposes density structure without committing to one neighborhood radius before fitting.
+
+```{python}
+optics = OPTICS(
+    min_samples=10,
+    xi=0.10,
+    min_cluster_size=0.10,
+)
+
+optics_labels = optics.fit_predict(X_moons)
+
+cluster_plot(
+    X_moons,
+    optics_labels,
+    "OPTICS clustering",
+)
+```
+
+`xi` controls how sharply the reachability plot must change to separate clusters.
+
+## Spectral Clustering Template {.smaller}
+
+Spectral clustering builds a graph of nearby observations, embeds that graph, and clusters the embedding. It works well when groups are connected but not compact.
+
+```{python}
+spectral = SpectralClustering(
+    n_clusters=2,
+    affinity="nearest_neighbors",
+    n_neighbors=12,
+    assign_labels="kmeans",
+    random_state=42,
+)
+
+spectral_labels = spectral.fit_predict(X_moons)
+
+cluster_plot(
+    X_moons,
+    spectral_labels,
+    "Spectral clustering",
+)
+```
+
+Spectral clustering can become expensive as the number of observations grows.
+
+## Mean Shift Template {.smaller}
+
+Mean shift moves observations toward local peaks in the estimated density. The fitted peaks serve as cluster centers.
+
+```{python}
+bandwidth = estimate_bandwidth(
+    X_blobs,
+    quantile=0.25,
+    n_samples=300,
+)
+
+mean_shift = MeanShift(
+    bandwidth=bandwidth,
+    bin_seeding=True,
+)
+
+mean_shift_labels = mean_shift.fit_predict(X_blobs)
+
+cluster_plot(
+    X_blobs,
+    mean_shift_labels,
+    "Mean shift clustering",
+)
+```
+
+Bandwidth strongly affects the number of detected clusters.
+
+## BIRCH Template {.smaller}
+
+BIRCH incrementally summarizes observations in a clustering feature tree. It supports large datasets and can process data in batches.
+
+```{python}
+birch = Birch(
+    threshold=0.35,
+    branching_factor=50,
+    n_clusters=3,
+)
+
+birch_labels = birch.fit_predict(X_large)
+
+cluster_plot(
+    X_large,
+    birch_labels,
+    "BIRCH clustering",
+)
+```
+
+The threshold controls the radius of the subclusters stored in the tree.
+
+## Affinity Propagation Template {.smaller}
+
+Affinity propagation passes messages between observations and selects representative observations called exemplars. The algorithm estimates the number of clusters from the data.
+
+```{python}
+affinity = AffinityPropagation(
+    damping=0.80,
+    preference=-20,
+    random_state=42,
+)
+
+affinity_labels = affinity.fit_predict(X_blobs)
+
+cluster_plot(
+    X_blobs,
+    affinity_labels,
+    "Affinity propagation",
+)
+```
+
+The preference value influences how many exemplars the model selects.
+
+# Selecting and Evaluating a Model
+
+## Comparison of Clustering Techniques {.smaller}
+
+| Technique | Must choose cluster count? | Irregular shapes? | Identifies noise? | Best use |
+|---|:---:|:---:|:---:|---|
+| K-means | Yes | No | No | Compact, similarly sized groups |
+| Agglomerative | Usually | Sometimes | No | Nested structure and smaller datasets |
+| Gaussian mixture | Yes | Elliptical | No | Probabilistic membership |
+| DBSCAN | No | Yes | Yes | Similar-density groups with noise |
+| HDBSCAN | No | Yes | Yes | Groups with varying density |
+| OPTICS | No | Yes | Yes | Exploring several density levels |
+| Spectral | Yes | Yes | No | Connected, nonlinear groups |
+| Mean shift | No | Sometimes | Optional | Density peaks in moderate datasets |
+| BIRCH | Optional | Limited | No | Large datasets and streaming batches |
+| Affinity propagation | No | Limited | No | Exemplar-based clusters in smaller datasets |
+
+## Internal Evaluation Measures
+
+When no correct labels exist, internal measures compare compactness and separation.
+
+| Measure | Preferred value | Main idea |
+|---|---:|---|
+| Silhouette score | Larger, up to 1 | Compares within-cluster and nearest-cluster distances |
+| Davies-Bouldin index | Smaller, at least 0 | Compares within-cluster spread with separation |
+| Calinski-Harabasz score | Larger | Ratio of between-cluster to within-cluster variation |
+
+Metrics can favor simple geometric groups. Also inspect stability, domain meaning, and sensitivity to tuning choices.
+
+## Evaluation Template
+
+```{python}
+evaluation = pd.DataFrame(
+    {
+        "measure": [
+            "Silhouette",
+            "Davies-Bouldin",
+            "Calinski-Harabasz",
+        ],
+        "value": [
+            silhouette_score(X_blobs, kmeans_labels),
+            davies_bouldin_score(X_blobs, kmeans_labels),
+            calinski_harabasz_score(X_blobs, kmeans_labels),
+        ],
+    }
+)
+
+evaluation
+```
+
+Remove observations labeled `-1` before computing these measures for a density-based model.
+
+## General Clustering Workflow
+
+1. Select features that represent meaningful similarity.
+2. Handle missing values and standardize features when the method uses distance.
+3. Plot a low-dimensional view while remembering that it may hide structure.
+4. Fit several suitable algorithms and tuning values.
+5. Compare internal measures, stability, and practical usefulness.
+6. Document how new observations will receive labels, if prediction is required.
+
+Some clustering estimators support `predict()`. Others only assign labels to the observations used during fitting.
+
+## Scikit-Learn Documentation
+
+- [Clustering](https://scikit-learn.org/stable/modules/clustering.html)
+- [Gaussian mixture models](https://scikit-learn.org/stable/modules/mixture.html)
+- [Decomposition and PCA](https://scikit-learn.org/stable/modules/decomposition.html)
+- [Clustering performance evaluation](https://scikit-learn.org/stable/modules/clustering.html#clustering-performance-evaluation)
+
+The examples use the estimator pattern found throughout scikit-learn:
+
+```python
+model = Estimator(...)
+labels = model.fit_predict(X)
+```
+
+## Other Unsupervised Techniques in Scikit-Learn {.smaller}
+
+| Technique | Purpose | Example estimators |
+|---|---|---|
+| Manifold learning | Nonlinear low-dimensional representations | `TSNE`, `Isomap`, `MDS`, `LocallyLinearEmbedding` |
+| Matrix decomposition | Components, sources, or topics | `NMF`, `FastICA`, `DictionaryLearning`, `LatentDirichletAllocation` |
+| Anomaly detection | Unusual observations or novel cases | `IsolationForest`, `LocalOutlierFactor`, `OneClassSVM` |
+| Density estimation | Estimate an unknown probability density | `KernelDensity` |
+| Biclustering | Cluster rows and columns together | `SpectralCoclustering`, `SpectralBiclustering` |
+| Covariance estimation | Estimate feature dependence robustly | `LedoitWolf`, `MinCovDet`, `GraphicalLasso` |
+
+PCA and the clustering methods from this lecture represent only part of scikit-learn's unsupervised learning toolkit.

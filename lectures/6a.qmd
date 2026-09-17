@@ -28,6 +28,8 @@ filters:
 editor: source
 
 order: 8
+date: 09-29-26
+description: An introduction to cross-validation and bootstrapping techniques.
 ---
 
 

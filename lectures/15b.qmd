@@ -1,0 +1,170 @@
+---
+title: The Missing Statistics Semester
+subtitle: Data Science Edition
+format:
+  revealjs:
+    scrollable: true
+    include-in-header: "math_commands.html"
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false 
+    chalkboard:
+      src: chalkboard.json
+      storage: chalkboard_pres
+      theme: whiteboard
+      chalk-width: 4
+knitr:
+  opts_chunk: 
+    echo: true
+    eval: true
+    message: false
+    warnings: false
+    comment: "#>" 
+    
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - reveal-header
+  - code-fullscreen
+  - reveal-auto-agenda
+
+jupyter: python3
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    theme: [default, styles.scss]
+execute:
+  echo: true
+  eval: true
+  warning: false
+
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
+editor: source
+
+order: 16
+date: 12-03-26
+description: An introduction to regularization methods for model selection techniques.
+---
+
+## The Missing Statistics Sememster
+
+Here is a list of resources to expand on topics not covered in your education.
+
+Adapted from <https://missing.csail.mit.edu/>
+
+## Introduction to Statistics
+
+-   [Traditional Statistics](https://bookdown.org/lgpcappiello/introstats/introduction-to-hypothesis-testing.html#p-value-approach-to-hypothesis-testing)
+-   [Modern Basic Statistics](https://openintro-ims.netlify.app/)
+-   [Statistical Modeling](https://statistical-modeling.netlify.app/)
+-   [Statistical Thinking](https://dtkaplan.github.io/Lessons-in-statistical-thinking/)
+-   [Stats for People Who Hate Stats](https://edge.sagepub.com/salkindfrey7e)
+
+## Statistical Computing
+
+-   Computational Statistics (2009, Springer; Download from CSUCI Library)
+-   Basic Elements of Computational Statistics (2017, Springer; Download from CSUCI)
+-   Optimization (2013, Springer; Download from CSUCI)
+
+## Regression
+
+-   [Beyond Linear Regression](https://bookdown.org/roback/bookdown-BeyondMLR/)
+-   [Regression Modelling Strategies](https://hbiostat.org/rmsc/) (Download from CSUCI Library)
+-   [Linear Models](https://bookdown.org/pingapang9/linear_models_bookdown/)
+-   Generalized Linear Models With Examples in R (Download from CSUCI Library)
+-   Linear and Generalized Linear Mixed Models and Their Applications (2nd Edition) (Download from CSUCI Library)
+-   Vector Generalized Linear and Additive Models; Yee (Download from CSUCI Library)
+
+## Other Statistics Resources
+
+-   [StatLect](https://www.statlect.com/)
+-   [Causal Inference](https://www.r-causal.org/)
+-   [Linear Algebra](https://shainarace.github.io/LinearAlgebra/index.html)
+
+
+## R Programming
+
+-   [Basic R](https://r4ds.hadley.nz/)
+-   [Basic R](https://jjallaire.github.io/hopr/)
+-   [Advanced R](https://adv-r.hadley.nz/)
+-   [Efficient R](https://csgillespie.github.io/efficientR/)
+-   [R Bootcamp](https://r-bootcamp.netlify.app/)
+-   [Deep R](https://deepr.gagolewski.com/index.html)
+-   [Rcpp](https://www.rcpp.org/)
+-   [Rcpp 4 Everyone](https://teuder.github.io/rcpp4everyone_en/)
+-   [Rcpp Armadillo](http://dirk.eddelbuettel.com/code/rcpp.armadillo.html)
+
+## Python Programming
+
+-   [Basic Python](https://wesmckinney.com/book/)
+-   [Anaconda](https://docs.anaconda.com/free/anaconda/install/)
+-   [Learn Python](https://www.learnpython.org/)
+-   [Python Data Science](https://jakevdp.github.io/PythonDataScienceHandbook/)
+-   [Reticulate](https://rstudio.github.io/reticulate/)
+
+## SQL
+
+-   [SQL for Data Science](https://mode.com/sql-tutorial/introduction-to-sql)
+-   [Khan Academy](https://www.khanacademy.org/computing/computer-programming/sql)
+-   [SQLBolt](https://sqlbolt.com/)
+-   [SQLZoo](https://sqlzoo.net/wiki/SQL_Tutorial)
+
+## Shell-Terminal
+
+-   [Missing Semester](https://missing.csail.mit.edu/2020/shell-tools/)
+-   [Shell](https://swcarpentry.github.io/shell-novice/)
+-   [Explain Shell](https://explainshell.com/)
+-   [Vim Adventures](https://vim-adventures.com/)
+-   [Neovim](https://neovim.io/)
+-   [tmux](https://github.com/tmux/tmux/wiki)
+-   [HPCC Manuals](https://hpcc.ucr.edu/manuals/)
+
+## Git
+
+-   [Missing Semester](https://missing.csail.mit.edu/2020/version-control/)
+-   [Happy Git](https://happygitwithr.com/)                              
+-   [Pro Git](https://git-scm.com/book/en/v2)                            
+-   [Oh S\*\*\*, Git!?!](https://ohshitgit.com/)                         
+-   [Git in Simple Words](https://xosh.org/explain-git-in-simple-words/) 
+
+## Markdown
+
+-   [R Mardown](https://bookdown.org/yihui/rmarkdown/)
+-   [Quarto](https://quarto.org/)
+-   [LaTeX](https://tobi.oetiker.ch/lshort/lshort.pdf)
+-   [LaTeX for Beginners](https://www.colorado.edu/aps/sites/default/files/attached-files/latex_primer.pdf)
+-   [Typst](https://typst.app/)
+
+## Dashboards
+
+-   [Shiny](https://shiny.posit.co/)
+-   [Quarto Dashboards](https://quarto.org/docs/dashboards/)
+-   [Tableau](https://www.tableau.com/learn/training)
+-   [Power BI](https://learn.microsoft.com/en-us/training/powerplatform/power-bi)
+
+
+## Other Programming
+
+-   [Cpp](https://www.learncpp.com/)
+-   [Cpp Armadillo](https://arma.sourceforge.net/)
+-   [Julia Data Science](https://juliadatascience.io/)
+-   [ArcGIS](https://learn.arcgis.com/en/gallery/)
+-   [SAS](https://www.sas.com/en_us/home.html)
+-   [Stata](https://www.stata.com/)
+-   [SPSS](https://www.ibm.com/spss)
+-   [VBA](https://learn.microsoft.com/en-us/office/vba/library-reference/concepts/getting-started-with-vba-in-office)
+-   [JMP](https://www.jmp.com/en_us/home.html)

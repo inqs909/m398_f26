@@ -20,7 +20,8 @@ filters:
 editor: source
 
 order: 1
-
+date: 08-25-26
+description: An introduction to the course.
 ---
 
 

@@ -22,6 +22,10 @@ $presentation-heading-text-transform: uppercase !default;
 
 /*-- scss:rules --*/
 
+#title-slide .date {
+  display: none;
+}
+
 .reveal p {
   font-weight: 300;
   text-shadow: 1px 1px $body-bg;

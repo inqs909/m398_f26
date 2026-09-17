@@ -28,6 +28,8 @@ filters:
 editor: source
 
 order: 6
+date: 09-22-26
+description: An exploration of different types of logistic regression models.
 ---
 
 ## Python Setup

@@ -26,6 +26,8 @@ filters:
 
 editor: source
 order: 13
+date: 11-10-26
+description: An introduction to support vector machines.
 ---
 
 ## Python Setup

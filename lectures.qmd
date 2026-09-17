@@ -4,5 +4,8 @@ editor: source
 listing:
   contents: lectures
   sort: "order asc"
-  fields: [title]
+  fields: 
+    - date
+    - title
+    - subtitle
 ---

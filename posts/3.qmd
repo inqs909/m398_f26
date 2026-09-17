@@ -1,0 +1,13 @@
+---
+title: "Week 3"
+date: 09-05-26
+description: This week we review Linear Regression.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   |
+|---------|--------------------------|
+| 1       | [Slides](../lectures/3a) |

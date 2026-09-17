@@ -1,0 +1,13 @@
+---
+title: "Week 1"
+date: 08-24-26
+description: This week we will install Positron and Python.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   |
+|---------|--------------------------|
+| 1       | [Slides](../lectures/1a) |

@@ -1,0 +1,13 @@
+---
+title: "Week 2"
+date: 08-24-26
+description: This week we review Machine Learning Fundamentals.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   |
+|---------|--------------------------|
+| 1       | [Slides](../lectures/2a) |

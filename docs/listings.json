@@ -8,8 +8,8 @@
       "/lectures/3a.html",
       "/lectures/4a.html",
       "/lectures/5a.html",
-      "/lectures/6a.html",
       "/lectures/7a.html",
+      "/lectures/6a.html",
       "/lectures/8a.html",
       "/lectures/9a.html",
       "/lectures/10a.html",
@@ -22,7 +22,17 @@
     "listing": "/assignments.html",
     "items": [
       "/assignments/a2.html",
-      "/assignments/a3.html"
+      "/assignments/a3.html",
+      "/assignments/a4.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/4.html",
+      "/posts/3.html",
+      "/posts/1.html",
+      "/posts/2.html"
     ]
   }
 ]

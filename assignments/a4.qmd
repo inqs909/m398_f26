@@ -19,7 +19,7 @@ Submit the \*.html file to Canvas.
 
 Create a raw cell and insert this code for those using Positron and Jupyter.
 
-```text
+```yaml
 ---
 title: "TITLE"
 author: "NAME HERE"

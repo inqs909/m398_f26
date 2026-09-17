@@ -4,7 +4,6 @@ subtitle: Data Science Edition
 format:
   revealjs:
     scrollable: true
-    include-in-header: "math_commands.html"
     navigation-mode: vertical
     controls-layout: bottom-right
     controls-tutorial: true
@@ -27,33 +26,8 @@ revealjs-plugins:
   - verticator
   
 filters: 
-  - reveal-header
   - code-fullscreen
   - reveal-auto-agenda
-
-jupyter: python3
-format:
-  revealjs:
-    scrollable: true
-    navigation-mode: vertical
-    controls-layout: bottom-right
-    controls-tutorial: true
-    incremental: false
-    theme: [default, styles.scss]
-execute:
-  echo: true
-  eval: true
-  warning: false
-
-revealjs-plugins:
-  - pointer
-  - verticator
-  
-filters: 
-  - code-fullscreen
-  - reveal-auto-agenda
-
-editor: source
 
 order: 16
 date: 12-03-26

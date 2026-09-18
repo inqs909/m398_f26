@@ -391,9 +391,9 @@ dat["event"] = np.where(
 -   Censoring is independent of time-to-event generation
 :::
 
-# Survival Rate
+# Survival Fuction
 
-## Survival Curve
+## Survival Function
 
 ::: incremental
 -   The survival curve will determine what is the probability of surviving up to a certain time
@@ -492,9 +492,8 @@ km_data = pd.DataFrame({
 ```
 :::
 
-# Kaplan-Meier Curves
 
-## Data
+## VA Lung Example
 
 ::: panel-tabset
 ### Description
@@ -545,7 +544,7 @@ time, survival_probability = kaplan_meier_estimator(  # <3>
 ```
 
 1.  `event` must be Boolean: `True` means the event occurred.
-2.  `time` stores the event or censoring time.
+2.  Creates a survival outcome containing the censoring mechanism and time to event.
 3.  The function returns the event times and estimated survival probabilities.
 :::
 

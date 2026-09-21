@@ -57,17 +57,6 @@ penguins["gentoo_binary"] = (
     penguins["species"] == "Gentoo"
 ).astype(int)
 
-# World Values Survey data used for ordinal regression
-wvs = sm.datasets.get_rdataset(
-    "WVS",
-    package="carData",
-    cache=True,
-).data
-wvs["poverty"] = pd.Categorical(
-    wvs["poverty"],
-    categories=["Too Little", "About Right", "Too Much"],
-    ordered=True,
-)
 ```
 
 ## Learning Outcomes
@@ -346,8 +335,8 @@ multinomial_result.summary()
 # New observations
 new_penguins = pd.DataFrame(
     {
-        "body_mass_g": [4005, 4775],
-        "flipper_length_mm": [200, 220],
+        "body_mass_g": [4005, 4775, 2800, 3750],
+        "flipper_length_mm": [200, 220, 180, 210],
     }
 )
 

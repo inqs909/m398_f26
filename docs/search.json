@@ -1551,7 +1551,7 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "assignments/a3.html",
@@ -1587,6 +1587,27 @@
     "title": "ICA 2",
     "section": "Problem 2",
     "text": "Problem 2\nFit a linear model between the outcome caffeine_mg and predictors size, calories, and sugar_g from the starbucks dataset using the matrix formulation approach by defining the \\(X\\) matrix. Use tall as the reference value for the size variable."
+  },
+  {
+    "objectID": "assignments/a5.html",
+    "href": "assignments/a5.html",
+    "title": "ICA 4",
+    "section": "",
+    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)\nPlease submit an html file.\nDue 9/26/26 @ 11:59 PM\nSubmit the *.html file to Canvas."
+  },
+  {
+    "objectID": "assignments/a5.html#notebook-setup",
+    "href": "assignments/a5.html#notebook-setup",
+    "title": "ICA 4",
+    "section": "Notebook Setup",
+    "text": "Notebook Setup\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a5.html#problem-1",
+    "href": "assignments/a5.html#problem-1",
+    "title": "ICA 4",
+    "section": "Problem 1",
+    "text": "Problem 1\nFrom the Applied Section in Chapter 4: Problem 16"
   },
   {
     "objectID": "index.html",

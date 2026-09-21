@@ -1,12 +1,45 @@
 ---
-title: "Assignment 5"
-date: 3/15/24
-description: "Assignment is due 4/06/24"
+title: "ICA 4"
+date: 9/21/26
+description: "Assignment is due 9/26/26"
 editor: source
-draft: true
+draft: false
 ---
 
 From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)
+
+Please submit an html file.
+
+**Due 9/26/26 \@ 11:59 PM**
+
+Submit the \*.html file to Canvas.
+
+
+## Notebook Setup
+
+Create a raw cell and insert this code for those using Positron and Jupyter.
+
+```yaml
+---
+title: "TITLE"
+author: "NAME HERE"
+date: "DATE HERE"
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: show
+    code-line-numbers: true
+    embed-resources: true
+execute:
+  echo: true
+  message: false
+  warning: false
+  error: true
+jupyter: python3
+---
+```
+
 
 ## Problem 1
 

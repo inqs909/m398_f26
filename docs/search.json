@@ -1603,6 +1603,13 @@
     "text": "Notebook Setup\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
   },
   {
+    "objectID": "assignments/a5.html#import-data",
+    "href": "assignments/a5.html#import-data",
+    "title": "ICA 4",
+    "section": "Import Data",
+    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nBoston = load_data('Boston')"
+  },
+  {
     "objectID": "assignments/a5.html#problem-1",
     "href": "assignments/a5.html#problem-1",
     "title": "ICA 4",

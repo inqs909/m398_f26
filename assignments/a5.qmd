@@ -1,7 +1,7 @@
 ---
 title: "ICA 4"
 date: 9/21/26
-description: "Assignment is due 9/26/26"
+description: "Assignment is due 9/27/26"
 editor: source
 draft: false
 ---
@@ -10,7 +10,7 @@ From *An Introduction to Statistical Learning* from James, Witten, Hastie, and T
 
 Please submit an html file.
 
-**Due 9/26/26 \@ 11:59 PM**
+**Due 9/27/26 \@ 11:59 PM**
 
 Submit the \*.html file to Canvas.
 

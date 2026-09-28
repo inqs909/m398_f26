@@ -1,0 +1,12 @@
+{
+  "hash": "529f1fc0a7cdf491f7c54ab42f11385d",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"ICA 4\"\ndate: 9/21/26\ndescription: \"Assignment is due 9/27/26\"\neditor: source\ndraft: false\n---\n\nFrom *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)\n\nPlease submit an html file.\n\n**Due 9/27/26 \\@ 11:59 PM**\n\nSubmit the \\*.html file to Canvas.\n\n\n## Notebook Setup\n\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n\n```yaml\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---\n```\n\n## Import Data\n\n::: {#2e892035 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nBoston = load_data('Boston')\n```\n:::\n\n\n## Problem 1\n\nFrom the Applied Section in Chapter 4: Problem 16\n\n",
+    "supporting": [
+      "a5_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

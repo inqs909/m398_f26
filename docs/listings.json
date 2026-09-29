@@ -8,8 +8,8 @@
       "/lectures/3a.html",
       "/lectures/4a.html",
       "/lectures/5a.html",
-      "/lectures/7a.html",
       "/lectures/6a.html",
+      "/lectures/7a.html",
       "/lectures/8a.html",
       "/lectures/9a.html",
       "/lectures/10a.html",
@@ -31,6 +31,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/6.html",
+      "/posts/5.html",
       "/posts/4.html",
       "/posts/3.html",
       "/posts/1.html",

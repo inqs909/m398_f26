@@ -14,6 +14,20 @@
     "text": "Python for Data Science Python for Data Analysis Positron and Python"
   },
   {
+    "objectID": "posts/6.html",
+    "href": "posts/6.html",
+    "title": "Week 6",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/6.html#resources",
+    "href": "posts/6.html#resources",
+    "title": "Week 6",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
     "objectID": "posts/4.html",
     "href": "posts/4.html",
     "title": "Week 4",
@@ -1390,7 +1404,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nRegularization\n\n\n\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\n\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "books.html",
@@ -1621,7 +1635,7 @@
     "href": "index.html",
     "title": "Welcome to Advanced Research Investigation!",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 6\n\n\nThis week we review Resampling Techniques.\n\n\n\n\n\nSep 28, 2026\n\n\n\n\n\n\n\nWeek 5\n\n\nThis week we review Logistic Regression.\n\n\n\n\n\nSep 21, 2026\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/10a.html#python-setup",
@@ -2622,7 +2636,7 @@
     "href": "lectures/6a.html#cv-notebook-example",
     "title": "Resampling Methods",
     "section": "CV Notebook Example",
-    "text": "CV Notebook Example"
+    "text": "CV Notebook Example\nCross-Validation Notebook"
   },
   {
     "objectID": "lectures/6a.html#bootstrap-methods-1",
@@ -2650,7 +2664,7 @@
     "href": "lectures/6a.html#bootstrap-notebook",
     "title": "Resampling Methods",
     "section": "Bootstrap Notebook",
-    "text": "Bootstrap Notebook"
+    "text": "Bootstrap Notebook\nBootstrap Method Notebook"
   },
   {
     "objectID": "lectures/8a.html#python-setup",
@@ -2894,6 +2908,20 @@
     "objectID": "posts/3.html#resources",
     "href": "posts/3.html#resources",
     "title": "Week 3",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/5.html",
+    "href": "posts/5.html",
+    "title": "Week 5",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/5.html#resources",
+    "href": "posts/5.html#resources",
+    "title": "Week 5",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },

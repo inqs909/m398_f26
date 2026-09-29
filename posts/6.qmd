@@ -1,0 +1,13 @@
+---
+title: "Week 6"
+date: 09-28-26
+description: This week we review Resampling Techniques.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   |
+|---------|--------------------------|
+| 1       | [Slides](../lectures/6a) |

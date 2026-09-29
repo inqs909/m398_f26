@@ -27,7 +27,7 @@ filters:
 
 editor: source
 
-order: 8
+order: 7
 date: 09-29-26
 description: An introduction to cross-validation and bootstrapping techniques.
 ---
@@ -148,7 +148,7 @@ Several Python packages have developed methods to execute a cross-validation app
 
 ## CV Notebook Example
 
-
+[Cross-Validation Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_4_cv.ipynb)
 
 # Bootstrap Methods
 
@@ -194,3 +194,5 @@ bootstrap_model.params
 Obtain the Bootstrap-based Standard Errors for the regression coefficients. Use $B=1000$ bootstrap samples.
 
 ## Bootstrap Notebook
+
+[Bootstrap Method Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_4_boot.ipynb)

@@ -2618,32 +2618,11 @@
     "text": "Executing in Python\nSeveral Python packages have developed methods to execute a cross-validation approach."
   },
   {
-    "objectID": "lectures/6a.html#cv-in-scikit-learn",
-    "href": "lectures/6a.html#cv-in-scikit-learn",
+    "objectID": "lectures/6a.html#cv-notebook-example",
+    "href": "lectures/6a.html#cv-notebook-example",
     "title": "Resampling Methods",
-    "section": "CV in scikit-learn",
-    "text": "CV in scikit-learn\n\ncv_model = RidgeCV(\n    alphas=lambdas,          # Candidate penalty values\n    cv=None,                 # Efficient leave-one-out CV for ridge\n    store_cv_results=True,\n)\ncv_model.fit(X, y)"
-  },
-  {
-    "objectID": "lectures/6a.html#example---ridge-regression",
-    "href": "lectures/6a.html#example---ridge-regression",
-    "title": "Resampling Methods",
-    "section": "Example - Ridge Regression",
-    "text": "Example - Ridge Regression\n\nPreparationCVCV PlotBest ParameterResults\n\n\n\nridge_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\nX_ridge = penguins[ridge_predictors]\ny_ridge = penguins[\"body_mass_g\"]\n\nridge_scaler = StandardScaler()\nX_ridge_scaled = ridge_scaler.fit_transform(X_ridge)\n\n\n\n\nridge_mod_cv = RidgeCV(\n    alphas=lambdas,\n    cv=None,\n    store_cv_results=True,\n)\nridge_mod_cv.fit(X_ridge_scaled, y_ridge)\n\nridge_cv_results = pd.DataFrame(\n    {\n        \"lambda\": lambdas,\n        \"mean_cv_error\": ridge_mod_cv.cv_results_.mean(axis=0),\n    }\n)\nridge_best_result = ridge_cv_results.loc[\n    [ridge_cv_results[\"mean_cv_error\"].idxmin()]\n]\n\n\n\n\n(\n    ggplot(ridge_cv_results, aes(x=\"lambda\", y=\"mean_cv_error\"))\n    + geom_line()\n    + geom_point(data=ridge_best_result, size=3)\n    + scale_x_log10()\n    + labs(\n        x=\"Lambda\",\n        y=\"Mean leave-one-out squared error\",\n        title=\"Ridge cross-validation\",\n    )\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\nridge_mod_cv.alpha_\n\n1.0\n\n\n\n\n\nridge_mod = Ridge(alpha=ridge_mod_cv.alpha_)\nridge_mod.fit(X_ridge_scaled, y_ridge)\n\nridge_coefficients = ridge_mod.coef_ / ridge_scaler.scale_\nridge_intercept = ridge_mod.intercept_ - np.sum(\n    ridge_mod.coef_ * ridge_scaler.mean_ / ridge_scaler.scale_\n)\n\npd.Series(\n    [ridge_intercept, *ridge_coefficients],\n    index=[\"Intercept\", *ridge_predictors],\n    name=\"coefficient\",\n)\n\nIntercept           -6366.029487\nflipper_length_mm      50.362104\nbill_depth_mm          16.489200\nbill_length_mm          3.840000\nName: coefficient, dtype: float64"
-  },
-  {
-    "objectID": "lectures/6a.html#example---lasso",
-    "href": "lectures/6a.html#example---lasso",
-    "title": "Resampling Methods",
-    "section": "Example - LASSO",
-    "text": "Example - LASSO\n\nPreparationCVCV PlotBest ParameterResults\n\n\n\nlasso_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\nX_lasso = penguins[lasso_predictors]\ny_lasso = penguins[\"body_mass_g\"]\n\nlasso_scaler = StandardScaler()\nX_lasso_scaled = lasso_scaler.fit_transform(X_lasso)\n\n\n\n\nlasso_mod_cv = LassoCV(\n    alphas=lambdas,\n    cv=loo,\n    max_iter=100_000,\n    n_jobs=-1,\n)\nlasso_mod_cv.fit(X_lasso_scaled, y_lasso)\n\nlasso_cv_results = pd.DataFrame(\n    {\n        \"lambda\": lasso_mod_cv.alphas_,\n        \"mean_cv_error\": lasso_mod_cv.mse_path_.mean(axis=1),\n    }\n)\nlasso_best_result = lasso_cv_results.loc[\n    [lasso_cv_results[\"mean_cv_error\"].idxmin()]\n]\n\n\n\n\n(\n    ggplot(lasso_cv_results, aes(x=\"lambda\", y=\"mean_cv_error\"))\n    + geom_line()\n    + geom_point(data=lasso_best_result, size=3)\n    + scale_x_log10()\n    + labs(\n        x=\"Lambda\",\n        y=\"Mean leave-one-out squared error\",\n        title=\"LASSO cross-validation\",\n    )\n    + theme_minimal()\n)\n\n\n\n\n\n\n\n\n\n\n\nlasso_mod_cv.alpha_\n\nnp.float64(1.0)\n\n\n\n\n\nlasso_mod = Lasso(\n    alpha=lasso_mod_cv.alpha_,\n    max_iter=100_000,\n)\nlasso_mod.fit(X_lasso_scaled, y_lasso)\n\nlasso_coefficients = lasso_mod.coef_ / lasso_scaler.scale_\nlasso_intercept = lasso_mod.intercept_ - np.sum(\n    lasso_mod.coef_ * lasso_scaler.mean_ / lasso_scaler.scale_\n)\n\npd.Series(\n    [lasso_intercept, *lasso_coefficients],\n    index=[\"Intercept\", *lasso_predictors],\n    name=\"coefficient\",\n)\n\nIntercept           -6390.063710\nflipper_length_mm      50.588578\nbill_depth_mm          16.621328\nbill_length_mm          3.300194\nName: coefficient, dtype: float64"
-  },
-  {
-    "objectID": "lectures/6a.html#try-with-mtcars",
-    "href": "lectures/6a.html#try-with-mtcars",
-    "title": "Resampling Methods",
-    "section": "Try with mtcars",
-    "text": "Try with mtcars\nComplete a LASSO approach using mtcars to predict mpg from the remaining variables."
+    "section": "CV Notebook Example",
+    "text": "CV Notebook Example"
   },
   {
     "objectID": "lectures/6a.html#bootstrap-methods-1",
@@ -2667,11 +2646,11 @@
     "text": "Examples\nFitting the following model:\n\nbootstrap_predictors = [\n    \"flipper_length_mm\",\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n]\nX_bootstrap = sm.add_constant(\n    penguins[bootstrap_predictors],\n    has_constant=\"add\",\n)\ny_bootstrap = penguins[\"body_mass_g\"]\n\nbootstrap_model = sm.OLS(y_bootstrap, X_bootstrap).fit()\nbootstrap_model.params\n\nconst               -6445.476043\nflipper_length_mm      50.762132\nbill_length_mm          3.292863\nbill_depth_mm          17.836391\ndtype: float64\n\n\nObtain the Bootstrap-based Standard Errors for the regression coefficients. Use \\(B=1000\\) bootstrap samples."
   },
   {
-    "objectID": "lectures/6a.html#examples-solution",
-    "href": "lectures/6a.html#examples-solution",
+    "objectID": "lectures/6a.html#bootstrap-notebook",
+    "href": "lectures/6a.html#bootstrap-notebook",
     "title": "Resampling Methods",
-    "section": "Examples: Solution",
-    "text": "Examples: Solution\n\n\nCode\nB = 1000\nrng = np.random.default_rng(12345)\nbootstrap_estimates = []\n\nfor _ in range(B):\n    sample_positions = rng.integers(\n        low=0,\n        high=len(penguins),\n        size=len(penguins),\n    )\n    bootstrap_sample = penguins.iloc[sample_positions]\n\n    X_sample = sm.add_constant(\n        bootstrap_sample[bootstrap_predictors],\n        has_constant=\"add\",\n    )\n    y_sample = bootstrap_sample[\"body_mass_g\"]\n\n    fitted_sample = sm.OLS(y_sample, X_sample).fit()\n    bootstrap_estimates.append(fitted_sample.params)\n\nbootstrap_estimates = pd.DataFrame(bootstrap_estimates)\n\nbootstrap_results = pd.DataFrame(\n    {\n        \"estimate\": bootstrap_model.params,\n        \"bootstrap_se\": bootstrap_estimates.std(ddof=1),\n        \"ci_lower\": bootstrap_estimates.quantile(0.025),\n        \"ci_upper\": bootstrap_estimates.quantile(0.975),\n    }\n)\n\nbootstrap_results.round(3)\n\n\n\n\n\n\n\n\n\nestimate\nbootstrap_se\nci_lower\nci_upper\n\n\n\n\nconst\n-6445.476\n534.391\n-7541.213\n-5470.429\n\n\nflipper_length_mm\n50.762\n2.403\n46.289\n55.562\n\n\nbill_length_mm\n3.293\n5.186\n-7.158\n12.954\n\n\nbill_depth_mm\n17.836\n12.907\n-6.881\n43.931"
+    "section": "Bootstrap Notebook",
+    "text": "Bootstrap Notebook"
   },
   {
     "objectID": "lectures/8a.html#python-setup",

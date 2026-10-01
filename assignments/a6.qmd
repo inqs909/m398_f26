@@ -3,7 +3,7 @@ title: "ICA 5"
 date: 10/04/26
 description: "Assignment is due 10/04/26."
 editor: source
-draft: true
+draft: false
 ---
 
 From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Python Edition)

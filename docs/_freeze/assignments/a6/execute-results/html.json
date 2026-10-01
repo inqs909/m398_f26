@@ -1,10 +1,10 @@
 {
-  "hash": "73aff90bde6bafacf910511d63361682",
+  "hash": "015d092f081a927142dc33cb4d37c970",
   "result": {
     "engine": "jupyter",
-    "markdown": "---\ntitle: \"ICA 5\"\ndate: 10/04/26\ndescription: \"Assignment is due 10/04/26.\"\neditor: source\ndraft: true\n---\n\nFrom *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Python Edition)\n\nPlease submit an html file.\n\n**Due 9/27/26 \\@ 11:59 PM**\n\nSubmit the \\*.html file to Canvas.\n\n\n## Notebook Setup\n\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n\n```yaml\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---\n```\n\n## Import Data\n\n::: {#ea05fdb2 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nDefault = load_data('Default')\nBoston = load_data('Boston')\n```\n:::\n\n\n## Problem 1\n\nFrom the Applied Section in Chapter 5: Problem 5 a, b, c, d\n\n## Problem 2\n\nFrom the Applied Section in Chapter 5: Problem 9\n\n",
+    "markdown": "---\ntitle: \"ICA 5\"\ndate: 10/04/26\ndescription: \"Assignment is due 10/04/26.\"\neditor: source\ndraft: false\n---\n\nFrom *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Python Edition)\n\nPlease submit an html file.\n\n**Due 9/27/26 \\@ 11:59 PM**\n\nSubmit the \\*.html file to Canvas.\n\n\n## Notebook Setup\n\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n\n```yaml\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---\n```\n\n## Import Data\n\n::: {#e2bc0756 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nDefault = load_data('Default')\nBoston = load_data('Boston')\n```\n:::\n\n\n## Problem 1\n\nFrom the Applied Section in Chapter 5: Problem 5 a, b, c, d\n\n## Problem 2\n\nFrom the Applied Section in Chapter 5: Problem 9\n\n",
     "supporting": [
-      "a6_files"
+      "a6_files/figure-html"
     ],
     "filters": [],
     "includes": {}

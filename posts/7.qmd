@@ -1,0 +1,13 @@
+---
+title: "Week 7"
+date: 10-05-26
+description: This week we review Regularization.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   |
+|---------|--------------------------|
+| 1       | [Slides](../lectures/7a) |

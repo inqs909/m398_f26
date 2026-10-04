@@ -128,14 +128,17 @@ Each method is capable on identifying the optimum MSE for the Bias-Variance trad
 ## Ridge Regression in Python
 
 
+[Ridge Regression Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_7_ridge.ipynb)
+
 ## LASSO in Python
+
+
+[Lasso Regression Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_7_lasso.ipynb)
+
 
 ## Resources
 
 - [Palmer Penguins data and attribution](https://allisonhorst.github.io/palmerpenguins/): Horst, Hill, and Gorman; data collected by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research program.
-- [Python palmerpenguins package](https://github.com/mcnakhaee/palmerpenguins)
 - [scikit-learn Ridge](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Ridge.html)
 - [scikit-learn RidgeClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeClassifier.html)
-- [Pipelines and avoiding data leakage](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage)
 - [Cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html)
-- [GridSearchCV](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)

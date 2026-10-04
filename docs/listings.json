@@ -1,5 +1,27 @@
 [
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/7.html",
+      "/posts/6.html",
+      "/posts/5.html",
+      "/posts/4.html",
+      "/posts/3.html",
+      "/posts/1.html",
+      "/posts/2.html"
+    ]
+  },
+  {
+    "listing": "/assignments.html",
+    "items": [
+      "/assignments/a2.html",
+      "/assignments/a3.html",
+      "/assignments/a4.html",
+      "/assignments/a5.html",
+      "/assignments/a6.html"
+    ]
+  },
+  {
     "listing": "/lectures.html",
     "items": [
       "/lectures/1a.html",
@@ -17,27 +39,6 @@
       "/lectures/12a.html",
       "/lectures/13a.html",
       "/lectures/15b.html"
-    ]
-  },
-  {
-    "listing": "/assignments.html",
-    "items": [
-      "/assignments/a2.html",
-      "/assignments/a3.html",
-      "/assignments/a4.html",
-      "/assignments/a5.html",
-      "/assignments/a6.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/posts/6.html",
-      "/posts/5.html",
-      "/posts/4.html",
-      "/posts/3.html",
-      "/posts/1.html",
-      "/posts/2.html"
     ]
   }
 ]

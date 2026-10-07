@@ -2730,13 +2730,6 @@
     "text": "Prediction Multinomial Regression\n\n# New observations\nnew_penguins = pd.DataFrame(\n    {\n        \"body_mass_g\": [4005, 4775, 2800, 3750],\n        \"flipper_length_mm\": [200, 220, 180, 210],\n    }\n)\n\n# Construct predictors in the same format used to fit the model\nnew_multinomial_X = sm.add_constant(\n    new_penguins[[\"body_mass_g\", \"flipper_length_mm\"]],\n    has_constant=\"add\",\n)\n\n# Predicted probability for each species\npredicted_probabilities = multinomial_result.predict(\n    new_multinomial_X\n)\n\n# Replace numeric column names with species names\npredicted_probabilities = predicted_probabilities.rename(\n    columns=multinomial_model._ynames_map\n)\n\n# Choose the species with the largest predicted probability\npredicted_species = predicted_probabilities.idxmax(axis=1)\n\n# Combine inputs, probabilities, and final predictions\nprediction_results = (\n    new_penguins\n    .join(predicted_probabilities.add_prefix(\"prob_\"))\n    .assign(predicted_species=predicted_species)\n)\n\nprediction_results\n\n\n\n\n\n\n\n\nbody_mass_g\nflipper_length_mm\nprob_Adelie\nprob_Chinstrap\nprob_Gentoo\npredicted_species\n\n\n\n\n0\n4005\n200\n0.477820\n0.517485\n4.694680e-03\nChinstrap\n\n\n1\n4775\n220\n0.000015\n0.000192\n9.997932e-01\nGentoo\n\n\n2\n2800\n180\n0.862852\n0.137148\n2.812873e-10\nAdelie\n\n\n3\n3750\n210\n0.082018\n0.684367\n2.336150e-01\nChinstrap"
   },
   {
-    "objectID": "lectures/7a.html#python-setup",
-    "href": "lectures/7a.html#python-setup",
-    "title": "Regularization",
-    "section": "Python Setup",
-    "text": "Python Setup\n\nimport numpy as np\nimport pandas as pd\nimport statsmodels.api as sm\nfrom plotnine import *\nfrom plotnine.data import mtcars as mtcars_data\nfrom plotnine.data import penguins as penguins_data\nfrom sklearn.linear_model import Lasso, Ridge\nfrom sklearn.pipeline import make_pipeline\n\npenguins = penguins_data.dropna().copy()\n\npenguin_predictors = [\n    \"flipper_length_mm\",\n    \"bill_depth_mm\",\n    \"bill_length_mm\",\n]\npenguin_X = penguins[penguin_predictors].copy()\npenguin_y = penguins[\"body_mass_g\"].copy()\nlambda_value = 1.3"
-  },
-  {
     "objectID": "lectures/7a.html#learning-outcomes",
     "href": "lectures/7a.html#learning-outcomes",
     "title": "Regularization",
@@ -2751,8 +2744,8 @@
     "text": "Why Regularization?\n\nThe additive linear models (Linear, Logistic, GLM) can be limiting by assuming a line.\n\nHowever, these models tend to perform better, and more efficiently than other models.\nThey also allow for inferential procedures.\n\nRegularization will improve prediction accuracy and model interpretability.\n\n\n\n\n\n\n\nCaution\n\n\nStatisticians warn against using regularization techniques as it threatens inference. If one must be done, Ridge Regression is preferred."
   },
   {
-    "objectID": "lectures/7a.html#regularization-1",
-    "href": "lectures/7a.html#regularization-1",
+    "objectID": "lectures/7a.html#regularization",
+    "href": "lectures/7a.html#regularization",
     "title": "Regularization",
     "section": "Regularization",
     "text": "Regularization\nShrinkage methods are techniques that will reduce a full parameterized model (a high number of predictors) to a lower parameterized model (a smaller number of predictors)."

@@ -1,0 +1,12 @@
+{
+  "hash": "ae26b4e3e68d932f83ca02b916d2c865",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"ICA 6\"\ndate: 10/07/26\ndescription: \"Assignment is due 10/11/26.\"\neditor: source\ndraft: false\n---\n\n\n\n## Notebook Setup\n\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n\n```yaml\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---\n```\n\n## Import Data\n\n::: {#432abc66 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCollege = load_data('College')\nBoston = load_data('Boston')\n```\n:::\n\n\nFrom *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)\n\n\n\n## Problem 1\n\nFrom the Applied Section in Chapter 6: Problem 9 a,b,c,d\n\n## Problem 2\n\nFrom the Applied Section in Chapter 6: Problem 11 a(ignore Best Subset and PCR), b, c\n\n",
+    "supporting": [
+      "a7_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

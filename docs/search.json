@@ -1698,7 +1698,21 @@
     "href": "assignments/a7.html",
     "title": "ICA 6",
     "section": "",
-    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
+    "text": "Create a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a7.html#notebook-setup",
+    "href": "assignments/a7.html#notebook-setup",
+    "title": "ICA 6",
+    "section": "",
+    "text": "Create a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a7.html#import-data",
+    "href": "assignments/a7.html#import-data",
+    "title": "ICA 6",
+    "section": "Import Data",
+    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCollege = load_data('College')\nBoston = load_data('Boston')\n\nFrom An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
   },
   {
     "objectID": "assignments/a7.html#problem-1",

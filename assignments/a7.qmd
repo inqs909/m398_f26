@@ -6,7 +6,47 @@ editor: source
 draft: false
 ---
 
+
+
+## Notebook Setup
+
+Create a raw cell and insert this code for those using Positron and Jupyter.
+
+```yaml
+---
+title: "TITLE"
+author: "NAME HERE"
+date: "DATE HERE"
+format: 
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: show
+    code-line-numbers: true
+    embed-resources: true
+execute:
+  echo: true
+  message: false
+  warning: false
+  error: true
+jupyter: python3
+---
+```
+
+## Import Data
+
+```{python}
+import numpy as np
+import pandas as pd
+from ISLP import load_data
+College = load_data('College')
+Boston = load_data('Boston')
+```
+
+
 From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)
+
+
 
 ## Problem 1
 

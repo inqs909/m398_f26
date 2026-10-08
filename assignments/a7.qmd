@@ -1,5 +1,5 @@
 ---
-title: "ICA 5"
+title: "ICA 6"
 date: 10/07/26
 description: "Assignment is due 10/11/26."
 editor: source

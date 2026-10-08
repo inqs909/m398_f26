@@ -1,15 +1,21 @@
 ---
-title: "Survival Analysis"
-
+title: "Support Vector Machines"
+jupyter: python3
 format:
   revealjs:
     scrollable: true
     navigation-mode: vertical
-    theme: [default, styles.scss]
     controls-layout: bottom-right
     controls-tutorial: true
-    incremental: false 
-    
+    incremental: false
+    theme: [default, styles.scss]
+execute:
+  echo: true
+  eval: true
+  warning: false
+  error: true
+
+
 revealjs-plugins:
   - pointer
   - verticator
@@ -19,1182 +25,634 @@ filters:
   - reveal-auto-agenda
 
 editor: source
-jupyter: python3
-execute:
-  echo: false
-  eval: true
-  warning: false
-
-order: 14
-date: 11-17-26
-description: An introduction to survival analysis.
+order: 13
+date: 11-10-26
+description: An introduction to support vector machines.
 ---
 
 ## Python Setup
 
-```bash
-uv add scikit-survival
-```
-
 ```{python}
-#| label: setup
 
 import numpy as np
 import pandas as pd
 
-from plotnine import *
+from plotnine import (
+    aes,
+    geom_line,
+    geom_point,
+    geom_tile,
+    ggplot,
+    labs,
+    theme,
+    theme_bw,
+)
+from plotnine.data import penguins as penguins_raw
+from sklearn.model_selection import GridSearchCV, StratifiedKFold
+from sklearn.svm import SVC
 
-from sksurv.compare import compare_survival
-from sksurv.datasets import load_veterans_lung_cancer
-from sksurv.linear_model import CoxPHSurvivalAnalysis
-from sksurv.nonparametric import kaplan_meier_estimator
-from sksurv.preprocessing import OneHotEncoder
-from sksurv.util import Surv
+# Palmer Penguins data used in the motivating examples.
+penguins = (
+    penguins_raw
+    .assign(
+        gentoo=lambda df: np.where(df["species"] == "Gentoo", "A", "B")
+    )
+    .dropna()
+    .copy()
+)
 
-# Data used throughout the survival-analysis examples
-X, y = load_veterans_lung_cancer()
+# Linear support-vector-classifier simulation.
+rng_linear = np.random.default_rng(2434)
+linear_x = rng_linear.normal(size=(20, 2))
+linear_y = np.repeat([-1, 1], 10)
+linear_x[linear_y == 1] += 1
 
-veterans = X.assign(
-    Survival_in_days=y["Survival_in_days"],
-    Status=y["Status"]
+linear_dat = pd.DataFrame(
+    {
+        "x1": linear_x[:, 0],
+        "x2": linear_x[:, 1],
+        "y": linear_y,
+        "class_label": linear_y.astype(str),
+    }
+)
+
+# Test observations for the linear classifier.
+test_x = rng_linear.normal(size=(20, 2))
+test_y = rng_linear.choice([-1, 1], size=20, replace=True)
+test_x[test_y == 1] += 1
+
+testdat = pd.DataFrame(
+    {
+        "x1": test_x[:, 0],
+        "x2": test_x[:, 1],
+        "y": test_y,
+        "class_label": test_y.astype(str),
+    }
+)
+
+# Nonlinear simulation used for the radial-kernel SVM.
+rng_radial = np.random.default_rng(1)
+radial_x = rng_radial.normal(size=(200, 2))
+radial_x[:100] += 2
+radial_x[100:150] -= 2
+radial_y = np.concatenate([np.repeat(1, 150), np.repeat(2, 50)])
+
+radial_dat = pd.DataFrame(
+    {
+        "x1": radial_x[:, 0],
+        "x2": radial_x[:, 1],
+        "y": radial_y,
+        "class_label": radial_y.astype(str),
+    }
+)
+
+train_indices = rng_radial.choice(radial_dat.index, size=100, replace=False)
+radial_train = radial_dat.loc[train_indices].copy()
+
+
+def make_prediction_grid(model, data, points=180, padding=0.5):
+    """Create a dense two-dimensional grid and classify each grid point."""
+    x1_values = np.linspace(
+        data["x1"].min() - padding,
+        data["x1"].max() + padding,
+        points,
+    )
+    x2_values = np.linspace(
+        data["x2"].min() - padding,
+        data["x2"].max() + padding,
+        points,
+    )
+    x1_grid, x2_grid = np.meshgrid(x1_values, x2_values)
+
+    grid = pd.DataFrame(
+        {
+            "x1": x1_grid.ravel(),
+            "x2": x2_grid.ravel(),
+        }
+    )
+    grid["prediction"] = model.predict(grid[["x1", "x2"]]).astype(str)
+
+    return grid, x1_values, x2_values
+
+
+def find_boundary_points(grid, x1_values, x2_values):
+    """Find grid cells whose predicted class differs from a neighbor."""
+    predictions = grid["prediction"].to_numpy().reshape(
+        len(x2_values),
+        len(x1_values),
+    )
+    boundary = np.zeros_like(predictions, dtype=bool)
+
+    horizontal_change = predictions[:, 1:] != predictions[:, :-1]
+    vertical_change = predictions[1:, :] != predictions[:-1, :]
+
+    boundary[:, 1:] |= horizontal_change
+    boundary[:, :-1] |= horizontal_change
+    boundary[1:, :] |= vertical_change
+    boundary[:-1, :] |= vertical_change
+
+    return grid.loc[boundary.ravel(), ["x1", "x2"]].copy()
+```
+
+## Learning Outcomes
+
+-   Maximal Margin Classifier
+-   Support Vector Classifier
+-   Python Code
+
+# Maximal Margin Classifier
+
+## Motivating Example
+
+```{python}
+#| echo: false
+
+(
+    ggplot(
+        penguins,
+        aes(x="bill_depth_mm", y="flipper_length_mm", color="gentoo"),
+    )
+    + geom_point()
+    + labs(x="X", y="Y")
+    + theme_bw()
+    + theme(legend_position="none")
 )
 ```
 
+## Maximal Margin Classifier
 
+The **Maximal Margin Classifier** will impose a hyperplane on a graph that will classify the data given a vector of predictor variables.
 
-## Survival Analysis
+## Hyperplane
 
-Survival Analysis is a set of tools to analyze time-to-event data. This leads to the survival rate which models the time to percentage of data to observe the event.
-
-::: incremental
--   To determine the time until a percentile of the data achieves an event
--   Determine which factors may affect the survival rate
-:::
-
-## Channel Island Birds
-
-::: incremental
--   We are interested in how long do bird eggs hatch since being laid
-
--   Determine the hatch rate for each species
-
--   **What happens when there is missing data?**
-:::
-
-## How do we determine the survival rate?
-
-::: incremental
--   Measure from first recording to event of interest
-
--   Construct a probability of surviving up to a certain time point
-:::
-
-## Data Type
-
-::: incremental
--   Data is typically recorded as time-to-event data
-
--   For biomedical studies, researchers are interested in time from diagnosis to death, known as time-to-death
-:::
-
-# Survival Functions
-
-## Survival Analysis Functions
-
-The survival analysis functions are a set of models used to model time-to-event data.
-
-## Survival Function
-
-The survival function models the probability of observing the event after a certain time point.
+Given a p-dimensional space, a hyperplane is flat affine subspace of p-1 dimensions. It is mathematically defined as:
 
 $$
-S(t) = 1 - F(t) = \int^\infty_t f(x) dx
+\beta_0 + \beta_1X_1 + \beta_2 X_2 + \cdots+\beta_pX_p = 0
 $$
 
-## Hazard Function
+## Hyperplane
 
-The hazard function is the probability of observing an event in the next moment, given you survived thus far.
+![](https://images.deepai.org/glossary-terms/3bb86574825445cba73a67222b744648/hyperplane.png){fig-align="center"}
 
-$$
-h(t) = \lim_{\Delta \rightarrow 0}\frac{P(t < X < t+\Delta|X = t)}{\Delta}
-$$
-## Cumulative Hazard Function
+## Constructing the Hyperplane
 
-The cumulative hazard function demonstrate how much *hazard* is accumulated after a certain amount of time.
+A hyperplane is constructed by maximizing the margin $M$ of the data points that are farthest from the theoretical margin. The data points that define the outer edge of the margins are known as support vectors.
 
-$$
-H(t) = \int^t_0 h(x) dx
-$$
+```{python}
+#| echo: false
 
-## Survival Functions
+(
+    ggplot(
+        penguins,
+        aes(x="bill_depth_mm", y="flipper_length_mm", color="gentoo"),
+    )
+    + geom_point()
+    + labs(x="X", y="Y")
+    + theme_bw()
+    + theme(legend_position="none")
+)
+```
 
-All the survival functions are mathematically equivalent to each other.
+## Optimization Problem
 
+-   $\overset{\mathrm{maximize}}{\tiny\beta_0, \beta_1,\ldots,\beta_p,M}\ \large M$
 
-# Censoring
+-   subject to $\sum^p_{j=1}\beta_j^2 = 1$
 
-## Censoring
+-   $y_i(\beta_0 + \beta_1X_{1i} + \beta_2 X_{2i} + \cdots+\beta_pX_{pi})\geq M \ \forall \ i=1,\ldots,n$
 
-::: incremental
--   Censoring is a mechanism where we do not observe the true time-to-event
+## Maximal Margin Classifier
 
--   Not all the time is observed
+![](https://bookdown.org/mpfoley1973/data-sci/images/svm_mmc.png){fig-align="center"}
 
--   Three common types of censoring mechanisms: *Right, Left,* and *Interval*
-:::
+# Support Vector Classifier
 
-## CI Birds Example
+## Support Vector Classifier
 
-You design a study where you want to record the time it takes for an egg to hatch for different species of birds.
-
-You spend a week monitoring different bird nests and record times when eggs are laid.
-
-## CI Birds Left Censoring
-
-The day before the eggs hatched, your boat broke down and were not able to go to the islands for a week due to repairs.
+Maximal Margin Classifiers have one fatal defect, the data points must be completely on one side of the margin. This does not allow room for error.
 
 ::: fragment
-During this time, 5 eggs hatched!
+A Support Vector Classifier allows for data points to be misclassified if need be.
 :::
-
-## Left Censoring
-
-::: panel-tabset
-### Plot
-
-```{python}
-dat = pd.DataFrame({
-    "ID": [str(value) for value in range(1, 11)],
-    "time": [7, 9, 10, 5, 5, 10, 5, 6, 6, 7],
-    "event_observed": [True, True, True, False, False,
-                       True, False, True, True, True]
-})
-
-dat["event"] = np.where(
-    dat["event_observed"], "Hatched", "Left-censored"
-)
-
-(
-    ggplot(dat, aes(x="time", y="ID"))
-    + geom_segment(aes(x=0, xend="time", yend="ID"), color="gray")
-    + geom_point(aes(shape="event"), size=3, color="#0072B2")
-    + geom_vline(xintercept=5, linetype="dashed")
-    + scale_shape_manual(values={"Hatched": "o", "Left-censored": "s"})
-    + labs(x="Weeks", y="Egg ID", shape="Event")
-    + theme_bw()
-)
-```
-
-### Code
-
-```{python}
-#| eval: false
-#| echo: true
-dat = pd.DataFrame({
-    "ID": [str(value) for value in range(1, 11)],
-    "time": [7, 9, 10, 5, 5, 10, 5, 6, 6, 7],
-    "event_observed": [True, True, True, False, False,
-                       True, False, True, True, True]
-})
-
-dat["event"] = np.where(
-    dat["event_observed"], "Hatched", "Left-censored"
-)
-
-(
-    ggplot(dat, aes(x="time", y="ID"))
-    + geom_segment(aes(x=0, xend="time", yend="ID"), color="gray")
-    + geom_point(aes(shape="event"), size=3, color="#0072B2")
-    + geom_vline(xintercept=5, linetype="dashed")
-    + scale_shape_manual(values={"Hatched": "o", "Left-censored": "s"})
-    + labs(x="Weeks", y="Egg ID", shape="Event")
-    + theme_bw()
-)
-```
-:::
-
-## CI Birds Interval Censoring
-
-As you been going out to the islands each day to record whether eggs have hatched or not, you can't travel to the islands for the next few days due to stormy weather.
 
 ::: fragment
-During this time, 8 eggs hatched!
+It achieves this by implementing a Cost mechanism, denoted as $C$, to account for any errors for data points.
 :::
 
-## Interval Censoring
+## Support Vector Classifiers
 
-::: panel-tabset
-### Plot
+![](https://www.surveypractice.org/article/2715-using-support-vector-machines-for-survey-research/attachment/9153.png){fig-align="center"}
 
-```{python}
-dat = pd.DataFrame({
-    "ID": range(1, 7),
-    "lower_time": [7, 4, 9, 4.5, 4, 8],
-    "upper_time": [7, 6, 10, 4.5, 7, 8],
-    "interval_censored": [False, True, True, False, True, False]
-}).sort_values("upper_time", ascending=False).reset_index(drop=True)
+## Optimization Problem
 
-dat["ID"] = pd.Categorical(
-    dat["ID"].astype(str),
-    categories=dat["ID"].astype(str),
-    ordered=True
-)
-dat["event"] = np.where(
-    dat["interval_censored"], "Interval-censored", "Hatched"
-)
-dat["plot_time"] = np.where(
-    dat["interval_censored"],
-    (dat["lower_time"] + dat["upper_time"]) / 2,
-    dat["upper_time"]
-)
+-   $\overset{\mathrm{maximize}}{\tiny\beta_0, \beta_1,\ldots, \beta_p,\epsilon_1,\ldots, \epsilon_n,M}\ \large M$
 
-interval_data = dat[dat["interval_censored"]]
+-   subject to $\sum^p_{j=1}\beta_j^2 = 1$
 
-(
-    ggplot(dat, aes(y="ID"))
-    + geom_segment(aes(x=0, xend="lower_time", yend="ID"), color="gray")
-    + geom_segment(
-        data=interval_data,
-        mapping=aes(x="lower_time", xend="upper_time", y="ID", yend="ID"),
-        inherit_aes=False,
-        color="gray",
-        linetype="dashed",
-        size=1
-    )
-    + geom_point(aes(x="plot_time", shape="event"), size=3, color="#0072B2")
-    + scale_shape_manual(values={"Hatched": "o", "Interval-censored": "s"})
-    + labs(x="Weeks", y="Egg ID", shape="Event")
-    + theme_bw()
-)
-```
+-   $y_i(\beta_0 + \beta_1X_{1i} + \beta_2 X_{2i} + \cdots+\beta_pX_{pi})\geq M (1-\epsilon_i) \ \forall \ i=1,\ldots,n$
 
-### Code
+-   $\epsilon_i\geq 0$
 
-```{python}
-#| eval: false
-#| echo: true
-dat = pd.DataFrame({
-    "ID": range(1, 7),
-    "lower_time": [7, 4, 9, 4.5, 4, 8],
-    "upper_time": [7, 6, 10, 4.5, 7, 8],
-    "interval_censored": [False, True, True, False, True, False]
-}).sort_values("upper_time", ascending=False).reset_index(drop=True)
+-   $\sum^n_{i=1} \epsilon_i \leq C$
 
-dat["ID"] = pd.Categorical(
-    dat["ID"].astype(str),
-    categories=dat["ID"].astype(str),
-    ordered=True
-)
-dat["event"] = np.where(
-    dat["interval_censored"], "Interval-censored", "Hatched"
-)
-dat["plot_time"] = np.where(
-    dat["interval_censored"],
-    (dat["lower_time"] + dat["upper_time"]) / 2,
-    dat["upper_time"]
-)
+## Budget C
 
-interval_data = dat[dat["interval_censored"]]
+The tuning parameter $C$ is known as the budget parameter for error. When the data point is on the correct side of the margin, then it has an error of $0$. When a data point in on the wrong side the margin, it has a bit of error. When the data point is on the opposite side of the hyperplane, then it has an error greater than $1$. This is allowed as long as the sum of errors are less than or equal to $C$.
 
-(
-    ggplot(dat, aes(y="ID"))
-    + geom_segment(aes(x=0, xend="lower_time", yend="ID"), color="gray")
-    + geom_segment(
-        data=interval_data,
-        mapping=aes(x="lower_time", xend="upper_time", y="ID", yend="ID"),
-        inherit_aes=False,
-        color="gray",
-        linetype="dashed",
-        size=1
-    )
-    + geom_point(aes(x="plot_time", shape="event"), size=3, color="#0072B2")
-    + scale_shape_manual(values={"Hatched": "o", "Interval-censored": "s"})
-    + labs(x="Weeks", y="Egg ID", shape="Event")
-    + theme_bw()
-)
-```
-:::
 
-## CI Birds Right Censoring
+# Support Vector Machines
 
-It is the end of the study, and their are 5 more eggs that have not hatched yet!
+## Motivating Example
+
+![](https://www.surveypractice.org/article/2715-using-support-vector-machines-for-survey-research/attachment/9153.png){fig-align="center"}
+
+## Motivating Example
+
+![](https://i.stack.imgur.com/shjDw.png){fig-align="center"}
+
+## Support Vector Machines
+
+A Support Vector Machine will create a nonlinear boundary instead of a line.
 
 ::: fragment
-Additionally, a colleague has informed you that some eggs were eaten by reptiles through out the study. They obtained the day they were eaten or lost.
+It incorporates a kernel function that will compute the similarities between two support vectors.
 :::
 
-## Right Censoring
+::: fragment
+The kernel function can be loosely claimed how the data is modeled.
+:::
+
+## Nonlinear Boundary
+
+![](https://miro.medium.com/v2/resize:fit:982/1*J0k7TxTLoL5ZG-Hq6v34Jg.png){fig-align="center"}
+
+## Nonlinear Boundary
+
+![](https://s3.amazonaws.com/production.scholastica/public/attachments/b275a94b-e5ba-4e3b-8bbe-5e3235e95892/large/image4.png){fig-align="center"}
+
+## Support Vector Machines Kernels
+
+-   Linear
+
+-   Polynomial
+
+-   Radial
+
+
+# Python Code
+
+## Support Vector Classifier
 
 ::: panel-tabset
-### Plot
-
-```{python}
-dat = pd.DataFrame({
-    "ID": [str(value) for value in range(1, 11)],
-    "time": [7, 9, 10, 4, 2, 10, 8, 5, 6, 7],
-    "event_observed": [False, True, False, False, True,
-                       False, False, True, False, True]
-})
-
-dat["event"] = np.where(
-    dat["event_observed"], "Hatched", "Right-censored"
-)
-
-(
-    ggplot(dat, aes(x="time", y="ID"))
-    + geom_segment(aes(x=0, xend="time", yend="ID"), color="gray")
-    + geom_point(aes(shape="event"), size=3, color="#0072B2")
-    + geom_vline(xintercept=10, linetype="dashed")
-    + scale_shape_manual(values={"Hatched": "o", "Right-censored": "s"})
-    + labs(x="Weeks", y="Egg ID", shape="Event")
-    + theme_bw()
-)
-```
-
-### Code
-
-```{python}
-#| echo: true
-#| eval: false
-dat = pd.DataFrame({
-    "ID": [str(value) for value in range(1, 11)],
-    "time": [7, 9, 10, 4, 2, 10, 8, 5, 6, 7],
-    "event_observed": [False, True, False, False, True,
-                       False, False, True, False, True]
-})
-
-dat["event"] = np.where(
-    dat["event_observed"], "Hatched", "Right-censored"
-)
-
-(
-    ggplot(dat, aes(x="time", y="ID"))
-    + geom_segment(aes(x=0, xend="time", yend="ID"), color="gray")
-    + geom_point(aes(shape="event"), size=3, color="#0072B2")
-    + geom_vline(xintercept=10, linetype="dashed")
-    + scale_shape_manual(values={"Hatched": "o", "Right-censored": "s"})
-    + labs(x="Weeks", y="Egg ID", shape="Event")
-    + theme_bw()
-)
-```
-:::
-
-## Censoring
-
-::: incremental
--   Censoring affects the time-to-event information
-
--   However, we obtain some information when data is censored
-
--   Incorporate methods to utilize partial information
-
--   Censoring is independent of time-to-event generation
-:::
-
-# Survival Fuction
-
-## Survival Function
-
-::: incremental
--   The survival curve will determine what is the probability of surviving up to a certain time
-
--   A survival curve accounts for both censored and uncensored data
-
--   A survival curve can be used to determine the median survival time of a disease
-
-    -   Or the time for at least half of the eggs to hatch
-:::
-
-## Data Notation
-
-Let $\{t_j,d_j,R_j\}^D_{j=1}$ denote the survival data, where $t_1<t_2<\cdots<t_D$ are the ordered distinct observed event times, $d_j$ represents the number of events at time point $t_j$, and $R_j$ denotes the number of subjects still at risk of experiencing the event at $t_j$.
-
-## Kaplan-Meier Estimator
-
-$$
-\hat{S}(t) =\left\{\begin{array}{cc} 
-1 & t=0 \\
-\prod_{i:t_j \le t} \left( 1 - \frac{d_j}{R_j} \right) & t_j < t
-\end{array}\right.
-$$
-
-## Standard Error
-
-$$
-\widehat{SE}\{\hat S(t)\}=\sqrt{\hat S^2(t)\sum_{t_j\leq t}\frac{d_j}{R_j(R_j-d_j)}}.
-$$
-
-## Survival Curve
-
-::: panel-tabset
-### Plot
-
-```{python}
-time, survival_probability = kaplan_meier_estimator(
-    y["Status"],
-    y["Survival_in_days"]
-)
-
-median_time = time[np.flatnonzero(survival_probability <= 0.5)[0]]
-km_data = pd.DataFrame({
-    "time": time,
-    "survival_probability": survival_probability
-})
-
-(
-    ggplot(km_data, aes(x="time", y="survival_probability"))
-    + geom_step(color="#0072B2", size=1)
-    + annotate(
-        "segment", x=0, xend=median_time, y=0.5, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + annotate(
-        "segment", x=median_time, xend=median_time, y=0, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-
-### Code
+### Simulation
 
 ```{python}
 #| eval: false
-#| echo: true
-time, survival_probability = kaplan_meier_estimator(
-    y["Status"],
-    y["Survival_in_days"]
-)
 
-median_time = time[np.flatnonzero(survival_probability <= 0.5)[0]]
-km_data = pd.DataFrame({
-    "time": time,
-    "survival_probability": survival_probability
-})
+# This simulation is executed in the setup chunk.
+rng_linear = np.random.default_rng(2434)
+x = rng_linear.normal(size=(20, 2))
+y = np.repeat([-1, 1], 10)
+x[y == 1] += 1
 
-(
-    ggplot(km_data, aes(x="time", y="survival_probability"))
-    + geom_step(color="#0072B2", size=1)
-    + annotate(
-        "segment", x=0, xend=median_time, y=0.5, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + annotate(
-        "segment", x=median_time, xend=median_time, y=0, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-:::
-
-
-## VA Lung Example
-
-::: panel-tabset
-### Description
-
-We will use the Veterans' Administration Lung Cancer Trial data included with
-`scikit-survival`. The event of interest is death, and `Treatment` identifies
-the treatment group.
-
-### Table
-
-```{python}
-veterans[["Treatment", "Survival_in_days", "Status"]].head()
-```
-
-### Code
-
-```{python}
-#| echo: true
-#| eval: false
-veterans[["Treatment", "Survival_in_days", "Status"]].head()
-```
-:::
-
-## Kaplan–Meier Template
-
-::: panel-tabset
-### Description
-
-The `scikit-survival` package contains the necessary functions to estimate a
-survival curve:
-
-::: incremental
--   `Surv`: Creates a structured survival outcome
--   `kaplan_meier_estimator`: Estimates the survival function
-:::
-
-### Python Code
-
-```{python}
-#| echo: true
-#| eval: false
-event = data["event"].astype(bool)  # <1>
-outcome = Surv.from_arrays(event=event, time=data["time"])  # <2>
-time, survival_probability = kaplan_meier_estimator(  # <3>
-    outcome["event"],
-    outcome["time"]
-)
-```
-
-1.  `event` must be Boolean: `True` means the event occurred.
-2.  Creates a survival outcome containing the censoring mechanism and time to event.
-3.  The function returns the event times and estimated survival probabilities.
-:::
-
-## Plotting the Survival Function
-
-::: panel-tabset
-### Description
-
-`scikit-survival` calculates the curve, and `plotnine` displays it:
-
--   `kaplan_meier_estimator`: Returns event times and survival probabilities
-
--   `geom_step`: Draws the Kaplan–Meier step function
-
--   `geom_ribbon`: Draws pointwise confidence intervals
-
-### Python Code
-
-```{python}
-#| echo: true
-#| eval: false
-time, survival_probability, confidence_interval = kaplan_meier_estimator(
-    outcome["event"],
-    outcome["time"],
-    conf_type="log-log"
-)
-
-median_time = time[np.flatnonzero(survival_probability <= 0.5)[0]]
-
-km_data = pd.DataFrame({
-    "time": time,
-    "survival_probability": survival_probability,
-    "lower": confidence_interval[0],
-    "upper": confidence_interval[1]
-})
-
-(
-    ggplot(km_data, aes(x="time", y="survival_probability"))
-    + geom_ribbon(aes(ymin="lower", ymax="upper"), alpha=0.25)
-    + geom_step(size=1)
-    + geom_hline(yintercept=0.5, linetype="dashed", color="gray")
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-:::
-
-## Fitting Curve By Groups
-
-::: panel-tabset
-### Description
-
-To compare groups, subset the outcome for each group and estimate a separate
-Kaplan–Meier curve.
-
-### Python Code
-
-```{python}
-#| eval: false
-#| echo: true
-curves = []
-
-for group_name in data["group"].unique():
-    mask = (data["group"] == group_name).to_numpy()
-    time, survival_probability = kaplan_meier_estimator(
-        outcome["event"][mask],
-        outcome["time"][mask]
-    )
-    curves.append(pd.DataFrame({
-        "time": time,
-        "survival_probability": survival_probability,
-        "group": group_name
-    }))
-
-grouped_km_data = pd.concat(curves, ignore_index=True)
-
-(
-    ggplot(
-        grouped_km_data,
-        aes(x="time", y="survival_probability", color="group")
-    )
-    + geom_step(size=1)
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time", y="Estimated survival probability", color="Group")
-    + theme_bw()
-)
-```
-
-### Plotting
-
-Combine each group's returned survival probabilities into one data frame and
-map the group variable to color in `plotnine`.
-:::
-
-## Veterans' Survival Curve
-
-::: panel-tabset
-### Task
-
--   Fit a survival curve using `load_veterans_lung_cancer`.
--   `Survival_in_days`: time-to-death or censoring
--   `Status`: event indicator (`True` means death was observed)
--   Plot the survival curve and add a line indicating the 50th percentile
-
-### Plot
-
-```{python}
-time, survival_probability = kaplan_meier_estimator(
-    y["Status"], y["Survival_in_days"]
-)
-
-median_time = time[np.flatnonzero(survival_probability <= 0.5)[0]]
-km_data = pd.DataFrame({
-    "time": time,
-    "survival_probability": survival_probability
-})
-
-(
-    ggplot(km_data, aes(x="time", y="survival_probability"))
-    + geom_step(color="#0072B2", size=1)
-    + annotate(
-        "segment", x=0, xend=median_time, y=0.5, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + annotate(
-        "segment", x=median_time, xend=median_time, y=0, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
+linear_dat = pd.DataFrame(
+    {
+        "x1": x[:, 0],
+        "x2": x[:, 1],
+        "y": y,
+        "class_label": y.astype(str),
+    }
 )
 ```
 
 ### Python Code
 
 ```{python}
-#| eval: false
-#| echo: true
-time, survival_probability = kaplan_meier_estimator(
-    y["Status"], y["Survival_in_days"]
+linear_svm = SVC(
+    kernel="linear",
+    C=10,
+)
+linear_svm.fit(
+    linear_dat[["x1", "x2"]],
+    linear_dat["y"],
 )
 
-median_time = time[np.flatnonzero(survival_probability <= 0.5)[0]]
-km_data = pd.DataFrame({
-    "time": time,
-    "survival_probability": survival_probability
-})
+linear_support = linear_dat.iloc[linear_svm.support_].copy()
 
-(
-    ggplot(km_data, aes(x="time", y="survival_probability"))
-    + geom_step(color="#0072B2", size=1)
-    + annotate(
-        "segment", x=0, xend=median_time, y=0.5, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + annotate(
-        "segment", x=median_time, xend=median_time, y=0, yend=0.5,
-        color="gray", linetype="dashed"
-    )
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
+# The decision boundary is where the decision function equals 0.
+# The two margins are where it equals -1 and 1.
+line_x1 = np.linspace(
+    linear_dat["x1"].min() - 0.5,
+    linear_dat["x1"].max() + 0.5,
+    200,
 )
-```
-:::
+weights = linear_svm.coef_[0]
+intercept = linear_svm.intercept_[0]
 
-## Survival Curve by Treatment
-
-::: panel-tabset
-### Task
-
--   Fit survival curves stratified by treatment group.
--   `Survival_in_days`: time-to-death or censoring
--   `Status`: event indicator
--   `Treatment`: treatment group
--   Plot each survival curve and add a line indicating the 50th percentile
-
-### Plot
-
-```{python}
-curves = []
-
-for treatment in X["Treatment"].unique():
-    mask = (X["Treatment"] == treatment).to_numpy()
-    time, survival_probability = kaplan_meier_estimator(
-        y["Status"][mask],
-        y["Survival_in_days"][mask]
-    )
-    curves.append(pd.DataFrame({
-        "time": time,
-        "survival_probability": survival_probability,
-        "Treatment": str(treatment)
-    }))
-
-treatment_km_data = pd.concat(curves, ignore_index=True)
-
-(
-    ggplot(
-        treatment_km_data,
-        aes(x="time", y="survival_probability", color="Treatment")
-    )
-    + geom_step(size=1)
-    + geom_hline(yintercept=0.5, color="gray", linetype="dashed")
-    + scale_color_manual(values=["#0072B2", "#D55E00"])
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-
-### Python Code
-
-```{python}
-#| eval: false
-#| echo: true
-curves = []
-
-for treatment in X["Treatment"].unique():
-    mask = (X["Treatment"] == treatment).to_numpy()
-    time, survival_probability = kaplan_meier_estimator(
-        y["Status"][mask],
-        y["Survival_in_days"][mask]
-    )
-    curves.append(pd.DataFrame({
-        "time": time,
-        "survival_probability": survival_probability,
-        "Treatment": str(treatment)
-    }))
-
-treatment_km_data = pd.concat(curves, ignore_index=True)
-
-(
-    ggplot(
-        treatment_km_data,
-        aes(x="time", y="survival_probability", color="Treatment")
-    )
-    + geom_step(size=1)
-    + geom_hline(yintercept=0.5, color="gray", linetype="dashed")
-    + scale_color_manual(values=["#0072B2", "#D55E00"])
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-:::
-
-# Log-Rank Test
-
-## Hypothesis Testing
-
-::: incremental
--   The treatment curves may differ because of a real treatment effect or random variation.
--   Confidence intervals show the uncertainty around each estimated curve.
--   A log-rank test can formally compare the survival functions.
-:::
-
-## Log-Rank Test
-
-The log-rank test compares the entire survival experience of two or more
-independent groups.
-
-::: incremental
--   $H_0$: The groups have the same survival function.
--   $H_A$: At least one group has a different survival function.
--   A small p-value provides evidence against $H_0$.
-:::
-
-## Log-Rank Test Template
-
-```{python}
-#| eval: false
-#| echo: true
-test_statistic, p_value = compare_survival(
-    outcome,
-    data["group"]
-)
-
-print(f"Chi-square statistic: {test_statistic:.3f}")
-print(f"p-value: {p_value:.4f}")
-```
-
-## Veterans' Log-Rank Test
-
-::: panel-tabset
-### Results
-
-```{python}
-test_statistic, p_value, group_statistics, covariance = compare_survival(
-    y,
-    X["Treatment"],
-    return_stats=True
-)
-
-print(f"Chi-square statistic: {test_statistic:.3f}")
-print(f"p-value: {p_value:.4f}")
-group_statistics
-```
-
-### Python Code
-
-```{python}
-#| eval: false
-#| echo: true
-test_statistic, p_value, group_statistics, covariance = compare_survival(
-    y,
-    X["Treatment"],
-    return_stats=True
-)
-
-print(f"Chi-square statistic: {test_statistic:.3f}")
-print(f"p-value: {p_value:.4f}")
-group_statistics
-```
-:::
-
-## Survival Curves with Confidence Intervals
-
-::: panel-tabset
-### Task
-
-Add confidence intervals to the previous plot.
-
-### Plot
-
-```{python}
-curves = []
-
-for treatment in X["Treatment"].unique():
-    mask = (X["Treatment"] == treatment).to_numpy()
-    time, survival_probability, confidence_interval = kaplan_meier_estimator(
-        y["Status"][mask],
-        y["Survival_in_days"][mask],
-        conf_type="log-log"
-    )
-    curves.append(pd.DataFrame({
-        "time": time,
-        "survival_probability": survival_probability,
-        "lower": confidence_interval[0],
-        "upper": confidence_interval[1],
-        "Treatment": str(treatment)
-    }))
-
-treatment_ci_data = pd.concat(curves, ignore_index=True)
-
-(
-    ggplot(
-        treatment_ci_data,
-        aes(
-            x="time",
-            y="survival_probability",
-            color="Treatment",
-            group="Treatment"
+boundary_lines = pd.concat(
+    [
+        pd.DataFrame(
+            {
+                "x1": line_x1,
+                "x2": (level - intercept - weights[0] * line_x1) / weights[1],
+                "line": label,
+            }
         )
-    )
-    + geom_ribbon(aes(ymin="lower", ymax="upper", fill="Treatment"), alpha=0.2)
-    + geom_step(size=1)
-    + geom_hline(yintercept=0.5, color="gray", linetype="dashed")
-    + scale_color_manual(values=["#0072B2", "#D55E00"])
-    + scale_fill_manual(values=["#0072B2", "#D55E00"])
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-
-### Python Code
-
-```{python}
-#| echo: true
-#| eval: false
-curves = []
-
-for treatment in X["Treatment"].unique():
-    mask = (X["Treatment"] == treatment).to_numpy()
-    time, survival_probability, confidence_interval = kaplan_meier_estimator(
-        y["Status"][mask],
-        y["Survival_in_days"][mask],
-        conf_type="log-log"
-    )
-    curves.append(pd.DataFrame({
-        "time": time,
-        "survival_probability": survival_probability,
-        "lower": confidence_interval[0],
-        "upper": confidence_interval[1],
-        "Treatment": str(treatment)
-    }))
-
-treatment_ci_data = pd.concat(curves, ignore_index=True)
-
-(
-    ggplot(
-        treatment_ci_data,
-        aes(
-            x="time",
-            y="survival_probability",
-            color="Treatment",
-            group="Treatment"
-        )
-    )
-    + geom_ribbon(aes(ymin="lower", ymax="upper", fill="Treatment"), alpha=0.2)
-    + geom_step(size=1)
-    + geom_hline(yintercept=0.5, color="gray", linetype="dashed")
-    + scale_color_manual(values=["#0072B2", "#D55E00"])
-    + scale_fill_manual(values=["#0072B2", "#D55E00"])
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Estimated survival probability")
-    + theme_bw()
-)
-```
-:::
-
-# Cox Proportional Hazards Regression
-
-## Why Use Cox Regression?
-
-Kaplan–Meier curves and log-rank tests compare groups one variable at a time.
-Cox regression estimates how several predictors are associated with the event
-rate while accounting for censoring.
-
-::: incremental
--   The outcome remains a time and an event indicator.
--   Predictors may be numerical or categorical.
--   The model estimates a coefficient and hazard ratio for each predictor.
-:::
-
-## Cox Proportional Hazards Model
-
-$$
-h(t \mid \mathbf{x}) = h_0(t)\exp\left(\boldsymbol{\beta}^{\mathsf{T}}\mathbf{x}\right)
-$$
-
-::: incremental
--   $h_0(t)$ is the baseline hazard function.
--   $\boldsymbol{\beta}$ contains the estimated regression coefficients.
--   $\exp(\beta_j)$ is the hazard ratio associated with a one-unit increase in
-    predictor $x_j$, holding the other predictors constant.
-:::
-
-## Prepare the Predictor Matrix
-
-`CoxPHSurvivalAnalysis` requires a numerical predictor matrix. Use
-`OneHotEncoder` to convert the categorical variables into indicator columns.
-
-::: panel-tabset
-### Preview
-
-```{python}
-encoder = OneHotEncoder()
-X_encoded = encoder.fit_transform(X)
-
-X_encoded.head()
-```
-
-### Python Code
-
-```{python}
-#| eval: false
-#| echo: true
-encoder = OneHotEncoder()
-X_encoded = encoder.fit_transform(X)
-
-X_encoded.head()
-```
-:::
-
-## Fit a Cox Regression Model
-
-::: panel-tabset
-### Model
-
-```{python}
-cox_model = CoxPHSurvivalAnalysis()
-cox_model.fit(X_encoded, y)
-
-cox_model
-```
-
-### Python Code
-
-```{python}
-#| eval: false
-#| echo: true
-cox_model = CoxPHSurvivalAnalysis()
-cox_model.fit(X_encoded, y)
-```
-:::
-
-## Cox Regression Template
-
-```{python}
-#| eval: false
-#| echo: true
-# X contains the predictor variables.
-# y is a structured survival outcome.
-
-encoder = OneHotEncoder()
-X_encoded = encoder.fit_transform(X)
-
-cox_model = CoxPHSurvivalAnalysis()
-cox_model.fit(X_encoded, y)
-```
-
-## Coefficients and Hazard Ratios
-
-::: panel-tabset
-### Table
-
-```{python}
-cox_results = pd.DataFrame({
-    "variable": X_encoded.columns,
-    "coefficient": cox_model.coef_,
-    "hazard_ratio": np.exp(cox_model.coef_)
-}).sort_values("hazard_ratio")
-
-cox_results.round(3)
-```
-
-### Python Code
-
-```{python}
-#| eval: false
-#| echo: true
-cox_results = pd.DataFrame({
-    "variable": X_encoded.columns,
-    "coefficient": cox_model.coef_,
-    "hazard_ratio": np.exp(cox_model.coef_)
-}).sort_values("hazard_ratio")
-
-cox_results.round(3)
-```
-:::
-
-## Plot the Hazard Ratios
-
-```{python}
-hazard_ratio_data = cox_results.copy()
-hazard_ratio_data["variable"] = pd.Categorical(
-    hazard_ratio_data["variable"],
-    categories=hazard_ratio_data["variable"],
-    ordered=True
+        for level, label in [
+            (-1, "Lower margin"),
+            (0, "Decision boundary"),
+            (1, "Upper margin"),
+        ]
+    ],
+    ignore_index=True,
 )
 
 (
-    ggplot(hazard_ratio_data, aes(x="hazard_ratio", y="variable"))
-    + geom_vline(xintercept=1, linetype="dashed", color="gray")
-    + geom_point(size=3, color="#0072B2")
-    + scale_x_log10()
-    + labs(x="Hazard ratio (log scale)", y=None)
+    ggplot(linear_dat, aes(x="x1", y="x2", color="class_label"))
+    + geom_point(size=2)
+    + geom_line(
+        data=boundary_lines,
+        mapping=aes(x="x1", y="x2", linetype="line", group="line"),
+        color="black",
+        inherit_aes=False,
+    )
+    + geom_point(
+        data=linear_support,
+        mapping=aes(x="x1", y="x2"),
+        shape="o",
+        fill="none",
+        size=5,
+        stroke=1.1,
+        color="black",
+        inherit_aes=False,
+    )
+    + labs(x="X1", y="X2", color="Class", linetype="")
     + theme_bw()
 )
 ```
 
-## Interpret a Hazard Ratio
+### Support Vectors
 
-::: incremental
--   Hazard ratio greater than 1: the event rate increases as the predictor
-    increases.
--   Hazard ratio less than 1: the event rate decreases as the predictor
-    increases.
--   Hazard ratio equal to 1: no estimated association with the event rate.
--   For categorical predictors, interpretation is relative to the omitted
-    reference category.
+```{python}
+pd.DataFrame(
+    {
+        # Add 1 to report indices in the same one-based style as R.
+        "support_vector_index": linear_svm.support_ + 1
+    }
+)
+```
+
+### Summary
+
+```{python}
+linear_summary = pd.DataFrame(
+    {
+        "property": [
+            "Kernel",
+            "C",
+            "Training observations",
+            "Number of support vectors",
+            "Support vectors in class -1",
+            "Support vectors in class 1",
+            "Training accuracy",
+        ],
+        "value": [
+            linear_svm.kernel,
+            linear_svm.C,
+            len(linear_dat),
+            len(linear_svm.support_),
+            linear_svm.n_support_[0],
+            linear_svm.n_support_[1],
+            linear_svm.score(
+                linear_dat[["x1", "x2"]],
+                linear_dat["y"],
+            ),
+        ],
+    }
+)
+
+linear_summary
+```
 :::
 
-## Predicted Survival Curves
+## Cross-Validation Approach for C
 
 ::: panel-tabset
+### Python Code
+
+```{python}
+cv = StratifiedKFold(
+    n_splits=10,
+    shuffle=True,
+    random_state=2434,
+)
+
+cost_grid = {
+    "C": [0.001, 0.01, 0.1, 1, 5, 10, 100]
+}
+
+tune_out = GridSearchCV(
+    estimator=SVC(kernel="linear"),
+    param_grid=cost_grid,
+    scoring="accuracy",
+    cv=cv,
+    refit=True,
+)
+
+_ = tune_out.fit(
+    linear_dat[["x1", "x2"]],
+    linear_dat["y"],
+)
+```
+
+### Summary
+
+```{python}
+tuning_summary = (
+    pd.DataFrame(tune_out.cv_results_)
+    [["param_C", "mean_test_score", "std_test_score", "rank_test_score"]]
+    .rename(
+        columns={
+            "param_C": "C",
+            "mean_test_score": "mean_cv_accuracy",
+            "std_test_score": "sd_cv_accuracy",
+            "rank_test_score": "rank",
+        }
+    )
+    .sort_values("C")
+    .reset_index(drop=True)
+)
+
+tuning_summary
+```
+
+### Best Model
+
+```{python}
+bestmod = tune_out.best_estimator_
+
+best_model_summary = pd.DataFrame(
+    {
+        "property": [
+            "Best C",
+            "Best mean CV accuracy",
+            "Kernel",
+            "Number of support vectors",
+            "Training accuracy",
+        ],
+        "value": [
+            tune_out.best_params_["C"],
+            tune_out.best_score_,
+            bestmod.kernel,
+            len(bestmod.support_),
+            bestmod.score(
+                linear_dat[["x1", "x2"]],
+                linear_dat["y"],
+            ),
+        ],
+    }
+)
+
+best_model_summary
+```
+:::
+
+## Prediction
+
+::: panel-tabset
+### Set Up
+
+```{python}
+#| eval: false
+
+# These test observations are generated in the setup chunk.
+test_x = rng_linear.normal(size=(20, 2))
+test_y = rng_linear.choice([-1, 1], size=20, replace=True)
+test_x[test_y == 1] += 1
+
+testdat = pd.DataFrame(
+    {
+        "x1": test_x[:, 0],
+        "x2": test_x[:, 1],
+        "y": test_y,
+        "class_label": test_y.astype(str),
+    }
+)
+```
+
+### Prediction
+
+```{python}
+y_pred = bestmod.predict(testdat[["x1", "x2"]])
+
+pd.crosstab(
+    pd.Series(y_pred, name="pred"),
+    testdat["y"].rename("truth"),
+)
+```
+:::
+
+
+## Python Code: SVM
+
+::: panel-tabset
+### Data
+
+```{python}
+#| eval: false
+
+# This nonlinear simulation and train/test split are executed in setup.
+rng_radial = np.random.default_rng(1)
+x = rng_radial.normal(size=(200, 2))
+x[:100] += 2
+x[100:150] -= 2
+y = np.concatenate([np.repeat(1, 150), np.repeat(2, 50)])
+
+radial_dat = pd.DataFrame(
+    {
+        "x1": x[:, 0],
+        "x2": x[:, 1],
+        "y": y,
+        "class_label": y.astype(str),
+    }
+)
+
+train_indices = rng_radial.choice(radial_dat.index, size=100, replace=False)
+radial_train = radial_dat.loc[train_indices].copy()
+```
+
 ### Plot
 
 ```{python}
-survival_functions = cox_model.predict_survival_function(
-    X_encoded.iloc[:3]
-)
-
-prediction_frames = []
-
-for patient_number, survival_function in enumerate(
-    survival_functions,
-    start=1
-):
-    prediction_frames.append(pd.DataFrame({
-        "time": survival_function.x,
-        "survival_probability": survival_function(survival_function.x),
-        "Patient": f"Patient {patient_number}"
-    }))
-
-prediction_data = pd.concat(prediction_frames, ignore_index=True)
-
 (
-    ggplot(
-        prediction_data,
-        aes(x="time", y="survival_probability", color="Patient")
-    )
-    + geom_step(size=1)
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Predicted survival probability")
+    ggplot(radial_dat, aes(x="x1", y="x2", color="class_label"))
+    + geom_point()
+    + labs(x="X1", y="X2", color="Class")
     + theme_bw()
 )
 ```
 
-### Python Code
+### SVM
 
 ```{python}
-#| eval: false
-#| echo: true
-survival_functions = cox_model.predict_survival_function(
-    X_encoded.iloc[:3]
+radial_svm = SVC(
+    kernel="rbf",
+    gamma=1,
+    C=1,
+)
+radial_svm.fit(
+    radial_train[["x1", "x2"]],
+    radial_train["y"],
 )
 
-prediction_frames = []
-
-for patient_number, survival_function in enumerate(
-    survival_functions,
-    start=1
-):
-    prediction_frames.append(pd.DataFrame({
-        "time": survival_function.x,
-        "survival_probability": survival_function(survival_function.x),
-        "Patient": f"Patient {patient_number}"
-    }))
-
-prediction_data = pd.concat(prediction_frames, ignore_index=True)
+radial_grid, radial_x1_values, radial_x2_values = make_prediction_grid(
+    radial_svm,
+    radial_train,
+)
+radial_boundary = find_boundary_points(
+    radial_grid,
+    radial_x1_values,
+    radial_x2_values,
+)
+radial_support = radial_train.iloc[radial_svm.support_].copy()
 
 (
-    ggplot(
-        prediction_data,
-        aes(x="time", y="survival_probability", color="Patient")
+    ggplot()
+    + geom_tile(
+        data=radial_grid,
+        mapping=aes(x="x1", y="x2", fill="prediction"),
+        alpha=0.18,
     )
-    + geom_step(size=1)
-    + coord_cartesian(ylim=(0, 1.05))
-    + labs(x="Time (days)", y="Predicted survival probability")
+    + geom_point(
+        data=radial_train,
+        mapping=aes(x="x1", y="x2", color="class_label"),
+        size=2,
+    )
+    + geom_point(
+        data=radial_boundary,
+        mapping=aes(x="x1", y="x2"),
+        size=0.25,
+        color="black",
+        inherit_aes=False,
+    )
+    + geom_point(
+        data=radial_support,
+        mapping=aes(x="x1", y="x2"),
+        shape="o",
+        fill="none",
+        size=4,
+        stroke=1,
+        color="black",
+        inherit_aes=False,
+    )
+    + labs(
+        x="X1",
+        y="X2",
+        color="Observed class",
+        fill="Predicted class",
+    )
     + theme_bw()
 )
 ```
-:::
-
-## Concordance Index
-
-The concordance index measures whether patients with higher predicted risk tend
-to experience the event sooner.
-
-```{python}
-concordance_index = cox_model.score(X_encoded, y)
-print(f"Concordance index: {concordance_index:.3f}")
-```
-
-::: incremental
--   A value of 0.5 is approximately random ordering.
--   A value of 1 indicates perfect ordering of observed outcomes.
--   Evaluate performance on test data when assessing predictive accuracy.
 :::

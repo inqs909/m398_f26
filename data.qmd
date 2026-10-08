@@ -1,0 +1,8 @@
+---
+title: "Data"
+---
+
+A list of Data Repositories for you projects.
+
+- [Biomedical Data from StatsupAI](https://statsupai.org/datasets.html)
+- 

@@ -1,9 +1,9 @@
 ---
-title: "Assignment 7"
-date: 3/15/24
-description: "Assignment is due 4/06/24"
+title: "ICA 5"
+date: 10/07/26
+description: "Assignment is due 10/11/26."
 editor: source
-draft: true
+draft: false
 ---
 
 From *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Second Edition)

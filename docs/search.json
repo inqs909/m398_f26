@@ -1379,25 +1379,25 @@
     "text": "Example\nFit a smoothing spline model with the following simulated data. Search through the help documentation to print out \\(\\lambda\\). What is the MSE?\nThe simulated data are loaded in the setup chunk as spline_example_data.\n\n\nCode\nspline_example_data.head()\n\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\n0\n0.035227\n1.858924\n\n\n1\n0.359061\n-3.492532\n\n\n2\n0.504016\n-8.470404\n\n\n3\n-0.328614\n-3.795633\n\n\n4\n-0.039906\n0.950307"
   },
   {
-    "objectID": "lectures/10a.html#gam",
-    "href": "lectures/10a.html#gam",
+    "objectID": "lectures/10a.html#additive-models",
+    "href": "lectures/10a.html#additive-models",
     "title": "Generalized Additive Models",
-    "section": "GAM",
-    "text": "GAM\nGeneralized Additive Models extends the nonparametric models to include more than one predictor to explain the outcome Y."
+    "section": "Additive Models",
+    "text": "Additive Models\nAdditive Models extends the nonparametric models to include more than one predictor to explain the outcome Y."
   },
   {
-    "objectID": "lectures/10a.html#gam-1",
-    "href": "lectures/10a.html#gam-1",
+    "objectID": "lectures/10a.html#additive-models-1",
+    "href": "lectures/10a.html#additive-models-1",
     "title": "Generalized Additive Models",
-    "section": "GAM",
-    "text": "GAM\n\\[\nY = \\beta_0 + f_1(X_1) + f_2(X_2) + \\cdots + f_k(X_k) + \\varepsilon\n\\]\n\\[\nY = \\beta_0 + \\sum^k_{j=1} f_j(X_j) +\\varepsilon\n\\]"
+    "section": "Additive Models",
+    "text": "Additive Models\n\\[\nY = \\beta_0 + f_1(X_1) + f_2(X_2) + \\cdots + f_k(X_k) + \\varepsilon\n\\]\n\\[\nY = \\beta_0 + \\sum^k_{j=1} f_j(X_j) +\\varepsilon\n\\]"
   },
   {
-    "objectID": "lectures/10a.html#gam-estimation",
-    "href": "lectures/10a.html#gam-estimation",
+    "objectID": "lectures/10a.html#estimation",
+    "href": "lectures/10a.html#estimation",
     "title": "Generalized Additive Models",
-    "section": "GAM Estimation",
-    "text": "GAM Estimation\nEach \\(\\hat f_j\\) can be estimated using an approach mentioned before.\n\\[\n\\hat Y = \\hat \\beta_0 + \\sum^k_{j=1} \\hat f_j(X_j)\n\\]\n\nEach \\(hat f_j\\) can be estimated differently from other predictor functions."
+    "section": "Estimation",
+    "text": "Estimation\nEach \\(\\hat f_j\\) can be estimated using an approach mentioned before.\n\\[\n\\hat Y = \\hat \\beta_0 + \\sum^k_{j=1} \\hat f_j(X_j)\n\\]\n\nEach \\(hat f_j\\) can be estimated differently from other predictor functions.\n\nRegression Splines"
   },
   {
     "objectID": "lectures/10a.html#gams-for-non-normal-variables",
@@ -1432,7 +1432,7 @@
     "href": "index.html",
     "title": "Welcome to Advanced Research Investigation!",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\nThis week we review Regularization.\n\n\n\n\n\nOct 5, 2026\n\n\n\n\n\n\n\nWeek 6\n\n\nThis week we review Resampling Techniques.\n\n\n\n\n\nSep 28, 2026\n\n\n\n\n\n\n\nWeek 5\n\n\nThis week we review Logistic Regression.\n\n\n\n\n\nSep 21, 2026\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 7\n\n\nThis week we review Regularization.\n\n\n\n\n\nOct 5, 2026\n\n\n\n\n\n\n\nWeek 6\n\n\nThis week we review Resampling Techniques.\n\n\n\n\n\nSep 28, 2026\n\n\n\n\n\n\n\nWeek 5\n\n\nThis week we review Logistic Regression.\n\n\n\n\n\nSep 21, 2026\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 31, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "books.html",
@@ -2772,13 +2772,6 @@
     "text": "Bootstrap Notebook\nBootstrap Method Notebook"
   },
   {
-    "objectID": "lectures/8a.html#python-setup",
-    "href": "lectures/8a.html#python-setup",
-    "title": "Nonlinear Models",
-    "section": "Python Setup",
-    "text": "Python Setup\n\n\nShow code\nimport numpy as np\nimport pandas as pd\nfrom pickle import TRUE\nimport statsmodels.formula.api as smf\nfrom plotnine import *\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import mean_squared_error, r2_score\nfrom sklearn.preprocessing import PolynomialFeatures\n\n\n# Use one random-number generator so every simulated dataset is reproducible.\nrng = np.random.default_rng(123)\n\n\ndef simulate_quartic_data(n=1000, x_sd=0.25, noise_sd=0.5):\n    \"\"\"Simulate data from the quartic relationship used in the slides.\"\"\"\n    x = rng.normal(loc=0, scale=x_sd, size=n)\n    y = (\n        1\n        + 5.3 * x\n        - 45 * x**2\n        - 35.5 * x**3\n        + 60 * x**4\n        + rng.normal(loc=0, scale=noise_sd, size=n)\n    )\n    return pd.DataFrame({\"x\": x, \"y\": y})\n\n\ndef simulate_quadratic_data(n=1000, x_sd=0.25, noise_sd=0.5):\n    \"\"\"Simulate data from the quadratic relationship used for knot examples.\"\"\"\n    x = rng.normal(loc=0, scale=x_sd, size=n)\n    y = 1 + 5.3 * x - 45 * x**2 + rng.normal(loc=0, scale=noise_sd, size=n)\n    return pd.DataFrame({\"x\": x, \"y\": y})\n\n\ndef simulate_sine_data(n=1000, x_sd=3.5, noise_sd=0.25):\n    \"\"\"Simulate data from the sinusoidal relationship used in the slides.\"\"\"\n    x = rng.normal(loc=0, scale=x_sd, size=n)\n    y = 1 + np.sin(np.pi * x / 8) + rng.normal(loc=0, scale=noise_sd, size=n)\n    return pd.DataFrame({\"x\": x, \"y\": y})\n\n\n# Each object corresponds to one of the original R simulation chunks.\nmotivating_polynomial_data = simulate_quartic_data()\nmotivating_sine_data = simulate_sine_data()\nlinear_fit_data = simulate_quartic_data()\nquartic_fit_data = simulate_quartic_data()\npolynomial_example_data = simulate_quartic_data()\nstep_plot_data = simulate_quartic_data()\nstep_example_data = simulate_quartic_data()\nknot_data = simulate_quadratic_data()\nmore_knots_data = simulate_quadratic_data()\ncubic_spline_data = simulate_quartic_data()\nnatural_spline_data = simulate_quartic_data()\nspline_example_data = simulate_quartic_data()"
-  },
-  {
     "objectID": "lectures/8a.html#plot",
     "href": "lectures/8a.html#plot",
     "title": "Nonlinear Models",
@@ -2835,34 +2828,6 @@
     "text": "Fitting a Model\n\n\nShow code\nquartic_model = smf.ols(\n    \"y ~ x + I(x ** 2) + I(x ** 3) + I(x ** 4)\",\n    data=quartic_fit_data,\n).fit()\nquartic_grid = pd.DataFrame(\n    {\"x\": np.linspace(quartic_fit_data[\"x\"].min(), quartic_fit_data[\"x\"].max(), 300)}\n)\nquartic_grid[\"predicted_y\"] = quartic_model.predict(quartic_grid)\n\n(\n    ggplot(quartic_fit_data, aes(x=\"x\", y=\"y\"))\n    + geom_point(size=1.2, alpha=0.65)\n    + geom_line(\n        data=quartic_grid,\n        mapping=aes(x=\"x\", y=\"predicted_y\"),\n        inherit_aes=False,\n        size=1.1,\n    )\n    + theme_bw()\n)"
   },
   {
-    "objectID": "lectures/8a.html#polynomial-functions-in-python-alternative",
-    "href": "lectures/8a.html#polynomial-functions-in-python-alternative",
-    "title": "Nonlinear Models",
-    "section": "Polynomial Functions in Python (Alternative)",
-    "text": "Polynomial Functions in Python (Alternative)\n\npolynomial = PolynomialFeatures(degree=p, include_bias=False)\nX_polynomial = polynomial.fit_transform(data[[\"x\"]])\nmodel = LinearRegression().fit(X_polynomial, data[\"y\"])"
-  },
-  {
-    "objectID": "lectures/8a.html#example-plot",
-    "href": "lectures/8a.html#example-plot",
-    "title": "Nonlinear Models",
-    "section": "Example Plot",
-    "text": "Example Plot\n\n\nShow code\nquartic_transform = PolynomialFeatures(degree=4, include_bias=True)\nX_quartic = quartic_transform.fit_transform(quartic_fit_data[[\"x\"]])\nquartic_model_2 = LinearRegression().fit(X_quartic, quartic_fit_data[\"y\"])\n\n\n\nquartic_grid_2 = pd.DataFrame(\n    {\"x\": np.linspace(quartic_fit_data[\"x\"].min(), quartic_fit_data[\"x\"].max(), 300)}\n)\n\nquartic_grid_2_transform = quartic_transform.fit_transform(quartic_grid_2[[\"x\"]])\n\nquartic_grid_2[\"predicted_y\"] = quartic_model_2.predict(quartic_grid_2_transform)\n\n(\n    ggplot(quartic_fit_data, aes(x=\"x\", y=\"y\"))\n    + geom_point(size=1.2, alpha=0.65)\n    + geom_line(\n        data=quartic_grid_2,\n        mapping=aes(x=\"x\", y=\"predicted_y\"),\n        inherit_aes=False,\n        size=1.1,\n    )\n    + theme_bw()\n)"
-  },
-  {
-    "objectID": "lectures/8a.html#individual-terms-in-python",
-    "href": "lectures/8a.html#individual-terms-in-python",
-    "title": "Nonlinear Models",
-    "section": "Individual Terms in Python",
-    "text": "Individual Terms in Python\n\nmodel = smf.ols(\n    \"y ~ I(x ** 3)\",\n    data=data,\n).fit()"
-  },
-  {
-    "objectID": "lectures/8a.html#example",
-    "href": "lectures/8a.html#example",
-    "title": "Nonlinear Models",
-    "section": "Example",
-    "text": "Example\nUsing polynomial_example_data from the setup chunk, fit quadratic, cubic, and quartic models. Compute the mean squared error and \\(R^2\\) for each model.\n\npolynomial_example_data.head()\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\n0\n-0.515061\n-4.371471\n\n\n1\n-0.052983\n0.533842\n\n\n2\n0.317888\n-2.973370\n\n\n3\n-0.133988\n-1.003931\n\n\n4\n-0.122652\n-1.011330"
-  },
-  {
     "objectID": "lectures/8a.html#stepwise-function",
     "href": "lectures/8a.html#stepwise-function",
     "title": "Nonlinear Models",
@@ -2882,20 +2847,6 @@
     "title": "Nonlinear Models",
     "section": "Constructing Model",
     "text": "Constructing Model\n\nDivide the range of X with k different intervals.\nCreate k-1 dummy variables indicating if the value X belongs to the interval or not.\nConstruct a model incorporating all dummy variable and their corresponding coefficient.\nFind the estimates of the model by minimizing the Least Squares Estimator."
-  },
-  {
-    "objectID": "lectures/8a.html#step-functions-in-python",
-    "href": "lectures/8a.html#step-functions-in-python",
-    "title": "Nonlinear Models",
-    "section": "Step Functions in Python",
-    "text": "Step Functions in Python\n\nstep_data = data.assign(\n    x_bin=pd.cut(data[\"x\"], bins=10, include_lowest=True)\n)\nstep_model = smf.ols(\n    \"y ~ C(x_bin)\",\n    data=step_data,\n).fit()"
-  },
-  {
-    "objectID": "lectures/8a.html#example-1",
-    "href": "lectures/8a.html#example-1",
-    "title": "Nonlinear Models",
-    "section": "Example",
-    "text": "Example\nUsing step_example_data from the setup chunk, fit step-regression models with 10, 20, and 30 steps. Compute the mean squared error and \\(R^2\\) for each model.\n\nstep_example_data.head()\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\n0\n0.380932\n-4.140677\n\n\n1\n0.496003\n-9.234772\n\n\n2\n0.054014\n1.920086\n\n\n3\n-0.128841\n0.189173\n\n\n4\n0.454639\n-6.080184"
   },
   {
     "objectID": "lectures/8a.html#basis-functions",
@@ -2937,7 +2888,7 @@
     "href": "lectures/8a.html#spline-functions-constraints",
     "title": "Nonlinear Models",
     "section": "Spline Functions Constraints",
-    "text": "Spline Functions Constraints\nWhen choosing basis functions, we want maintain the following constraints at the location of the knots:\n\nContinuous\nFirst Differentiable\nSecond Differentiable\n\n\nA common choice is to use a cubic spline function"
+    "text": "Spline Functions Constraints\n\nWhen choosing basis functions, we want maintain the following constraints at the location of the knots:\n\n\nContinuous\nFirst Differentiable\nSecond Differentiable\n\n\n\nA common choice is to use a cubic spline function"
   },
   {
     "objectID": "lectures/8a.html#cubic-splines",
@@ -2951,7 +2902,7 @@
     "href": "lectures/8a.html#natural-cubic-splines",
     "title": "Nonlinear Models",
     "section": "Natural Cubic Splines",
-    "text": "Natural Cubic Splines\nNatural splines force the boundary knots to be fitted with simple lines instead of spline functions. The interior knots are fitted with spline functions."
+    "text": "Natural Cubic Splines\n\nNatural splines force the boundary knots to be fitted with simple lines instead of spline functions. The interior knots are fitted with spline functions.\n\n\n\nThe data points outside the interior knots are modeled with lines."
   },
   {
     "objectID": "lectures/8a.html#plot-3",
@@ -2968,25 +2919,11 @@
     "text": "Natural Cubic Splines\n\n\nShow code\nnatural_spline_model = smf.ols(\n    \"y ~ cr(x, knots=(-0.25, 0.25))\",\n    data=natural_spline_data,\n).fit()\nnatural_spline_grid = pd.DataFrame(\n    {\"x\": np.linspace(natural_spline_data[\"x\"].min(), natural_spline_data[\"x\"].max(), 300)}\n)\nnatural_spline_grid[\"predicted_y\"] = natural_spline_model.predict(natural_spline_grid)\n\n(\n    ggplot(natural_spline_data, aes(x=\"x\", y=\"y\"))\n    + geom_point(size=1.2, alpha=0.65)\n    + geom_line(\n        data=natural_spline_grid,\n        mapping=aes(x=\"x\", y=\"predicted_y\"),\n        inherit_aes=False,\n        size=1.1,\n    )\n    + theme_bw()\n)"
   },
   {
-    "objectID": "lectures/8a.html#cubic-splines-in-python",
-    "href": "lectures/8a.html#cubic-splines-in-python",
+    "objectID": "lectures/8a.html#b-splines",
+    "href": "lectures/8a.html#b-splines",
     "title": "Nonlinear Models",
-    "section": "Cubic Splines in Python",
-    "text": "Cubic Splines in Python\nPatsy’s bs() transform constructs a B-spline basis that can be used in a statsmodels formula. Specify the knot locations; a cubic basis uses degree=3.\n\ncubic_spline_model = smf.ols(\n    \"y ~ bs(x, knots=(...), degree=3)\",\n    data=data,\n).fit()"
-  },
-  {
-    "objectID": "lectures/8a.html#natural-cubic-splines-in-python",
-    "href": "lectures/8a.html#natural-cubic-splines-in-python",
-    "title": "Nonlinear Models",
-    "section": "Natural Cubic Splines in Python",
-    "text": "Natural Cubic Splines in Python\nPatsy’s cr() transform constructs a natural cubic regression-spline basis. Specify the knot locations in the model formula.\n\nnatural_spline_model = smf.ols(\n    \"y ~ cr(x, knots=(...))\",\n    data=data,\n).fit()"
-  },
-  {
-    "objectID": "lectures/8a.html#example-2",
-    "href": "lectures/8a.html#example-2",
-    "title": "Nonlinear Models",
-    "section": "Example",
-    "text": "Example\nUsing spline_example_data from the setup chunk, fit regression models using cubic splines and natural cubic splines. Choose an appropriate number and location of knots. Compute the mean squared error and \\(R^2\\) for each model.\n\nspline_example_data.head()\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\n0\n0.197223\n0.013993\n\n\n1\n0.042517\n1.922424\n\n\n2\n-0.343305\n-4.065611\n\n\n3\n0.060269\n0.700677\n\n\n4\n0.443878\n-6.708105"
+    "section": "B-Splines",
+    "text": "B-Splines\n\nIn Python, B-Spline typically refers to the general use of basis functions for models, such as truncated-power, cubic splines, or natural cubic splines.\nWhen reading scientific papers, B-Splines typically refers to the implementation of one type of basis function: Cox-de Boer recursion.\nFor this class, we will follow the former and not the latter."
   },
   {
     "objectID": "posts/2.html",
@@ -3001,6 +2938,27 @@
     "title": "Week 2",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+  },
+  {
+    "objectID": "posts/2.html#topics",
+    "href": "posts/2.html#topics",
+    "title": "Week 2",
+    "section": "Topics",
+    "text": "Topics\n\nPrediction\nThe purpose of Machine Learning Models is to predict new outcomes (\\(Y\\)) from given data. This is achieved my constructing the function \\(f\\) that predicts \\(Y\\):\n\\[\nY = f(X;\\theta)\n\\]\nwhere \\(X\\) is the new data obtained and \\(\\theta\\) are the parameters that dictate how a predefined model1 \\(f\\) behaves.\nFor the purposes of this class, there are two types of predictions: Regressiona and Classification.\n\nRegression\nThe\n\n\nClassification\n\n\n\nTypes of Learning\n\nSupervised Learning\n\n\nUnsupervised Learning\n\n\n\nModel Adequecy\n\nRegression Loss Function\n\n\nClassification Error Rate"
+  },
+  {
+    "objectID": "posts/2.html#machine-learning-training-fundamentals",
+    "href": "posts/2.html#machine-learning-training-fundamentals",
+    "title": "Week 2",
+    "section": "Machine Learning Training Fundamentals",
+    "text": "Machine Learning Training Fundamentals\n\nTrain-Test Split Data\n\n\nStandardization of Data\n\n\nPipeline Coding"
+  },
+  {
+    "objectID": "posts/2.html#footnotes",
+    "href": "posts/2.html#footnotes",
+    "title": "Week 2",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThere are models that relax this assumption.↩︎"
   },
   {
     "objectID": "posts/4.html",

@@ -201,11 +201,11 @@ spline_example_data.head()
 
 # Generalized Additive Models
 
-## GAM
+## Additive Models
 
-Generalized Additive Models extends the nonparametric models to include more than one predictor to explain the outcome `Y`.
+Additive Models extends the nonparametric models to include more than one predictor to explain the outcome `Y`.
 
-## GAM
+## Additive Models
 
 $$
 Y = \beta_0 + f_1(X_1) + f_2(X_2) + \cdots + f_k(X_k) + \varepsilon
@@ -215,7 +215,7 @@ $$
 Y = \beta_0 + \sum^k_{j=1} f_j(X_j) +\varepsilon
 $$
 
-## GAM Estimation
+## Estimation
 
 Each $\hat f_j$ can be estimated using an approach mentioned before.
 
@@ -225,6 +225,10 @@ $$
 
 ::: fragment
 Each $hat f_j$ can be estimated differently from other predictor functions.
+
+- Regression Splines
+- 
+
 :::
 
 ## GAMs for Non-Normal Variables

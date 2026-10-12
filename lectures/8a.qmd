@@ -33,10 +33,9 @@ date: 10-13-26
 description: An exploration of methods for nonlinear functions.
 ---
 
-
-## Python Setup
-
 ```{python}
+#| include: false
+#| label: setup
 
 import numpy as np
 import pandas as pd
@@ -202,70 +201,6 @@ quartic_grid["predicted_y"] = quartic_model.predict(quartic_grid)
 )
 ```
 
-## Polynomial Functions in Python (Alternative)
-
-```{python}
-#| eval: false
-#| code-fold: false
-
-polynomial = PolynomialFeatures(degree=p, include_bias=False)
-X_polynomial = polynomial.fit_transform(data[["x"]])
-model = LinearRegression().fit(X_polynomial, data["y"])
-```
-
-## Example Plot
-
-```{python}
-
-quartic_transform = PolynomialFeatures(degree=4, include_bias=True)
-X_quartic = quartic_transform.fit_transform(quartic_fit_data[["x"]])
-quartic_model_2 = LinearRegression().fit(X_quartic, quartic_fit_data["y"])
-
-
-
-quartic_grid_2 = pd.DataFrame(
-    {"x": np.linspace(quartic_fit_data["x"].min(), quartic_fit_data["x"].max(), 300)}
-)
-
-quartic_grid_2_transform = quartic_transform.fit_transform(quartic_grid_2[["x"]])
-
-quartic_grid_2["predicted_y"] = quartic_model_2.predict(quartic_grid_2_transform)
-
-(
-    ggplot(quartic_fit_data, aes(x="x", y="y"))
-    + geom_point(size=1.2, alpha=0.65)
-    + geom_line(
-        data=quartic_grid_2,
-        mapping=aes(x="x", y="predicted_y"),
-        inherit_aes=False,
-        size=1.1,
-    )
-    + theme_bw()
-)
-```
-
-## Individual Terms in Python
-
-```{python}
-#| eval: false
-#| code-fold: false
-
-model = smf.ols(
-    "y ~ I(x ** 3)",
-    data=data,
-).fit()
-```
-
-## Example
-
-Using `polynomial_example_data` from the setup chunk, fit quadratic, cubic, and quartic models. Compute the mean squared error and $R^2$ for each model.
-
-```{python}
-#| code-fold: false
-
-polynomial_example_data.head()
-```
-
 # Step Functions
 
 ## Stepwise Function
@@ -304,31 +239,6 @@ step_curve = step_plot.sort_values("x")
 -   Construct a model incorporating all dummy variable and their corresponding coefficient.
 -   Find the estimates of the model by minimizing the Least Squares Estimator.
 :::
-
-## Step Functions in Python
-
-```{python}
-#| code-fold: false
-#| eval: false
-
-step_data = data.assign(
-    x_bin=pd.cut(data["x"], bins=10, include_lowest=True)
-)
-step_model = smf.ols(
-    "y ~ C(x_bin)",
-    data=step_data,
-).fit()
-```
-
-## Example
-
-Using `step_example_data` from the setup chunk, fit step-regression models with 10, 20, and 30 steps. Compute the mean squared error and $R^2$ for each model.
-
-```{python}
-#| code-fold: false
-
-step_example_data.head()
-```
 
 # Regression Splines
 
@@ -430,16 +340,16 @@ $$
 
 ## Spline Functions Constraints
 
-When choosing basis functions, we want maintain the following constraints at the location of the knots:
+- When choosing basis functions, we want maintain the following constraints at the location of the knots:
 
 ::: incremental
--   Continuous
--   First Differentiable
--   Second Differentiable
+  -   Continuous
+  -   First Differentiable
+  -   Second Differentiable
 :::
 
 ::: fragment
-A common choice is to use a cubic spline function
+- A common choice is to use a cubic spline function
 :::
 
 ## Cubic Splines
@@ -452,7 +362,16 @@ $$
 
 ## Natural Cubic Splines
 
-Natural splines force the boundary knots to be fitted with simple lines instead of spline functions. The interior knots are fitted with spline functions.
+- Natural splines force the boundary knots to be fitted with simple lines instead of spline functions. The interior knots are fitted with spline functions. 
+
+
+
+::: {.fragment}
+
+- The data points outside the interior knots are modeled with lines.
+
+:::
+
 
 ## Plot
 
@@ -504,40 +423,10 @@ natural_spline_grid["predicted_y"] = natural_spline_model.predict(natural_spline
 )
 ```
 
-## Cubic Splines in Python
+## B-Splines
 
-Patsy's `bs()` transform constructs a B-spline basis that can be used in a `statsmodels` formula. Specify the knot locations; a cubic basis uses `degree=3`.
+- In Python, **B-Spline** typically refers to the general use of basis functions for models, such as truncated-power, cubic splines, or natural cubic splines.
 
-```{python}
-#| code-fold: false
-#| eval: false
+- When reading scientific papers, **B-Splines** typically refers to the implementation of one type of basis function: Cox-de Boer recursion. 
 
-cubic_spline_model = smf.ols(
-    "y ~ bs(x, knots=(...), degree=3)",
-    data=data,
-).fit()
-```
-
-## Natural Cubic Splines in Python
-
-Patsy's `cr()` transform constructs a natural cubic regression-spline basis. Specify the knot locations in the model formula.
-
-```{python}
-#| code-fold: false
-#| eval: false
-
-natural_spline_model = smf.ols(
-    "y ~ cr(x, knots=(...))",
-    data=data,
-).fit()
-```
-
-## Example
-
-Using `spline_example_data` from the setup chunk, fit regression models using cubic splines and natural cubic splines. Choose an appropriate number and location of knots. Compute the mean squared error and $R^2$ for each model.
-
-```{python}
-#| code-fold: false
-
-spline_example_data.head()
-```
+- For this class, we will follow the former and not the latter.

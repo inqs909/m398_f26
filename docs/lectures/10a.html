@@ -219,7 +219,7 @@
 </section>
 <section id="python-setup" class="slide level2">
 <h2>Python Setup</h2>
-<div id="df272800" class="cell" data-execution_count="1">
+<div id="d6c47e49" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> warnings</span>
@@ -308,7 +308,7 @@
 </section>
 <section id="plot" class="slide level2">
 <h2>Plot</h2>
-<div id="a65ecbbf" class="cell" data-execution_count="2">
+<div id="4cdec37f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a>(</span>
@@ -320,7 +320,7 @@
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <figure>
-<p><img data-src="10a_files/figure-revealjs/cell-3-output-1.png" width="960" height="480"></p>
+<p><img data-src="10a_files/figure-html/cell-3-output-1.png" width="672" height="480"></p>
 </figure>
 </div>
 </div>
@@ -328,7 +328,7 @@
 </section>
 <section id="plot-1" class="slide level2">
 <h2>Plot</h2>
-<div id="d5be0b88" class="cell" data-execution_count="3">
+<div id="7750f5a7" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>(</span>
@@ -340,7 +340,7 @@
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 <figure>
-<p><img data-src="10a_files/figure-revealjs/cell-4-output-1.png" width="960" height="480"></p>
+<p><img data-src="10a_files/figure-html/cell-4-output-1.png" width="672" height="480"></p>
 </figure>
 </div>
 </div>
@@ -410,7 +410,7 @@ Y = \beta_0 + \sum^p_{j=1}x^j\beta_j + \sum_{l=1}^L \beta_{p+l}(x - \xi_l)^p_+ +
 </section>
 <section id="smoothing-splines-in-python" class="slide level2">
 <h2>Smoothing Splines in Python</h2>
-<div id="bc57d4bc" class="cell" data-execution_count="4">
+<div id="e62daaa6" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>spline_model, best_lambda, mse, cv_results <span class="op">=</span> fit_smoothing_spline_cv(</span>
 <span id="cb4-2"><a aria-label="2"></a>    data<span class="op">=</span>spline_example_data,</span>
 <span id="cb4-3"><a aria-label="3"></a>    lambda_grid<span class="op">=</span>np.logspace(<span class="op">-</span><span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">25</span>),</span>
@@ -422,7 +422,7 @@ Y = \beta_0 + \sum^p_{j=1}x^j\beta_j + \sum_{l=1}^L \beta_{p+l}(x - \xi_l)^p_+ +
 <h2>Example</h2>
 <p>Fit a smoothing spline model with the following simulated data. Search through the help documentation to print out <span class="math inline">\(\lambda\)</span>. What is the MSE?</p>
 <p>The simulated data are loaded in the setup chunk as <code>spline_example_data</code>.</p>
-<div id="f9997525" class="cell" data-execution_count="5">
+<div id="398ab76d" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>spline_example_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -501,12 +501,12 @@ Y = \beta_0 + \sum^p_{j=1}x^j\beta_j + \sum_{l=1}^L \beta_{p+l}(x - \xi_l)^p_+ +
 </ul>
 </div>
 </section>
-<section id="gam" class="slide level2">
-<h2>GAM</h2>
-<p>Generalized Additive Models extends the nonparametric models to include more than one predictor to explain the outcome <code>Y</code>.</p>
+<section id="additive-models" class="slide level2">
+<h2>Additive Models</h2>
+<p>Additive Models extends the nonparametric models to include more than one predictor to explain the outcome <code>Y</code>.</p>
 </section>
-<section id="gam-1" class="slide level2">
-<h2>GAM</h2>
+<section id="additive-models-1" class="slide level2">
+<h2>Additive Models</h2>
 <p><span class="math display">\[
 Y = \beta_0 + f_1(X_1) + f_2(X_2) + \cdots + f_k(X_k) + \varepsilon
 \]</span></p>
@@ -514,14 +514,18 @@ Y = \beta_0 + f_1(X_1) + f_2(X_2) + \cdots + f_k(X_k) + \varepsilon
 Y = \beta_0 + \sum^k_{j=1} f_j(X_j) +\varepsilon
 \]</span></p>
 </section>
-<section id="gam-estimation" class="slide level2">
-<h2>GAM Estimation</h2>
+<section id="estimation" class="slide level2">
+<h2>Estimation</h2>
 <p>Each <span class="math inline">\(\hat f_j\)</span> can be estimated using an approach mentioned before.</p>
 <p><span class="math display">\[
 \hat Y = \hat \beta_0 + \sum^k_{j=1} \hat f_j(X_j)
 \]</span></p>
 <div class="fragment">
 <p>Each <span class="math inline">\(hat f_j\)</span> can be estimated differently from other predictor functions.</p>
+<ul>
+<li>Regression Splines</li>
+<li></li>
+</ul>
 </div>
 </section>
 <section id="gams-for-non-normal-variables" class="slide level2">
@@ -534,7 +538,7 @@ g(\hat Y) = \hat \beta_0 + \sum^k_{j=1} \hat f_j(X_j)
 <section id="gams-in-python" class="slide level2">
 <h2>GAMs in Python</h2>
 <p>The <code>statsmodels</code> package provides functions for fitting GAMs with multiple predictor variables.</p>
-<div id="fd4fc63a" class="cell" data-execution_count="6">
+<div id="02a73751" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a>smooth_predictors <span class="op">=</span> data[[<span class="st">"x_1"</span>, <span class="st">"x_2"</span>]]</span>
 <span id="cb6-2"><a aria-label="2"></a>linear_predictors <span class="op">=</span> sm.add_constant(data[[<span class="st">"x_3"</span>]])</span>
 <span id="cb6-3"><a aria-label="3"></a></span>
@@ -560,7 +564,7 @@ g(\hat Y) = \hat \beta_0 + \sum^k_{j=1} \hat f_j(X_j)
 <h2>Example</h2>
 <p>Fit the data using the simulated data below:</p>
 <p>The simulated data are loaded in the setup chunk as <code>poisson_gam_data</code>.</p>
-<div id="64aff8c8" class="cell" data-execution_count="7">
+<div id="2534b79d" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>poisson_gam_data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>

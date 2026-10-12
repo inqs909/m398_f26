@@ -1,6 +1,6 @@
 ---
 title: "Week 2"
-date: 08-24-26
+date: 08-31-26
 description: This week we review Machine Learning Fundamentals.
 editor: source
 ---
@@ -11,3 +11,46 @@ editor: source
 | Lecture | Slides                   |
 |---------|--------------------------|
 | 1       | [Slides](../lectures/2a) |
+
+## Topics
+
+### Prediction
+
+The purpose of Machine Learning Models is to predict new outcomes ($Y$) from given data. This is achieved my constructing the function $f$ that predicts $Y$:
+
+$$
+Y = f(X;\theta)
+$$
+
+where $X$ is the new data obtained and $\theta$ are the parameters that dictate how a predefined model^[There are models that relax this assumption.] $f$ behaves.
+
+For the purposes of this class, there are two types of predictions: Regressiona and Classification.
+
+
+#### Regression
+
+The 
+
+#### Classification
+
+### Types of Learning
+
+#### Supervised Learning
+
+#### Unsupervised Learning
+
+### Model Adequecy
+
+#### Regression Loss Function
+
+#### Classification Error Rate
+
+## Machine Learning Training Fundamentals
+
+### Train-Test Split Data
+
+### Standardization of Data
+
+### Pipeline Coding
+
+## 

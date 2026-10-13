@@ -94,6 +94,10 @@ natural_spline_data = simulate_quartic_data()
 spline_example_data = simulate_quartic_data()
 ```
 
+## Notebook
+
+[Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_8_nonlinear.ipynb)
+
 # Motivating Example
 
 ## Plot

@@ -1,0 +1,13 @@
+---
+title: "Week 8"
+date: 10-13-26
+description: This week we review Nonlinear Models.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   | Notebook |
+|---------|--------------------------|----------|
+| 1       | [Slides](../lectures/8a) |[Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_8_nonlinear.ipynb)|

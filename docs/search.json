@@ -14,81 +14,74 @@
     "text": "Python for Data Science Python for Data Analysis Positron and Python"
   },
   {
-    "objectID": "posts/8.html",
-    "href": "posts/8.html",
-    "title": "Week 8",
+    "objectID": "posts/9.html",
+    "href": "posts/9.html",
+    "title": "Week 9",
     "section": "",
     "text": "Lecture\nSlides\nNotebook\n\n\n\n\n1\nSlides\nNotebook"
   },
   {
-    "objectID": "posts/8.html#resources",
-    "href": "posts/8.html#resources",
-    "title": "Week 8",
+    "objectID": "posts/9.html#resources",
+    "href": "posts/9.html#resources",
+    "title": "Week 9",
     "section": "",
     "text": "Lecture\nSlides\nNotebook\n\n\n\n\n1\nSlides\nNotebook"
   },
   {
-    "objectID": "posts/6.html",
-    "href": "posts/6.html",
-    "title": "Week 6",
+    "objectID": "posts/7.html",
+    "href": "posts/7.html",
+    "title": "Week 7",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/6.html#resources",
-    "href": "posts/6.html#resources",
-    "title": "Week 6",
+    "objectID": "posts/7.html#resources",
+    "href": "posts/7.html#resources",
+    "title": "Week 7",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/4.html",
-    "href": "posts/4.html",
-    "title": "Week 4",
+    "objectID": "posts/5.html",
+    "href": "posts/5.html",
+    "title": "Week 5",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/4.html#resources",
-    "href": "posts/4.html#resources",
-    "title": "Week 4",
+    "objectID": "posts/5.html#resources",
+    "href": "posts/5.html#resources",
+    "title": "Week 5",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/2.html",
-    "href": "posts/2.html",
-    "title": "Week 2",
+    "objectID": "posts/3.html",
+    "href": "posts/3.html",
+    "title": "Week 3",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/2.html#resources",
-    "href": "posts/2.html#resources",
-    "title": "Week 2",
+    "objectID": "posts/3.html#resources",
+    "href": "posts/3.html#resources",
+    "title": "Week 3",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/2.html#topics",
-    "href": "posts/2.html#topics",
-    "title": "Week 2",
-    "section": "Topics",
-    "text": "Topics\n\nPrediction\nThe purpose of Machine Learning Models is to predict new outcomes (\\(Y\\)) from given data. This is achieved my constructing the function \\(f\\) that predicts \\(Y\\):\n\\[\nY = f(X;\\theta)\n\\]\nwhere \\(X\\) is the new data obtained and \\(\\theta\\) are the parameters that dictate how a predefined model1 \\(f\\) behaves.\nFor the purposes of this class, there are two types of predictions: Regressiona and Classification.\n\nRegression\nThe\n\n\nClassification\n\n\n\nTypes of Learning\n\nSupervised Learning\n\n\nUnsupervised Learning\n\n\n\nModel Adequecy\n\nRegression Loss Function\n\n\nClassification Error Rate"
+    "objectID": "posts/1.html",
+    "href": "posts/1.html",
+    "title": "Week 1",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/2.html#machine-learning-training-fundamentals",
-    "href": "posts/2.html#machine-learning-training-fundamentals",
-    "title": "Week 2",
-    "section": "Machine Learning Training Fundamentals",
-    "text": "Machine Learning Training Fundamentals\n\nTrain-Test Split Data\n\n\nStandardization of Data\n\n\nPipeline Coding"
-  },
-  {
-    "objectID": "posts/2.html#footnotes",
-    "href": "posts/2.html#footnotes",
-    "title": "Week 2",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nThere are models that relax this assumption.↩︎"
+    "objectID": "posts/1.html#resources",
+    "href": "posts/1.html#resources",
+    "title": "Week 1",
+    "section": "",
+    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
     "objectID": "lectures/8a.html#notebook",
@@ -1285,7 +1278,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nModel Selection\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "data.html",
@@ -1628,7 +1621,7 @@
     "href": "index.html",
     "title": "Welcome to Advanced Research Investigation!",
     "section": "",
-    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 8\n\n\nThis week we review Nonlinear Models.\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nWeek 7\n\n\nThis week we review Regularization.\n\n\n\n\n\nOct 5, 2026\n\n\n\n\n\n\n\nWeek 6\n\n\nThis week we review Resampling Techniques.\n\n\n\n\n\nSep 28, 2026\n\n\n\n\n\n\n\nWeek 5\n\n\nThis week we review Logistic Regression.\n\n\n\n\n\nSep 21, 2026\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 31, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
+    "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\nThis week we review Nonlinear Models.\n\n\n\n\n\nOct 19, 2026\n\n\n\n\n\n\n\nWeek 8\n\n\nThis week we review Nonlinear Models.\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nWeek 7\n\n\nThis week we review Regularization.\n\n\n\n\n\nOct 5, 2026\n\n\n\n\n\n\n\nWeek 6\n\n\nThis week we review Resampling Techniques.\n\n\n\n\n\nSep 28, 2026\n\n\n\n\n\n\n\nWeek 5\n\n\nThis week we review Logistic Regression.\n\n\n\n\n\nSep 21, 2026\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 31, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/10a.html#python-setup",
@@ -2989,60 +2982,193 @@
     "text": "Resources\n\nPalmer Penguins data and attribution: Horst, Hill, and Gorman; data collected by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research program.\nscikit-learn Ridge\nscikit-learn RidgeClassifier\nCross-validation"
   },
   {
-    "objectID": "posts/1.html",
-    "href": "posts/1.html",
-    "title": "Week 1",
+    "objectID": "lectures/9a.html#model-building",
+    "href": "lectures/9a.html#model-building",
+    "title": "Model Selection",
+    "section": "Model Building",
+    "text": "Model Building\nWhen given a set of predictors, we want to build a model that only contains predictors that best fits the data, without overfitting."
+  },
+  {
+    "objectID": "lectures/9a.html#model-building-1",
+    "href": "lectures/9a.html#model-building-1",
+    "title": "Model Selection",
+    "section": "Model Building",
+    "text": "Model Building\nIdeally, we always want to choose a parsimonious model that best describes the outcome variable. The more predictors into the model, the less parsimonious and less powerful.\nChoosing the best model can be done based on selection criteria such as Root MSE, Mallow’s \\(C_p\\), AIC, AICc, BIC, and adjusted \\(R^2\\)."
+  },
+  {
+    "objectID": "lectures/9a.html#rss---residual-sums-of-square",
+    "href": "lectures/9a.html#rss---residual-sums-of-square",
+    "title": "Model Selection",
+    "section": "RSS - Residual Sums of Square",
+    "text": "RSS - Residual Sums of Square\n\\[\nRSS = \\sum^n_{i=1} (Y_i - \\hat Y_i)^2\n\\]"
+  },
+  {
+    "objectID": "lectures/9a.html#root-mse",
+    "href": "lectures/9a.html#root-mse",
+    "title": "Model Selection",
+    "section": "Root MSE",
+    "text": "Root MSE\n\\[\nRMSE = \\sqrt{\\frac{1}{n} RSS}\n\\]"
+  },
+  {
+    "objectID": "lectures/9a.html#mallows-c_p",
+    "href": "lectures/9a.html#mallows-c_p",
+    "title": "Model Selection",
+    "section": "Mallow’s \\(C_p\\)",
+    "text": "Mallow’s \\(C_p\\)\n\\[\nC_p = \\frac{1}{n}(RSS + 2 d \\hat \\sigma^2)\n\\]\n\n\\(RSS\\): Residual Sum of Squares\n\\(\\hat \\sigma^2\\): Mean Square Error\n\\(d\\): number of predictors\nLower is better"
+  },
+  {
+    "objectID": "lectures/9a.html#aikaike-information-criteria-aic",
+    "href": "lectures/9a.html#aikaike-information-criteria-aic",
+    "title": "Model Selection",
+    "section": "Aikaike Information Criteria (AIC)",
+    "text": "Aikaike Information Criteria (AIC)\n\\[\n\\frac{1}{n\\hat\\sigma^2}(RSS+2d\\hat\\sigma^2)\n\\]\n\nLower is Better"
+  },
+  {
+    "objectID": "lectures/9a.html#bayesian-information-criteria-bic",
+    "href": "lectures/9a.html#bayesian-information-criteria-bic",
+    "title": "Model Selection",
+    "section": "Bayesian Information Criteria (BIC)",
+    "text": "Bayesian Information Criteria (BIC)\n\\[\n\\frac{1}{n\\hat\\sigma^2}\\{RSS+\\log(n)d\\hat\\sigma^2\\}\n\\]\n\nLower is better"
+  },
+  {
+    "objectID": "lectures/9a.html#r2",
+    "href": "lectures/9a.html#r2",
+    "title": "Model Selection",
+    "section": "\\(R^2\\)",
+    "text": "\\(R^2\\)\n\\[\n1-\\frac{RSS}{TSS}\n\\]\n\n\\(RSS=\\sum^n_{i=1}(y_i-\\hat y_i)^2\\)\n\\(TSS=\\sum^n_{i=1}(y_i-\\bar y)^2\\)\nHigher is Better"
+  },
+  {
+    "objectID": "lectures/9a.html#adjusted-r2",
+    "href": "lectures/9a.html#adjusted-r2",
+    "title": "Model Selection",
+    "section": "Adjusted \\(R^2\\)",
+    "text": "Adjusted \\(R^2\\)\n\\[\n1-\\frac{RSS/(n-d-1)}{\nTSS/(n-1)}\n\\]\n\nHigher is Better"
+  },
+  {
+    "objectID": "lectures/9a.html#model-building-2",
+    "href": "lectures/9a.html#model-building-2",
+    "title": "Model Selection",
+    "section": "Model Building",
+    "text": "Model Building\n\nBest Subset Model\n\nFit all models and select the best model based criteria\n\nForward Stepwise Model Building\n\nBegin with the null model (\\(Y\\sim 1\\)) and add variables until a final model is chosen.\n\nBackward Stepwise Model Building\n\nBegin with the full model, and remove variable until the final model is chosen.\n\nHybrid Stepwise Regression\n\nA hybrid approach between the forward and backward building approach."
+  },
+  {
+    "objectID": "lectures/9a.html#best-subset-model-building",
+    "href": "lectures/9a.html#best-subset-model-building",
+    "title": "Model Selection",
+    "section": "Best Subset Model Building",
+    "text": "Best Subset Model Building\n\nBegin with the null model, no predictors\nFor \\(k=1,\\ldots, p\\) (number of predictors):\n\nFit all \\(\\left(^p_k\\right)\\) models that contain \\(k\\) predictors\nDefine \\(M_k\\) as the model with the largest \\(R²\\)\n\nThe final model is the model \\(M_k\\) based on selection criteria"
+  },
+  {
+    "objectID": "lectures/9a.html#forward-stepwise-model-building",
+    "href": "lectures/9a.html#forward-stepwise-model-building",
+    "title": "Model Selection",
+    "section": "Forward Stepwise Model Building",
+    "text": "Forward Stepwise Model Building\n\nBegin with the null model, no predictors\nFor \\(k=0,\\ldots, p-1\\) (number of predictors):\n\nFit all \\(p-k\\) models that adds one new predictor to the orginal model containing \\(k\\) predictors\nDefine \\(M_{k+1}\\) as the model with the largest \\(R²\\) among \\(p-k\\) models\n\nThe final model is the model \\(M_(k+1)\\) based on selection criteria"
+  },
+  {
+    "objectID": "lectures/9a.html#backward-stepwise-model-building",
+    "href": "lectures/9a.html#backward-stepwise-model-building",
+    "title": "Model Selection",
+    "section": "Backward Stepwise Model Building",
+    "text": "Backward Stepwise Model Building\n\nBegin with the full model \\(M_p\\), with all predictors\nFor \\(k=p,p-1, \\ldots, 1\\) (number of predictors):\n\nFit all models that contain \\(k-1\\) predictors\nDefine \\(M_{k-1}\\) as the model with the largest \\(R²\\)\n\nThe final model is the model \\(M_k\\) based on selection criteria"
+  },
+  {
+    "objectID": "lectures/9a.html#scikit-learn",
+    "href": "lectures/9a.html#scikit-learn",
+    "title": "Model Selection",
+    "section": "SciKit Learn",
+    "text": "SciKit Learn\nSequentialFeatureSelector compares predictor subsets using cross-validation."
+  },
+  {
+    "objectID": "lectures/9a.html#scikit-learn-1",
+    "href": "lectures/9a.html#scikit-learn-1",
+    "title": "Model Selection",
+    "section": "SciKit Learn",
+    "text": "SciKit Learn\n\n\nForward selection\n\nStart with no predictors.\nTry each remaining predictor as an addition to the current model.\nEvaluate each candidate model using the same cross-validation folds.\nAdd the predictor with the highest mean validation score.\nRepeat until the stopping rule is met.\n\n\nBackward selection\n\nStart with all predictors.\nTry removing each predictor from the current model.\nEvaluate each candidate model using the same cross-validation folds.\nRemove the predictor whose removal gives the highest mean validation score.\nRepeat until the stopping rule is met."
+  },
+  {
+    "objectID": "lectures/9a.html#scikit-learn-2",
+    "href": "lectures/9a.html#scikit-learn-2",
+    "title": "Model Selection",
+    "section": "Scikit Learn",
+    "text": "Scikit Learn\nStopping rule: Select a specified number of predictors with n_features_to_select, or use \"auto\" with tol to stop based on score improvement.\nScoring: Higher is better; neg_mean_squared_error selects the candidate with the lowest mean validation MSE."
+  },
+  {
+    "objectID": "posts/2.html",
+    "href": "posts/2.html",
+    "title": "Week 2",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/1.html#resources",
-    "href": "posts/1.html#resources",
-    "title": "Week 1",
+    "objectID": "posts/2.html#resources",
+    "href": "posts/2.html#resources",
+    "title": "Week 2",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/3.html",
-    "href": "posts/3.html",
-    "title": "Week 3",
+    "objectID": "posts/2.html#topics",
+    "href": "posts/2.html#topics",
+    "title": "Week 2",
+    "section": "Topics",
+    "text": "Topics\n\nPrediction\nThe purpose of Machine Learning Models is to predict new outcomes (\\(Y\\)) from given data. This is achieved my constructing the function \\(f\\) that predicts \\(Y\\):\n\\[\nY = f(X;\\theta)\n\\]\nwhere \\(X\\) is the new data obtained and \\(\\theta\\) are the parameters that dictate how a predefined model1 \\(f\\) behaves.\nFor the purposes of this class, there are two types of predictions: Regressiona and Classification.\n\nRegression\nThe\n\n\nClassification\n\n\n\nTypes of Learning\n\nSupervised Learning\n\n\nUnsupervised Learning\n\n\n\nModel Adequecy\n\nRegression Loss Function\n\n\nClassification Error Rate"
+  },
+  {
+    "objectID": "posts/2.html#machine-learning-training-fundamentals",
+    "href": "posts/2.html#machine-learning-training-fundamentals",
+    "title": "Week 2",
+    "section": "Machine Learning Training Fundamentals",
+    "text": "Machine Learning Training Fundamentals\n\nTrain-Test Split Data\n\n\nStandardization of Data\n\n\nPipeline Coding"
+  },
+  {
+    "objectID": "posts/2.html#footnotes",
+    "href": "posts/2.html#footnotes",
+    "title": "Week 2",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nThere are models that relax this assumption.↩︎"
+  },
+  {
+    "objectID": "posts/4.html",
+    "href": "posts/4.html",
+    "title": "Week 4",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/3.html#resources",
-    "href": "posts/3.html#resources",
-    "title": "Week 3",
+    "objectID": "posts/4.html#resources",
+    "href": "posts/4.html#resources",
+    "title": "Week 4",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/5.html",
-    "href": "posts/5.html",
-    "title": "Week 5",
+    "objectID": "posts/6.html",
+    "href": "posts/6.html",
+    "title": "Week 6",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/5.html#resources",
-    "href": "posts/5.html#resources",
-    "title": "Week 5",
+    "objectID": "posts/6.html#resources",
+    "href": "posts/6.html#resources",
+    "title": "Week 6",
     "section": "",
     "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
   },
   {
-    "objectID": "posts/7.html",
-    "href": "posts/7.html",
-    "title": "Week 7",
+    "objectID": "posts/8.html",
+    "href": "posts/8.html",
+    "title": "Week 8",
     "section": "",
-    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+    "text": "Lecture\nSlides\nNotebook\n\n\n\n\n1\nSlides\nNotebook"
   },
   {
-    "objectID": "posts/7.html#resources",
-    "href": "posts/7.html#resources",
-    "title": "Week 7",
+    "objectID": "posts/8.html#resources",
+    "href": "posts/8.html#resources",
+    "title": "Week 8",
     "section": "",
-    "text": "Lecture\nSlides\n\n\n\n\n1\nSlides"
+    "text": "Lecture\nSlides\nNotebook\n\n\n\n\n1\nSlides\nNotebook"
   },
   {
     "objectID": "project_report.html",

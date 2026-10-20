@@ -12,6 +12,7 @@
       "/lectures/7a.html",
       "/lectures/8a.html",
       "/lectures/10a.html",
+      "/lectures/9a.html",
       "/lectures/11a.html",
       "/lectures/12a.html",
       "/lectures/13a.html",
@@ -34,6 +35,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/9.html",
       "/posts/8.html",
       "/posts/7.html",
       "/posts/6.html",

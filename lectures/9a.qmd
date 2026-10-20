@@ -1,0 +1,200 @@
+---
+title: "Model Selection"
+jupyter: python3
+format:
+  revealjs:
+    scrollable: true
+    navigation-mode: vertical
+    controls-layout: bottom-right
+    controls-tutorial: true
+    incremental: false
+    code-fold: true
+    code-summary: "Show code"
+    theme: [default, styles.scss]
+
+execute:
+  echo: true
+  eval: true
+  warning: false
+
+
+revealjs-plugins:
+  - pointer
+  - verticator
+  
+filters: 
+  - code-fullscreen
+  - reveal-auto-agenda
+
+editor: source
+
+order: 10
+date: 10-13-26
+description: An exploration of methods for model selection.
+---
+## Model Building
+
+When given a set of predictors, we want to build a model that only contains predictors that best fits the data, without overfitting.
+
+## Model Building
+
+Ideally, we always want to choose a parsimonious model that best describes the outcome variable. The more predictors into the model, the less parsimonious and less powerful.
+
+Choosing the best model can be done based on selection criteria such as Root MSE, Mallow's $C_p$, AIC, AICc, BIC, and adjusted $R^2$.
+
+# Selection Criteria
+
+## RSS - Residual Sums of Square
+
+$$
+RSS = \sum^n_{i=1} (Y_i - \hat Y_i)^2
+$$
+
+## Root MSE
+
+$$
+RMSE = \sqrt{\frac{1}{n} RSS}
+$$
+
+## Mallow's $C_p$
+
+$$
+C_p = \frac{1}{n}(RSS + 2 d \hat \sigma^2) 
+$$
+
+-   $RSS$: Residual Sum of Squares
+
+-   $\hat \sigma^2$: Mean Square Error
+
+-   $d$: number of predictors
+
+-   Lower is better
+
+## Aikaike Information Criteria (AIC)
+
+$$
+\frac{1}{n\hat\sigma^2}(RSS+2d\hat\sigma^2)
+$$
+
+-   Lower is Better
+
+## Bayesian Information Criteria (BIC)
+
+$$
+\frac{1}{n\hat\sigma^2}\{RSS+\log(n)d\hat\sigma^2\}
+$$
+
+-   Lower is better
+
+## $R^2$
+
+$$
+1-\frac{RSS}{TSS}
+$$
+
+-   $RSS=\sum^n_{i=1}(y_i-\hat y_i)^2$
+
+-   $TSS=\sum^n_{i=1}(y_i-\bar y)^2$
+
+-   Higher is Better
+
+## Adjusted $R^2$
+
+$$
+1-\frac{RSS/(n-d-1)}{
+TSS/(n-1)}
+$$
+
+-   Higher is Better
+
+
+
+
+
+# Subset Selection
+
+## Model Building
+
+-   Best Subset Model
+
+    -   Fit all models and select the best model based criteria
+
+-   Forward Stepwise Model Building
+
+    -   Begin with the null model ($Y\sim 1$) and add variables until a final model is chosen.
+
+-   Backward Stepwise Model Building
+
+    -   Begin with the full model, and remove variable until the final model is chosen.
+
+-   Hybrid Stepwise Regression
+
+    -   A hybrid approach between the forward and backward building approach.
+
+## Best Subset Model Building
+
+1.  Begin with the null model, no predictors
+2.  For $k=1,\ldots, p$ (number of predictors):
+    1.  Fit all $\left(^p_k\right)$ models that contain $k$ predictors
+
+    2.  Define $M_k$ as the model with the largest $R²$
+3.  The final model is the model $M_k$ based on selection criteria
+
+## Forward Stepwise Model Building
+
+1.  Begin with the null model, no predictors
+2.  For $k=0,\ldots, p-1$ (number of predictors):
+    1.  Fit all $p-k$ models that adds one new predictor to the orginal model containing $k$ predictors
+
+    2.  Define $M_{k+1}$ as the model with the largest $R²$ among $p-k$ models
+3.  The final model is the model $M_(k+1)$ based on selection criteria
+
+## Backward Stepwise Model Building
+
+1.  Begin with the full model $M_p$, with all predictors
+2.  For $k=p,p-1, \ldots, 1$ (number of predictors):
+    1.  Fit all models that contain $k-1$ predictors
+
+    2.  Define $M_{k-1}$ as the model with the largest $R²$
+3.  The final model is the model $M_k$ based on selection criteria
+
+## SciKit Learn
+
+`SequentialFeatureSelector` compares predictor subsets using **cross-validation**.
+
+
+## SciKit Learn {.smaller}
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Forward selection
+
+1. Start with **no predictors**.
+2. Try each remaining predictor as an addition to the current model.
+3. Evaluate each candidate model using the same cross-validation folds.
+4. Add the predictor with the **highest mean validation score**.
+5. Repeat until the stopping rule is met.
+
+:::
+
+::: {.column width="50%"}
+### Backward selection
+
+1. Start with **all predictors**.
+2. Try removing each predictor from the current model.
+3. Evaluate each candidate model using the same cross-validation folds.
+4. Remove the predictor whose removal gives the **highest mean validation score**.
+5. Repeat until the stopping rule is met.
+
+:::
+
+:::
+
+## Scikit Learn
+
+**Stopping rule:** Select a specified number of predictors with
+`n_features_to_select`, or use `"auto"` with `tol` to stop based on score improvement.
+
+**Scoring:** Higher is better; `neg_mean_squared_error` selects the candidate
+with the lowest mean validation MSE.

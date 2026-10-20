@@ -32,6 +32,11 @@ order: 10
 date: 10-13-26
 description: An exploration of methods for model selection.
 ---
+
+## Python Notebook
+
+[Model Selection Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_9_stepwise.ipynb)
+
 ## Model Building
 
 When given a set of predictors, we want to build a model that only contains predictors that best fits the data, without overfitting.
@@ -196,5 +201,5 @@ $$
 **Stopping rule:** Select a specified number of predictors with
 `n_features_to_select`, or use `"auto"` with `tol` to stop based on score improvement.
 
-**Scoring:** Higher is better; `neg_mean_squared_error` selects the candidate
+**Scoring:** `neg_mean_squared_error` selects the candidate
 with the lowest mean validation MSE.

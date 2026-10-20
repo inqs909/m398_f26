@@ -2982,6 +2982,13 @@
     "text": "Resources\n\nPalmer Penguins data and attribution: Horst, Hill, and Gorman; data collected by Dr. Kristen Gorman and the Palmer Station Long Term Ecological Research program.\nscikit-learn Ridge\nscikit-learn RidgeClassifier\nCross-validation"
   },
   {
+    "objectID": "lectures/9a.html#python-notebook",
+    "href": "lectures/9a.html#python-notebook",
+    "title": "Model Selection",
+    "section": "Python Notebook",
+    "text": "Python Notebook\nModel Selection Notebook"
+  },
+  {
     "objectID": "lectures/9a.html#model-building",
     "href": "lectures/9a.html#model-building",
     "title": "Model Selection",
@@ -3091,7 +3098,7 @@
     "href": "lectures/9a.html#scikit-learn-2",
     "title": "Model Selection",
     "section": "Scikit Learn",
-    "text": "Scikit Learn\nStopping rule: Select a specified number of predictors with n_features_to_select, or use \"auto\" with tol to stop based on score improvement.\nScoring: Higher is better; neg_mean_squared_error selects the candidate with the lowest mean validation MSE."
+    "text": "Scikit Learn\nStopping rule: Select a specified number of predictors with n_features_to_select, or use \"auto\" with tol to stop based on score improvement.\nScoring: neg_mean_squared_error selects the candidate with the lowest mean validation MSE."
   },
   {
     "objectID": "posts/2.html",

@@ -1,7 +1,7 @@
 ---
 title: "Week 9"
 date: 10-19-26
-description: This week we review Nonlinear Models.
+description: This week we review more Model Building.
 editor: source
 ---
 

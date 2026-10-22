@@ -18,14 +18,14 @@
     "href": "posts/9.html",
     "title": "Week 9",
     "section": "",
-    "text": "Lecture\nSlides\nNotebook\n\n\n\n\n1\nSlides\nNotebook"
+    "text": "Lecture\nSlides\nNotebooks\n\n\n\n\n1\nSlides\nNotebook A Notebook B"
   },
   {
     "objectID": "posts/9.html#resources",
     "href": "posts/9.html#resources",
     "title": "Week 9",
     "section": "",
-    "text": "Lecture\nSlides\nNotebook\n\n\n\n\n1\nSlides\nNotebook"
+    "text": "Lecture\nSlides\nNotebooks\n\n\n\n\n1\nSlides\nNotebook A Notebook B"
   },
   {
     "objectID": "posts/7.html",
@@ -1624,13 +1624,6 @@
     "text": "NoteQuarto Template for HW\n\n\n\n\n\nquarto use template inqs909/qs_hw_python\n\n\n\n\n\n\n\n\n\nNoteDiscord Server\n\n\n\n\n\nWill post if class creates one.\n\n\n\n\n\n\n\n\n\nNoteIntroduction to Statistics Book\n\n\n\n\n\nhttps://openintro-ims.netlify.app/\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 9\n\n\nThis week we review more Model Building.\n\n\n\n\n\nOct 19, 2026\n\n\n\n\n\n\n\nWeek 8\n\n\nThis week we review Nonlinear Models.\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nWeek 7\n\n\nThis week we review Regularization.\n\n\n\n\n\nOct 5, 2026\n\n\n\n\n\n\n\nWeek 6\n\n\nThis week we review Resampling Techniques.\n\n\n\n\n\nSep 28, 2026\n\n\n\n\n\n\n\nWeek 5\n\n\nThis week we review Logistic Regression.\n\n\n\n\n\nSep 21, 2026\n\n\n\n\n\n\n\nWeek 4\n\n\nThis week we review Classification.\n\n\n\n\n\nSep 14, 2026\n\n\n\n\n\n\n\nWeek 3\n\n\nThis week we review Linear Regression.\n\n\n\n\n\nSep 5, 2026\n\n\n\n\n\n\n\nWeek 2\n\n\nThis week we review Machine Learning Fundamentals.\n\n\n\n\n\nAug 31, 2026\n\n\n\n\n\n\n\nWeek 1\n\n\nThis week we will install Positron and Python.\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "lectures/10a.html#python-setup",
-    "href": "lectures/10a.html#python-setup",
-    "title": "Generalized Additive Models",
-    "section": "Python Setup",
-    "text": "Python Setup\n\n\nCode\nimport warnings\n\nimport numpy as np\nimport pandas as pd\nimport statsmodels.api as sm\nfrom plotnine import (\n    aes,\n    geom_line,\n    geom_point,\n    geom_vline,\n    ggplot,\n    labs,\n    theme_bw,\n)\nfrom plotnine.data import mtcars\nfrom scipy.interpolate import make_smoothing_spline\nfrom scipy.special import expit\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn.model_selection import KFold\nfrom statsmodels.gam.api import BSplines, GLMGam\n\nwarnings.filterwarnings(\"ignore\")\n\nrng = np.random.default_rng(123)\n\n\ndef simulate_polynomial_data(rng, n=1000, x_sd=0.25, error_sd=0.5):\n    \"\"\"Simulate the polynomial relationship used throughout the slides.\"\"\"\n    x = rng.normal(loc=0, scale=x_sd, size=n)\n    y = (\n        1\n        + 5.3 * x\n        - 45 * x**2\n        - 35.5 * x**3\n        + 60 * x**4\n        + rng.normal(loc=0, scale=error_sd, size=n)\n    )\n    return pd.DataFrame({\"x\": x, \"y\": y})\n\n\n# Data for the motivating examples\npolynomial_plot_data = simulate_polynomial_data(rng)\n\nx_sine = rng.normal(loc=0, scale=3.5, size=1000)\ny_sine = 1 + np.sin(np.pi * x_sine / 8) + rng.normal(\n    loc=0,\n    scale=0.25,\n    size=1000,\n)\nsinusoidal_plot_data = pd.DataFrame({\"x\": x_sine, \"y\": y_sine})\n\n# Separate simulated datasets for the spline and local-regression examples\nspline_example_data = simulate_polynomial_data(rng)\n\n# Data for the GAM examples\nmtcars_data = mtcars.copy()\n\nx_gam = rng.normal(loc=0, scale=1, size=1000)\ny_gam = rng.normal(loc=4, scale=1, size=1000)\nmu_gam = np.exp(-2 + expit(x_gam) + np.sqrt(y_gam + 15))\nz_gam = rng.poisson(mu_gam)\npoisson_gam_data = pd.DataFrame(\n    {\"x\": x_gam, \"y\": y_gam, \"mu\": mu_gam, \"z\": z_gam}\n)"
-  },
-  {
     "objectID": "lectures/10a.html#plot",
     "href": "lectures/10a.html#plot",
     "title": "Generalized Additive Models",
@@ -1670,7 +1663,7 @@
     "href": "lectures/10a.html#smooting-parameter",
     "title": "Generalized Additive Models",
     "section": "Smooting Parameter",
-    "text": "Smooting Parameter\nA smoothing (penalty) parameter will allow us to specify a large number of knots to grid up the range of X.\n\nThe smoothing parameter will will force the effect of certain knots to zero that are not relevant.\n\n\nAs long as we choose a high number of knots (20-30), it will properly model the data without the worry of overfitting.\n\n\nThe smoothing parameter can be estimated by using a cross-validation approach and identifying the which values lowers the MSE."
+    "text": "Smooting Parameter\nA smoothing (penalty) parameter will allow us to specify a large number of knots to grid up the range of X.\n\nThe smoothing parameter will force the effect of certain knots to zero that are not relevant.\n\n\nAs long as we choose a high number of knots (20-30), it will properly model the data without the worry of overfitting.\n\n\nThe smoothing parameter can be estimated by using a cross-validation approach and identifying the which values lowers the MSE."
   },
   {
     "objectID": "lectures/10a.html#likelihood-function",
@@ -1680,18 +1673,102 @@
     "text": "Likelihood Function\n\\[\n\\sum^n_{i=1}\\{Y_i-g(X_i)\\}^2 + \\lambda\\int g^{\\prime\\prime}(t)^2dt\n\\]\n\n\\(g(\\cdot)\\): function used to model data (using cubic splines)\n\\(\\lambda\\): smoothing parameter"
   },
   {
-    "objectID": "lectures/10a.html#smoothing-splines-in-python",
-    "href": "lectures/10a.html#smoothing-splines-in-python",
+    "objectID": "lectures/10a.html#local-regression-1",
+    "href": "lectures/10a.html#local-regression-1",
     "title": "Generalized Additive Models",
-    "section": "Smoothing Splines in Python",
-    "text": "Smoothing Splines in Python\n\nspline_model, best_lambda, mse, cv_results = fit_smoothing_spline_cv(\n    data=spline_example_data,\n    lambda_grid=np.logspace(-8, 1, 25),\n    n_splits=10,\n)"
+    "section": "Local Regression",
+    "text": "Local Regression\nThe idea of local regression models is to fit a regression model that is “relatively” close to a point called \\(x_0\\)"
   },
   {
-    "objectID": "lectures/10a.html#example",
-    "href": "lectures/10a.html#example",
+    "objectID": "lectures/10a.html#algorithm",
+    "href": "lectures/10a.html#algorithm",
     "title": "Generalized Additive Models",
-    "section": "Example",
-    "text": "Example\nFit a smoothing spline model with the following simulated data. Search through the help documentation to print out \\(\\lambda\\). What is the MSE?\nThe simulated data are loaded in the setup chunk as spline_example_data.\n\n\nCode\nspline_example_data.head()\n\n\n\n\n\n\n\n\n\nx\ny\n\n\n\n\n0\n0.035227\n1.858924\n\n\n1\n0.359061\n-3.492532\n\n\n2\n0.504016\n-8.470404\n\n\n3\n-0.328614\n-3.795633\n\n\n4\n-0.039906\n0.950307"
+    "section": "Algorithm",
+    "text": "Algorithm\n\nA window is created surrounding \\(x_0\\), this data is used to estimate \\(y\\) at \\(x_0\\)\nData points closer to \\(x_0\\) will have more of importance than data points farther away from \\(x_0\\)\n\nThe importance is determined using a kernel function\n\nA regression model is fitted with the window data points and importance weights\n\nEither Local Constant or Local Linear\n\nThe window size is known as the bandwidth"
+  },
+  {
+    "objectID": "lectures/10a.html#estimation-procedure",
+    "href": "lectures/10a.html#estimation-procedure",
+    "title": "Generalized Additive Models",
+    "section": "Estimation Procedure",
+    "text": "Estimation Procedure"
+  },
+  {
+    "objectID": "lectures/10a.html#estimating-value-x_00.5",
+    "href": "lectures/10a.html#estimating-value-x_00.5",
+    "title": "Generalized Additive Models",
+    "section": "Estimating value \\(x_0=0.5\\)",
+    "text": "Estimating value \\(x_0=0.5\\)"
+  },
+  {
+    "objectID": "lectures/10a.html#local-constant",
+    "href": "lectures/10a.html#local-constant",
+    "title": "Generalized Additive Models",
+    "section": "Local Constant",
+    "text": "Local Constant\nA local constant model utilizes a weighted mean to determine \\(f(x_0)\\):\n\\[\n\\hat f(x_0) = \\frac{1}{n} \\sum Y_i K(X_i, x_0, h)\n\\]\nwhere - \\(K(\\cdot)\\) is known as the kernel function - Viewed as a weighting function - \\(h\\) is the window size. - Data points outside the window are set to 0"
+  },
+  {
+    "objectID": "lectures/10a.html#choice-of-kcdot",
+    "href": "lectures/10a.html#choice-of-kcdot",
+    "title": "Generalized Additive Models",
+    "section": "Choice of \\(K(\\cdot)\\)",
+    "text": "Choice of \\(K(\\cdot)\\)\n\nGaussian\nTriweight\nEpanechnikov\nUniform"
+  },
+  {
+    "objectID": "lectures/10a.html#bandwidth-h",
+    "href": "lectures/10a.html#bandwidth-h",
+    "title": "Generalized Additive Models",
+    "section": "Bandwidth \\(h\\)",
+    "text": "Bandwidth \\(h\\)\nThe choice of bandwidth can be determined via a cross-validation approach."
+  },
+  {
+    "objectID": "lectures/10a.html#local-constant-model",
+    "href": "lectures/10a.html#local-constant-model",
+    "title": "Generalized Additive Models",
+    "section": "Local Constant Model",
+    "text": "Local Constant Model"
+  },
+  {
+    "objectID": "lectures/10a.html#local-linear-model",
+    "href": "lectures/10a.html#local-linear-model",
+    "title": "Generalized Additive Models",
+    "section": "Local Linear Model",
+    "text": "Local Linear Model\nUsing Taylor’s Expansion around \\(x_0\\) we can approximate f(x):\n\\[\nf(x) = f(x_0) + f^\\prime(x_0) (x-x_0)\n\\]"
+  },
+  {
+    "objectID": "lectures/10a.html#local-linear-model-1",
+    "href": "lectures/10a.html#local-linear-model-1",
+    "title": "Generalized Additive Models",
+    "section": "Local Linear Model",
+    "text": "Local Linear Model\n\\[\nf(x_0) + f^\\prime(x_0) (x-x_0) = \\beta_0^{(0)} + \\beta_1^{(0)} (X-x_0)\n\\]\nMust find \\(\\hat \\beta_0^{(0)}\\) and \\(\\beta_1^{(0)}\\)"
+  },
+  {
+    "objectID": "lectures/10a.html#ols-estimation",
+    "href": "lectures/10a.html#ols-estimation",
+    "title": "Generalized Additive Models",
+    "section": "OLS Estimation",
+    "text": "OLS Estimation\n\\[\n\\sum^n_{i=1}\\left\\{Y_i - \\beta_0^{(0)} - \\beta_1^{(0)} (X_i-x_0)\\right\\}^2K(X_i,x_0,h)\n\\]"
+  },
+  {
+    "objectID": "lectures/10a.html#local-linear-model-2",
+    "href": "lectures/10a.html#local-linear-model-2",
+    "title": "Generalized Additive Models",
+    "section": "Local Linear Model",
+    "text": "Local Linear Model\n\\[\n\\hat f(x_0) = \\hat\\beta^{(0)}_0\n\\]"
+  },
+  {
+    "objectID": "lectures/10a.html#local-linear-model-3",
+    "href": "lectures/10a.html#local-linear-model-3",
+    "title": "Generalized Additive Models",
+    "section": "Local Linear Model",
+    "text": "Local Linear Model"
+  },
+  {
+    "objectID": "lectures/10a.html#local-constant-vs-linear",
+    "href": "lectures/10a.html#local-constant-vs-linear",
+    "title": "Generalized Additive Models",
+    "section": "Local Constant vs Linear",
+    "text": "Local Constant vs Linear\nChoose Linear Model\nIt significantly reduced the asymptotic bias without any increase in the asymptotic variance, from the bias-variance tradeoff.\n\nYou can fit higher local polynomial models, but it is usually not worth the increase of the variance."
   },
   {
     "objectID": "lectures/10a.html#additive-models",
@@ -1712,7 +1789,7 @@
     "href": "lectures/10a.html#estimation",
     "title": "Generalized Additive Models",
     "section": "Estimation",
-    "text": "Estimation\nEach \\(\\hat f_j\\) can be estimated using an approach mentioned before.\n\\[\n\\hat Y = \\hat \\beta_0 + \\sum^k_{j=1} \\hat f_j(X_j)\n\\]\n\nEach \\(hat f_j\\) can be estimated differently from other predictor functions.\n\nRegression Splines"
+    "text": "Estimation\nEach \\(\\hat f_j\\) can be estimated using an approach mentioned before.\n\\[\n\\hat Y = \\hat \\beta_0 + \\sum^k_{j=1} \\hat f_j(X_j)\n\\]\n\nEach \\(\\hat f_j\\) can be estimated differently from other predictor functions."
   },
   {
     "objectID": "lectures/10a.html#gams-for-non-normal-variables",
@@ -1720,27 +1797,6 @@
     "title": "Generalized Additive Models",
     "section": "GAMs for Non-Normal Variables",
     "text": "GAMs for Non-Normal Variables\nGAMs can be extended to model outcome variables that do not follow a normal distribution.\n\\[\ng(\\hat Y) = \\hat \\beta_0 + \\sum^k_{j=1} \\hat f_j(X_j)\n\\]"
-  },
-  {
-    "objectID": "lectures/10a.html#gams-in-python",
-    "href": "lectures/10a.html#gams-in-python",
-    "title": "Generalized Additive Models",
-    "section": "GAMs in Python",
-    "text": "GAMs in Python\nThe statsmodels package provides functions for fitting GAMs with multiple predictor variables.\n\nsmooth_predictors = data[[\"x_1\", \"x_2\"]]\nlinear_predictors = sm.add_constant(data[[\"x_3\"]])\n\nspline_basis = BSplines(\n    smooth_predictors,\n    df=[8, 8],\n    degree=[3, 3],\n)\n\ngam_model = GLMGam(\n    data[\"y\"],\n    exog=linear_predictors,\n    smoother=spline_basis,\n    family=sm.families.Gaussian(),\n).fit()"
-  },
-  {
-    "objectID": "lectures/10a.html#example-1",
-    "href": "lectures/10a.html#example-1",
-    "title": "Generalized Additive Models",
-    "section": "Example",
-    "text": "Example\nUsing mtcars_data, fit a GAM with mpg as an outcome variable with 3 or 4 predictors. Use different types of functions to model the predictors."
-  },
-  {
-    "objectID": "lectures/10a.html#example-2",
-    "href": "lectures/10a.html#example-2",
-    "title": "Generalized Additive Models",
-    "section": "Example",
-    "text": "Example\nFit the data using the simulated data below:\nThe simulated data are loaded in the setup chunk as poisson_gam_data.\n\npoisson_gam_data.head()\n\n\n\n\n\n\n\n\nx\ny\nmu\nz\n\n\n\n\n0\n-1.413310\n5.118738\n14.601206\n11\n\n\n1\n-0.071873\n2.673188\n14.672697\n20\n\n\n2\n0.058539\n4.634443\n19.024119\n17\n\n\n3\n-0.499851\n4.974019\n17.232651\n19\n\n\n4\n0.880485\n3.423580\n20.069323\n18"
   },
   {
     "objectID": "lectures/12a.html#python-setup",

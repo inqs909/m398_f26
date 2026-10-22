@@ -31,30 +31,26 @@ date: 10-20-26
 description: Further exploration of nonlinear models and GAMs.
 ---
 
-## Python Setup
+
 
 ```{python}
+#| include: false
+
 
 import warnings
 
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
-from plotnine import (
-    aes,
-    geom_line,
-    geom_point,
-    geom_vline,
-    ggplot,
-    labs,
-    theme_bw,
-)
+from plotnine import *
 from plotnine.data import mtcars
 from scipy.interpolate import make_smoothing_spline
 from scipy.special import expit
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import KFold
 from statsmodels.gam.api import BSplines, GLMGam
+from statsmodels.nonparametric.kernel_regression import KernelReg
+
 
 warnings.filterwarnings("ignore")
 
@@ -155,7 +151,7 @@ $$
 A smoothing (penalty) parameter will allow us to specify a large number of knots to grid up the range of `X`.
 
 ::: fragment
-The smoothing parameter will will force the effect of certain knots to zero that are not relevant.
+The smoothing parameter will force the effect of certain knots to zero that are not relevant.
 :::
 
 ::: fragment
@@ -175,28 +171,294 @@ $$
 -   $g(\cdot)$: function used to model data (using cubic splines)
 -   $\lambda$: smoothing parameter
 
-## Smoothing Splines in Python
+
+# Local Regression
+
+## Local Regression
+
+The idea of local regression models is to fit a regression model that is "relatively" close to a point called $x_0$
+
+## Algorithm
+
+- A window is created surrounding $x_0$, this data is used to estimate $y$ at $x_0$
+- Data points closer to $x_0$ will have more of importance than data points farther away from $x_0$
+    - The importance is determined using a kernel function
+- A regression model is fitted with the window data points and importance weights
+    - Either Local Constant or Local Linear
+- The window size is known as the bandwidth
+
+
+## Estimation Procedure
+
+![](img/cool.gif)
+
+## Estimating value $x_0=0.5$
+
+![](img/cool.png)
+
+
+## Local Constant
+
+A local constant model utilizes a weighted mean to determine $f(x_0)$:
+
+$$
+\hat f(x_0) = \frac{1}{n} \sum Y_i K(X_i, x_0, h)
+$$
+
+where 
+- $K(\cdot)$ is known as the kernel function
+    - Viewed as a weighting function
+- $h$ is the window size.
+    - Data points outside the window are set to 0
+
+## Choice of $K(\cdot)$
+
+- Gaussian
+- Triweight
+- Epanechnikov
+- Uniform
+
+## Bandwidth $h$
+
+The choice of bandwidth can be determined via a cross-validation approach.
+
+## Local Constant Model
 
 ```{python}
-#| code-fold: false
-#| eval: false
+#| echo: false
+# 1. Simulate the data
+def simulate_polynomial_data(rng, n=1000, x_sd=0.25, error_sd=0.5):
+    """Simulate the polynomial relationship used throughout the slides."""
+    x = rng.normal(loc=0, scale=x_sd, size=n)
+    y = (
+        1
+        + 5.3 * x
+        - 45 * x**2
+        - 35.5 * x**3
+        + 60 * x**4
+        + rng.normal(loc=0, scale=error_sd, size=n)
+    )
+    return pd.DataFrame({"x": x, "y": y})
 
-spline_model, best_lambda, mse, cv_results = fit_smoothing_spline_cv(
-    data=spline_example_data,
-    lambda_grid=np.logspace(-8, 1, 25),
-    n_splits=10,
+
+rng = np.random.default_rng(909)
+data = simulate_polynomial_data(rng)
+
+
+# 2. Specify the local constant regression model
+bandwidth = 0.03
+
+model = KernelReg(
+    endog=data["y"].to_numpy(),  # Response variable
+    exog=data["x"].to_numpy(),  # Predictor variable
+    var_type="c",               # Continuous predictor
+    reg_type="lc",              # Local constant regression
+    ckertype="gaussian",        # Gaussian kernel weights
+    bw=[bandwidth]
 )
+
+
+# 3. Estimate the regression curve on an ordered grid
+x_grid = np.linspace(data["x"].min(), data["x"].max(), 500)
+
+y_fitted, _ = model.fit(x_grid)
+
+
+# 4. Calculate the true curve for comparison
+y_true = (
+    1
+    + 5.3 * x_grid
+    - 45 * x_grid**2
+    - 35.5 * x_grid**3
+    + 60 * x_grid**4
+)
+
+
+
+# Combine the fitted and true curves into one plotting dataframe
+curve_data = pd.DataFrame({
+    "x": x_grid,
+    "Local constant fit": y_fitted,
+    "True relationship": y_true
+}).melt(
+    id_vars="x",
+    var_name="curve",
+    value_name="y"
+)
+
+plot = (
+    ggplot()
+    + geom_point(
+        data=data,
+        mapping=aes(x="x", y="y"),
+        color="gray",
+        alpha=0.3,
+        size=1.2
+    )
+    + geom_line(
+        data=curve_data,
+        mapping=aes(
+            x="x",
+            y="y",
+            color="curve",
+            linetype="curve"
+        ),
+        size=1.1
+    )
+    + scale_color_manual(values={
+        "Local constant fit": "blue",
+        "True relationship": "black"
+    })
+    + scale_linetype_manual(values={
+        "Local constant fit": "solid",
+        "True relationship": "dashed"
+    })
+    + labs(
+        #title="Local Constant Regression",
+        title=f"Gaussian kernel; bandwidth = {bandwidth}",
+        x="x",
+        y="y",
+        color="",
+        linetype=""
+    )
+    + theme_minimal()
+    + theme(
+        figure_size=(10, 6),
+        legend_position="bottom"
+    )
+)
+
+plot.show()
+
 ```
 
-## Example
 
-Fit a smoothing spline model with the following simulated data. Search through the help documentation to print out $\lambda$. What is the MSE?
+## Local Linear Model
 
-The simulated data are loaded in the setup chunk as `spline_example_data`.
+Using *Taylor's Expansion* around $x_0$ we can approximate f(x):
+
+$$ 
+f(x) = f(x_0) + f^\prime(x_0) (x-x_0)
+$$
+
+## Local Linear Model
+
+$$
+f(x_0) + f^\prime(x_0) (x-x_0) = \beta_0^{(0)} + \beta_1^{(0)} (X-x_0)
+$$
+
+Must find $\hat \beta_0^{(0)}$ and $\beta_1^{(0)}$
+
+## OLS Estimation
+
+$$
+\sum^n_{i=1}\left\{Y_i - \beta_0^{(0)} - \beta_1^{(0)} (X_i-x_0)\right\}^2K(X_i,x_0,h)
+$$
+
+## Local Linear Model
+
+$$
+\hat f(x_0) = \hat\beta^{(0)}_0
+$$
+
+## Local Linear Model
 
 ```{python}
-spline_example_data.head()
+#| echo: false
+# 1. Simulate the data
+rng = np.random.default_rng(42)
+data = simulate_polynomial_data(rng)
+
+# 2. Specify the local linear regression model
+bandwidth = 0.03
+
+model = KernelReg(
+    endog=data["y"].to_numpy(),
+    exog=data["x"].to_numpy(),
+    var_type="c",          # Continuous predictor
+    reg_type="ll",         # Local linear regression
+    ckertype="gaussian",
+    bw=[bandwidth]
+)
+
+# 3. Estimate the regression curve
+x_grid = np.linspace(data["x"].min(), data["x"].max(), 500)
+y_fitted, _ = model.fit(x_grid)
+
+# 4. Calculate the true relationship
+y_true = (
+    1
+    + 5.3 * x_grid
+    - 45 * x_grid**2
+    - 35.5 * x_grid**3
+    + 60 * x_grid**4
+)
+
+# 5. Prepare the curves for plotnine
+curve_data = pd.DataFrame({
+    "x": x_grid,
+    "Local linear fit": y_fitted,
+    "True relationship": y_true
+}).melt(
+    id_vars="x",
+    var_name="curve",
+    value_name="y"
+)
+
+# 6. Plot the results
+plot = (
+    ggplot()
+    + geom_point(
+        data=data,
+        mapping=aes(x="x", y="y"),
+        color="gray",
+        alpha=0.3,
+        size=1.2
+    )
+    + geom_line(
+        data=curve_data,
+        mapping=aes(
+            x="x", y="y",
+            color="curve",
+            linetype="curve"
+        ),
+        size=1.1
+    )
+    + scale_color_manual(values={
+        "Local linear fit": "blue",
+        "True relationship": "black"
+    })
+    + scale_linetype_manual(values={
+        "Local linear fit": "solid",
+        "True relationship": "dashed"
+    })
+    + labs(
+        #title="Local Linear Regression",
+        title=f"Gaussian kernel; bandwidth = {bandwidth}",
+        x="x",
+        y="y",
+        color="",
+        linetype=""
+    )
+    + theme_minimal()
+    + theme(
+        figure_size=(10, 6),
+        legend_position="bottom"
+    )
+)
+
+plot.show()
 ```
+
+## Local Constant vs Linear
+
+**Choose Linear Model**
+
+It significantly reduced the asymptotic bias without any increase in the asymptotic variance, from the bias-variance tradeoff.
+
+::: fragment
+You can fit higher local polynomial models, but it is usually not worth the increase of the variance. 
+:::
 
 
 # Generalized Additive Models
@@ -224,11 +486,7 @@ $$
 $$
 
 ::: fragment
-Each $hat f_j$ can be estimated differently from other predictor functions.
-
-- Regression Splines
-- 
-
+Each $\hat f_j$ can be estimated differently from other predictor functions.
 :::
 
 ## GAMs for Non-Normal Variables
@@ -240,42 +498,3 @@ $$
 g(\hat Y) = \hat \beta_0 + \sum^k_{j=1} \hat f_j(X_j)
 $$
 
-## GAMs in Python
-
-The `statsmodels` package provides functions for fitting GAMs with multiple predictor variables.
-
-```{python}
-#| eval: false
-#| code-fold: false
-
-smooth_predictors = data[["x_1", "x_2"]]
-linear_predictors = sm.add_constant(data[["x_3"]])
-
-spline_basis = BSplines(
-    smooth_predictors,
-    df=[8, 8],
-    degree=[3, 3],
-)
-
-gam_model = GLMGam(
-    data["y"],
-    exog=linear_predictors,
-    smoother=spline_basis,
-    family=sm.families.Gaussian(),
-).fit()
-```
-
-## Example
-
-Using `mtcars_data`, fit a GAM with `mpg` as an outcome variable with 3 or 4 predictors. Use different types of functions to model the predictors.
-
-## Example
-Fit the data using the simulated data below:
-
-The simulated data are loaded in the setup chunk as `poisson_gam_data`.
-
-```{python}
-#| code-fold: false
-
-poisson_gam_data.head()
-```

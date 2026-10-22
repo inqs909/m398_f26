@@ -10,4 +10,4 @@ editor: source
 
 | Lecture | Slides                   | Notebooks |
 |---------|--------------------------|----------|
-| 1       | [Slides](../lectures/9a) |[Notebook A](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_9_stepwise.ipynb) [Notebook B]()|
+| 1       | [Slides](../lectures/9a) |[Notebook A](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_9_stepwise.ipynb) [Notebook B](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_9b_stepwise.ipynb)|

@@ -1,0 +1,13 @@
+---
+title: "Week 10"
+date: 10-26-26
+description: This week we review more Model Building.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   | Notebooks |
+|---------|--------------------------|----------|
+| 1       | [Slides](../lectures/10a) |[Notebook A](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_10a_gams.ipynb)|

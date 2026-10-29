@@ -1866,7 +1866,7 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\n\n\nICA 5\n\n\n\n\n\n\n\n\n\n\nICA 6\n\n\n\n\n\n\n\n\n\n\nICA 7\n\n\n\n\n\n\n\n\n\n\nAssignment 9\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\n\n\nICA 5\n\n\n\n\n\n\n\n\n\n\nICA 6\n\n\n\n\n\n\n\n\n\n\nICA 7\n\n\n\n\n\n\n\n\n\n\nICA 8\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "assignments/a3.html",
@@ -1969,30 +1969,30 @@
   {
     "objectID": "assignments/a9.html",
     "href": "assignments/a9.html",
-    "title": "Assignment 9",
+    "title": "ICA 9",
     "section": "",
     "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Second Edition)"
   },
   {
     "objectID": "assignments/a9.html#quarto-notebook-setup",
     "href": "assignments/a9.html#quarto-notebook-setup",
-    "title": "Assignment 9",
+    "title": "ICA 9",
     "section": "Quarto Notebook Setup",
     "text": "Quarto Notebook Setup\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
   },
   {
     "objectID": "assignments/a9.html#import-data",
     "href": "assignments/a9.html#import-data",
-    "title": "Assignment 9",
+    "title": "ICA 9",
     "section": "Import Data",
     "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCollege = load_data('College')"
   },
   {
     "objectID": "assignments/a9.html#problem-1",
     "href": "assignments/a9.html#problem-1",
-    "title": "Assignment 9",
+    "title": "ICA 9",
     "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 7: Problem 10"
+    "text": "Problem 1\nFrom the Applied Section in Chapter 7: Problem 10 a,b,c"
   },
   {
     "objectID": "data.html",

@@ -1,5 +1,5 @@
 ---
-title: "Assignment 9"
+title: "ICA 8"
 date: 3/15/24
 description: "Assignment is due 4/06/24"
 editor: source
@@ -48,5 +48,5 @@ College = load_data('College')
 
 ## Problem 1
 
-From the Applied Section in Chapter 7: Problem 10
+From the Applied Section in Chapter 7: Problem 10 a,b,c
 

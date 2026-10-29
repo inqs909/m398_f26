@@ -1,0 +1,13 @@
+---
+title: "Week 12"
+date: 11-09-26
+description: This week we review more Model Building.
+editor: source
+---
+
+
+## Resources
+
+| Lecture | Slides                   | Notebooks |
+|---------|--------------------------|----------|
+| 1       | [Slides](../lectures/11a) |[Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_11a_trees.ipynb)|

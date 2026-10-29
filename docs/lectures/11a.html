@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <link href="../img/logo.png" rel="icon" type="image/png">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -39,72 +39,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a2388ea69f91b3a6578639eff04fdd65.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -201,9 +135,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-  
-  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -217,68 +148,8 @@
 
   <p class="date">2026-10-27</p>
 </section>
-<section id="python-setup" class="slide level2">
-<h2>Python Setup</h2>
-<div id="e9c7b561" class="cell" data-execution_count="1">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-label="1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a aria-label="2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a aria-label="3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a aria-label="4"></a></span>
-<span id="cb1-5"><a aria-label="5"></a><span class="im">from</span> plotnine <span class="im">import</span> (</span>
-<span id="cb1-6"><a aria-label="6"></a>    aes,</span>
-<span id="cb1-7"><a aria-label="7"></a>    geom_line,</span>
-<span id="cb1-8"><a aria-label="8"></a>    geom_point,</span>
-<span id="cb1-9"><a aria-label="9"></a>    ggplot,</span>
-<span id="cb1-10"><a aria-label="10"></a>    labs,</span>
-<span id="cb1-11"><a aria-label="11"></a>    scale_x_continuous,</span>
-<span id="cb1-12"><a aria-label="12"></a>    theme_bw,</span>
-<span id="cb1-13"><a aria-label="13"></a>)</span>
-<span id="cb1-14"><a aria-label="14"></a><span class="im">from</span> plotnine.data <span class="im">import</span> penguins</span>
-<span id="cb1-15"><a aria-label="15"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold, cross_val_score</span>
-<span id="cb1-16"><a aria-label="16"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier, DecisionTreeRegressor, plot_tree</span>
-<span id="cb1-17"><a aria-label="17"></a></span>
-<span id="cb1-18"><a aria-label="18"></a>RANDOM_STATE <span class="op">=</span> <span class="dv">123</span></span>
-<span id="cb1-19"><a aria-label="19"></a></span>
-<span id="cb1-20"><a aria-label="20"></a><span class="co"># Load and clean the Palmer Penguins data.</span></span>
-<span id="cb1-21"><a aria-label="21"></a>df <span class="op">=</span> penguins.dropna().copy().reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb1-22"><a aria-label="22"></a></span>
-<span id="cb1-23"><a aria-label="23"></a><span class="co"># Define the predictors and outcomes used throughout the presentation.</span></span>
-<span id="cb1-24"><a aria-label="24"></a>regression_features <span class="op">=</span> [</span>
-<span id="cb1-25"><a aria-label="25"></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb1-26"><a aria-label="26"></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb1-27"><a aria-label="27"></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb1-28"><a aria-label="28"></a>]</span>
-<span id="cb1-29"><a aria-label="29"></a>classification_features <span class="op">=</span> [</span>
-<span id="cb1-30"><a aria-label="30"></a>    <span class="st">"body_mass_g"</span>,</span>
-<span id="cb1-31"><a aria-label="31"></a>    <span class="st">"flipper_length_mm"</span>,</span>
-<span id="cb1-32"><a aria-label="32"></a>    <span class="st">"bill_length_mm"</span>,</span>
-<span id="cb1-33"><a aria-label="33"></a>    <span class="st">"bill_depth_mm"</span>,</span>
-<span id="cb1-34"><a aria-label="34"></a>]</span>
-<span id="cb1-35"><a aria-label="35"></a></span>
-<span id="cb1-36"><a aria-label="36"></a>X_regression <span class="op">=</span> df[regression_features]</span>
-<span id="cb1-37"><a aria-label="37"></a>y_regression <span class="op">=</span> df[<span class="st">"body_mass_g"</span>]</span>
-<span id="cb1-38"><a aria-label="38"></a></span>
-<span id="cb1-39"><a aria-label="39"></a>X_classification <span class="op">=</span> df[classification_features]</span>
-<span id="cb1-40"><a aria-label="40"></a>y_classification <span class="op">=</span> df[<span class="st">"species"</span>]</span>
-<span id="cb1-41"><a aria-label="41"></a></span>
-<span id="cb1-42"><a aria-label="42"></a><span class="co"># Reproduce the original 50% training sample for both models.</span></span>
-<span id="cb1-43"><a aria-label="43"></a>rng <span class="op">=</span> np.random.default_rng(RANDOM_STATE)</span>
-<span id="cb1-44"><a aria-label="44"></a>train_index <span class="op">=</span> np.sort(</span>
-<span id="cb1-45"><a aria-label="45"></a>    rng.choice(df.index, size<span class="op">=</span><span class="bu">len</span>(df) <span class="op">//</span> <span class="dv">2</span>, replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-46"><a aria-label="46"></a>)</span>
-<span id="cb1-47"><a aria-label="47"></a></span>
-<span id="cb1-48"><a aria-label="48"></a>X_regression_train <span class="op">=</span> X_regression.loc[train_index]</span>
-<span id="cb1-49"><a aria-label="49"></a>y_regression_train <span class="op">=</span> y_regression.loc[train_index]</span>
-<span id="cb1-50"><a aria-label="50"></a></span>
-<span id="cb1-51"><a aria-label="51"></a>X_classification_train <span class="op">=</span> X_classification.loc[train_index]</span>
-<span id="cb1-52"><a aria-label="52"></a>y_classification_train <span class="op">=</span> y_classification.loc[train_index]</span>
-<span id="cb1-53"><a aria-label="53"></a></span>
-<span id="cb1-54"><a aria-label="54"></a><span class="co"># Ten-fold cross-validation used in the pruning section.</span></span>
-<span id="cb1-55"><a aria-label="55"></a>cv <span class="op">=</span> KFold(n_splits<span class="op">=</span><span class="dv">10</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span>RANDOM_STATE)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-</div>
+<section id="python-notebook" class="slide level2">
+<h2>Python Notebook</h2>
 </section>
 <section>
 <section id="trees" class="title-slide slide level1 agenda-slide center">
@@ -297,9 +168,6 @@
 <li><div class="agenda-inactive agenda-post-active">
 <p>Regression Trees</p>
 </div></li>
-<li><div class="agenda-inactive agenda-post-active">
-<p>Python Code</p>
-</div></li>
 </ul>
 </div>
 </section>
@@ -312,6 +180,19 @@
 <div class="fragment">
 <p>Trees are sometimes preferred to linear models due to the visual explanation of the model.</p>
 </div>
+<aside class="notes">
+<p>A tree’s regions arise from conditions on predictors, not from conditions on the unknown outcome at prediction time. With numeric predictors and axis-aligned splits, the regions are rectangles in two dimensions and hyperrectangles in higher dimensions. Trees can express nonlinear relationships and interactions without writing interaction terms in advance. Distinguish the process of learning splits from the later process of following those fixed splits for a new observation.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="trees-2" class="slide level2">
 <h2>Trees</h2>
@@ -320,12 +201,46 @@
 <section id="fitting-a-tree" class="slide level2 scrollable">
 <h2>Fitting a Tree</h2>
 <ol type="1">
-<li>Start with the entire dataset and define the maximum number of regions or number of observations per region of the tree.</li>
-<li>Calculate the MSE of the dataset.</li>
+<li>Start with the training dataset and define the maximum number of regions or number of observations per region of the tree.</li>
+<li>Calculate the MSE of the data.</li>
 <li>For each potential split, calculate the MSE. Choose the split that results in the lowest overall MSE.</li>
 <li>Create a node in the tree with the selected split as the split criterion.</li>
 <li>Repeat steps 2-4 for each subset, stopping if the maximum number of regions has been reached or if the subset size is too small.</li>
 </ol>
+</section>
+<section id="controlling-tree-size" class="slide level2">
+<h2>Controlling tree size</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>max_depth</code></td>
+<td>Limits the number of splits along a path</td>
+</tr>
+<tr class="even">
+<td><code>min_samples_split</code></td>
+<td>Minimum observations needed to attempt splitting a node</td>
+</tr>
+<tr class="odd">
+<td><code>min_samples_leaf</code></td>
+<td>Minimum observations required in each resulting leaf</td>
+</tr>
+<tr class="even">
+<td><code>max_leaf_nodes</code></td>
+<td>Limits the number of terminal regions</td>
+</tr>
+</tbody>
+</table>
+<p>Larger trees usually fit training data more closely but can have higher variance.</p>
 </section></section>
 <section>
 <section id="pruning" class="title-slide slide level1 agenda-slide center">
@@ -344,17 +259,14 @@
 <li><div class="agenda-inactive agenda-post-active">
 <p>Regression Trees</p>
 </div></li>
-<li><div class="agenda-inactive agenda-post-active">
-<p>Python Code</p>
-</div></li>
 </ul>
 </div>
 </section>
 <section id="pruning-1" class="slide level2">
 <h2>Pruning</h2>
-<p>Pruning is the process that will remove branches from a regression tree in order to prevent overfitting.</p>
+<p>Pruning is the process that will remove branches from a regression tree in order to reduce overfitting.</p>
 <div class="fragment">
-<p>This will result in a subtree that has high predictive power with no overfitting.</p>
+<p>This will result in a subtree that has high predictive power with minimized overfitting.</p>
 </div>
 <div class="fragment">
 <p>Due to the computational burden of pruning, it is recommended to implement <em>Cost Complexity Pruning.</em></p>
@@ -404,9 +316,6 @@
 <li><div class="agenda-inactive agenda-post-active">
 <p>Regression Trees</p>
 </div></li>
-<li><div class="agenda-inactive agenda-post-active">
-<p>Python Code</p>
-</div></li>
 </ul>
 </div>
 </section>
@@ -414,12 +323,48 @@
 <h2>Classification Trees</h2>
 <p>Classification Trees will construct a tree that will classify data based on the region (leaf) you land. The class majority is what is classified.</p>
 </section>
-<section id="criterion-gini-index" class="slide level2">
-<h2>Criterion: Gini Index</h2>
-<p>The Gini Index is used to determine the error rate in classification trees:</p>
+<section id="classification-gini-impurity" class="slide level2 smaller">
+<h2>Classification: Gini impurity</h2>
+<p>For class proportions <span class="math inline">\(\hat p_{mk}\)</span> in node <span class="math inline">\(m\)</span>:</p>
 <p><span class="math display">\[
-G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
+G_m=\sum_{k=1}^K\hat p_{mk}(1-\hat p_{mk})
+=1-\sum_{k=1}^K\hat p_{mk}^2.
 \]</span></p>
+<ul>
+<li><span class="math inline">\(K\)</span> is the number of classes</li>
+<li>A pure node has <span class="math inline">\(G_m=0\)</span>.</li>
+<li>With two equally common classes, <span class="math inline">\(G_m=0.5\)</span>.</li>
+<li>Minimize <span class="math inline">\(\frac{n_L}{n_m}G_L+\frac{n_R}{n_m}G_R\)</span> when choosing a split.</li>
+</ul>
+<p>The Gini Index is used to determine the error rate in classification trees:</p>
+</section>
+<section id="classification-prediction" class="slide level2">
+<h2>Classification prediction</h2>
+<p>For a new observation in leaf <span class="math inline">\(R_m\)</span>:</p>
+<p><span class="math display">\[
+\hat p_{mk}=\frac{\#\{i:x_i\in R_m,\ y_i=k\}}{n_m},
+\qquad
+\hat y=\underset{k}{\arg\max}\;\hat p_{mk}.
+\]</span></p>
+<div class="fragment">
+<p>The most common category in the leaf.</p>
+</div>
+<aside class="notes">
+<p>These illustrative probabilities are empirical class fractions from an unweighted leaf. They sum to one and use no distance weighting. A pure leaf returns probability one for one species, but that does not guarantee the prediction is correct on new data. Small leaves can give unstable or overconfident probabilities. If classes tie for largest probability, scikit-learn selects the first tied class in classes_. If sample or class weights are supplied, probabilities use weighted class counts instead of the simple counts shown here.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="prediction" class="slide level2">
+<h2>Prediction</h2>
 </section></section>
 <section>
 <section id="regression-trees" class="title-slide slide level1 agenda-slide center">
@@ -438,9 +383,6 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 <li><div class="agenda-active">
 <p>Regression Trees</p>
 </div></li>
-<li><div class="agenda-inactive agenda-post-active">
-<p>Python Code</p>
-</div></li>
 </ul>
 </div>
 </section>
@@ -448,346 +390,37 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
 <h2>Regression Trees</h2>
 <p>Regression trees will construct a tree and predict the value of the outcome based on the average value of the region (leaf).</p>
 <p>Trees are constructed by minimizing the residual sums of square.</p>
-</section></section>
-<section>
-<section id="python-code" class="title-slide slide level1 agenda-slide center">
-<h1>Python Code</h1>
-<div class="agenda">
-<ul>
-<li><div class="agenda-inactive agenda-pre-active">
-<p>Trees</p>
-</div></li>
-<li><div class="agenda-inactive agenda-pre-active">
-<p>Pruning</p>
-</div></li>
-<li><div class="agenda-inactive agenda-pre-active">
-<p>Classification Trees</p>
-</div></li>
-<li><div class="agenda-inactive agenda-pre-active">
-<p>Regression Trees</p>
-</div></li>
-<li><div class="agenda-active">
-<p>Python Code</p>
-</div></li>
-</ul>
-</div>
 </section>
-<section id="regression-trees-2" class="slide level2">
-<h2>Regression Trees</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Python Code</a></li><li><a href="#tabset-1-2">Plot</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div id="cee3b694" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-label="1"></a><span class="co"># Approximate the R tree package's default 1% minimum-deviance rule.</span></span>
-<span id="cb2-2"><a aria-label="2"></a>minimum_deviance <span class="op">=</span> <span class="fl">0.01</span> <span class="op">*</span> y_regression_train.var(ddof<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb2-3"><a aria-label="3"></a></span>
-<span id="cb2-4"><a aria-label="4"></a>tree_penguin <span class="op">=</span> DecisionTreeRegressor(</span>
-<span id="cb2-5"><a aria-label="5"></a>    criterion<span class="op">=</span><span class="st">"squared_error"</span>,</span>
-<span id="cb2-6"><a aria-label="6"></a>    min_samples_split<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb2-7"><a aria-label="7"></a>    min_samples_leaf<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb2-8"><a aria-label="8"></a>    min_impurity_decrease<span class="op">=</span>minimum_deviance,</span>
-<span id="cb2-9"><a aria-label="9"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb2-10"><a aria-label="10"></a>).fit(X_regression_train, y_regression_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div id="tabset-1-2">
-<div id="d3b961b0" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-label="1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">7</span>))</span>
-<span id="cb3-2"><a aria-label="2"></a>plot_tree(</span>
-<span id="cb3-3"><a aria-label="3"></a>    tree_penguin,</span>
-<span id="cb3-4"><a aria-label="4"></a>    feature_names<span class="op">=</span>regression_features,</span>
-<span id="cb3-5"><a aria-label="5"></a>    filled<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb3-6"><a aria-label="6"></a>    rounded<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb3-7"><a aria-label="7"></a>    precision<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb3-8"><a aria-label="8"></a>    fontsize<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb3-9"><a aria-label="9"></a>)</span>
-<span id="cb3-10"><a aria-label="10"></a>plt.title(<span class="st">"Regression Tree for Penguin Body Mass"</span>)</span>
-<span id="cb3-11"><a aria-label="11"></a>plt.tight_layout()</span>
-<span id="cb3-12"><a aria-label="12"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="11a_files/figure-revealjs/cell-4-output-1.png" width="1109" height="662"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section id="regression-splits-minimize-squared-error" class="slide level2 smaller">
+<h2>Regression splits minimize squared error</h2>
+<p>For a candidate split into left and right regions:</p>
+<p><span class="math display">\[
+\mathrm{RSS}_{\mathrm{split}}=
+\sum_{i\in R_L}(y_i-\bar y_L)^2+
+\sum_{i\in R_R}(y_i-\bar y_R)^2.
+\]</span></p>
+<p>Choose the split with the smallest total RSS.</p>
 </section>
-<section id="classification-trees-2" class="slide level2">
-<h2>Classification Trees</h2>
-<div class="panel-tabset">
-<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Plot</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1">
-<div id="cb6cae49" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-label="1"></a>tree_penguin_class <span class="op">=</span> DecisionTreeClassifier(</span>
-<span id="cb4-2"><a aria-label="2"></a>    criterion<span class="op">=</span><span class="st">"gini"</span>,</span>
-<span id="cb4-3"><a aria-label="3"></a>    min_samples_split<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb4-4"><a aria-label="4"></a>    min_samples_leaf<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb4-5"><a aria-label="5"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb4-6"><a aria-label="6"></a>).fit(X_classification_train, y_classification_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div id="tabset-2-2">
-<div id="ab751880" class="cell" data-execution_count="5">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-label="1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">7</span>))</span>
-<span id="cb5-2"><a aria-label="2"></a>plot_tree(</span>
-<span id="cb5-3"><a aria-label="3"></a>    tree_penguin_class,</span>
-<span id="cb5-4"><a aria-label="4"></a>    feature_names<span class="op">=</span>classification_features,</span>
-<span id="cb5-5"><a aria-label="5"></a>    class_names<span class="op">=</span>tree_penguin_class.classes_,</span>
-<span id="cb5-6"><a aria-label="6"></a>    filled<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-7"><a aria-label="7"></a>    rounded<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-8"><a aria-label="8"></a>    precision<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb5-9"><a aria-label="9"></a>    fontsize<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb5-10"><a aria-label="10"></a>)</span>
-<span id="cb5-11"><a aria-label="11"></a>plt.title(<span class="st">"Classification Tree for Penguin Species"</span>)</span>
-<span id="cb5-12"><a aria-label="12"></a>plt.tight_layout()</span>
-<span id="cb5-13"><a aria-label="13"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="11a_files/figure-revealjs/cell-6-output-1.png" width="1238" height="662"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="pruning-2" class="slide level2">
-<h2>Pruning</h2>
-<div class="panel-tabset">
-<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Code</a></li><li><a href="#tabset-3-2">Summary</a></li><li><a href="#tabset-3-3">Plot</a></li><li><a href="#tabset-3-4">Pruning</a></li></ul>
-<div class="tab-content">
-<div id="tabset-3-1">
-<div id="40d64004" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-label="1"></a><span class="co"># Generate the cost-complexity pruning sequence for the fitted tree.</span></span>
-<span id="cb6-2"><a aria-label="2"></a>pruning_path <span class="op">=</span> tree_penguin.cost_complexity_pruning_path(</span>
-<span id="cb6-3"><a aria-label="3"></a>    X_regression_train,</span>
-<span id="cb6-4"><a aria-label="4"></a>    y_regression_train,</span>
-<span id="cb6-5"><a aria-label="5"></a>)</span>
-<span id="cb6-6"><a aria-label="6"></a></span>
-<span id="cb6-7"><a aria-label="7"></a><span class="co"># The final alpha produces a tree with only the root, so it is omitted.</span></span>
-<span id="cb6-8"><a aria-label="8"></a>candidate_alphas <span class="op">=</span> np.unique(pruning_path.ccp_alphas[:<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb6-9"><a aria-label="9"></a></span>
-<span id="cb6-10"><a aria-label="10"></a>pruning_results <span class="op">=</span> []</span>
-<span id="cb6-11"><a aria-label="11"></a></span>
-<span id="cb6-12"><a aria-label="12"></a><span class="cf">for</span> alpha <span class="kw">in</span> candidate_alphas:</span>
-<span id="cb6-13"><a aria-label="13"></a>    candidate_tree <span class="op">=</span> DecisionTreeRegressor(</span>
-<span id="cb6-14"><a aria-label="14"></a>        criterion<span class="op">=</span><span class="st">"squared_error"</span>,</span>
-<span id="cb6-15"><a aria-label="15"></a>        min_samples_split<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb6-16"><a aria-label="16"></a>        min_samples_leaf<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb6-17"><a aria-label="17"></a>        min_impurity_decrease<span class="op">=</span>minimum_deviance,</span>
-<span id="cb6-18"><a aria-label="18"></a>        ccp_alpha<span class="op">=</span><span class="bu">float</span>(alpha),</span>
-<span id="cb6-19"><a aria-label="19"></a>        random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb6-20"><a aria-label="20"></a>    )</span>
-<span id="cb6-21"><a aria-label="21"></a></span>
-<span id="cb6-22"><a aria-label="22"></a>    fold_mse <span class="op">=</span> <span class="op">-</span>cross_val_score(</span>
-<span id="cb6-23"><a aria-label="23"></a>        candidate_tree,</span>
-<span id="cb6-24"><a aria-label="24"></a>        X_regression_train,</span>
-<span id="cb6-25"><a aria-label="25"></a>        y_regression_train,</span>
-<span id="cb6-26"><a aria-label="26"></a>        cv<span class="op">=</span>cv,</span>
-<span id="cb6-27"><a aria-label="27"></a>        scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>,</span>
-<span id="cb6-28"><a aria-label="28"></a>    )</span>
-<span id="cb6-29"><a aria-label="29"></a></span>
-<span id="cb6-30"><a aria-label="30"></a>    candidate_tree.fit(X_regression_train, y_regression_train)</span>
-<span id="cb6-31"><a aria-label="31"></a></span>
-<span id="cb6-32"><a aria-label="32"></a>    pruning_results.append(</span>
-<span id="cb6-33"><a aria-label="33"></a>        {</span>
-<span id="cb6-34"><a aria-label="34"></a>            <span class="st">"ccp_alpha"</span>: <span class="bu">float</span>(alpha),</span>
-<span id="cb6-35"><a aria-label="35"></a>            <span class="st">"size"</span>: candidate_tree.get_n_leaves(),</span>
-<span id="cb6-36"><a aria-label="36"></a>            <span class="st">"cv_mse"</span>: fold_mse.mean(),</span>
-<span id="cb6-37"><a aria-label="37"></a>            <span class="st">"cv_mse_se"</span>: fold_mse.std(ddof<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> np.sqrt(<span class="bu">len</span>(fold_mse)),</span>
-<span id="cb6-38"><a aria-label="38"></a>        }</span>
-<span id="cb6-39"><a aria-label="39"></a>    )</span>
-<span id="cb6-40"><a aria-label="40"></a></span>
-<span id="cb6-41"><a aria-label="41"></a>raw_pruning_results <span class="op">=</span> pd.DataFrame(pruning_results)</span>
-<span id="cb6-42"><a aria-label="42"></a></span>
-<span id="cb6-43"><a aria-label="43"></a><span class="co"># If multiple alpha values produce the same tree size, retain the one with</span></span>
-<span id="cb6-44"><a aria-label="44"></a><span class="co"># the smallest cross-validated error for that size.</span></span>
-<span id="cb6-45"><a aria-label="45"></a>best_size_rows <span class="op">=</span> raw_pruning_results.groupby(<span class="st">"size"</span>)[<span class="st">"cv_mse"</span>].idxmin()</span>
-<span id="cb6-46"><a aria-label="46"></a>tree_penguin_cv <span class="op">=</span> (</span>
-<span id="cb6-47"><a aria-label="47"></a>    raw_pruning_results.loc[best_size_rows]</span>
-<span id="cb6-48"><a aria-label="48"></a>    .sort_values(<span class="st">"size"</span>)</span>
-<span id="cb6-49"><a aria-label="49"></a>    .reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-50"><a aria-label="50"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div id="tabset-3-2">
-<div id="530c998c" class="cell" data-execution_count="7">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a>tree_penguin_cv.<span class="bu">round</span>(</span>
-<span id="cb7-2"><a aria-label="2"></a>    {</span>
-<span id="cb7-3"><a aria-label="3"></a>        <span class="st">"ccp_alpha"</span>: <span class="dv">2</span>,</span>
-<span id="cb7-4"><a aria-label="4"></a>        <span class="st">"cv_mse"</span>: <span class="dv">2</span>,</span>
-<span id="cb7-5"><a aria-label="5"></a>        <span class="st">"cv_mse_se"</span>: <span class="dv">2</span>,</span>
-<span id="cb7-6"><a aria-label="6"></a>    }</span>
-<span id="cb7-7"><a aria-label="7"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">ccp_alpha</th>
-<th data-quarto-table-cell-role="th">size</th>
-<th data-quarto-table-cell-role="th">cv_mse</th>
-<th data-quarto-table-cell-role="th">cv_mse_se</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>45099.51</td>
-<td>2</td>
-<td>231753.73</td>
-<td>23080.31</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>25511.49</td>
-<td>3</td>
-<td>227697.96</td>
-<td>23214.53</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>15971.40</td>
-<td>4</td>
-<td>238199.06</td>
-<td>24518.91</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>13959.37</td>
-<td>5</td>
-<td>224460.39</td>
-<td>22758.08</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>7087.55</td>
-<td>6</td>
-<td>200352.90</td>
-<td>21357.88</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>6950.20</td>
-<td>7</td>
-<td>200352.90</td>
-<td>21357.88</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">6</th>
-<td>0.00</td>
-<td>8</td>
-<td>205775.74</td>
-<td>22941.45</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-3-3">
-<div id="9e5e06b1" class="cell" data-execution_count="8">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-label="1"></a>(</span>
-<span id="cb8-2"><a aria-label="2"></a>    ggplot(tree_penguin_cv, aes(x<span class="op">=</span><span class="st">"size"</span>, y<span class="op">=</span><span class="st">"cv_mse"</span>))</span>
-<span id="cb8-3"><a aria-label="3"></a>    <span class="op">+</span> geom_line()</span>
-<span id="cb8-4"><a aria-label="4"></a>    <span class="op">+</span> geom_point(size<span class="op">=</span><span class="fl">2.5</span>)</span>
-<span id="cb8-5"><a aria-label="5"></a>    <span class="op">+</span> scale_x_continuous(</span>
-<span id="cb8-6"><a aria-label="6"></a>        breaks<span class="op">=</span><span class="bu">sorted</span>(tree_penguin_cv[<span class="st">"size"</span>].unique())</span>
-<span id="cb8-7"><a aria-label="7"></a>    )</span>
-<span id="cb8-8"><a aria-label="8"></a>    <span class="op">+</span> labs(</span>
-<span id="cb8-9"><a aria-label="9"></a>        x<span class="op">=</span><span class="st">"Number of terminal nodes"</span>,</span>
-<span id="cb8-10"><a aria-label="10"></a>        y<span class="op">=</span><span class="st">"Cross-validated mean squared error"</span>,</span>
-<span id="cb8-11"><a aria-label="11"></a>        title<span class="op">=</span><span class="st">"Cost-Complexity Pruning"</span>,</span>
-<span id="cb8-12"><a aria-label="12"></a>    )</span>
-<span id="cb8-13"><a aria-label="13"></a>    <span class="op">+</span> theme_bw()</span>
-<span id="cb8-14"><a aria-label="14"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<div>
-<figure>
-<p><img data-src="11a_files/figure-revealjs/cell-9-output-1.png" width="960" height="480"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-3-4">
-<div id="e1aedc50" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-label="1"></a><span class="co"># Match the original R example by selecting the alpha for a seven-leaf tree.</span></span>
-<span id="cb9-2"><a aria-label="2"></a><span class="co"># In these data, the seven-leaf tree also attains the minimum CV MSE.</span></span>
-<span id="cb9-3"><a aria-label="3"></a>best_row <span class="op">=</span> tree_penguin_cv.loc[tree_penguin_cv[<span class="st">"size"</span>].eq(<span class="dv">7</span>)].iloc[<span class="dv">0</span>]</span>
-<span id="cb9-4"><a aria-label="4"></a>best_alpha <span class="op">=</span> <span class="bu">float</span>(best_row[<span class="st">"ccp_alpha"</span>])</span>
-<span id="cb9-5"><a aria-label="5"></a></span>
-<span id="cb9-6"><a aria-label="6"></a>prune_best <span class="op">=</span> DecisionTreeRegressor(</span>
-<span id="cb9-7"><a aria-label="7"></a>    criterion<span class="op">=</span><span class="st">"squared_error"</span>,</span>
-<span id="cb9-8"><a aria-label="8"></a>    min_samples_split<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb9-9"><a aria-label="9"></a>    min_samples_leaf<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb9-10"><a aria-label="10"></a>    min_impurity_decrease<span class="op">=</span>minimum_deviance,</span>
-<span id="cb9-11"><a aria-label="11"></a>    ccp_alpha<span class="op">=</span>best_alpha,</span>
-<span id="cb9-12"><a aria-label="12"></a>    random_state<span class="op">=</span>RANDOM_STATE,</span>
-<span id="cb9-13"><a aria-label="13"></a>).fit(X_regression_train, y_regression_train)</span>
-<span id="cb9-14"><a aria-label="14"></a></span>
-<span id="cb9-15"><a aria-label="15"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">7</span>))</span>
-<span id="cb9-16"><a aria-label="16"></a>plot_tree(</span>
-<span id="cb9-17"><a aria-label="17"></a>    prune_best,</span>
-<span id="cb9-18"><a aria-label="18"></a>    feature_names<span class="op">=</span>regression_features,</span>
-<span id="cb9-19"><a aria-label="19"></a>    filled<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb9-20"><a aria-label="20"></a>    rounded<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb9-21"><a aria-label="21"></a>    precision<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb9-22"><a aria-label="22"></a>    fontsize<span class="op">=</span><span class="dv">8</span>,</span>
-<span id="cb9-23"><a aria-label="23"></a>)</span>
-<span id="cb9-24"><a aria-label="24"></a>plt.title(</span>
-<span id="cb9-25"><a aria-label="25"></a>    <span class="ss">f"Pruned Regression Tree (</span><span class="sc">{</span>prune_best<span class="sc">.</span>get_n_leaves()<span class="sc">}</span><span class="ss"> terminal nodes)"</span></span>
-<span id="cb9-26"><a aria-label="26"></a>)</span>
-<span id="cb9-27"><a aria-label="27"></a>plt.tight_layout()</span>
-<span id="cb9-28"><a aria-label="28"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="11a_files/figure-revealjs/cell-10-output-1.png" width="1142" height="662"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section id="regression-prediction-the-leaf-mean" class="slide level2">
+<h2>Regression prediction: the leaf mean</h2>
+<p>If new predictors <span class="math inline">\(x_{\mathrm{new}}\)</span> reach leaf <span class="math inline">\(R_m\)</span>, then</p>
+<p><span class="math display">\[
+\hat y(x_{\mathrm{new}})=\bar y_{R_m}
+=\frac{1}{n_m}\sum_{i:\,x_i\in R_m}y_i.
+\]</span></p>
+<aside class="notes">
+<p>Emphasize that the average uses training responses, never the unknown response of the new penguin. The observed masses in this arithmetic example are illustrative. A tree is piecewise constant: moving a little within one leaf changes nothing, whereas crossing a threshold can create a jump. The formula assumes equally weighted observations and squared-error regression. It is not a confidence interval, a causal effect, or a prediction of the exact realized mass of an individual animal.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 
 
 </section></section>
@@ -851,7 +484,7 @@ G = \sum^K_{k=1} \hat p_{mk}(1-\hat p_{mk})
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',

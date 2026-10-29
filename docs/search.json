@@ -1967,18 +1967,18 @@
     "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nModel Selection\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "lectures/11a.html#python-setup",
-    "href": "lectures/11a.html#python-setup",
+    "objectID": "lectures/11a.html#python-notebook",
+    "href": "lectures/11a.html#python-notebook",
     "title": "Tree-Based Methods",
-    "section": "Python Setup",
-    "text": "Python Setup\n\n\nShow code\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfrom plotnine import (\n    aes,\n    geom_line,\n    geom_point,\n    ggplot,\n    labs,\n    scale_x_continuous,\n    theme_bw,\n)\nfrom plotnine.data import penguins\nfrom sklearn.model_selection import KFold, cross_val_score\nfrom sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor, plot_tree\n\nRANDOM_STATE = 123\n\n# Load and clean the Palmer Penguins data.\ndf = penguins.dropna().copy().reset_index(drop=True)\n\n# Define the predictors and outcomes used throughout the presentation.\nregression_features = [\n    \"flipper_length_mm\",\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n]\nclassification_features = [\n    \"body_mass_g\",\n    \"flipper_length_mm\",\n    \"bill_length_mm\",\n    \"bill_depth_mm\",\n]\n\nX_regression = df[regression_features]\ny_regression = df[\"body_mass_g\"]\n\nX_classification = df[classification_features]\ny_classification = df[\"species\"]\n\n# Reproduce the original 50% training sample for both models.\nrng = np.random.default_rng(RANDOM_STATE)\ntrain_index = np.sort(\n    rng.choice(df.index, size=len(df) // 2, replace=False)\n)\n\nX_regression_train = X_regression.loc[train_index]\ny_regression_train = y_regression.loc[train_index]\n\nX_classification_train = X_classification.loc[train_index]\ny_classification_train = y_classification.loc[train_index]\n\n# Ten-fold cross-validation used in the pruning section.\ncv = KFold(n_splits=10, shuffle=True, random_state=RANDOM_STATE)"
+    "section": "Python Notebook",
+    "text": "Python Notebook"
   },
   {
     "objectID": "lectures/11a.html#trees-1",
     "href": "lectures/11a.html#trees-1",
     "title": "Tree-Based Methods",
     "section": "Trees",
-    "text": "Trees\nA Statistical tree will partition a region from a set of predictor variables that will predict an outcome of interest.\n\nTrees will split a region based on a predictors ability to reduce the overall mean squared error.\n\n\nTrees are sometimes preferred to linear models due to the visual explanation of the model."
+    "text": "Trees\nA Statistical tree will partition a region from a set of predictor variables that will predict an outcome of interest.\n\nTrees will split a region based on a predictors ability to reduce the overall mean squared error.\n\n\nTrees are sometimes preferred to linear models due to the visual explanation of the model.\n\n\nA tree’s regions arise from conditions on predictors, not from conditions on the unknown outcome at prediction time. With numeric predictors and axis-aligned splits, the regions are rectangles in two dimensions and hyperrectangles in higher dimensions. Trees can express nonlinear relationships and interactions without writing interaction terms in advance. Distinguish the process of learning splits from the later process of following those fixed splits for a new observation."
   },
   {
     "objectID": "lectures/11a.html#trees-2",
@@ -1992,14 +1992,21 @@
     "href": "lectures/11a.html#fitting-a-tree",
     "title": "Tree-Based Methods",
     "section": "Fitting a Tree",
-    "text": "Fitting a Tree\n\nStart with the entire dataset and define the maximum number of regions or number of observations per region of the tree.\nCalculate the MSE of the dataset.\nFor each potential split, calculate the MSE. Choose the split that results in the lowest overall MSE.\nCreate a node in the tree with the selected split as the split criterion.\nRepeat steps 2-4 for each subset, stopping if the maximum number of regions has been reached or if the subset size is too small."
+    "text": "Fitting a Tree\n\nStart with the training dataset and define the maximum number of regions or number of observations per region of the tree.\nCalculate the MSE of the data.\nFor each potential split, calculate the MSE. Choose the split that results in the lowest overall MSE.\nCreate a node in the tree with the selected split as the split criterion.\nRepeat steps 2-4 for each subset, stopping if the maximum number of regions has been reached or if the subset size is too small."
+  },
+  {
+    "objectID": "lectures/11a.html#controlling-tree-size",
+    "href": "lectures/11a.html#controlling-tree-size",
+    "title": "Tree-Based Methods",
+    "section": "Controlling tree size",
+    "text": "Controlling tree size\n\n\n\n\n\n\n\nParameter\nEffect\n\n\n\n\nmax_depth\nLimits the number of splits along a path\n\n\nmin_samples_split\nMinimum observations needed to attempt splitting a node\n\n\nmin_samples_leaf\nMinimum observations required in each resulting leaf\n\n\nmax_leaf_nodes\nLimits the number of terminal regions\n\n\n\nLarger trees usually fit training data more closely but can have higher variance."
   },
   {
     "objectID": "lectures/11a.html#pruning-1",
     "href": "lectures/11a.html#pruning-1",
     "title": "Tree-Based Methods",
     "section": "Pruning",
-    "text": "Pruning\nPruning is the process that will remove branches from a regression tree in order to prevent overfitting.\n\nThis will result in a subtree that has high predictive power with no overfitting.\n\n\nDue to the computational burden of pruning, it is recommended to implement Cost Complexity Pruning."
+    "text": "Pruning\nPruning is the process that will remove branches from a regression tree in order to reduce overfitting.\n\nThis will result in a subtree that has high predictive power with minimized overfitting.\n\n\nDue to the computational burden of pruning, it is recommended to implement Cost Complexity Pruning."
   },
   {
     "objectID": "lectures/11a.html#cost-complexity-pruning",
@@ -2023,11 +2030,25 @@
     "text": "Classification Trees\nClassification Trees will construct a tree that will classify data based on the region (leaf) you land. The class majority is what is classified."
   },
   {
-    "objectID": "lectures/11a.html#criterion-gini-index",
-    "href": "lectures/11a.html#criterion-gini-index",
+    "objectID": "lectures/11a.html#classification-gini-impurity",
+    "href": "lectures/11a.html#classification-gini-impurity",
     "title": "Tree-Based Methods",
-    "section": "Criterion: Gini Index",
-    "text": "Criterion: Gini Index\nThe Gini Index is used to determine the error rate in classification trees:\n\\[\nG = \\sum^K_{k=1} \\hat p_{mk}(1-\\hat p_{mk})\n\\]"
+    "section": "Classification: Gini impurity",
+    "text": "Classification: Gini impurity\nFor class proportions \\(\\hat p_{mk}\\) in node \\(m\\):\n\\[\nG_m=\\sum_{k=1}^K\\hat p_{mk}(1-\\hat p_{mk})\n=1-\\sum_{k=1}^K\\hat p_{mk}^2.\n\\]\n\n\\(K\\) is the number of classes\nA pure node has \\(G_m=0\\).\nWith two equally common classes, \\(G_m=0.5\\).\nMinimize \\(\\frac{n_L}{n_m}G_L+\\frac{n_R}{n_m}G_R\\) when choosing a split.\n\nThe Gini Index is used to determine the error rate in classification trees:"
+  },
+  {
+    "objectID": "lectures/11a.html#classification-prediction",
+    "href": "lectures/11a.html#classification-prediction",
+    "title": "Tree-Based Methods",
+    "section": "Classification prediction",
+    "text": "Classification prediction\nFor a new observation in leaf \\(R_m\\):\n\\[\n\\hat p_{mk}=\\frac{\\#\\{i:x_i\\in R_m,\\ y_i=k\\}}{n_m},\n\\qquad\n\\hat y=\\underset{k}{\\arg\\max}\\;\\hat p_{mk}.\n\\]\n\nThe most common category in the leaf.\n\n\nThese illustrative probabilities are empirical class fractions from an unweighted leaf. They sum to one and use no distance weighting. A pure leaf returns probability one for one species, but that does not guarantee the prediction is correct on new data. Small leaves can give unstable or overconfident probabilities. If classes tie for largest probability, scikit-learn selects the first tied class in classes_. If sample or class weights are supplied, probabilities use weighted class counts instead of the simple counts shown here."
+  },
+  {
+    "objectID": "lectures/11a.html#prediction",
+    "href": "lectures/11a.html#prediction",
+    "title": "Tree-Based Methods",
+    "section": "Prediction",
+    "text": "Prediction"
   },
   {
     "objectID": "lectures/11a.html#regression-trees-1",
@@ -2037,25 +2058,18 @@
     "text": "Regression Trees\nRegression trees will construct a tree and predict the value of the outcome based on the average value of the region (leaf).\nTrees are constructed by minimizing the residual sums of square."
   },
   {
-    "objectID": "lectures/11a.html#regression-trees-2",
-    "href": "lectures/11a.html#regression-trees-2",
+    "objectID": "lectures/11a.html#regression-splits-minimize-squared-error",
+    "href": "lectures/11a.html#regression-splits-minimize-squared-error",
     "title": "Tree-Based Methods",
-    "section": "Regression Trees",
-    "text": "Regression Trees\n\nPython CodePlot\n\n\n\n# Approximate the R tree package's default 1% minimum-deviance rule.\nminimum_deviance = 0.01 * y_regression_train.var(ddof=0)\n\ntree_penguin = DecisionTreeRegressor(\n    criterion=\"squared_error\",\n    min_samples_split=10,\n    min_samples_leaf=5,\n    min_impurity_decrease=minimum_deviance,\n    random_state=RANDOM_STATE,\n).fit(X_regression_train, y_regression_train)\n\n\n\n\n\nShow code\nplt.figure(figsize=(12, 7))\nplot_tree(\n    tree_penguin,\n    feature_names=regression_features,\n    filled=True,\n    rounded=True,\n    precision=0,\n    fontsize=8,\n)\nplt.title(\"Regression Tree for Penguin Body Mass\")\nplt.tight_layout()\nplt.show()"
+    "section": "Regression splits minimize squared error",
+    "text": "Regression splits minimize squared error\nFor a candidate split into left and right regions:\n\\[\n\\mathrm{RSS}_{\\mathrm{split}}=\n\\sum_{i\\in R_L}(y_i-\\bar y_L)^2+\n\\sum_{i\\in R_R}(y_i-\\bar y_R)^2.\n\\]\nChoose the split with the smallest total RSS."
   },
   {
-    "objectID": "lectures/11a.html#classification-trees-2",
-    "href": "lectures/11a.html#classification-trees-2",
+    "objectID": "lectures/11a.html#regression-prediction-the-leaf-mean",
+    "href": "lectures/11a.html#regression-prediction-the-leaf-mean",
     "title": "Tree-Based Methods",
-    "section": "Classification Trees",
-    "text": "Classification Trees\n\nCodePlot\n\n\n\ntree_penguin_class = DecisionTreeClassifier(\n    criterion=\"gini\",\n    min_samples_split=10,\n    min_samples_leaf=5,\n    random_state=RANDOM_STATE,\n).fit(X_classification_train, y_classification_train)\n\n\n\n\n\nShow code\nplt.figure(figsize=(13, 7))\nplot_tree(\n    tree_penguin_class,\n    feature_names=classification_features,\n    class_names=tree_penguin_class.classes_,\n    filled=True,\n    rounded=True,\n    precision=2,\n    fontsize=8,\n)\nplt.title(\"Classification Tree for Penguin Species\")\nplt.tight_layout()\nplt.show()"
-  },
-  {
-    "objectID": "lectures/11a.html#pruning-2",
-    "href": "lectures/11a.html#pruning-2",
-    "title": "Tree-Based Methods",
-    "section": "Pruning",
-    "text": "Pruning\n\nCodeSummaryPlotPruning\n\n\n\n# Generate the cost-complexity pruning sequence for the fitted tree.\npruning_path = tree_penguin.cost_complexity_pruning_path(\n    X_regression_train,\n    y_regression_train,\n)\n\n# The final alpha produces a tree with only the root, so it is omitted.\ncandidate_alphas = np.unique(pruning_path.ccp_alphas[:-1])\n\npruning_results = []\n\nfor alpha in candidate_alphas:\n    candidate_tree = DecisionTreeRegressor(\n        criterion=\"squared_error\",\n        min_samples_split=10,\n        min_samples_leaf=5,\n        min_impurity_decrease=minimum_deviance,\n        ccp_alpha=float(alpha),\n        random_state=RANDOM_STATE,\n    )\n\n    fold_mse = -cross_val_score(\n        candidate_tree,\n        X_regression_train,\n        y_regression_train,\n        cv=cv,\n        scoring=\"neg_mean_squared_error\",\n    )\n\n    candidate_tree.fit(X_regression_train, y_regression_train)\n\n    pruning_results.append(\n        {\n            \"ccp_alpha\": float(alpha),\n            \"size\": candidate_tree.get_n_leaves(),\n            \"cv_mse\": fold_mse.mean(),\n            \"cv_mse_se\": fold_mse.std(ddof=1) / np.sqrt(len(fold_mse)),\n        }\n    )\n\nraw_pruning_results = pd.DataFrame(pruning_results)\n\n# If multiple alpha values produce the same tree size, retain the one with\n# the smallest cross-validated error for that size.\nbest_size_rows = raw_pruning_results.groupby(\"size\")[\"cv_mse\"].idxmin()\ntree_penguin_cv = (\n    raw_pruning_results.loc[best_size_rows]\n    .sort_values(\"size\")\n    .reset_index(drop=True)\n)\n\n\n\n\n\nShow code\ntree_penguin_cv.round(\n    {\n        \"ccp_alpha\": 2,\n        \"cv_mse\": 2,\n        \"cv_mse_se\": 2,\n    }\n)\n\n\n\n\n\n\n\n\n\nccp_alpha\nsize\ncv_mse\ncv_mse_se\n\n\n\n\n0\n45099.51\n2\n231753.73\n23080.31\n\n\n1\n25511.49\n3\n227697.96\n23214.53\n\n\n2\n15971.40\n4\n238199.06\n24518.91\n\n\n3\n13959.37\n5\n224460.39\n22758.08\n\n\n4\n7087.55\n6\n200352.90\n21357.88\n\n\n5\n6950.20\n7\n200352.90\n21357.88\n\n\n6\n0.00\n8\n205775.74\n22941.45\n\n\n\n\n\n\n\n\n\n\n\nShow code\n(\n    ggplot(tree_penguin_cv, aes(x=\"size\", y=\"cv_mse\"))\n    + geom_line()\n    + geom_point(size=2.5)\n    + scale_x_continuous(\n        breaks=sorted(tree_penguin_cv[\"size\"].unique())\n    )\n    + labs(\n        x=\"Number of terminal nodes\",\n        y=\"Cross-validated mean squared error\",\n        title=\"Cost-Complexity Pruning\",\n    )\n    + theme_bw()\n)\n\n\n\n\n\n\n\n\n\n\n\n\n# Match the original R example by selecting the alpha for a seven-leaf tree.\n# In these data, the seven-leaf tree also attains the minimum CV MSE.\nbest_row = tree_penguin_cv.loc[tree_penguin_cv[\"size\"].eq(7)].iloc[0]\nbest_alpha = float(best_row[\"ccp_alpha\"])\n\nprune_best = DecisionTreeRegressor(\n    criterion=\"squared_error\",\n    min_samples_split=10,\n    min_samples_leaf=5,\n    min_impurity_decrease=minimum_deviance,\n    ccp_alpha=best_alpha,\n    random_state=RANDOM_STATE,\n).fit(X_regression_train, y_regression_train)\n\nplt.figure(figsize=(12, 7))\nplot_tree(\n    prune_best,\n    feature_names=regression_features,\n    filled=True,\n    rounded=True,\n    precision=0,\n    fontsize=8,\n)\nplt.title(\n    f\"Pruned Regression Tree ({prune_best.get_n_leaves()} terminal nodes)\"\n)\nplt.tight_layout()\nplt.show()"
+    "section": "Regression prediction: the leaf mean",
+    "text": "Regression prediction: the leaf mean\nIf new predictors \\(x_{\\mathrm{new}}\\) reach leaf \\(R_m\\), then\n\\[\n\\hat y(x_{\\mathrm{new}})=\\bar y_{R_m}\n=\\frac{1}{n_m}\\sum_{i:\\,x_i\\in R_m}y_i.\n\\]\n\nEmphasize that the average uses training responses, never the unknown response of the new penguin. The observed masses in this arithmetic example are illustrative. A tree is piecewise constant: moving a little within one leaf changes nothing, whereas crossing a threshold can create a jump. The formula assumes equally weighted observations and squared-error regression. It is not a confidence interval, a causal effect, or a prediction of the exact realized mass of an individual animal."
   },
   {
     "objectID": "lectures/13a.html#python-setup",

@@ -36,6 +36,8 @@ description: A first introduction to tree-based methods.
 
 ## Python Notebook
 
+[Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_11a_trees.ipynb)
+
 
 # Trees
 

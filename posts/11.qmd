@@ -1,7 +1,7 @@
 ---
 title: "Week 11"
 date: 11-02-26
-description: This week we review more Model Building.
+description: This week we review Tree-based Methods.
 editor: source
 ---
 

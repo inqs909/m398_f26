@@ -1,10 +1,10 @@
 {
-  "hash": "c097e913918e331bfc2f2588572bf8eb",
+  "hash": "427982a2c2f4f1546075df7b99e61085",
   "result": {
     "engine": "jupyter",
-    "markdown": "---\ntitle: \"ICA 9\"\ndate: 11/04/26\ndescription: \"Assignment is due 11/08/26\"\neditor: source\ndraft: true\n---\n\nFrom *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Python Edition)\n\n\n## Quarto Notebook Setup\n\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n\n```yaml\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---\n```\n\n## Import Data\n\n::: {#16af8aff .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCarseats = load_data('Carseats')\nOJ = load_data('OJ')\n```\n:::\n\n\n## Problem 1\n\nFrom the Applied Section in Chapter 8: Problem 8 a, b (you do not need to create the plot), c\n\n## Problem 2\n\nFrom the Applied Section in Chapter 8: Problem 9 a, b, e, f, h, i\n\n",
+    "markdown": "---\ntitle: \"ICA 9\"\ndate: 11/04/26\ndescription: \"Assignment is due 11/08/26\"\neditor: source\ndraft: false\n---\n\nFrom *An Introduction to Statistical Learning* from James, Witten, Hastie, and Tibshirani (Python Edition)\n\n\n## Quarto Notebook Setup\n\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n\n```yaml\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---\n```\n\n## Import Data\n\n::: {#e17323f3 .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCarseats = load_data('Carseats')\nOJ = load_data('OJ')\n```\n:::\n\n\n## Problem 1\n\nFrom the Applied Section in Chapter 8: Problem 8 a, b (you do not need to create the plot), c\n\n## Problem 2\n\nFrom the Applied Section in Chapter 8: Problem 9 a, b, e, f, h, i\n\n",
     "supporting": [
-      "a10_files"
+      "a10_files/figure-html"
     ],
     "filters": [],
     "includes": {}

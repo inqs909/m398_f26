@@ -1820,11 +1820,46 @@
     "text": "Problem 4\nCreate a function that will randomly generate n numbers that are greater than x from a \\(Pois(\\lambda)\\). Use numpy to generate the random variables."
   },
   {
+    "objectID": "assignments/a10.html",
+    "href": "assignments/a10.html",
+    "title": "ICA 9",
+    "section": "",
+    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
+  },
+  {
+    "objectID": "assignments/a10.html#quarto-notebook-setup",
+    "href": "assignments/a10.html#quarto-notebook-setup",
+    "title": "ICA 9",
+    "section": "Quarto Notebook Setup",
+    "text": "Quarto Notebook Setup\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a10.html#import-data",
+    "href": "assignments/a10.html#import-data",
+    "title": "ICA 9",
+    "section": "Import Data",
+    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCarseats = load_data('Carseats')\nOJ = load_data('OJ')"
+  },
+  {
+    "objectID": "assignments/a10.html#problem-1",
+    "href": "assignments/a10.html#problem-1",
+    "title": "ICA 9",
+    "section": "Problem 1",
+    "text": "Problem 1\nFrom the Applied Section in Chapter 8: Problem 8 a, b (you do not need to create the plot), c"
+  },
+  {
+    "objectID": "assignments/a10.html#problem-2",
+    "href": "assignments/a10.html#problem-2",
+    "title": "ICA 9",
+    "section": "Problem 2",
+    "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 9 a, b, e, f, h, i"
+  },
+  {
     "objectID": "assignments.html",
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "ICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\n\n\nICA 5\n\n\n\n\n\n\n\n\n\n\nICA 6\n\n\n\n\n\n\n\n\n\n\nICA 7\n\n\n\n\n\n\n\n\n\n\nICA 8\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "ICA 9\n\n\n\n\n\n\n\n\n\n\nICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\n\n\nICA 5\n\n\n\n\n\n\n\n\n\n\nICA 6\n\n\n\n\n\n\n\n\n\n\nICA 7\n\n\n\n\n\n\n\n\n\n\nICA 8\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "assignments/a3.html",

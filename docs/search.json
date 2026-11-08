@@ -1369,7 +1369,7 @@
     "href": "lectures/12a.html#python-notebook",
     "title": "Bagging, Random Forests, and Boosting",
     "section": "Python Notebook",
-    "text": "Python Notebook"
+    "text": "Python Notebook\nNotebook"
   },
   {
     "objectID": "lectures/12a.html#bagging-1",
@@ -1866,7 +1866,49 @@
     "href": "assignments.html",
     "title": "Assignments",
     "section": "",
-    "text": "ICA 9\n\n\n\n\n\n\n\n\n\n\nICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\n\n\nICA 5\n\n\n\n\n\n\n\n\n\n\nICA 6\n\n\n\n\n\n\n\n\n\n\nICA 7\n\n\n\n\n\n\n\n\n\n\nICA 8\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "ICA 9\n\n\n\n\n\n\n\n\n\n\nICA 10\n\n\n\n\n\n\n\n\n\n\nICA 1\n\n\n\n\n\n\n\n\n\n\nICA 2\n\n\n\n\n\n\n\n\n\n\nICA 3\n\n\n\n\n\n\n\n\n\n\nICA 4\n\n\n\n\n\n\n\n\n\n\nICA 5\n\n\n\n\n\n\n\n\n\n\nICA 6\n\n\n\n\n\n\n\n\n\n\nICA 7\n\n\n\n\n\n\n\n\n\n\nICA 8\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "assignments/a11.html",
+    "href": "assignments/a11.html",
+    "title": "ICA 10",
+    "section": "",
+    "text": "From An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
+  },
+  {
+    "objectID": "assignments/a11.html#quarto-notebook-setup",
+    "href": "assignments/a11.html#quarto-notebook-setup",
+    "title": "ICA 10",
+    "section": "Quarto Notebook Setup",
+    "text": "Quarto Notebook Setup\nCreate a raw cell and insert this code for those using Positron and Jupyter.\n---\ntitle: \"TITLE\"\nauthor: \"NAME HERE\"\ndate: \"DATE HERE\"\nformat: \n  html:\n    toc: true\n    toc-depth: 2\n    code-fold: show\n    code-line-numbers: true\n    embed-resources: true\nexecute:\n  echo: true\n  message: false\n  warning: false\n  error: true\njupyter: python3\n---"
+  },
+  {
+    "objectID": "assignments/a11.html#import-data",
+    "href": "assignments/a11.html#import-data",
+    "title": "ICA 10",
+    "section": "Import Data",
+    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCarseats = load_data('Carseats')\nCaravan = load_data('Caravan')"
+  },
+  {
+    "objectID": "assignments/a11.html#problem-1",
+    "href": "assignments/a11.html#problem-1",
+    "title": "ICA 10",
+    "section": "Problem 1",
+    "text": "Problem 1\nFrom the Applied Section in Chapter 8: Problem 8 d, e"
+  },
+  {
+    "objectID": "assignments/a11.html#problem-2",
+    "href": "assignments/a11.html#problem-2",
+    "title": "ICA 10",
+    "section": "Problem 2",
+    "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 11"
+  },
+  {
+    "objectID": "assignments/a11.html#problem-3",
+    "href": "assignments/a11.html#problem-3",
+    "title": "ICA 10",
+    "section": "Problem 3",
+    "text": "Problem 3\nFrom the Applied Section in Chapter 8: Problem 12 (Ignore BART)"
   },
   {
     "objectID": "assignments/a3.html",
@@ -2006,7 +2048,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nModel Selection\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nModel Selection\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nInvalid Date\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/11a.html#python-notebook",

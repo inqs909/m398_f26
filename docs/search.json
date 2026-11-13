@@ -1407,11 +1407,11 @@
     "text": "Random Forests\nRandom Forests is an extension of Bagging, where a forest is generated from a bootstrap-based approach. However, when making a split, a random set of predictors (m&lt;p) are chosen for the split, instead of the full set p.\n\nThis will ensure that trees are unique, uncorrelated.\n\n\nIt ensures that no one predictor will have all the power and lower the variance."
   },
   {
-    "objectID": "lectures/12a.html#boosting-1",
-    "href": "lectures/12a.html#boosting-1",
+    "objectID": "lectures/12a.html#gradient-boosting-1",
+    "href": "lectures/12a.html#gradient-boosting-1",
     "title": "Bagging, Random Forests, and Boosting",
-    "section": "Boosting",
-    "text": "Boosting\nBoosting is a mechanism where a final tree is built slowly from smaller trees using the residuals.\n\nThis ensures a tree is built from a slow process and prevents overfitting.\n\n\nThis is done to improve prediction capabilities."
+    "section": "Gradient Boosting",
+    "text": "Gradient Boosting\nBoosting is a mechanism where a final tree is built slowly from smaller trees using the residuals.\n\nThis ensures a tree is built from a slow process and prevents overfitting.\n\n\nThis is done to improve prediction capabilities."
   },
   {
     "objectID": "lectures/12a.html#algorithm",
@@ -1419,6 +1419,13 @@
     "title": "Bagging, Random Forests, and Boosting",
     "section": "Algorithm",
     "text": "Algorithm\n\nSet \\(\\hat f(x) = 0\\) and \\(r_i = y_i\\) for all \\(i\\) in the training set\nFor \\(b=1, 2, \\ldots, B\\) repeat:\n\nFit tree \\(\\hat f^b\\) with \\(d\\) splits (\\(d+1\\) terminal nodes) to the training data \\((X,r)\\)\nUpdate \\(\\hat f\\)\n\\[\\hat f(x) \\leftarrow \\hat f(x) + \\lambda\\hat f^b(x)\\]\nUpdate residuals\n\\[r_i \\leftarrow r_i - \\lambda\\hat f^{b}(x_i)\\]\n\nOutput boosted model:\n\\[\\hat f(x) = \\sum^B_{b=1} \\lambda \\hat f^b(x)\\]"
+  },
+  {
+    "objectID": "lectures/12a.html#xg-boosting-1",
+    "href": "lectures/12a.html#xg-boosting-1",
+    "title": "Bagging, Random Forests, and Boosting",
+    "section": "XG Boosting",
+    "text": "XG Boosting\nAn alternative form of gradient boosting is eXtreme gradient boosting"
   },
   {
     "objectID": "lectures/10a.html#plot",
@@ -1901,7 +1908,7 @@
     "href": "assignments/a11.html#problem-2",
     "title": "ICA 10",
     "section": "Problem 2",
-    "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 11"
+    "text": "Problem 2\nFrom the Applied Section in Chapter 8: Problem 11\nUse .predict_proba() instead of .predict() for the 20% part."
   },
   {
     "objectID": "assignments/a11.html#problem-3",

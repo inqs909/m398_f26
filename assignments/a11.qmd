@@ -55,6 +55,9 @@ From the Applied Section in Chapter 8: Problem 8 d, e
 From the Applied Section in Chapter 8: Problem 11
 
 
+Use `.predict_proba()` instead of `.predict()` for the 20% part. 
+
+
 ## Problem 3
 
 From the Applied Section in Chapter 8: Problem 12 (Ignore BART)

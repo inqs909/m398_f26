@@ -103,9 +103,9 @@ This will ensure that trees are unique, uncorrelated.
 It ensures that no one predictor will have all the power and lower the variance.
 :::
 
-# Boosting
+# Gradient Boosting
 
-## Boosting
+## Gradient Boosting
 
 Boosting is a mechanism where a final tree is built slowly from smaller trees using the residuals.
 
@@ -137,3 +137,10 @@ This is done to improve prediction capabilities.
 
     $$\hat f(x) = \sum^B_{b=1} \lambda \hat f^b(x)$$
 
+# Adaptive Boosting
+
+# XG Boosting
+
+## XG Boosting
+
+An alternative form of gradient boosting is e**X**treme gradient boosting

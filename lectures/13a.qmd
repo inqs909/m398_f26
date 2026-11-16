@@ -30,23 +30,13 @@ date: 11-10-26
 description: An introduction to support vector machines.
 ---
 
-## Python Setup
-
 ```{python}
+#| include: false
 
 import numpy as np
 import pandas as pd
 
-from plotnine import (
-    aes,
-    geom_line,
-    geom_point,
-    geom_tile,
-    ggplot,
-    labs,
-    theme,
-    theme_bw,
-)
+from plotnine import *
 from plotnine.data import penguins as penguins_raw
 from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.svm import SVC
@@ -153,6 +143,12 @@ def find_boundary_points(grid, x1_values, x2_values):
 
     return grid.loc[boundary.ravel(), ["x1", "x2"]].copy()
 ```
+
+## Python Notebook
+
+
+[Notebook](https://github.com/inqs909/m398_f26/blob/main/notebooks/nb_13a_svm.ipynb)
+
 
 ## Learning Outcomes
 
@@ -300,359 +296,62 @@ The kernel function can be loosely claimed how the data is modeled.
 -   Radial
 
 
-# Python Code
+## Linear kernel
 
-## Support Vector Classifier
+$$
+K(\mathbf{x},\mathbf{z})
+= \mathbf{x}^{\mathsf T}\mathbf{z}
+= \sum_{j=1}^{p}x_jz_j
+$$
 
-::: panel-tabset
-### Simulation
 
-```{python}
-#| eval: false
+## Polynomial kernel
 
-# This simulation is executed in the setup chunk.
-rng_linear = np.random.default_rng(2434)
-x = rng_linear.normal(size=(20, 2))
-y = np.repeat([-1, 1], 10)
-x[y == 1] += 1
+$$
+K(\mathbf{x},\mathbf{z})
+= \left(\gamma\,\mathbf{x}^{\mathsf T}\mathbf{z}+r\right)^d
+$$
 
-linear_dat = pd.DataFrame(
-    {
-        "x1": x[:, 0],
-        "x2": x[:, 1],
-        "y": y,
-        "class_label": y.astype(str),
-    }
-)
-```
+| Symbol | Meaning | Python parameter |
+|---|---|---|
+| $d$ | Polynomial degree | degree |
+| $\gamma$ | Scales the dot product | gamma |
+| $r$ | Constant added before taking the power | coef0 |
 
-### Python Code
 
-```{python}
-linear_svm = SVC(
-    kernel="linear",
-    C=10,
-)
-linear_svm.fit(
-    linear_dat[["x1", "x2"]],
-    linear_dat["y"],
-)
+## Radial basis function kernel
 
-linear_support = linear_dat.iloc[linear_svm.support_].copy()
+$$
+K(\mathbf{x},\mathbf{z})
+= \exp\left(-\gamma\|\mathbf{x}-\mathbf{z}\|^2\right)
+$$
 
-# The decision boundary is where the decision function equals 0.
-# The two margins are where it equals -1 and 1.
-line_x1 = np.linspace(
-    linear_dat["x1"].min() - 0.5,
-    linear_dat["x1"].max() + 0.5,
-    200,
-)
-weights = linear_svm.coef_[0]
-intercept = linear_svm.intercept_[0]
+$$
+\|\mathbf{x}-\mathbf{z}\|^2
+= \sum_{j=1}^{p}(x_j-z_j)^2
+$$
 
-boundary_lines = pd.concat(
-    [
-        pd.DataFrame(
-            {
-                "x1": line_x1,
-                "x2": (level - intercept - weights[0] * line_x1) / weights[1],
-                "line": label,
-            }
-        )
-        for level, label in [
-            (-1, "Lower margin"),
-            (0, "Decision boundary"),
-            (1, "Upper margin"),
-        ]
-    ],
-    ignore_index=True,
-)
+# Multi-Categorical Classification
 
-(
-    ggplot(linear_dat, aes(x="x1", y="x2", color="class_label"))
-    + geom_point(size=2)
-    + geom_line(
-        data=boundary_lines,
-        mapping=aes(x="x1", y="x2", linetype="line", group="line"),
-        color="black",
-        inherit_aes=False,
-    )
-    + geom_point(
-        data=linear_support,
-        mapping=aes(x="x1", y="x2"),
-        shape="o",
-        fill="none",
-        size=5,
-        stroke=1.1,
-        color="black",
-        inherit_aes=False,
-    )
-    + labs(x="X1", y="X2", color="Class", linetype="")
-    + theme_bw()
-)
-```
+## Classification
 
-### Support Vectors
+Support Vector Machines are designed to classify **binary** data output.
 
-```{python}
-pd.DataFrame(
-    {
-        # Add 1 to report indices in the same one-based style as R.
-        "support_vector_index": linear_svm.support_ + 1
-    }
-)
-```
 
-### Summary
+::: {.fragment}
 
-```{python}
-linear_summary = pd.DataFrame(
-    {
-        "property": [
-            "Kernel",
-            "C",
-            "Training observations",
-            "Number of support vectors",
-            "Support vectors in class -1",
-            "Support vectors in class 1",
-            "Training accuracy",
-        ],
-        "value": [
-            linear_svm.kernel,
-            linear_svm.C,
-            len(linear_dat),
-            len(linear_svm.support_),
-            linear_svm.n_support_[0],
-            linear_svm.n_support_[1],
-            linear_svm.score(
-                linear_dat[["x1", "x2"]],
-                linear_dat["y"],
-            ),
-        ],
-    }
-)
+However, there are a couple of tricks we can do to classify output that are 3+ categories.
 
-linear_summary
-```
 :::
 
-## Cross-Validation Approach for C
+## One-versus-one Classification
 
-::: panel-tabset
-### Python Code
+The most common approach is to create multiple classifiers based comparing one class to another class. If we have $C$ classes, we construct:
 
-```{python}
-cv = StratifiedKFold(
-    n_splits=10,
-    shuffle=True,
-    random_state=2434,
-)
+$$
+\binom{C}{2}= \frac{C(C-1)}{2}
+$$
 
-cost_grid = {
-    "C": [0.001, 0.01, 0.1, 1, 5, 10, 100]
-}
+## New Classification
 
-tune_out = GridSearchCV(
-    estimator=SVC(kernel="linear"),
-    param_grid=cost_grid,
-    scoring="accuracy",
-    cv=cv,
-    refit=True,
-)
-
-_ = tune_out.fit(
-    linear_dat[["x1", "x2"]],
-    linear_dat["y"],
-)
-```
-
-### Summary
-
-```{python}
-tuning_summary = (
-    pd.DataFrame(tune_out.cv_results_)
-    [["param_C", "mean_test_score", "std_test_score", "rank_test_score"]]
-    .rename(
-        columns={
-            "param_C": "C",
-            "mean_test_score": "mean_cv_accuracy",
-            "std_test_score": "sd_cv_accuracy",
-            "rank_test_score": "rank",
-        }
-    )
-    .sort_values("C")
-    .reset_index(drop=True)
-)
-
-tuning_summary
-```
-
-### Best Model
-
-```{python}
-bestmod = tune_out.best_estimator_
-
-best_model_summary = pd.DataFrame(
-    {
-        "property": [
-            "Best C",
-            "Best mean CV accuracy",
-            "Kernel",
-            "Number of support vectors",
-            "Training accuracy",
-        ],
-        "value": [
-            tune_out.best_params_["C"],
-            tune_out.best_score_,
-            bestmod.kernel,
-            len(bestmod.support_),
-            bestmod.score(
-                linear_dat[["x1", "x2"]],
-                linear_dat["y"],
-            ),
-        ],
-    }
-)
-
-best_model_summary
-```
-:::
-
-## Prediction
-
-::: panel-tabset
-### Set Up
-
-```{python}
-#| eval: false
-
-# These test observations are generated in the setup chunk.
-test_x = rng_linear.normal(size=(20, 2))
-test_y = rng_linear.choice([-1, 1], size=20, replace=True)
-test_x[test_y == 1] += 1
-
-testdat = pd.DataFrame(
-    {
-        "x1": test_x[:, 0],
-        "x2": test_x[:, 1],
-        "y": test_y,
-        "class_label": test_y.astype(str),
-    }
-)
-```
-
-### Prediction
-
-```{python}
-y_pred = bestmod.predict(testdat[["x1", "x2"]])
-
-pd.crosstab(
-    pd.Series(y_pred, name="pred"),
-    testdat["y"].rename("truth"),
-)
-```
-:::
-
-
-## Python Code: SVM
-
-::: panel-tabset
-### Data
-
-```{python}
-#| eval: false
-
-# This nonlinear simulation and train/test split are executed in setup.
-rng_radial = np.random.default_rng(1)
-x = rng_radial.normal(size=(200, 2))
-x[:100] += 2
-x[100:150] -= 2
-y = np.concatenate([np.repeat(1, 150), np.repeat(2, 50)])
-
-radial_dat = pd.DataFrame(
-    {
-        "x1": x[:, 0],
-        "x2": x[:, 1],
-        "y": y,
-        "class_label": y.astype(str),
-    }
-)
-
-train_indices = rng_radial.choice(radial_dat.index, size=100, replace=False)
-radial_train = radial_dat.loc[train_indices].copy()
-```
-
-### Plot
-
-```{python}
-(
-    ggplot(radial_dat, aes(x="x1", y="x2", color="class_label"))
-    + geom_point()
-    + labs(x="X1", y="X2", color="Class")
-    + theme_bw()
-)
-```
-
-### SVM
-
-```{python}
-radial_svm = SVC(
-    kernel="rbf",
-    gamma=1,
-    C=1,
-)
-radial_svm.fit(
-    radial_train[["x1", "x2"]],
-    radial_train["y"],
-)
-
-radial_grid, radial_x1_values, radial_x2_values = make_prediction_grid(
-    radial_svm,
-    radial_train,
-)
-radial_boundary = find_boundary_points(
-    radial_grid,
-    radial_x1_values,
-    radial_x2_values,
-)
-radial_support = radial_train.iloc[radial_svm.support_].copy()
-
-(
-    ggplot()
-    + geom_tile(
-        data=radial_grid,
-        mapping=aes(x="x1", y="x2", fill="prediction"),
-        alpha=0.18,
-    )
-    + geom_point(
-        data=radial_train,
-        mapping=aes(x="x1", y="x2", color="class_label"),
-        size=2,
-    )
-    + geom_point(
-        data=radial_boundary,
-        mapping=aes(x="x1", y="x2"),
-        size=0.25,
-        color="black",
-        inherit_aes=False,
-    )
-    + geom_point(
-        data=radial_support,
-        mapping=aes(x="x1", y="x2"),
-        shape="o",
-        fill="none",
-        size=4,
-        stroke=1,
-        color="black",
-        inherit_aes=False,
-    )
-    + labs(
-        x="X1",
-        y="X2",
-        color="Observed class",
-        fill="Predicted class",
-    )
-    + theme_bw()
-)
-```
-:::
+For a new data point, it gets classfied by the majority rule of classifiers.

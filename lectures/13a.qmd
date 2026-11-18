@@ -144,6 +144,14 @@ def find_boundary_points(grid, x1_values, x2_values):
     return grid.loc[boundary.ravel(), ["x1", "x2"]].copy()
 ```
 
+
+## Ask me if you want an add code
+
+![](img/m492.png){fig-align="center" width=100%}
+
+Taught by Dr. Wyels
+
+
 ## Python Notebook
 
 

@@ -2055,7 +2055,7 @@
     "href": "lectures.html",
     "title": "Lectures",
     "section": "",
-    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nModel Selection\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nInvalid Date\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
+    "text": "Math 398\n\n\n\n\n\n\n\n\nAug 25, 2026\n\n\n\n\n\n\n\nComputational Setup\n\n\nPython, uv, and Code Editors\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nIntro to Statistical Learning\n\n\n\n\n\n\n\n\nSep 1, 2026\n\n\n\n\n\n\n\nLinear Regression\n\n\n\n\n\n\n\n\nSep 8, 2026\n\n\n\n\n\n\n\nClassification\n\n\n\n\n\n\n\n\nSep 15, 2026\n\n\n\n\n\n\n\nClassification\n\n\nLogistic Regression\n\n\n\n\n\nSep 22, 2026\n\n\n\n\n\n\n\nResampling Methods\n\n\n\n\n\n\n\n\nSep 29, 2026\n\n\n\n\n\n\n\nRegularization\n\n\nShrinkage\n\n\n\n\n\nOct 6, 2026\n\n\n\n\n\n\n\nNonlinear Models\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nGeneralized Additive Models\n\n\n\n\n\n\n\n\nOct 20, 2026\n\n\n\n\n\n\n\nModel Selection\n\n\n\n\n\n\n\n\nOct 13, 2026\n\n\n\n\n\n\n\nTree-Based Methods\n\n\n\n\n\n\n\n\nOct 27, 2026\n\n\n\n\n\n\n\nBagging, Random Forests, and Boosting\n\n\n\n\n\n\n\n\nNov 3, 2026\n\n\n\n\n\n\n\nSupport Vector Machines\n\n\n\n\n\n\n\n\nNov 10, 2026\n\n\n\n\n\n\n\nSurvival Analysis\n\n\n\n\n\n\n\n\nNov 17, 2026\n\n\n\n\n\n\n\nThe Missing Statistics Semester\n\n\nData Science Edition\n\n\n\n\n\nDec 3, 2026\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "lectures/11a.html#python-notebook",
@@ -2161,6 +2161,13 @@
     "title": "Tree-Based Methods",
     "section": "Regression prediction: the leaf mean",
     "text": "Regression prediction: the leaf mean\nIf new predictors \\(x_{\\mathrm{new}}\\) reach leaf \\(R_m\\), then\n\\[\n\\hat y(x_{\\mathrm{new}})=\\bar y_{R_m}\n=\\frac{1}{n_m}\\sum_{i:\\,x_i\\in R_m}y_i.\n\\]\n\nEmphasize that the average uses training responses, never the unknown response of the new penguin. The observed masses in this arithmetic example are illustrative. A tree is piecewise constant: moving a little within one leaf changes nothing, whereas crossing a threshold can create a jump. The formula assumes equally weighted observations and squared-error regression. It is not a confidence interval, a causal effect, or a prediction of the exact realized mass of an individual animal."
+  },
+  {
+    "objectID": "lectures/13a.html#ask-me-if-you-want-an-add-code",
+    "href": "lectures/13a.html#ask-me-if-you-want-an-add-code",
+    "title": "Support Vector Machines",
+    "section": "Ask me if you want an add code",
+    "text": "Ask me if you want an add code\n\nTaught by Dr. Wyels"
   },
   {
     "objectID": "lectures/13a.html#python-notebook",

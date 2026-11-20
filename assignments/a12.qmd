@@ -40,8 +40,7 @@ jupyter: python3
 import numpy as np
 import pandas as pd
 from ISLP import load_data
-Carseats = load_data('Carseats')
-Caravan = load_data('Caravan')
+Auto = load_data('Auto')
 ```
 
 
@@ -49,5 +48,5 @@ From *An Introduction to Statistical Learning* from James, Witten, Hastie, and T
 
 ## Problem 1
 
-From the Applied Section in Chapter 9: Problem 7
+From the Applied Section in Chapter 9: Problem 7 (except for d)
 

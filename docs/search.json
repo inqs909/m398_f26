@@ -1579,14 +1579,14 @@
     "href": "assignments/a12.html#import-data",
     "title": "ICA 11",
     "section": "Import Data",
-    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nCarseats = load_data('Carseats')\nCaravan = load_data('Caravan')\n\nFrom An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
+    "text": "Import Data\n\nimport numpy as np\nimport pandas as pd\nfrom ISLP import load_data\nAuto = load_data('Auto')\n\nFrom An Introduction to Statistical Learning from James, Witten, Hastie, and Tibshirani (Python Edition)"
   },
   {
     "objectID": "assignments/a12.html#problem-1",
     "href": "assignments/a12.html#problem-1",
     "title": "ICA 11",
     "section": "Problem 1",
-    "text": "Problem 1\nFrom the Applied Section in Chapter 9: Problem 7"
+    "text": "Problem 1\nFrom the Applied Section in Chapter 9: Problem 7 (except for d)"
   },
   {
     "objectID": "assignments/a2.html",
